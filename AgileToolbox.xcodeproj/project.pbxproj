@@ -37,20 +37,20 @@
 		D387EF0F1536EF0400635736 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D387EF111536EF0400635736 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D387EF131536EF0400635736 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D387EF171536EF0400635736 /* AgileToolbox-Info.plist */ = {isa = PBXFileReference; path = "AgileToolbox-Info.plist"; sourceTree = "<group>"; };
+		D387EF171536EF0400635736 /* AgileToolbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolbox-Info.plist"; sourceTree = "<group>"; };
 		D387EF191536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D387EF1B1536EF0400635736 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D387EF1D1536EF0400635736 /* AgileToolbox-Prefix.pch */ = {isa = PBXFileReference; path = "AgileToolbox-Prefix.pch"; sourceTree = "<group>"; };
-		D387EF1E1536EF0400635736 /* QATAppDelegate.h */ = {isa = PBXFileReference; path = QATAppDelegate.h; sourceTree = "<group>"; };
+		D387EF1D1536EF0400635736 /* AgileToolbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AgileToolbox-Prefix.pch"; sourceTree = "<group>"; };
+		D387EF1E1536EF0400635736 /* QATAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATAppDelegate.h; sourceTree = "<group>"; };
 		D387EF1F1536EF0400635736 /* QATAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATAppDelegate.m; sourceTree = "<group>"; };
 		D387EF221536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		D387EF241536EF0400635736 /* QATViewController.h */ = {isa = PBXFileReference; path = QATViewController.h; sourceTree = "<group>"; };
+		D387EF241536EF0400635736 /* QATViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATViewController.h; sourceTree = "<group>"; };
 		D387EF251536EF0400635736 /* QATViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATViewController.m; sourceTree = "<group>"; };
 		D387EF2C1536EF0400635736 /* AgileToolboxTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgileToolboxTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF2D1536EF0400635736 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
+		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D387EF391536EF0500635736 /* AgileToolboxTests.h */ = {isa = PBXFileReference; path = AgileToolboxTests.h; sourceTree = "<group>"; };
+		D387EF391536EF0500635736 /* AgileToolboxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgileToolboxTests.h; sourceTree = "<group>"; };
 		D387EF3A1536EF0500635736 /* AgileToolboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgileToolboxTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
