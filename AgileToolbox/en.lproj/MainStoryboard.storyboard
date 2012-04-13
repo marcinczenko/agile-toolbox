@@ -13,11 +13,11 @@
                 <viewController id="2" customClass="QATViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b6Y-rQ-vSe">
-                                <rect key="frame" x="50" y="122" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b6Y-rQ-vSe" userLabel="topics">
+                                <rect key="frame" x="53" y="145" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Topics">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -27,8 +27,20 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2yH-so-eeF" kind="push" id="6TX-1a-65I"/>
+                                    <segue destination="2yH-so-eeF" kind="push" identifier="topicsList" id="6TX-1a-65I"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pUm-dZ-M6K" userLabel="poker">
+                                <rect key="frame" x="188" y="145" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Poker">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -38,18 +50,41 @@
             </objects>
             <point key="canvasLocation" x="664" y="182"/>
         </scene>
-        <!--View Controller-->
+        <!--Topic Details View Controller-->
         <scene sceneID="hio-iW-r2q">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geO-XN-Mge" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="wcx-Ay-L0K" sceneMemberID="viewController">
+                <viewController autoresizesArchivedViewToFullSize="NO" wantsFullScreenLayout="YES" id="wcx-Ay-L0K" customClass="QATTopicDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kyp-Ai-H0z">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="CpP-pe-Rmd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="wcx-Ay-L0K" id="vzs-0I-7xZ"/>
+                                    <outletCollection property="gestureRecognizers" destination="pn9-Mn-x46" appends="YES" id="YAy-vU-DeX"/>
+                                </connections>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="gLX-eb-AKM"/>
+                    <connections>
+                        <outlet property="webView" destination="CpP-pe-Rmd" id="B3q-Rz-bzR"/>
+                    </connections>
                 </viewController>
+                <tapGestureRecognizer delaysTouchesBegan="YES" id="pn9-Mn-x46" userLabel="Bla bal abla">
+                    <connections>
+                        <action selector="exitFullScreen:" destination="wcx-Ay-L0K" id="MoX-sb-7Mz"/>
+                        <outlet property="delegate" destination="wcx-Ay-L0K" id="kft-H9-Ttx"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1936" y="182"/>
         </scene>
@@ -72,7 +107,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="wcx-Ay-L0K" kind="push" id="RUO-Yg-aBt"/>
+                                    <segue destination="wcx-Ay-L0K" kind="push" identifier="topicDetails" id="RUO-Yg-aBt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -105,6 +140,13 @@
         </scene>
     </scenes>
     <classes>
+        <class className="QATTopicDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QATTopicDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="exitFullScreen:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
         <class className="QATTopicsListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QATTopicsListViewController.h"/>
         </class>

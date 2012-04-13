@@ -7,6 +7,7 @@
 //
 
 #import "QATAppDelegate.h"
+#import "QATTopicsListViewController.h"
 
 @implementation QATAppDelegate
 
@@ -14,7 +15,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     return YES;
 }
 							

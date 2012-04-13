@@ -21,6 +21,10 @@
 		D387EF381536EF0500635736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D387EF361536EF0500635736 /* InfoPlist.strings */; };
 		D387EF3B1536EF0500635736 /* AgileToolboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* AgileToolboxTests.m */; };
 		D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF451536FADF00635736 /* QATTopicsListViewController.m */; };
+		D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF481537192600635736 /* QATTopicDetailsViewController.m */; };
+		D3F2FEB31537922700BC1DD3 /* ProductOwner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB21537922700BC1DD3 /* ProductOwner.html */; };
+		D3F2FEB61537AC8F00BC1DD3 /* ScrumMaster.html in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */; };
+		D3F2FEB91537B3C700BC1DD3 /* tapDetector.js in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,11 @@
 		D387EF3A1536EF0500635736 /* AgileToolboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgileToolboxTests.m; sourceTree = "<group>"; };
 		D387EF441536FADF00635736 /* QATTopicsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicsListViewController.h; sourceTree = "<group>"; };
 		D387EF451536FADF00635736 /* QATTopicsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicsListViewController.m; sourceTree = "<group>"; };
+		D387EF471537192600635736 /* QATTopicDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicDetailsViewController.h; sourceTree = "<group>"; };
+		D387EF481537192600635736 /* QATTopicDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicDetailsViewController.m; sourceTree = "<group>"; };
+		D3F2FEB21537922700BC1DD3 /* ProductOwner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProductOwner.html; sourceTree = "<group>"; };
+		D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ScrumMaster.html; sourceTree = "<group>"; };
+		D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tapDetector.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +123,9 @@
 		D387EF151536EF0400635736 /* AgileToolbox */ = {
 			isa = PBXGroup;
 			children = (
+				D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */,
+				D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */,
+				D3F2FEB21537922700BC1DD3 /* ProductOwner.html */,
 				D387EF1E1536EF0400635736 /* QATAppDelegate.h */,
 				D387EF1F1536EF0400635736 /* QATAppDelegate.m */,
 				D387EF211536EF0400635736 /* MainStoryboard.storyboard */,
@@ -122,6 +134,8 @@
 				D387EF161536EF0400635736 /* Supporting Files */,
 				D387EF441536FADF00635736 /* QATTopicsListViewController.h */,
 				D387EF451536FADF00635736 /* QATTopicsListViewController.m */,
+				D387EF471537192600635736 /* QATTopicDetailsViewController.h */,
+				D387EF481537192600635736 /* QATTopicDetailsViewController.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -227,8 +241,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3F2FEB91537B3C700BC1DD3 /* tapDetector.js in Resources */,
 				D387EF1A1536EF0400635736 /* InfoPlist.strings in Resources */,
 				D387EF231536EF0400635736 /* MainStoryboard.storyboard in Resources */,
+				D3F2FEB31537922700BC1DD3 /* ProductOwner.html in Resources */,
+				D3F2FEB61537AC8F00BC1DD3 /* ScrumMaster.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +284,7 @@
 				D387EF201536EF0400635736 /* QATAppDelegate.m in Sources */,
 				D387EF261536EF0400635736 /* QATViewController.m in Sources */,
 				D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */,
+				D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +454,7 @@
 				D387EF401536EF0500635736 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "AgileToolboxTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +463,7 @@
 				D387EF431536EF0500635736 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
