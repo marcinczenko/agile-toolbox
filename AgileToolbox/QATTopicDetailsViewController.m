@@ -64,8 +64,8 @@
 {
     [super viewWillDisappear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackOpaque];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 //    self.navigationController.navigationBar.translucent = NO;
 }
@@ -73,15 +73,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-}
-
-- (IBAction)exitFullScreen:(UITapGestureRecognizer *)sender
-{
-    NSLog(@"@Gesture Recognizer !!!!");
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

@@ -10,11 +10,33 @@
 
 @interface QATViewController ()
 
-//@property (nonatomic, assign) IBOutlet UIButton *
+@property (nonatomic, strong) UIImage *backgroundImagePortraitOrientation;
+@property (nonatomic, strong) UIImage *backgroundImageLandscapeOrientation;
+
+//-(IBAction)Add:(id)sender;
 
 @end
 
 @implementation QATViewController
+
+@synthesize backgroundImagePortraitOrientation = _backgroundImagePortraitOrientation;
+@synthesize backgroundImageLandscapeOrientation = _backgroundImageLandscapeOrientation;
+
+- (UIImage*)backgroundImagePortraitOrientation
+{
+    if (!_backgroundImagePortraitOrientation) {
+        _backgroundImagePortraitOrientation = [UIImage imageNamed:@"QATBackground.png"];
+    }
+    return _backgroundImagePortraitOrientation;
+}
+
+- (UIImage*)backgroundImageLandscapeOrientation
+{
+    if (!_backgroundImageLandscapeOrientation) {
+        _backgroundImageLandscapeOrientation = [UIImage imageNamed:@"QATBackgroundR.png"];
+    }
+    return _backgroundImageLandscapeOrientation;
+}
 
 - (void)viewDidLoad
 {
@@ -28,9 +50,37 @@
     // Release any retained subviews of the main view.
 }
 
+//-(IBAction)Add:(id)sender
+//{
+//    NSLog(@"ADD");
+//}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackOpaque];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    
+//    if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+//        UIColor *background = [[UIColor alloc] initWithPatternImage:self.backgroundImageLandscapeOrientation];
+//        self.view.backgroundColor = background;
+//    } else {
+//        UIColor *background = [[UIColor alloc] initWithPatternImage:self.backgroundImagePortraitOrientation];
+//        self.view.backgroundColor = background;
+//    }
+    
+    UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"QuantumNavigationBarLogo"]];
+    
+//    UIBarButtonItem *quantumLogoBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"QuantumNavigationBarLogo"] style:UIBarButtonItemStyleBordered target:self action:@selector(Add:)];
+    
+//    UIBarButtonItem *quantumLogoBarItem = [[UIBarButtonItem alloc] initWithCustomView:quantumLogo];
+    self.navigationItem.titleView = quantumLogo;
+//    self.navigationItem.rightBarButtonItem = quantumLogoBarItem;
+    
+//    UIColor *background = [[UIColor alloc] initWithPatternImage:self.backgroundImagePortraitOrientation];
+//    self.view.backgroundColor = background;
+
     
     self.title = @"Quantum Agile Toolbox";
     
@@ -86,6 +136,17 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+//    if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+//        UIColor *background = [[UIColor alloc] initWithPatternImage:self.backgroundImageLandscapeOrientation];
+//        self.view.backgroundColor = background;
+//    } else {
+//        UIColor *background = [[UIColor alloc] initWithPatternImage:self.backgroundImagePortraitOrientation];
+//        self.view.backgroundColor = background;
+//    }
+    
+    
+    
+    
 //    CGRect frame = [self.view viewWithTag:1].frame;
 //    
 //    CGSize size = self.view.bounds.size;
@@ -137,9 +198,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([@"topicsList" isEqualToString:segue.identifier]) {
-        self.title = @"Toolbox";
-    }
+    self.title = @"Toolbox";
+//    if ([@"topicsList" isEqualToString:segue.identifier]) {
+//        self.title = @"Toolbox";
+//    }
 }
 
 

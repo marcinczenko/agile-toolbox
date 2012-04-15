@@ -14,6 +14,4 @@
 
 @property (nonatomic, copy) NSString *topicDescription;
 
-- (IBAction)exitFullScreen:(UITapGestureRecognizer *)sender;
-
 @end

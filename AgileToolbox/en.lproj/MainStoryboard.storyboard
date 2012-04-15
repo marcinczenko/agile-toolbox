@@ -6,7 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Quantum Agile Toolbox-->
+        <!--View Controller-->
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -15,37 +15,44 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b6Y-rQ-vSe" userLabel="topics">
-                                <rect key="frame" x="53" y="145" width="80" height="80"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b6Y-rQ-vSe" userLabel="topics">
+                                <rect key="frame" x="20" y="110" width="130" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Topics">
+                                <state key="normal" title="Topics" image="Concepts.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="ConceptsHighlighted.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="2yH-so-eeF" kind="push" identifier="topicsList" id="6TX-1a-65I"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pUm-dZ-M6K" userLabel="poker">
-                                <rect key="frame" x="188" y="145" width="80" height="80"/>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pUm-dZ-M6K" userLabel="poker">
+                                <rect key="frame" x="170" y="110" width="130" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Poker">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" image="PlanningPoker2.png">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="highlighted" image="PlanningPoker2Highlighted.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="aDS-4Y-wQp" kind="push" identifier="planninPoker" id="zFF-xa-4u9"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Quantum Agile Toolbox" id="VWO-3F-CGV"/>
+                    <navigationItem key="navigationItem" id="VWO-3F-CGV">
+                        <nil key="title"/>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="664" y="182"/>
@@ -120,6 +127,49 @@
             </objects>
             <point key="canvasLocation" x="1272" y="182"/>
         </scene>
+        <!--Planning Poker View Controller-->
+        <scene sceneID="OPq-kS-xEk">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gdJ-MX-hnW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController autoresizesArchivedViewToFullSize="NO" wantsFullScreenLayout="YES" id="aDS-4Y-wQp" customClass="QATPlanningPokerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pfB-A1-ufV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" image="PlanningPokerCard.png" id="yJK-tI-u8C">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="7NZ-bZ-HvV" appends="YES" id="6yw-EN-CW4"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="pGn-9j-cA4">
+                                <rect key="frame" x="20" y="133" width="280" height="214"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="300"/>
+                                <color key="textColor" red="0.93725496530532837" green="0.25490197539329529" blue="0.16470588743686676" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fLR-Gv-Pt1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="nSL-34-ItC">
+                            <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <tapGestureRecognizer id="7NZ-bZ-HvV" userLabel="Planning Poker - Exit Full Screen">
+                    <connections>
+                        <action selector="exitFullScreen:" destination="aDS-4Y-wQp" id="jAd-Yx-HhV"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1272" y="793"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="M4x-5R-ZLS">
             <objects>
@@ -139,11 +189,23 @@
             <point key="canvasLocation" x="138" y="182"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Concepts.png" width="130" height="150"/>
+        <image name="ConceptsHighlighted.png" width="130" height="150"/>
+        <image name="PlanningPoker2.png" width="130" height="150"/>
+        <image name="PlanningPoker2Highlighted.png" width="130" height="150"/>
+        <image name="PlanningPokerCard.png" width="320" height="480"/>
+    </resources>
     <classes>
+        <class className="QATPlanningPokerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QATPlanningPokerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="exitFullScreen:" candidateClass="UITapGestureRecognizer"/>
+            </relationships>
+        </class>
         <class className="QATTopicDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QATTopicDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="exitFullScreen:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
             </relationships>
         </class>

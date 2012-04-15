@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */; };
+		D338B781153B21A500611765 /* PlanningPokerCard.png in Resources */ = {isa = PBXBuildFile; fileRef = D338B780153B21A500611765 /* PlanningPokerCard.png */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF131536EF0400635736 /* CoreGraphics.framework */; };
@@ -25,6 +27,22 @@
 		D3F2FEB31537922700BC1DD3 /* ProductOwner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB21537922700BC1DD3 /* ProductOwner.html */; };
 		D3F2FEB61537AC8F00BC1DD3 /* ScrumMaster.html in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */; };
 		D3F2FEB91537B3C700BC1DD3 /* tapDetector.js in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */; };
+		D3F2FEC01539A2F000BC1DD3 /* QATBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEBE1539A2F000BC1DD3 /* QATBackground.png */; };
+		D3F2FEC11539A2F000BC1DD3 /* QATBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEBF1539A2F000BC1DD3 /* QATBackground@2x.png */; };
+		D3F2FEC51539C09B00BC1DD3 /* QATBackgroundR.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEC31539C09B00BC1DD3 /* QATBackgroundR.png */; };
+		D3F2FEC61539C09B00BC1DD3 /* QATBackgroundR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEC41539C09B00BC1DD3 /* QATBackgroundR@2x.png */; };
+		D3F2FEC91539E8F100BC1DD3 /* QuantumNavigationBarLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEC71539E8F100BC1DD3 /* QuantumNavigationBarLogo.png */; };
+		D3F2FECA1539E8F100BC1DD3 /* QuantumNavigationBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEC81539E8F100BC1DD3 /* QuantumNavigationBarLogo@2x.png */; };
+		D3F2FECD153A0D0600BC1DD3 /* PlanningPoker.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FECB153A0D0600BC1DD3 /* PlanningPoker.png */; };
+		D3F2FECE153A0D0600BC1DD3 /* PlanningPoker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FECC153A0D0600BC1DD3 /* PlanningPoker@2x.png */; };
+		D3F2FED0153A129F00BC1DD3 /* PlanningPoker2.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FECF153A129F00BC1DD3 /* PlanningPoker2.png */; };
+		D3F2FED4153A17EE00BC1DD3 /* PlanningPoker2Highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FED3153A17EE00BC1DD3 /* PlanningPoker2Highlighted.png */; };
+		D3F2FED7153A21A200BC1DD3 /* Concepts.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FED5153A21A200BC1DD3 /* Concepts.png */; };
+		D3F2FED8153A21A200BC1DD3 /* ConceptsHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FED6153A21A200BC1DD3 /* ConceptsHighlighted.png */; };
+		D3F2FEDB153A286800BC1DD3 /* Concepts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FED9153A286800BC1DD3 /* Concepts@2x.png */; };
+		D3F2FEDC153A286800BC1DD3 /* ConceptsHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEDA153A286800BC1DD3 /* ConceptsHighlighted@2x.png */; };
+		D3F2FEDF153A2BAA00BC1DD3 /* PlanningPoker2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEDD153A2BAA00BC1DD3 /* PlanningPoker2@2x.png */; };
+		D3F2FEE0153A2BAA00BC1DD3 /* PlanningPoker2Highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F2FEDE153A2BAA00BC1DD3 /* PlanningPoker2Highlighted@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPlanningPokerViewController.h; sourceTree = "<group>"; };
+		D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPlanningPokerViewController.m; sourceTree = "<group>"; };
+		D338B780153B21A500611765 /* PlanningPokerCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlanningPokerCard.png; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF0F1536EF0400635736 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D387EF111536EF0400635736 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,6 +85,22 @@
 		D3F2FEB21537922700BC1DD3 /* ProductOwner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProductOwner.html; sourceTree = "<group>"; };
 		D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ScrumMaster.html; sourceTree = "<group>"; };
 		D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tapDetector.js; sourceTree = "<group>"; };
+		D3F2FEBE1539A2F000BC1DD3 /* QATBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QATBackground.png; sourceTree = "<group>"; };
+		D3F2FEBF1539A2F000BC1DD3 /* QATBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QATBackground@2x.png"; sourceTree = "<group>"; };
+		D3F2FEC31539C09B00BC1DD3 /* QATBackgroundR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QATBackgroundR.png; sourceTree = "<group>"; };
+		D3F2FEC41539C09B00BC1DD3 /* QATBackgroundR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QATBackgroundR@2x.png"; sourceTree = "<group>"; };
+		D3F2FEC71539E8F100BC1DD3 /* QuantumNavigationBarLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuantumNavigationBarLogo.png; sourceTree = "<group>"; };
+		D3F2FEC81539E8F100BC1DD3 /* QuantumNavigationBarLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuantumNavigationBarLogo@2x.png"; sourceTree = "<group>"; };
+		D3F2FECB153A0D0600BC1DD3 /* PlanningPoker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlanningPoker.png; sourceTree = "<group>"; };
+		D3F2FECC153A0D0600BC1DD3 /* PlanningPoker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlanningPoker@2x.png"; sourceTree = "<group>"; };
+		D3F2FECF153A129F00BC1DD3 /* PlanningPoker2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlanningPoker2.png; sourceTree = "<group>"; };
+		D3F2FED3153A17EE00BC1DD3 /* PlanningPoker2Highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlanningPoker2Highlighted.png; sourceTree = "<group>"; };
+		D3F2FED5153A21A200BC1DD3 /* Concepts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Concepts.png; sourceTree = "<group>"; };
+		D3F2FED6153A21A200BC1DD3 /* ConceptsHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConceptsHighlighted.png; sourceTree = "<group>"; };
+		D3F2FED9153A286800BC1DD3 /* Concepts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Concepts@2x.png"; sourceTree = "<group>"; };
+		D3F2FEDA153A286800BC1DD3 /* ConceptsHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConceptsHighlighted@2x.png"; sourceTree = "<group>"; };
+		D3F2FEDD153A2BAA00BC1DD3 /* PlanningPoker2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlanningPoker2@2x.png"; sourceTree = "<group>"; };
+		D3F2FEDE153A2BAA00BC1DD3 /* PlanningPoker2Highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlanningPoker2Highlighted@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +160,23 @@
 		D387EF151536EF0400635736 /* AgileToolbox */ = {
 			isa = PBXGroup;
 			children = (
+				D338B780153B21A500611765 /* PlanningPokerCard.png */,
+				D3F2FEDD153A2BAA00BC1DD3 /* PlanningPoker2@2x.png */,
+				D3F2FEDE153A2BAA00BC1DD3 /* PlanningPoker2Highlighted@2x.png */,
+				D3F2FED9153A286800BC1DD3 /* Concepts@2x.png */,
+				D3F2FEDA153A286800BC1DD3 /* ConceptsHighlighted@2x.png */,
+				D3F2FED5153A21A200BC1DD3 /* Concepts.png */,
+				D3F2FED6153A21A200BC1DD3 /* ConceptsHighlighted.png */,
+				D3F2FED3153A17EE00BC1DD3 /* PlanningPoker2Highlighted.png */,
+				D3F2FECF153A129F00BC1DD3 /* PlanningPoker2.png */,
+				D3F2FECB153A0D0600BC1DD3 /* PlanningPoker.png */,
+				D3F2FECC153A0D0600BC1DD3 /* PlanningPoker@2x.png */,
+				D3F2FEC71539E8F100BC1DD3 /* QuantumNavigationBarLogo.png */,
+				D3F2FEC81539E8F100BC1DD3 /* QuantumNavigationBarLogo@2x.png */,
+				D3F2FEC31539C09B00BC1DD3 /* QATBackgroundR.png */,
+				D3F2FEC41539C09B00BC1DD3 /* QATBackgroundR@2x.png */,
+				D3F2FEBE1539A2F000BC1DD3 /* QATBackground.png */,
+				D3F2FEBF1539A2F000BC1DD3 /* QATBackground@2x.png */,
 				D3F2FEB71537B2BD00BC1DD3 /* tapDetector.js */,
 				D3F2FEB51537AC8F00BC1DD3 /* ScrumMaster.html */,
 				D3F2FEB21537922700BC1DD3 /* ProductOwner.html */,
@@ -136,6 +190,8 @@
 				D387EF451536FADF00635736 /* QATTopicsListViewController.m */,
 				D387EF471537192600635736 /* QATTopicDetailsViewController.h */,
 				D387EF481537192600635736 /* QATTopicDetailsViewController.m */,
+				D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */,
+				D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -246,6 +302,23 @@
 				D387EF231536EF0400635736 /* MainStoryboard.storyboard in Resources */,
 				D3F2FEB31537922700BC1DD3 /* ProductOwner.html in Resources */,
 				D3F2FEB61537AC8F00BC1DD3 /* ScrumMaster.html in Resources */,
+				D3F2FEC01539A2F000BC1DD3 /* QATBackground.png in Resources */,
+				D3F2FEC11539A2F000BC1DD3 /* QATBackground@2x.png in Resources */,
+				D3F2FEC51539C09B00BC1DD3 /* QATBackgroundR.png in Resources */,
+				D3F2FEC61539C09B00BC1DD3 /* QATBackgroundR@2x.png in Resources */,
+				D3F2FEC91539E8F100BC1DD3 /* QuantumNavigationBarLogo.png in Resources */,
+				D3F2FECA1539E8F100BC1DD3 /* QuantumNavigationBarLogo@2x.png in Resources */,
+				D3F2FECD153A0D0600BC1DD3 /* PlanningPoker.png in Resources */,
+				D3F2FECE153A0D0600BC1DD3 /* PlanningPoker@2x.png in Resources */,
+				D3F2FED0153A129F00BC1DD3 /* PlanningPoker2.png in Resources */,
+				D3F2FED4153A17EE00BC1DD3 /* PlanningPoker2Highlighted.png in Resources */,
+				D3F2FED7153A21A200BC1DD3 /* Concepts.png in Resources */,
+				D3F2FED8153A21A200BC1DD3 /* ConceptsHighlighted.png in Resources */,
+				D3F2FEDB153A286800BC1DD3 /* Concepts@2x.png in Resources */,
+				D3F2FEDC153A286800BC1DD3 /* ConceptsHighlighted@2x.png in Resources */,
+				D3F2FEDF153A2BAA00BC1DD3 /* PlanningPoker2@2x.png in Resources */,
+				D3F2FEE0153A2BAA00BC1DD3 /* PlanningPoker2Highlighted@2x.png in Resources */,
+				D338B781153B21A500611765 /* PlanningPokerCard.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +358,7 @@
 				D387EF261536EF0400635736 /* QATViewController.m in Sources */,
 				D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */,
 				D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */,
+				D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
