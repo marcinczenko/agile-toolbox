@@ -44,187 +44,14 @@
 		D3972859157D0811000C1819 /* ProductOwner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972856157D0811000C1819 /* ProductOwner.html */; };
 		D397285A157D0811000C1819 /* ScrumMaster.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972857157D0811000C1819 /* ScrumMaster.html */; };
 		D397285B157D4438000C1819 /* tapDetector.js in Resources */ = {isa = PBXBuildFile; fileRef = D3972855157D0811000C1819 /* tapDetector.js */; };
-		D3972AD1157D46E4000C1819 /* HelloWorld-spec.js in Sources */ = {isa = PBXBuildFile; fileRef = D39729F2157D46E4000C1819 /* HelloWorld-spec.js */; };
-		D3972AD2157D46E4000C1819 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D39729F4157D46E4000C1819 /* .gitignore */; };
-		D3972AD3157D46E4000C1819 /* .gitmodules in Resources */ = {isa = PBXBuildFile; fileRef = D39729F5157D46E4000C1819 /* .gitmodules */; };
-		D3972AD4157D46E4000C1819 /* .rspec in Resources */ = {isa = PBXBuildFile; fileRef = D39729F6157D46E4000C1819 /* .rspec */; };
-		D3972AD5157D46E4000C1819 /* config.rb in Resources */ = {isa = PBXBuildFile; fileRef = D39729F7157D46E4000C1819 /* config.rb */; };
-		D3972AD6157D46E4000C1819 /* Contribute.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D39729F8157D46E4000C1819 /* Contribute.markdown */; };
-		D3972AD7157D46E4000C1819 /* Gemfile in Resources */ = {isa = PBXBuildFile; fileRef = D39729F9157D46E4000C1819 /* Gemfile */; };
-		D3972AD8157D46E4000C1819 /* jasmine_favicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D39729FB157D46E4000C1819 /* jasmine_favicon.png */; };
-		D3972AD9157D46E4000C1819 /* jasmine-core.gemspec in Resources */ = {isa = PBXBuildFile; fileRef = D39729FC157D46E4000C1819 /* jasmine-core.gemspec */; };
-		D3972ADA157D46E4000C1819 /* jasmine_dev.thor in Resources */ = {isa = PBXBuildFile; fileRef = D39729FD157D46E4000C1819 /* jasmine_dev.thor */; };
-		D3972ADB157D46E4000C1819 /* allclasses.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = D39729FF157D46E4000C1819 /* allclasses.tmpl */; };
-		D3972ADC157D46E4000C1819 /* allfiles.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = D3972A00157D46E4000C1819 /* allfiles.tmpl */; };
-		D3972ADD157D46E4000C1819 /* class.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = D3972A01157D46E4000C1819 /* class.tmpl */; };
-		D3972ADE157D46E4000C1819 /* index.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = D3972A02157D46E4000C1819 /* index.tmpl */; };
-		D3972ADF157D46E4000C1819 /* publish.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A03157D46E4000C1819 /* publish.js */; };
-		D3972AE0157D46E4000C1819 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = D3972A05157D46E4000C1819 /* default.css */; };
-		D3972AE1157D46E4000C1819 /* header.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972A06157D46E4000C1819 /* header.html */; };
-		D3972AE2157D46E4000C1819 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972A07157D46E4000C1819 /* index.html */; };
-		D3972AE3157D46E4000C1819 /* symbol.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = D3972A08157D46E4000C1819 /* symbol.tmpl */; };
-		D3972AE4157D46E4000C1819 /* jshint.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A0A157D46E4000C1819 /* jshint.js */; };
-		D3972AE5157D46E4000C1819 /* run.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A0B157D46E4000C1819 /* run.js */; };
-		D3972AE6157D46E4000C1819 /* PlayerSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A10157D46E4000C1819 /* PlayerSpec.js */; };
-		D3972AE7157D46E4000C1819 /* SpecHelper.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A11157D46E4000C1819 /* SpecHelper.js */; };
-		D3972AE8157D46E4000C1819 /* SpecRunner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972A12157D46E4000C1819 /* SpecRunner.html */; };
-		D3972AE9157D46E4000C1819 /* Player.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A14157D46E4000C1819 /* Player.js */; };
-		D3972AEA157D46E4000C1819 /* Song.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A15157D46E4000C1819 /* Song.js */; };
-		D3972AEB157D46E4000C1819 /* jasmine-html.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A16157D46E4000C1819 /* jasmine-html.js */; };
-		D3972AEC157D46E4000C1819 /* jasmine.css in Resources */ = {isa = PBXBuildFile; fileRef = D3972A17157D46E4000C1819 /* jasmine.css */; };
-		D3972AED157D46E4000C1819 /* jasmine.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A18157D46E4000C1819 /* jasmine.js */; };
-		D3972AEE157D46E4000C1819 /* json2.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A19157D46E4000C1819 /* json2.js */; };
-		D3972AEF157D46E4000C1819 /* ConsoleReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A1C157D46E4000C1819 /* ConsoleReporterSpec.js */; };
-		D3972AF0157D46E4000C1819 /* BaseSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A1E157D46E4000C1819 /* BaseSpec.js */; };
-		D3972AF1157D46E4000C1819 /* CustomMatchersSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A1F157D46E4000C1819 /* CustomMatchersSpec.js */; };
-		D3972AF2157D46E4000C1819 /* EnvSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A20157D46E4000C1819 /* EnvSpec.js */; };
-		D3972AF3157D46E4000C1819 /* ExceptionsSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A21157D46E4000C1819 /* ExceptionsSpec.js */; };
-		D3972AF4157D46E4000C1819 /* JsApiReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A22157D46E4000C1819 /* JsApiReporterSpec.js */; };
-		D3972AF5157D46E4000C1819 /* MatchersSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A23157D46E4000C1819 /* MatchersSpec.js */; };
-		D3972AF6157D46E4000C1819 /* MockClockSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A24157D46E4000C1819 /* MockClockSpec.js */; };
-		D3972AF7157D46E4000C1819 /* MultiReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A25157D46E4000C1819 /* MultiReporterSpec.js */; };
-		D3972AF8157D46E4000C1819 /* NestedResultsSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A26157D46E4000C1819 /* NestedResultsSpec.js */; };
-		D3972AF9157D46E4000C1819 /* PrettyPrintSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A27157D46E4000C1819 /* PrettyPrintSpec.js */; };
-		D3972AFA157D46E4000C1819 /* QueueSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A28157D46E4000C1819 /* QueueSpec.js */; };
-		D3972AFB157D46E4000C1819 /* ReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A29157D46E4000C1819 /* ReporterSpec.js */; };
-		D3972AFC157D46E4000C1819 /* RunnerSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2A157D46E4000C1819 /* RunnerSpec.js */; };
-		D3972AFD157D46E4000C1819 /* SpecRunningSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2B157D46E4000C1819 /* SpecRunningSpec.js */; };
-		D3972AFE157D46E4000C1819 /* SpecSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2C157D46E4000C1819 /* SpecSpec.js */; };
-		D3972AFF157D46E4000C1819 /* SpySpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2D157D46E4000C1819 /* SpySpec.js */; };
-		D3972B00157D46E4000C1819 /* SuiteSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2E157D46E4000C1819 /* SuiteSpec.js */; };
-		D3972B01157D46E4000C1819 /* UtilSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A2F157D46E4000C1819 /* UtilSpec.js */; };
-		D3972B02157D46E4000C1819 /* WaitsForBlockSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A30157D46E4000C1819 /* WaitsForBlockSpec.js */; };
-		D3972B03157D46E4000C1819 /* HTMLReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A32157D46E4000C1819 /* HTMLReporterSpec.js */; };
-		D3972B04157D46E4000C1819 /* MatchersHtmlSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A33157D46E4000C1819 /* MatchersHtmlSpec.js */; };
-		D3972B05157D46E4000C1819 /* PrettyPrintHtmlSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A34157D46E4000C1819 /* PrettyPrintHtmlSpec.js */; };
-		D3972B06157D46E4000C1819 /* TrivialReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A35157D46E4000C1819 /* TrivialReporterSpec.js */; };
-		D3972B07157D46E4000C1819 /* node_suite.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A36157D46E4000C1819 /* node_suite.js */; };
-		D3972B08157D46E4000C1819 /* runner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972A37157D46E4000C1819 /* runner.html */; };
-		D3972B09157D46E4000C1819 /* spec_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A38157D46E4000C1819 /* spec_helper.rb */; };
-		D3972B0A157D46E4000C1819 /* build_distribution_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3A157D46E4000C1819 /* build_distribution_spec.rb */; };
-		D3972B0B157D46E4000C1819 /* build_github_pages_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3B157D46E4000C1819 /* build_github_pages_spec.rb */; };
-		D3972B0C157D46E4000C1819 /* build_standalone_distribution_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3C157D46E4000C1819 /* build_standalone_distribution_spec.rb */; };
-		D3972B0D157D46E4000C1819 /* build_standalone_runner_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3D157D46E4000C1819 /* build_standalone_runner_spec.rb */; };
-		D3972B0E157D46E4000C1819 /* count_specs_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3E157D46E4000C1819 /* count_specs_spec.rb */; };
-		D3972B0F157D46E4000C1819 /* execute_specs_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A3F157D46E4000C1819 /* execute_specs_spec.rb */; };
-		D3972B10157D46E4000C1819 /* jshint_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A40157D46E4000C1819 /* jshint_spec.rb */; };
-		D3972B11157D46E4000C1819 /* release_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A41157D46E4000C1819 /* release_spec.rb */; };
-		D3972B12157D46E4000C1819 /* version_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A42157D46E4000C1819 /* version_spec.rb */; };
-		D3972B13157D46E4000C1819 /* runner.html.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A44157D46E4000C1819 /* runner.html.erb */; };
-		D3972B14157D46E4000C1819 /* script_tag.html.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A45157D46E4000C1819 /* script_tag.html.erb */; };
-		D3972B15157D46E4000C1819 /* version.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A46157D46E4000C1819 /* version.rb */; };
-		D3972B16157D46E4000C1819 /* jasmine-core.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A47157D46E4000C1819 /* jasmine-core.rb */; };
-		D3972B17157D46E4000C1819 /* MIT.LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D3972A48157D46E4000C1819 /* MIT.LICENSE */; };
-		D3972B18157D46E4000C1819 /* Rakefile in Resources */ = {isa = PBXBuildFile; fileRef = D3972A4A157D46E4000C1819 /* Rakefile */; };
-		D3972B19157D46E4000C1819 /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D3972A4B157D46E4000C1819 /* README.markdown */; };
-		D3972B1A157D46E4000C1819 /* Release.markdown in Resources */ = {isa = PBXBuildFile; fileRef = D3972A4C157D46E4000C1819 /* Release.markdown */; };
-		D3972B1B157D46E4000C1819 /* ConsoleReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A4F157D46E4000C1819 /* ConsoleReporterSpec.js */; };
-		D3972B1C157D46E4000C1819 /* BaseSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A51157D46E4000C1819 /* BaseSpec.js */; };
-		D3972B1D157D46E4000C1819 /* CustomMatchersSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A52157D46E4000C1819 /* CustomMatchersSpec.js */; };
-		D3972B1E157D46E4000C1819 /* EnvSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A53157D46E4000C1819 /* EnvSpec.js */; };
-		D3972B1F157D46E4000C1819 /* ExceptionsSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A54157D46E4000C1819 /* ExceptionsSpec.js */; };
-		D3972B20157D46E4000C1819 /* JsApiReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A55157D46E4000C1819 /* JsApiReporterSpec.js */; };
-		D3972B21157D46E4000C1819 /* MatchersSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A56157D46E4000C1819 /* MatchersSpec.js */; };
-		D3972B22157D46E4000C1819 /* MockClockSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A57157D46E4000C1819 /* MockClockSpec.js */; };
-		D3972B23157D46E4000C1819 /* MultiReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A58157D46E4000C1819 /* MultiReporterSpec.js */; };
-		D3972B24157D46E4000C1819 /* NestedResultsSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A59157D46E4000C1819 /* NestedResultsSpec.js */; };
-		D3972B25157D46E4000C1819 /* PrettyPrintSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5A157D46E4000C1819 /* PrettyPrintSpec.js */; };
-		D3972B26157D46E4000C1819 /* QueueSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5B157D46E4000C1819 /* QueueSpec.js */; };
-		D3972B27157D46E4000C1819 /* ReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5C157D46E4000C1819 /* ReporterSpec.js */; };
-		D3972B28157D46E4000C1819 /* RunnerSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5D157D46E4000C1819 /* RunnerSpec.js */; };
-		D3972B29157D46E4000C1819 /* SpecRunningSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5E157D46E4000C1819 /* SpecRunningSpec.js */; };
-		D3972B2A157D46E4000C1819 /* SpecSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A5F157D46E4000C1819 /* SpecSpec.js */; };
-		D3972B2B157D46E4000C1819 /* SpySpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A60157D46E4000C1819 /* SpySpec.js */; };
-		D3972B2C157D46E4000C1819 /* SuiteSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A61157D46E4000C1819 /* SuiteSpec.js */; };
-		D3972B2D157D46E4000C1819 /* UtilSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A62157D46E4000C1819 /* UtilSpec.js */; };
-		D3972B2E157D46E4000C1819 /* WaitsForBlockSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A63157D46E4000C1819 /* WaitsForBlockSpec.js */; };
-		D3972B2F157D46E4000C1819 /* HTMLReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A65157D46E4000C1819 /* HTMLReporterSpec.js */; };
-		D3972B30157D46E4000C1819 /* MatchersHtmlSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A66157D46E4000C1819 /* MatchersHtmlSpec.js */; };
-		D3972B31157D46E4000C1819 /* PrettyPrintHtmlSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A67157D46E4000C1819 /* PrettyPrintHtmlSpec.js */; };
-		D3972B32157D46E4000C1819 /* TrivialReporterSpec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A68157D46E4000C1819 /* TrivialReporterSpec.js */; };
-		D3972B33157D46E4000C1819 /* node_suite.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A69157D46E4000C1819 /* node_suite.js */; };
-		D3972B34157D46E4000C1819 /* runner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972A6A157D46E4000C1819 /* runner.html */; };
-		D3972B35157D46E4000C1819 /* spec_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A6B157D46E4000C1819 /* spec_helper.rb */; };
-		D3972B36157D46E4000C1819 /* build_distribution_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A6D157D46E4000C1819 /* build_distribution_spec.rb */; };
-		D3972B37157D46E4000C1819 /* build_github_pages_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A6E157D46E4000C1819 /* build_github_pages_spec.rb */; };
-		D3972B38157D46E4000C1819 /* build_standalone_distribution_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A6F157D46E4000C1819 /* build_standalone_distribution_spec.rb */; };
-		D3972B39157D46E4000C1819 /* build_standalone_runner_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A70157D46E4000C1819 /* build_standalone_runner_spec.rb */; };
-		D3972B3A157D46E4000C1819 /* count_specs_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A71157D46E4000C1819 /* count_specs_spec.rb */; };
-		D3972B3B157D46E4000C1819 /* execute_specs_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A72157D46E4000C1819 /* execute_specs_spec.rb */; };
-		D3972B3C157D46E4000C1819 /* jshint_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A73157D46E4000C1819 /* jshint_spec.rb */; };
-		D3972B3D157D46E4000C1819 /* release_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A74157D46E4000C1819 /* release_spec.rb */; };
-		D3972B3E157D46E4000C1819 /* version_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A75157D46E4000C1819 /* version_spec.rb */; };
-		D3972B3F157D46E4000C1819 /* runner.html.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A77157D46E4000C1819 /* runner.html.erb */; };
-		D3972B40157D46E4000C1819 /* script_tag.html.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A78157D46E4000C1819 /* script_tag.html.erb */; };
-		D3972B41157D46E4000C1819 /* ConsoleReporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A7B157D46E4000C1819 /* ConsoleReporter.js */; };
-		D3972B42157D46E4000C1819 /* base.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A7D157D46E4000C1819 /* base.js */; };
-		D3972B43157D46E4000C1819 /* Block.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A7E157D46E4000C1819 /* Block.js */; };
-		D3972B44157D46E4000C1819 /* Env.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A7F157D46E4000C1819 /* Env.js */; };
-		D3972B45157D46E4000C1819 /* JsApiReporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A80157D46E4000C1819 /* JsApiReporter.js */; };
-		D3972B46157D46E4000C1819 /* Matchers.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A81157D46E4000C1819 /* Matchers.js */; };
-		D3972B47157D46E4000C1819 /* mock-timeout.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A82157D46E4000C1819 /* mock-timeout.js */; };
-		D3972B48157D46E4000C1819 /* MultiReporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A83157D46E4000C1819 /* MultiReporter.js */; };
-		D3972B49157D46E4000C1819 /* NestedResults.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A84157D46E4000C1819 /* NestedResults.js */; };
-		D3972B4A157D46E4000C1819 /* PrettyPrinter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A85157D46E4000C1819 /* PrettyPrinter.js */; };
-		D3972B4B157D46E4000C1819 /* Queue.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A86157D46E4000C1819 /* Queue.js */; };
-		D3972B4C157D46E4000C1819 /* Reporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A87157D46E4000C1819 /* Reporter.js */; };
-		D3972B4D157D46E4000C1819 /* Runner.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A88157D46E4000C1819 /* Runner.js */; };
-		D3972B4E157D46E4000C1819 /* Spec.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A89157D46E4000C1819 /* Spec.js */; };
-		D3972B4F157D46E4000C1819 /* Suite.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A8A157D46E4000C1819 /* Suite.js */; };
-		D3972B50157D46E4000C1819 /* util.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A8B157D46E4000C1819 /* util.js */; };
-		D3972B51157D46E4000C1819 /* WaitsBlock.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A8C157D46E4000C1819 /* WaitsBlock.js */; };
-		D3972B52157D46E4000C1819 /* WaitsForBlock.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A8D157D46E4000C1819 /* WaitsForBlock.js */; };
-		D3972B53157D46E4000C1819 /* _HTMLReporter.scss in Resources */ = {isa = PBXBuildFile; fileRef = D3972A8F157D46E4000C1819 /* _HTMLReporter.scss */; };
-		D3972B54157D46E4000C1819 /* _TrivialReporter.scss in Resources */ = {isa = PBXBuildFile; fileRef = D3972A90157D46E4000C1819 /* _TrivialReporter.scss */; };
-		D3972B55157D46E4000C1819 /* HtmlReporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A91157D46E4000C1819 /* HtmlReporter.js */; };
-		D3972B56157D46E4000C1819 /* HtmlReporterHelpers.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A92157D46E4000C1819 /* HtmlReporterHelpers.js */; };
-		D3972B57157D46E4000C1819 /* jasmine.css in Resources */ = {isa = PBXBuildFile; fileRef = D3972A93157D46E4000C1819 /* jasmine.css */; };
-		D3972B58157D46E4000C1819 /* jasmine.scss in Resources */ = {isa = PBXBuildFile; fileRef = D3972A94157D46E4000C1819 /* jasmine.scss */; };
-		D3972B59157D46E4000C1819 /* ReporterView.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A95157D46E4000C1819 /* ReporterView.js */; };
-		D3972B5A157D46E5000C1819 /* SpecView.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A96157D46E4000C1819 /* SpecView.js */; };
-		D3972B5B157D46E5000C1819 /* SuiteView.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A97157D46E4000C1819 /* SuiteView.js */; };
-		D3972B5C157D46E5000C1819 /* TrivialReporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A98157D46E4000C1819 /* TrivialReporter.js */; };
-		D3972B5D157D46E5000C1819 /* example_project_jasmine_tags.html.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A9A157D46E4000C1819 /* example_project_jasmine_tags.html.erb */; };
-		D3972B5E157D46E5000C1819 /* version.js.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A9B157D46E4000C1819 /* version.js.erb */; };
-		D3972B5F157D46E5000C1819 /* version.rb.erb in Resources */ = {isa = PBXBuildFile; fileRef = D3972A9C157D46E4000C1819 /* version.rb.erb */; };
-		D3972B60157D46E5000C1819 /* version.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972A9D157D46E4000C1819 /* version.js */; };
-		D3972B61157D46E5000C1819 /* version.json in Resources */ = {isa = PBXBuildFile; fileRef = D3972A9E157D46E4000C1819 /* version.json */; };
-		D3972B62157D46E5000C1819 /* docs.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA0157D46E4000C1819 /* docs.rb */; };
-		D3972B63157D46E5000C1819 /* base.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA2157D46E4000C1819 /* base.rb */; };
-		D3972B64157D46E5000C1819 /* build_distribution.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA3157D46E4000C1819 /* build_distribution.rb */; };
-		D3972B65157D46E5000C1819 /* build_github_pages.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA4157D46E4000C1819 /* build_github_pages.rb */; };
-		D3972B66157D46E5000C1819 /* build_standalone_distribution.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA5157D46E4000C1819 /* build_standalone_distribution.rb */; };
-		D3972B67157D46E5000C1819 /* build_standalone_runner.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA6157D46E4000C1819 /* build_standalone_runner.rb */; };
-		D3972B68157D46E5000C1819 /* count_specs.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA7157D46E4000C1819 /* count_specs.rb */; };
-		D3972B69157D46E5000C1819 /* execute_specs.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA8157D46E4000C1819 /* execute_specs.rb */; };
-		D3972B6A157D46E5000C1819 /* js_hint.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AA9157D46E4000C1819 /* js_hint.rb */; };
-		D3972B6B157D46E5000C1819 /* release.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AAA157D46E4000C1819 /* release.rb */; };
-		D3972B6C157D46E5000C1819 /* sources.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AAB157D46E4000C1819 /* sources.rb */; };
-		D3972B6D157D46E5000C1819 /* version.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AAC157D46E4000C1819 /* version.rb */; };
-		D3972B6E157D46E5000C1819 /* jasmine_dev.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AAD157D46E4000C1819 /* jasmine_dev.rb */; };
-		D3972B6F157D46E5000C1819 /* jasmine-uiautomation-reporter.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972AAE157D46E4000C1819 /* jasmine-uiautomation-reporter.js */; };
-		D3972B70157D46E5000C1819 /* jasmine-uiautomation.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972AAF157D46E4000C1819 /* jasmine-uiautomation.js */; };
-		D3972B71157D46E5000C1819 /* suite.js in Sources */ = {isa = PBXBuildFile; fileRef = D3972AB0157D46E4000C1819 /* suite.js */; };
-		D3972B72157D46E5000C1819 /* execute_acceptance_tests.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AB3157D46E4000C1819 /* execute_acceptance_tests.rb */; };
-		D3972B73157D46E5000C1819 /* parse_automation_log.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AB4157D46E4000C1819 /* parse_automation_log.rb */; };
-		D3972B74157D46E5000C1819 /* sleeper.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AB5157D46E4000C1819 /* sleeper.rb */; };
-		D3972B75157D46E5000C1819 /* NoFailures.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3972AB8157D46E4000C1819 /* NoFailures.plist */; };
-		D3972B76157D46E5000C1819 /* OneFailure.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3972AB9157D46E4000C1819 /* OneFailure.plist */; };
-		D3972B77157D46E5000C1819 /* TwoFailures.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3972ABA157D46E4000C1819 /* TwoFailures.plist */; };
-		D3972B78157D46E5000C1819 /* parse_automation_log.feature in Resources */ = {isa = PBXBuildFile; fileRef = D3972ABB157D46E4000C1819 /* parse_automation_log.feature */; };
-		D3972B79157D46E5000C1819 /* runners.feature in Resources */ = {isa = PBXBuildFile; fileRef = D3972ABC157D46E4000C1819 /* runners.feature */; };
-		D3972B7A157D46E5000C1819 /* Helpers_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972ABE157D46E4000C1819 /* Helpers_steps.rb */; };
-		D3972B7B157D46E5000C1819 /* Runners_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972ABF157D46E4000C1819 /* Runners_steps.rb */; };
-		D3972B7C157D46E5000C1819 /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC1157D46E4000C1819 /* env.rb */; };
-		D3972B7D157D46E5000C1819 /* Parser.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC4157D46E4000C1819 /* Parser.rb */; };
-		D3972B7E157D46E5000C1819 /* Helpers.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC5157D46E4000C1819 /* Helpers.rb */; };
-		D3972B7F157D46E5000C1819 /* HangupDetector.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC7157D46E4000C1819 /* HangupDetector.rb */; };
-		D3972B80157D46E5000C1819 /* SimpleRunner.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC8157D46E4000C1819 /* SimpleRunner.rb */; };
-		D3972B81157D46E5000C1819 /* Runners.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AC9157D46E4000C1819 /* Runners.rb */; };
-		D3972B82157D46E5000C1819 /* Parser_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972ACC157D46E4000C1819 /* Parser_spec.rb */; };
-		D3972B83157D46E5000C1819 /* HungupDetector_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972ACE157D46E4000C1819 /* HungupDetector_spec.rb */; };
-		D3972B84157D46E5000C1819 /* SimpleRunner_spec.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972ACF157D46E4000C1819 /* SimpleRunner_spec.rb */; };
-		D3972B85157D46E5000C1819 /* spec_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = D3972AD0157D46E4000C1819 /* spec_helper.rb */; };
+		D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */; };
+		D3972B9D157D89C7000C1819 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
+		D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
+		D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
+		D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3972BA3157D89C7000C1819 /* InfoPlist.strings */; };
+		D3972BA8157D89C7000C1819 /* LogicUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972BA7157D89C7000C1819 /* LogicUnitTests.m */; };
+		D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
+		D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,7 +80,7 @@
 		D387EF221536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D387EF241536EF0400635736 /* QATViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATViewController.h; sourceTree = "<group>"; };
 		D387EF251536EF0400635736 /* QATViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATViewController.m; sourceTree = "<group>"; };
-		D387EF2C1536EF0400635736 /* AgileToolboxTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgileToolboxTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF2D1536EF0400635736 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -284,187 +111,21 @@
 		D3972855157D0811000C1819 /* tapDetector.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tapDetector.js; sourceTree = "<group>"; };
 		D3972856157D0811000C1819 /* ProductOwner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProductOwner.html; sourceTree = "<group>"; };
 		D3972857157D0811000C1819 /* ScrumMaster.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ScrumMaster.html; sourceTree = "<group>"; };
-		D39729F2157D46E4000C1819 /* HelloWorld-spec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "HelloWorld-spec.js"; sourceTree = "<group>"; };
-		D39729F4157D46E4000C1819 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		D39729F5157D46E4000C1819 /* .gitmodules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitmodules; sourceTree = "<group>"; };
-		D39729F6157D46E4000C1819 /* .rspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .rspec; sourceTree = "<group>"; };
-		D39729F7157D46E4000C1819 /* config.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = config.rb; sourceTree = "<group>"; };
-		D39729F8157D46E4000C1819 /* Contribute.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Contribute.markdown; sourceTree = "<group>"; };
-		D39729F9157D46E4000C1819 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
-		D39729FB157D46E4000C1819 /* jasmine_favicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jasmine_favicon.png; sourceTree = "<group>"; };
-		D39729FC157D46E4000C1819 /* jasmine-core.gemspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "jasmine-core.gemspec"; sourceTree = "<group>"; };
-		D39729FD157D46E4000C1819 /* jasmine_dev.thor */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jasmine_dev.thor; sourceTree = "<group>"; };
-		D39729FF157D46E4000C1819 /* allclasses.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = allclasses.tmpl; sourceTree = "<group>"; };
-		D3972A00157D46E4000C1819 /* allfiles.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = allfiles.tmpl; sourceTree = "<group>"; };
-		D3972A01157D46E4000C1819 /* class.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = class.tmpl; sourceTree = "<group>"; };
-		D3972A02157D46E4000C1819 /* index.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = index.tmpl; sourceTree = "<group>"; };
-		D3972A03157D46E4000C1819 /* publish.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = publish.js; sourceTree = "<group>"; };
-		D3972A05157D46E4000C1819 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
-		D3972A06157D46E4000C1819 /* header.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = header.html; sourceTree = "<group>"; };
-		D3972A07157D46E4000C1819 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		D3972A08157D46E4000C1819 /* symbol.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbol.tmpl; sourceTree = "<group>"; };
-		D3972A0A157D46E4000C1819 /* jshint.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jshint.js; sourceTree = "<group>"; };
-		D3972A0B157D46E4000C1819 /* run.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = run.js; sourceTree = "<group>"; };
-		D3972A10157D46E4000C1819 /* PlayerSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PlayerSpec.js; sourceTree = "<group>"; };
-		D3972A11157D46E4000C1819 /* SpecHelper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecHelper.js; sourceTree = "<group>"; };
-		D3972A12157D46E4000C1819 /* SpecRunner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SpecRunner.html; sourceTree = "<group>"; };
-		D3972A14157D46E4000C1819 /* Player.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Player.js; sourceTree = "<group>"; };
-		D3972A15157D46E4000C1819 /* Song.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Song.js; sourceTree = "<group>"; };
-		D3972A16157D46E4000C1819 /* jasmine-html.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jasmine-html.js"; sourceTree = "<group>"; };
-		D3972A17157D46E4000C1819 /* jasmine.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jasmine.css; sourceTree = "<group>"; };
-		D3972A18157D46E4000C1819 /* jasmine.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jasmine.js; sourceTree = "<group>"; };
-		D3972A19157D46E4000C1819 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json2.js; sourceTree = "<group>"; };
-		D3972A1C157D46E4000C1819 /* ConsoleReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ConsoleReporterSpec.js; sourceTree = "<group>"; };
-		D3972A1E157D46E4000C1819 /* BaseSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = BaseSpec.js; sourceTree = "<group>"; };
-		D3972A1F157D46E4000C1819 /* CustomMatchersSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CustomMatchersSpec.js; sourceTree = "<group>"; };
-		D3972A20157D46E4000C1819 /* EnvSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = EnvSpec.js; sourceTree = "<group>"; };
-		D3972A21157D46E4000C1819 /* ExceptionsSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ExceptionsSpec.js; sourceTree = "<group>"; };
-		D3972A22157D46E4000C1819 /* JsApiReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JsApiReporterSpec.js; sourceTree = "<group>"; };
-		D3972A23157D46E4000C1819 /* MatchersSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MatchersSpec.js; sourceTree = "<group>"; };
-		D3972A24157D46E4000C1819 /* MockClockSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MockClockSpec.js; sourceTree = "<group>"; };
-		D3972A25157D46E4000C1819 /* MultiReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MultiReporterSpec.js; sourceTree = "<group>"; };
-		D3972A26157D46E4000C1819 /* NestedResultsSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NestedResultsSpec.js; sourceTree = "<group>"; };
-		D3972A27157D46E4000C1819 /* PrettyPrintSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PrettyPrintSpec.js; sourceTree = "<group>"; };
-		D3972A28157D46E4000C1819 /* QueueSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = QueueSpec.js; sourceTree = "<group>"; };
-		D3972A29157D46E4000C1819 /* ReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ReporterSpec.js; sourceTree = "<group>"; };
-		D3972A2A157D46E4000C1819 /* RunnerSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = RunnerSpec.js; sourceTree = "<group>"; };
-		D3972A2B157D46E4000C1819 /* SpecRunningSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecRunningSpec.js; sourceTree = "<group>"; };
-		D3972A2C157D46E4000C1819 /* SpecSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecSpec.js; sourceTree = "<group>"; };
-		D3972A2D157D46E4000C1819 /* SpySpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpySpec.js; sourceTree = "<group>"; };
-		D3972A2E157D46E4000C1819 /* SuiteSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SuiteSpec.js; sourceTree = "<group>"; };
-		D3972A2F157D46E4000C1819 /* UtilSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UtilSpec.js; sourceTree = "<group>"; };
-		D3972A30157D46E4000C1819 /* WaitsForBlockSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WaitsForBlockSpec.js; sourceTree = "<group>"; };
-		D3972A32157D46E4000C1819 /* HTMLReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HTMLReporterSpec.js; sourceTree = "<group>"; };
-		D3972A33157D46E4000C1819 /* MatchersHtmlSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MatchersHtmlSpec.js; sourceTree = "<group>"; };
-		D3972A34157D46E4000C1819 /* PrettyPrintHtmlSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PrettyPrintHtmlSpec.js; sourceTree = "<group>"; };
-		D3972A35157D46E4000C1819 /* TrivialReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TrivialReporterSpec.js; sourceTree = "<group>"; };
-		D3972A36157D46E4000C1819 /* node_suite.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = node_suite.js; sourceTree = "<group>"; };
-		D3972A37157D46E4000C1819 /* runner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = runner.html; sourceTree = "<group>"; };
-		D3972A38157D46E4000C1819 /* spec_helper.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = spec_helper.rb; sourceTree = "<group>"; };
-		D3972A3A157D46E4000C1819 /* build_distribution_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_distribution_spec.rb; sourceTree = "<group>"; };
-		D3972A3B157D46E4000C1819 /* build_github_pages_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_github_pages_spec.rb; sourceTree = "<group>"; };
-		D3972A3C157D46E4000C1819 /* build_standalone_distribution_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_distribution_spec.rb; sourceTree = "<group>"; };
-		D3972A3D157D46E4000C1819 /* build_standalone_runner_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_runner_spec.rb; sourceTree = "<group>"; };
-		D3972A3E157D46E4000C1819 /* count_specs_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = count_specs_spec.rb; sourceTree = "<group>"; };
-		D3972A3F157D46E4000C1819 /* execute_specs_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = execute_specs_spec.rb; sourceTree = "<group>"; };
-		D3972A40157D46E4000C1819 /* jshint_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = jshint_spec.rb; sourceTree = "<group>"; };
-		D3972A41157D46E4000C1819 /* release_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = release_spec.rb; sourceTree = "<group>"; };
-		D3972A42157D46E4000C1819 /* version_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = version_spec.rb; sourceTree = "<group>"; };
-		D3972A44157D46E4000C1819 /* runner.html.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = runner.html.erb; sourceTree = "<group>"; };
-		D3972A45157D46E4000C1819 /* script_tag.html.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = script_tag.html.erb; sourceTree = "<group>"; };
-		D3972A46157D46E4000C1819 /* version.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = version.rb; sourceTree = "<group>"; };
-		D3972A47157D46E4000C1819 /* jasmine-core.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "jasmine-core.rb"; sourceTree = "<group>"; };
-		D3972A48157D46E4000C1819 /* MIT.LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MIT.LICENSE; sourceTree = "<group>"; };
-		D3972A4A157D46E4000C1819 /* Rakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
-		D3972A4B157D46E4000C1819 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
-		D3972A4C157D46E4000C1819 /* Release.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Release.markdown; sourceTree = "<group>"; };
-		D3972A4F157D46E4000C1819 /* ConsoleReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ConsoleReporterSpec.js; sourceTree = "<group>"; };
-		D3972A51157D46E4000C1819 /* BaseSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = BaseSpec.js; sourceTree = "<group>"; };
-		D3972A52157D46E4000C1819 /* CustomMatchersSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CustomMatchersSpec.js; sourceTree = "<group>"; };
-		D3972A53157D46E4000C1819 /* EnvSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = EnvSpec.js; sourceTree = "<group>"; };
-		D3972A54157D46E4000C1819 /* ExceptionsSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ExceptionsSpec.js; sourceTree = "<group>"; };
-		D3972A55157D46E4000C1819 /* JsApiReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JsApiReporterSpec.js; sourceTree = "<group>"; };
-		D3972A56157D46E4000C1819 /* MatchersSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MatchersSpec.js; sourceTree = "<group>"; };
-		D3972A57157D46E4000C1819 /* MockClockSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MockClockSpec.js; sourceTree = "<group>"; };
-		D3972A58157D46E4000C1819 /* MultiReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MultiReporterSpec.js; sourceTree = "<group>"; };
-		D3972A59157D46E4000C1819 /* NestedResultsSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NestedResultsSpec.js; sourceTree = "<group>"; };
-		D3972A5A157D46E4000C1819 /* PrettyPrintSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PrettyPrintSpec.js; sourceTree = "<group>"; };
-		D3972A5B157D46E4000C1819 /* QueueSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = QueueSpec.js; sourceTree = "<group>"; };
-		D3972A5C157D46E4000C1819 /* ReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ReporterSpec.js; sourceTree = "<group>"; };
-		D3972A5D157D46E4000C1819 /* RunnerSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = RunnerSpec.js; sourceTree = "<group>"; };
-		D3972A5E157D46E4000C1819 /* SpecRunningSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecRunningSpec.js; sourceTree = "<group>"; };
-		D3972A5F157D46E4000C1819 /* SpecSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecSpec.js; sourceTree = "<group>"; };
-		D3972A60157D46E4000C1819 /* SpySpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpySpec.js; sourceTree = "<group>"; };
-		D3972A61157D46E4000C1819 /* SuiteSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SuiteSpec.js; sourceTree = "<group>"; };
-		D3972A62157D46E4000C1819 /* UtilSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UtilSpec.js; sourceTree = "<group>"; };
-		D3972A63157D46E4000C1819 /* WaitsForBlockSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WaitsForBlockSpec.js; sourceTree = "<group>"; };
-		D3972A65157D46E4000C1819 /* HTMLReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HTMLReporterSpec.js; sourceTree = "<group>"; };
-		D3972A66157D46E4000C1819 /* MatchersHtmlSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MatchersHtmlSpec.js; sourceTree = "<group>"; };
-		D3972A67157D46E4000C1819 /* PrettyPrintHtmlSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PrettyPrintHtmlSpec.js; sourceTree = "<group>"; };
-		D3972A68157D46E4000C1819 /* TrivialReporterSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TrivialReporterSpec.js; sourceTree = "<group>"; };
-		D3972A69157D46E4000C1819 /* node_suite.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = node_suite.js; sourceTree = "<group>"; };
-		D3972A6A157D46E4000C1819 /* runner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = runner.html; sourceTree = "<group>"; };
-		D3972A6B157D46E4000C1819 /* spec_helper.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = spec_helper.rb; sourceTree = "<group>"; };
-		D3972A6D157D46E4000C1819 /* build_distribution_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_distribution_spec.rb; sourceTree = "<group>"; };
-		D3972A6E157D46E4000C1819 /* build_github_pages_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_github_pages_spec.rb; sourceTree = "<group>"; };
-		D3972A6F157D46E4000C1819 /* build_standalone_distribution_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_distribution_spec.rb; sourceTree = "<group>"; };
-		D3972A70157D46E4000C1819 /* build_standalone_runner_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_runner_spec.rb; sourceTree = "<group>"; };
-		D3972A71157D46E4000C1819 /* count_specs_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = count_specs_spec.rb; sourceTree = "<group>"; };
-		D3972A72157D46E4000C1819 /* execute_specs_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = execute_specs_spec.rb; sourceTree = "<group>"; };
-		D3972A73157D46E4000C1819 /* jshint_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = jshint_spec.rb; sourceTree = "<group>"; };
-		D3972A74157D46E4000C1819 /* release_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = release_spec.rb; sourceTree = "<group>"; };
-		D3972A75157D46E4000C1819 /* version_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = version_spec.rb; sourceTree = "<group>"; };
-		D3972A77157D46E4000C1819 /* runner.html.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = runner.html.erb; sourceTree = "<group>"; };
-		D3972A78157D46E4000C1819 /* script_tag.html.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = script_tag.html.erb; sourceTree = "<group>"; };
-		D3972A7B157D46E4000C1819 /* ConsoleReporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ConsoleReporter.js; sourceTree = "<group>"; };
-		D3972A7D157D46E4000C1819 /* base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = base.js; sourceTree = "<group>"; };
-		D3972A7E157D46E4000C1819 /* Block.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Block.js; sourceTree = "<group>"; };
-		D3972A7F157D46E4000C1819 /* Env.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Env.js; sourceTree = "<group>"; };
-		D3972A80157D46E4000C1819 /* JsApiReporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JsApiReporter.js; sourceTree = "<group>"; };
-		D3972A81157D46E4000C1819 /* Matchers.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Matchers.js; sourceTree = "<group>"; };
-		D3972A82157D46E4000C1819 /* mock-timeout.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "mock-timeout.js"; sourceTree = "<group>"; };
-		D3972A83157D46E4000C1819 /* MultiReporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MultiReporter.js; sourceTree = "<group>"; };
-		D3972A84157D46E4000C1819 /* NestedResults.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NestedResults.js; sourceTree = "<group>"; };
-		D3972A85157D46E4000C1819 /* PrettyPrinter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = PrettyPrinter.js; sourceTree = "<group>"; };
-		D3972A86157D46E4000C1819 /* Queue.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Queue.js; sourceTree = "<group>"; };
-		D3972A87157D46E4000C1819 /* Reporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Reporter.js; sourceTree = "<group>"; };
-		D3972A88157D46E4000C1819 /* Runner.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Runner.js; sourceTree = "<group>"; };
-		D3972A89157D46E4000C1819 /* Spec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Spec.js; sourceTree = "<group>"; };
-		D3972A8A157D46E4000C1819 /* Suite.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Suite.js; sourceTree = "<group>"; };
-		D3972A8B157D46E4000C1819 /* util.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = util.js; sourceTree = "<group>"; };
-		D3972A8C157D46E4000C1819 /* WaitsBlock.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WaitsBlock.js; sourceTree = "<group>"; };
-		D3972A8D157D46E4000C1819 /* WaitsForBlock.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WaitsForBlock.js; sourceTree = "<group>"; };
-		D3972A8F157D46E4000C1819 /* _HTMLReporter.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _HTMLReporter.scss; sourceTree = "<group>"; };
-		D3972A90157D46E4000C1819 /* _TrivialReporter.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _TrivialReporter.scss; sourceTree = "<group>"; };
-		D3972A91157D46E4000C1819 /* HtmlReporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HtmlReporter.js; sourceTree = "<group>"; };
-		D3972A92157D46E4000C1819 /* HtmlReporterHelpers.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HtmlReporterHelpers.js; sourceTree = "<group>"; };
-		D3972A93157D46E4000C1819 /* jasmine.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jasmine.css; sourceTree = "<group>"; };
-		D3972A94157D46E4000C1819 /* jasmine.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jasmine.scss; sourceTree = "<group>"; };
-		D3972A95157D46E4000C1819 /* ReporterView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ReporterView.js; sourceTree = "<group>"; };
-		D3972A96157D46E4000C1819 /* SpecView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SpecView.js; sourceTree = "<group>"; };
-		D3972A97157D46E4000C1819 /* SuiteView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SuiteView.js; sourceTree = "<group>"; };
-		D3972A98157D46E4000C1819 /* TrivialReporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TrivialReporter.js; sourceTree = "<group>"; };
-		D3972A9A157D46E4000C1819 /* example_project_jasmine_tags.html.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example_project_jasmine_tags.html.erb; sourceTree = "<group>"; };
-		D3972A9B157D46E4000C1819 /* version.js.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = version.js.erb; sourceTree = "<group>"; };
-		D3972A9C157D46E4000C1819 /* version.rb.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = version.rb.erb; sourceTree = "<group>"; };
-		D3972A9D157D46E4000C1819 /* version.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = version.js; sourceTree = "<group>"; };
-		D3972A9E157D46E4000C1819 /* version.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = version.json; sourceTree = "<group>"; };
-		D3972AA0157D46E4000C1819 /* docs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = docs.rb; sourceTree = "<group>"; };
-		D3972AA2157D46E4000C1819 /* base.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = base.rb; sourceTree = "<group>"; };
-		D3972AA3157D46E4000C1819 /* build_distribution.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_distribution.rb; sourceTree = "<group>"; };
-		D3972AA4157D46E4000C1819 /* build_github_pages.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_github_pages.rb; sourceTree = "<group>"; };
-		D3972AA5157D46E4000C1819 /* build_standalone_distribution.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_distribution.rb; sourceTree = "<group>"; };
-		D3972AA6157D46E4000C1819 /* build_standalone_runner.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_standalone_runner.rb; sourceTree = "<group>"; };
-		D3972AA7157D46E4000C1819 /* count_specs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = count_specs.rb; sourceTree = "<group>"; };
-		D3972AA8157D46E4000C1819 /* execute_specs.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = execute_specs.rb; sourceTree = "<group>"; };
-		D3972AA9157D46E4000C1819 /* js_hint.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = js_hint.rb; sourceTree = "<group>"; };
-		D3972AAA157D46E4000C1819 /* release.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = release.rb; sourceTree = "<group>"; };
-		D3972AAB157D46E4000C1819 /* sources.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sources.rb; sourceTree = "<group>"; };
-		D3972AAC157D46E4000C1819 /* version.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = version.rb; sourceTree = "<group>"; };
-		D3972AAD157D46E4000C1819 /* jasmine_dev.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = jasmine_dev.rb; sourceTree = "<group>"; };
-		D3972AAE157D46E4000C1819 /* jasmine-uiautomation-reporter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jasmine-uiautomation-reporter.js"; sourceTree = "<group>"; };
-		D3972AAF157D46E4000C1819 /* jasmine-uiautomation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jasmine-uiautomation.js"; sourceTree = "<group>"; };
-		D3972AB0157D46E4000C1819 /* suite.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = suite.js; sourceTree = "<group>"; };
-		D3972AB3157D46E4000C1819 /* execute_acceptance_tests.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = execute_acceptance_tests.rb; sourceTree = "<group>"; };
-		D3972AB4157D46E4000C1819 /* parse_automation_log.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = parse_automation_log.rb; sourceTree = "<group>"; };
-		D3972AB5157D46E4000C1819 /* sleeper.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sleeper.rb; sourceTree = "<group>"; };
-		D3972AB8157D46E4000C1819 /* NoFailures.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NoFailures.plist; sourceTree = "<group>"; };
-		D3972AB9157D46E4000C1819 /* OneFailure.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OneFailure.plist; sourceTree = "<group>"; };
-		D3972ABA157D46E4000C1819 /* TwoFailures.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TwoFailures.plist; sourceTree = "<group>"; };
-		D3972ABB157D46E4000C1819 /* parse_automation_log.feature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = parse_automation_log.feature; sourceTree = "<group>"; };
-		D3972ABC157D46E4000C1819 /* runners.feature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = runners.feature; sourceTree = "<group>"; };
-		D3972ABE157D46E4000C1819 /* Helpers_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Helpers_steps.rb; sourceTree = "<group>"; };
-		D3972ABF157D46E4000C1819 /* Runners_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Runners_steps.rb; sourceTree = "<group>"; };
-		D3972AC1157D46E4000C1819 /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
-		D3972AC4157D46E4000C1819 /* Parser.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Parser.rb; sourceTree = "<group>"; };
-		D3972AC5157D46E4000C1819 /* Helpers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Helpers.rb; sourceTree = "<group>"; };
-		D3972AC7157D46E4000C1819 /* HangupDetector.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HangupDetector.rb; sourceTree = "<group>"; };
-		D3972AC8157D46E4000C1819 /* SimpleRunner.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SimpleRunner.rb; sourceTree = "<group>"; };
-		D3972AC9157D46E4000C1819 /* Runners.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Runners.rb; sourceTree = "<group>"; };
-		D3972ACC157D46E4000C1819 /* Parser_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Parser_spec.rb; sourceTree = "<group>"; };
-		D3972ACE157D46E4000C1819 /* HungupDetector_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = HungupDetector_spec.rb; sourceTree = "<group>"; };
-		D3972ACF157D46E4000C1819 /* SimpleRunner_spec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = SimpleRunner_spec.rb; sourceTree = "<group>"; };
-		D3972AD0157D46E4000C1819 /* spec_helper.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = spec_helper.rb; sourceTree = "<group>"; };
+		D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATMainMenuListViewController.h; sourceTree = "<group>"; };
+		D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewController.m; sourceTree = "<group>"; };
+		D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicUnitTests-Info.plist"; sourceTree = "<group>"; };
+		D3972BA4157D89C7000C1819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D3972BA6157D89C7000C1819 /* LogicUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicUnitTests.h; sourceTree = "<group>"; };
+		D3972BA7157D89C7000C1819 /* LogicUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicUnitTests.m; sourceTree = "<group>"; };
+		D3972BA9157D89C7000C1819 /* LogicUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		D3972BDC157EBAB0000C1819 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		D3972BDD157EBAB0000C1819 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		D3972BDE157EBAB0000C1819 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		D3972BDF157EBAB0000C1819 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		D3972BE0157EBAB0000C1819 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		D3972BE1157EBAB0000C1819 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		D3972BE3157EBAB0000C1819 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +146,18 @@
 				D387EF2E1536EF0400635736 /* SenTestingKit.framework in Frameworks */,
 				D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */,
 				D387EF301536EF0500635736 /* Foundation.framework in Frameworks */,
+				D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3972B98157D89C7000C1819 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3972B9D157D89C7000C1819 /* SenTestingKit.framework in Frameworks */,
+				D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */,
+				D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */,
+				D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,10 +167,10 @@
 		D387EF001536EF0400635736 = {
 			isa = PBXGroup;
 			children = (
-				D39729F1157D46E4000C1819 /* AcceptanceTests */,
-				D3972AB1157D46E4000C1819 /* Helpers */,
+				D3972BD9157EBAB0000C1819 /* OCMock */,
 				D387EF151536EF0400635736 /* AgileToolbox */,
-				D387EF331536EF0500635736 /* AgileToolboxTests */,
+				D387EF331536EF0500635736 /* ApplicationUnitTests */,
+				D3972BA0157D89C7000C1819 /* LogicUnitTests */,
 				D387EF0E1536EF0400635736 /* Frameworks */,
 				D387EF0C1536EF0400635736 /* Products */,
 			);
@@ -507,7 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				D387EF0B1536EF0400635736 /* AgileToolbox.app */,
-				D387EF2C1536EF0400635736 /* AgileToolboxTests.octest */,
+				D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */,
+				D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,6 +206,8 @@
 				D387EF1E1536EF0400635736 /* QATAppDelegate.h */,
 				D387EF1F1536EF0400635736 /* QATAppDelegate.m */,
 				D387EF211536EF0400635736 /* MainStoryboard.storyboard */,
+				D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */,
+				D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */,
 				D387EF241536EF0400635736 /* QATViewController.h */,
 				D387EF251536EF0400635736 /* QATViewController.m */,
 				D387EF441536FADF00635736 /* QATTopicsListViewController.h */,
@@ -555,13 +231,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D387EF331536EF0500635736 /* AgileToolboxTests */ = {
+		D387EF331536EF0500635736 /* ApplicationUnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				D387EF391536EF0500635736 /* AgileToolboxTests.h */,
 				D387EF3A1536EF0500635736 /* AgileToolboxTests.m */,
 				D387EF341536EF0500635736 /* Supporting Files */,
 			);
+			name = ApplicationUnitTests;
 			path = AgileToolboxTests;
 			sourceTree = "<group>";
 		};
@@ -617,527 +294,62 @@
 			path = javascript;
 			sourceTree = "<group>";
 		};
-		D39729F1157D46E4000C1819 /* AcceptanceTests */ = {
+		D3972BA0157D89C7000C1819 /* LogicUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D39729F2157D46E4000C1819 /* HelloWorld-spec.js */,
-				D39729F3157D46E4000C1819 /* jasmine */,
-				D3972AAE157D46E4000C1819 /* jasmine-uiautomation-reporter.js */,
-				D3972AAF157D46E4000C1819 /* jasmine-uiautomation.js */,
-				D3972AB0157D46E4000C1819 /* suite.js */,
+				D3972BA6157D89C7000C1819 /* LogicUnitTests.h */,
+				D3972BA7157D89C7000C1819 /* LogicUnitTests.m */,
+				D3972BA1157D89C7000C1819 /* Supporting Files */,
 			);
-			path = AcceptanceTests;
+			path = LogicUnitTests;
 			sourceTree = "<group>";
 		};
-		D39729F3157D46E4000C1819 /* jasmine */ = {
+		D3972BA1157D89C7000C1819 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D39729F4157D46E4000C1819 /* .gitignore */,
-				D39729F5157D46E4000C1819 /* .gitmodules */,
-				D39729F6157D46E4000C1819 /* .rspec */,
-				D39729F7157D46E4000C1819 /* config.rb */,
-				D39729F8157D46E4000C1819 /* Contribute.markdown */,
-				D39729F9157D46E4000C1819 /* Gemfile */,
-				D39729FA157D46E4000C1819 /* images */,
-				D39729FC157D46E4000C1819 /* jasmine-core.gemspec */,
-				D39729FD157D46E4000C1819 /* jasmine_dev.thor */,
-				D39729FE157D46E4000C1819 /* jsdoc-template */,
-				D3972A09157D46E4000C1819 /* jshint */,
-				D3972A0C157D46E4000C1819 /* lib */,
-				D3972A48157D46E4000C1819 /* MIT.LICENSE */,
-				D3972A49157D46E4000C1819 /* pages */,
-				D3972A4A157D46E4000C1819 /* Rakefile */,
-				D3972A4B157D46E4000C1819 /* README.markdown */,
-				D3972A4C157D46E4000C1819 /* Release.markdown */,
-				D3972A4D157D46E4000C1819 /* spec */,
-				D3972A79157D46E4000C1819 /* src */,
-				D3972A9F157D46E4000C1819 /* tasks */,
+				D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */,
+				D3972BA3157D89C7000C1819 /* InfoPlist.strings */,
+				D3972BA9157D89C7000C1819 /* LogicUnitTests-Prefix.pch */,
 			);
-			path = jasmine;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D39729FA157D46E4000C1819 /* images */ = {
+		D3972BD9157EBAB0000C1819 /* OCMock */ = {
 			isa = PBXGroup;
 			children = (
-				D39729FB157D46E4000C1819 /* jasmine_favicon.png */,
+				D3972BDA157EBAB0000C1819 /* include */,
+				D3972BE2157EBAB0000C1819 /* lib */,
 			);
-			path = images;
+			path = OCMock;
 			sourceTree = "<group>";
 		};
-		D39729FE157D46E4000C1819 /* jsdoc-template */ = {
+		D3972BDA157EBAB0000C1819 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				D39729FF157D46E4000C1819 /* allclasses.tmpl */,
-				D3972A00157D46E4000C1819 /* allfiles.tmpl */,
-				D3972A01157D46E4000C1819 /* class.tmpl */,
-				D3972A02157D46E4000C1819 /* index.tmpl */,
-				D3972A03157D46E4000C1819 /* publish.js */,
-				D3972A04157D46E4000C1819 /* static */,
-				D3972A08157D46E4000C1819 /* symbol.tmpl */,
+				D3972BDB157EBAB0000C1819 /* OCMock */,
 			);
-			path = "jsdoc-template";
+			path = include;
 			sourceTree = "<group>";
 		};
-		D3972A04157D46E4000C1819 /* static */ = {
+		D3972BDB157EBAB0000C1819 /* OCMock */ = {
 			isa = PBXGroup;
 			children = (
-				D3972A05157D46E4000C1819 /* default.css */,
-				D3972A06157D46E4000C1819 /* header.html */,
-				D3972A07157D46E4000C1819 /* index.html */,
+				D3972BDC157EBAB0000C1819 /* NSNotificationCenter+OCMAdditions.h */,
+				D3972BDD157EBAB0000C1819 /* OCMArg.h */,
+				D3972BDE157EBAB0000C1819 /* OCMConstraint.h */,
+				D3972BDF157EBAB0000C1819 /* OCMock.h */,
+				D3972BE0157EBAB0000C1819 /* OCMockObject.h */,
+				D3972BE1157EBAB0000C1819 /* OCMockRecorder.h */,
 			);
-			path = static;
+			path = OCMock;
 			sourceTree = "<group>";
 		};
-		D3972A09157D46E4000C1819 /* jshint */ = {
+		D3972BE2157EBAB0000C1819 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				D3972A0A157D46E4000C1819 /* jshint.js */,
-				D3972A0B157D46E4000C1819 /* run.js */,
-			);
-			path = jshint;
-			sourceTree = "<group>";
-		};
-		D3972A0C157D46E4000C1819 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A0D157D46E4000C1819 /* jasmine-core */,
-				D3972A47157D46E4000C1819 /* jasmine-core.rb */,
+				D3972BE3157EBAB0000C1819 /* libOCMock.a */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		D3972A0D157D46E4000C1819 /* jasmine-core */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A0E157D46E4000C1819 /* example */,
-				D3972A16157D46E4000C1819 /* jasmine-html.js */,
-				D3972A17157D46E4000C1819 /* jasmine.css */,
-				D3972A18157D46E4000C1819 /* jasmine.js */,
-				D3972A19157D46E4000C1819 /* json2.js */,
-				D3972A1A157D46E4000C1819 /* spec */,
-				D3972A46157D46E4000C1819 /* version.rb */,
-			);
-			path = "jasmine-core";
-			sourceTree = "<group>";
-		};
-		D3972A0E157D46E4000C1819 /* example */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A0F157D46E4000C1819 /* spec */,
-				D3972A12157D46E4000C1819 /* SpecRunner.html */,
-				D3972A13157D46E4000C1819 /* src */,
-			);
-			path = example;
-			sourceTree = "<group>";
-		};
-		D3972A0F157D46E4000C1819 /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A10157D46E4000C1819 /* PlayerSpec.js */,
-				D3972A11157D46E4000C1819 /* SpecHelper.js */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		D3972A13157D46E4000C1819 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A14157D46E4000C1819 /* Player.js */,
-				D3972A15157D46E4000C1819 /* Song.js */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		D3972A1A157D46E4000C1819 /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A1B157D46E4000C1819 /* console */,
-				D3972A1D157D46E4000C1819 /* core */,
-				D3972A31157D46E4000C1819 /* html */,
-				D3972A36157D46E4000C1819 /* node_suite.js */,
-				D3972A37157D46E4000C1819 /* runner.html */,
-				D3972A38157D46E4000C1819 /* spec_helper.rb */,
-				D3972A39157D46E4000C1819 /* tasks */,
-				D3972A43157D46E4000C1819 /* templates */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		D3972A1B157D46E4000C1819 /* console */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A1C157D46E4000C1819 /* ConsoleReporterSpec.js */,
-			);
-			path = console;
-			sourceTree = "<group>";
-		};
-		D3972A1D157D46E4000C1819 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A1E157D46E4000C1819 /* BaseSpec.js */,
-				D3972A1F157D46E4000C1819 /* CustomMatchersSpec.js */,
-				D3972A20157D46E4000C1819 /* EnvSpec.js */,
-				D3972A21157D46E4000C1819 /* ExceptionsSpec.js */,
-				D3972A22157D46E4000C1819 /* JsApiReporterSpec.js */,
-				D3972A23157D46E4000C1819 /* MatchersSpec.js */,
-				D3972A24157D46E4000C1819 /* MockClockSpec.js */,
-				D3972A25157D46E4000C1819 /* MultiReporterSpec.js */,
-				D3972A26157D46E4000C1819 /* NestedResultsSpec.js */,
-				D3972A27157D46E4000C1819 /* PrettyPrintSpec.js */,
-				D3972A28157D46E4000C1819 /* QueueSpec.js */,
-				D3972A29157D46E4000C1819 /* ReporterSpec.js */,
-				D3972A2A157D46E4000C1819 /* RunnerSpec.js */,
-				D3972A2B157D46E4000C1819 /* SpecRunningSpec.js */,
-				D3972A2C157D46E4000C1819 /* SpecSpec.js */,
-				D3972A2D157D46E4000C1819 /* SpySpec.js */,
-				D3972A2E157D46E4000C1819 /* SuiteSpec.js */,
-				D3972A2F157D46E4000C1819 /* UtilSpec.js */,
-				D3972A30157D46E4000C1819 /* WaitsForBlockSpec.js */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
-		D3972A31157D46E4000C1819 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A32157D46E4000C1819 /* HTMLReporterSpec.js */,
-				D3972A33157D46E4000C1819 /* MatchersHtmlSpec.js */,
-				D3972A34157D46E4000C1819 /* PrettyPrintHtmlSpec.js */,
-				D3972A35157D46E4000C1819 /* TrivialReporterSpec.js */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		D3972A39157D46E4000C1819 /* tasks */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A3A157D46E4000C1819 /* build_distribution_spec.rb */,
-				D3972A3B157D46E4000C1819 /* build_github_pages_spec.rb */,
-				D3972A3C157D46E4000C1819 /* build_standalone_distribution_spec.rb */,
-				D3972A3D157D46E4000C1819 /* build_standalone_runner_spec.rb */,
-				D3972A3E157D46E4000C1819 /* count_specs_spec.rb */,
-				D3972A3F157D46E4000C1819 /* execute_specs_spec.rb */,
-				D3972A40157D46E4000C1819 /* jshint_spec.rb */,
-				D3972A41157D46E4000C1819 /* release_spec.rb */,
-				D3972A42157D46E4000C1819 /* version_spec.rb */,
-			);
-			path = tasks;
-			sourceTree = "<group>";
-		};
-		D3972A43157D46E4000C1819 /* templates */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A44157D46E4000C1819 /* runner.html.erb */,
-				D3972A45157D46E4000C1819 /* script_tag.html.erb */,
-			);
-			path = templates;
-			sourceTree = "<group>";
-		};
-		D3972A49157D46E4000C1819 /* pages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = pages;
-			sourceTree = "<group>";
-		};
-		D3972A4D157D46E4000C1819 /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A4E157D46E4000C1819 /* console */,
-				D3972A50157D46E4000C1819 /* core */,
-				D3972A64157D46E4000C1819 /* html */,
-				D3972A69157D46E4000C1819 /* node_suite.js */,
-				D3972A6A157D46E4000C1819 /* runner.html */,
-				D3972A6B157D46E4000C1819 /* spec_helper.rb */,
-				D3972A6C157D46E4000C1819 /* tasks */,
-				D3972A76157D46E4000C1819 /* templates */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		D3972A4E157D46E4000C1819 /* console */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A4F157D46E4000C1819 /* ConsoleReporterSpec.js */,
-			);
-			path = console;
-			sourceTree = "<group>";
-		};
-		D3972A50157D46E4000C1819 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A51157D46E4000C1819 /* BaseSpec.js */,
-				D3972A52157D46E4000C1819 /* CustomMatchersSpec.js */,
-				D3972A53157D46E4000C1819 /* EnvSpec.js */,
-				D3972A54157D46E4000C1819 /* ExceptionsSpec.js */,
-				D3972A55157D46E4000C1819 /* JsApiReporterSpec.js */,
-				D3972A56157D46E4000C1819 /* MatchersSpec.js */,
-				D3972A57157D46E4000C1819 /* MockClockSpec.js */,
-				D3972A58157D46E4000C1819 /* MultiReporterSpec.js */,
-				D3972A59157D46E4000C1819 /* NestedResultsSpec.js */,
-				D3972A5A157D46E4000C1819 /* PrettyPrintSpec.js */,
-				D3972A5B157D46E4000C1819 /* QueueSpec.js */,
-				D3972A5C157D46E4000C1819 /* ReporterSpec.js */,
-				D3972A5D157D46E4000C1819 /* RunnerSpec.js */,
-				D3972A5E157D46E4000C1819 /* SpecRunningSpec.js */,
-				D3972A5F157D46E4000C1819 /* SpecSpec.js */,
-				D3972A60157D46E4000C1819 /* SpySpec.js */,
-				D3972A61157D46E4000C1819 /* SuiteSpec.js */,
-				D3972A62157D46E4000C1819 /* UtilSpec.js */,
-				D3972A63157D46E4000C1819 /* WaitsForBlockSpec.js */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
-		D3972A64157D46E4000C1819 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A65157D46E4000C1819 /* HTMLReporterSpec.js */,
-				D3972A66157D46E4000C1819 /* MatchersHtmlSpec.js */,
-				D3972A67157D46E4000C1819 /* PrettyPrintHtmlSpec.js */,
-				D3972A68157D46E4000C1819 /* TrivialReporterSpec.js */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		D3972A6C157D46E4000C1819 /* tasks */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A6D157D46E4000C1819 /* build_distribution_spec.rb */,
-				D3972A6E157D46E4000C1819 /* build_github_pages_spec.rb */,
-				D3972A6F157D46E4000C1819 /* build_standalone_distribution_spec.rb */,
-				D3972A70157D46E4000C1819 /* build_standalone_runner_spec.rb */,
-				D3972A71157D46E4000C1819 /* count_specs_spec.rb */,
-				D3972A72157D46E4000C1819 /* execute_specs_spec.rb */,
-				D3972A73157D46E4000C1819 /* jshint_spec.rb */,
-				D3972A74157D46E4000C1819 /* release_spec.rb */,
-				D3972A75157D46E4000C1819 /* version_spec.rb */,
-			);
-			path = tasks;
-			sourceTree = "<group>";
-		};
-		D3972A76157D46E4000C1819 /* templates */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A77157D46E4000C1819 /* runner.html.erb */,
-				D3972A78157D46E4000C1819 /* script_tag.html.erb */,
-			);
-			path = templates;
-			sourceTree = "<group>";
-		};
-		D3972A79157D46E4000C1819 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A7A157D46E4000C1819 /* console */,
-				D3972A7C157D46E4000C1819 /* core */,
-				D3972A8E157D46E4000C1819 /* html */,
-				D3972A99157D46E4000C1819 /* templates */,
-				D3972A9D157D46E4000C1819 /* version.js */,
-				D3972A9E157D46E4000C1819 /* version.json */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		D3972A7A157D46E4000C1819 /* console */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A7B157D46E4000C1819 /* ConsoleReporter.js */,
-			);
-			path = console;
-			sourceTree = "<group>";
-		};
-		D3972A7C157D46E4000C1819 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A7D157D46E4000C1819 /* base.js */,
-				D3972A7E157D46E4000C1819 /* Block.js */,
-				D3972A7F157D46E4000C1819 /* Env.js */,
-				D3972A80157D46E4000C1819 /* JsApiReporter.js */,
-				D3972A81157D46E4000C1819 /* Matchers.js */,
-				D3972A82157D46E4000C1819 /* mock-timeout.js */,
-				D3972A83157D46E4000C1819 /* MultiReporter.js */,
-				D3972A84157D46E4000C1819 /* NestedResults.js */,
-				D3972A85157D46E4000C1819 /* PrettyPrinter.js */,
-				D3972A86157D46E4000C1819 /* Queue.js */,
-				D3972A87157D46E4000C1819 /* Reporter.js */,
-				D3972A88157D46E4000C1819 /* Runner.js */,
-				D3972A89157D46E4000C1819 /* Spec.js */,
-				D3972A8A157D46E4000C1819 /* Suite.js */,
-				D3972A8B157D46E4000C1819 /* util.js */,
-				D3972A8C157D46E4000C1819 /* WaitsBlock.js */,
-				D3972A8D157D46E4000C1819 /* WaitsForBlock.js */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
-		D3972A8E157D46E4000C1819 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A8F157D46E4000C1819 /* _HTMLReporter.scss */,
-				D3972A90157D46E4000C1819 /* _TrivialReporter.scss */,
-				D3972A91157D46E4000C1819 /* HtmlReporter.js */,
-				D3972A92157D46E4000C1819 /* HtmlReporterHelpers.js */,
-				D3972A93157D46E4000C1819 /* jasmine.css */,
-				D3972A94157D46E4000C1819 /* jasmine.scss */,
-				D3972A95157D46E4000C1819 /* ReporterView.js */,
-				D3972A96157D46E4000C1819 /* SpecView.js */,
-				D3972A97157D46E4000C1819 /* SuiteView.js */,
-				D3972A98157D46E4000C1819 /* TrivialReporter.js */,
-			);
-			path = html;
-			sourceTree = "<group>";
-		};
-		D3972A99157D46E4000C1819 /* templates */ = {
-			isa = PBXGroup;
-			children = (
-				D3972A9A157D46E4000C1819 /* example_project_jasmine_tags.html.erb */,
-				D3972A9B157D46E4000C1819 /* version.js.erb */,
-				D3972A9C157D46E4000C1819 /* version.rb.erb */,
-			);
-			path = templates;
-			sourceTree = "<group>";
-		};
-		D3972A9F157D46E4000C1819 /* tasks */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AA0157D46E4000C1819 /* docs.rb */,
-				D3972AA1157D46E4000C1819 /* jasmine_dev */,
-				D3972AAD157D46E4000C1819 /* jasmine_dev.rb */,
-			);
-			path = tasks;
-			sourceTree = "<group>";
-		};
-		D3972AA1157D46E4000C1819 /* jasmine_dev */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AA2157D46E4000C1819 /* base.rb */,
-				D3972AA3157D46E4000C1819 /* build_distribution.rb */,
-				D3972AA4157D46E4000C1819 /* build_github_pages.rb */,
-				D3972AA5157D46E4000C1819 /* build_standalone_distribution.rb */,
-				D3972AA6157D46E4000C1819 /* build_standalone_runner.rb */,
-				D3972AA7157D46E4000C1819 /* count_specs.rb */,
-				D3972AA8157D46E4000C1819 /* execute_specs.rb */,
-				D3972AA9157D46E4000C1819 /* js_hint.rb */,
-				D3972AAA157D46E4000C1819 /* release.rb */,
-				D3972AAB157D46E4000C1819 /* sources.rb */,
-				D3972AAC157D46E4000C1819 /* version.rb */,
-			);
-			path = jasmine_dev;
-			sourceTree = "<group>";
-		};
-		D3972AB1157D46E4000C1819 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AB2157D46E4000C1819 /* bin */,
-				D3972AB6157D46E4000C1819 /* features */,
-				D3972AC2157D46E4000C1819 /* lib */,
-				D3972ACA157D46E4000C1819 /* spec */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		D3972AB2157D46E4000C1819 /* bin */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AB3157D46E4000C1819 /* execute_acceptance_tests.rb */,
-				D3972AB4157D46E4000C1819 /* parse_automation_log.rb */,
-				D3972AB5157D46E4000C1819 /* sleeper.rb */,
-			);
-			path = bin;
-			sourceTree = "<group>";
-		};
-		D3972AB6157D46E4000C1819 /* features */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AB7157D46E4000C1819 /* fixtures */,
-				D3972ABB157D46E4000C1819 /* parse_automation_log.feature */,
-				D3972ABC157D46E4000C1819 /* runners.feature */,
-				D3972ABD157D46E4000C1819 /* step_definitions */,
-				D3972AC0157D46E4000C1819 /* support */,
-			);
-			path = features;
-			sourceTree = "<group>";
-		};
-		D3972AB7157D46E4000C1819 /* fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AB8157D46E4000C1819 /* NoFailures.plist */,
-				D3972AB9157D46E4000C1819 /* OneFailure.plist */,
-				D3972ABA157D46E4000C1819 /* TwoFailures.plist */,
-			);
-			path = fixtures;
-			sourceTree = "<group>";
-		};
-		D3972ABD157D46E4000C1819 /* step_definitions */ = {
-			isa = PBXGroup;
-			children = (
-				D3972ABE157D46E4000C1819 /* Helpers_steps.rb */,
-				D3972ABF157D46E4000C1819 /* Runners_steps.rb */,
-			);
-			path = step_definitions;
-			sourceTree = "<group>";
-		};
-		D3972AC0157D46E4000C1819 /* support */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AC1157D46E4000C1819 /* env.rb */,
-			);
-			path = support;
-			sourceTree = "<group>";
-		};
-		D3972AC2157D46E4000C1819 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AC3157D46E4000C1819 /* Helpers */,
-				D3972AC5157D46E4000C1819 /* Helpers.rb */,
-				D3972AC6157D46E4000C1819 /* Runners */,
-				D3972AC9157D46E4000C1819 /* Runners.rb */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		D3972AC3157D46E4000C1819 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AC4157D46E4000C1819 /* Parser.rb */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		D3972AC6157D46E4000C1819 /* Runners */ = {
-			isa = PBXGroup;
-			children = (
-				D3972AC7157D46E4000C1819 /* HangupDetector.rb */,
-				D3972AC8157D46E4000C1819 /* SimpleRunner.rb */,
-			);
-			path = Runners;
-			sourceTree = "<group>";
-		};
-		D3972ACA157D46E4000C1819 /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				D3972ACB157D46E4000C1819 /* Helpers */,
-				D3972ACD157D46E4000C1819 /* Runners */,
-				D3972AD0157D46E4000C1819 /* spec_helper.rb */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		D3972ACB157D46E4000C1819 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				D3972ACC157D46E4000C1819 /* Parser_spec.rb */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		D3972ACD157D46E4000C1819 /* Runners */ = {
-			isa = PBXGroup;
-			children = (
-				D3972ACE157D46E4000C1819 /* HungupDetector_spec.rb */,
-				D3972ACF157D46E4000C1819 /* SimpleRunner_spec.rb */,
-			);
-			path = Runners;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1160,9 +372,9 @@
 			productReference = D387EF0B1536EF0400635736 /* AgileToolbox.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D387EF2B1536EF0400635736 /* AgileToolboxTests */ = {
+		D387EF2B1536EF0400635736 /* ApplicationUnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "AgileToolboxTests" */;
+			buildConfigurationList = D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "ApplicationUnitTests" */;
 			buildPhases = (
 				D387EF271536EF0400635736 /* Sources */,
 				D387EF281536EF0400635736 /* Frameworks */,
@@ -1174,9 +386,27 @@
 			dependencies = (
 				D387EF321536EF0500635736 /* PBXTargetDependency */,
 			);
-			name = AgileToolboxTests;
+			name = ApplicationUnitTests;
 			productName = AgileToolboxTests;
-			productReference = D387EF2C1536EF0400635736 /* AgileToolboxTests.octest */;
+			productReference = D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		D3972B9B157D89C7000C1819 /* LogicUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3972BAA157D89C7000C1819 /* Build configuration list for PBXNativeTarget "LogicUnitTests" */;
+			buildPhases = (
+				D3972B97157D89C7000C1819 /* Sources */,
+				D3972B98157D89C7000C1819 /* Frameworks */,
+				D3972B99157D89C7000C1819 /* Resources */,
+				D3972B9A157D89C7000C1819 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LogicUnitTests;
+			productName = LogicUnitTests;
+			productReference = D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1201,7 +431,8 @@
 			projectRoot = "";
 			targets = (
 				D387EF0A1536EF0400635736 /* AgileToolbox */,
-				D387EF2B1536EF0400635736 /* AgileToolboxTests */,
+				D387EF2B1536EF0400635736 /* ApplicationUnitTests */,
+				D3972B9B157D89C7000C1819 /* LogicUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1234,98 +465,6 @@
 				D3972852157D07FC000C1819 /* QuantumNavigationBarLogo@2x.png in Resources */,
 				D3972859157D0811000C1819 /* ProductOwner.html in Resources */,
 				D397285A157D0811000C1819 /* ScrumMaster.html in Resources */,
-				D3972AD2157D46E4000C1819 /* .gitignore in Resources */,
-				D3972AD3157D46E4000C1819 /* .gitmodules in Resources */,
-				D3972AD4157D46E4000C1819 /* .rspec in Resources */,
-				D3972AD5157D46E4000C1819 /* config.rb in Resources */,
-				D3972AD6157D46E4000C1819 /* Contribute.markdown in Resources */,
-				D3972AD7157D46E4000C1819 /* Gemfile in Resources */,
-				D3972AD8157D46E4000C1819 /* jasmine_favicon.png in Resources */,
-				D3972AD9157D46E4000C1819 /* jasmine-core.gemspec in Resources */,
-				D3972ADA157D46E4000C1819 /* jasmine_dev.thor in Resources */,
-				D3972ADB157D46E4000C1819 /* allclasses.tmpl in Resources */,
-				D3972ADC157D46E4000C1819 /* allfiles.tmpl in Resources */,
-				D3972ADD157D46E4000C1819 /* class.tmpl in Resources */,
-				D3972ADE157D46E4000C1819 /* index.tmpl in Resources */,
-				D3972AE0157D46E4000C1819 /* default.css in Resources */,
-				D3972AE1157D46E4000C1819 /* header.html in Resources */,
-				D3972AE2157D46E4000C1819 /* index.html in Resources */,
-				D3972AE3157D46E4000C1819 /* symbol.tmpl in Resources */,
-				D3972AE8157D46E4000C1819 /* SpecRunner.html in Resources */,
-				D3972AEC157D46E4000C1819 /* jasmine.css in Resources */,
-				D3972B08157D46E4000C1819 /* runner.html in Resources */,
-				D3972B09157D46E4000C1819 /* spec_helper.rb in Resources */,
-				D3972B0A157D46E4000C1819 /* build_distribution_spec.rb in Resources */,
-				D3972B0B157D46E4000C1819 /* build_github_pages_spec.rb in Resources */,
-				D3972B0C157D46E4000C1819 /* build_standalone_distribution_spec.rb in Resources */,
-				D3972B0D157D46E4000C1819 /* build_standalone_runner_spec.rb in Resources */,
-				D3972B0E157D46E4000C1819 /* count_specs_spec.rb in Resources */,
-				D3972B0F157D46E4000C1819 /* execute_specs_spec.rb in Resources */,
-				D3972B10157D46E4000C1819 /* jshint_spec.rb in Resources */,
-				D3972B11157D46E4000C1819 /* release_spec.rb in Resources */,
-				D3972B12157D46E4000C1819 /* version_spec.rb in Resources */,
-				D3972B13157D46E4000C1819 /* runner.html.erb in Resources */,
-				D3972B14157D46E4000C1819 /* script_tag.html.erb in Resources */,
-				D3972B15157D46E4000C1819 /* version.rb in Resources */,
-				D3972B16157D46E4000C1819 /* jasmine-core.rb in Resources */,
-				D3972B17157D46E4000C1819 /* MIT.LICENSE in Resources */,
-				D3972B18157D46E4000C1819 /* Rakefile in Resources */,
-				D3972B19157D46E4000C1819 /* README.markdown in Resources */,
-				D3972B1A157D46E4000C1819 /* Release.markdown in Resources */,
-				D3972B34157D46E4000C1819 /* runner.html in Resources */,
-				D3972B35157D46E4000C1819 /* spec_helper.rb in Resources */,
-				D3972B36157D46E4000C1819 /* build_distribution_spec.rb in Resources */,
-				D3972B37157D46E4000C1819 /* build_github_pages_spec.rb in Resources */,
-				D3972B38157D46E4000C1819 /* build_standalone_distribution_spec.rb in Resources */,
-				D3972B39157D46E4000C1819 /* build_standalone_runner_spec.rb in Resources */,
-				D3972B3A157D46E4000C1819 /* count_specs_spec.rb in Resources */,
-				D3972B3B157D46E4000C1819 /* execute_specs_spec.rb in Resources */,
-				D3972B3C157D46E4000C1819 /* jshint_spec.rb in Resources */,
-				D3972B3D157D46E4000C1819 /* release_spec.rb in Resources */,
-				D3972B3E157D46E4000C1819 /* version_spec.rb in Resources */,
-				D3972B3F157D46E4000C1819 /* runner.html.erb in Resources */,
-				D3972B40157D46E4000C1819 /* script_tag.html.erb in Resources */,
-				D3972B53157D46E4000C1819 /* _HTMLReporter.scss in Resources */,
-				D3972B54157D46E4000C1819 /* _TrivialReporter.scss in Resources */,
-				D3972B57157D46E4000C1819 /* jasmine.css in Resources */,
-				D3972B58157D46E4000C1819 /* jasmine.scss in Resources */,
-				D3972B5D157D46E5000C1819 /* example_project_jasmine_tags.html.erb in Resources */,
-				D3972B5E157D46E5000C1819 /* version.js.erb in Resources */,
-				D3972B5F157D46E5000C1819 /* version.rb.erb in Resources */,
-				D3972B61157D46E5000C1819 /* version.json in Resources */,
-				D3972B62157D46E5000C1819 /* docs.rb in Resources */,
-				D3972B63157D46E5000C1819 /* base.rb in Resources */,
-				D3972B64157D46E5000C1819 /* build_distribution.rb in Resources */,
-				D3972B65157D46E5000C1819 /* build_github_pages.rb in Resources */,
-				D3972B66157D46E5000C1819 /* build_standalone_distribution.rb in Resources */,
-				D3972B67157D46E5000C1819 /* build_standalone_runner.rb in Resources */,
-				D3972B68157D46E5000C1819 /* count_specs.rb in Resources */,
-				D3972B69157D46E5000C1819 /* execute_specs.rb in Resources */,
-				D3972B6A157D46E5000C1819 /* js_hint.rb in Resources */,
-				D3972B6B157D46E5000C1819 /* release.rb in Resources */,
-				D3972B6C157D46E5000C1819 /* sources.rb in Resources */,
-				D3972B6D157D46E5000C1819 /* version.rb in Resources */,
-				D3972B6E157D46E5000C1819 /* jasmine_dev.rb in Resources */,
-				D3972B72157D46E5000C1819 /* execute_acceptance_tests.rb in Resources */,
-				D3972B73157D46E5000C1819 /* parse_automation_log.rb in Resources */,
-				D3972B74157D46E5000C1819 /* sleeper.rb in Resources */,
-				D3972B75157D46E5000C1819 /* NoFailures.plist in Resources */,
-				D3972B76157D46E5000C1819 /* OneFailure.plist in Resources */,
-				D3972B77157D46E5000C1819 /* TwoFailures.plist in Resources */,
-				D3972B78157D46E5000C1819 /* parse_automation_log.feature in Resources */,
-				D3972B79157D46E5000C1819 /* runners.feature in Resources */,
-				D3972B7A157D46E5000C1819 /* Helpers_steps.rb in Resources */,
-				D3972B7B157D46E5000C1819 /* Runners_steps.rb in Resources */,
-				D3972B7C157D46E5000C1819 /* env.rb in Resources */,
-				D3972B7D157D46E5000C1819 /* Parser.rb in Resources */,
-				D3972B7E157D46E5000C1819 /* Helpers.rb in Resources */,
-				D3972B7F157D46E5000C1819 /* HangupDetector.rb in Resources */,
-				D3972B80157D46E5000C1819 /* SimpleRunner.rb in Resources */,
-				D3972B81157D46E5000C1819 /* Runners.rb in Resources */,
-				D3972B82157D46E5000C1819 /* Parser_spec.rb in Resources */,
-				D3972B83157D46E5000C1819 /* HungupDetector_spec.rb in Resources */,
-				D3972B84157D46E5000C1819 /* SimpleRunner_spec.rb in Resources */,
-				D3972B85157D46E5000C1819 /* spec_helper.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1337,10 +476,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3972B99157D89C7000C1819 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		D387EF2A1536EF0400635736 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${PROJECT_DIR}/XcodeScripts/RunPlatformUnitTests\"\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		D3972B9A157D89C7000C1819 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1366,95 +526,7 @@
 				D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */,
 				D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */,
 				D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */,
-				D3972AD1157D46E4000C1819 /* HelloWorld-spec.js in Sources */,
-				D3972ADF157D46E4000C1819 /* publish.js in Sources */,
-				D3972AE4157D46E4000C1819 /* jshint.js in Sources */,
-				D3972AE5157D46E4000C1819 /* run.js in Sources */,
-				D3972AE6157D46E4000C1819 /* PlayerSpec.js in Sources */,
-				D3972AE7157D46E4000C1819 /* SpecHelper.js in Sources */,
-				D3972AE9157D46E4000C1819 /* Player.js in Sources */,
-				D3972AEA157D46E4000C1819 /* Song.js in Sources */,
-				D3972AEB157D46E4000C1819 /* jasmine-html.js in Sources */,
-				D3972AED157D46E4000C1819 /* jasmine.js in Sources */,
-				D3972AEE157D46E4000C1819 /* json2.js in Sources */,
-				D3972AEF157D46E4000C1819 /* ConsoleReporterSpec.js in Sources */,
-				D3972AF0157D46E4000C1819 /* BaseSpec.js in Sources */,
-				D3972AF1157D46E4000C1819 /* CustomMatchersSpec.js in Sources */,
-				D3972AF2157D46E4000C1819 /* EnvSpec.js in Sources */,
-				D3972AF3157D46E4000C1819 /* ExceptionsSpec.js in Sources */,
-				D3972AF4157D46E4000C1819 /* JsApiReporterSpec.js in Sources */,
-				D3972AF5157D46E4000C1819 /* MatchersSpec.js in Sources */,
-				D3972AF6157D46E4000C1819 /* MockClockSpec.js in Sources */,
-				D3972AF7157D46E4000C1819 /* MultiReporterSpec.js in Sources */,
-				D3972AF8157D46E4000C1819 /* NestedResultsSpec.js in Sources */,
-				D3972AF9157D46E4000C1819 /* PrettyPrintSpec.js in Sources */,
-				D3972AFA157D46E4000C1819 /* QueueSpec.js in Sources */,
-				D3972AFB157D46E4000C1819 /* ReporterSpec.js in Sources */,
-				D3972AFC157D46E4000C1819 /* RunnerSpec.js in Sources */,
-				D3972AFD157D46E4000C1819 /* SpecRunningSpec.js in Sources */,
-				D3972AFE157D46E4000C1819 /* SpecSpec.js in Sources */,
-				D3972AFF157D46E4000C1819 /* SpySpec.js in Sources */,
-				D3972B00157D46E4000C1819 /* SuiteSpec.js in Sources */,
-				D3972B01157D46E4000C1819 /* UtilSpec.js in Sources */,
-				D3972B02157D46E4000C1819 /* WaitsForBlockSpec.js in Sources */,
-				D3972B03157D46E4000C1819 /* HTMLReporterSpec.js in Sources */,
-				D3972B04157D46E4000C1819 /* MatchersHtmlSpec.js in Sources */,
-				D3972B05157D46E4000C1819 /* PrettyPrintHtmlSpec.js in Sources */,
-				D3972B06157D46E4000C1819 /* TrivialReporterSpec.js in Sources */,
-				D3972B07157D46E4000C1819 /* node_suite.js in Sources */,
-				D3972B1B157D46E4000C1819 /* ConsoleReporterSpec.js in Sources */,
-				D3972B1C157D46E4000C1819 /* BaseSpec.js in Sources */,
-				D3972B1D157D46E4000C1819 /* CustomMatchersSpec.js in Sources */,
-				D3972B1E157D46E4000C1819 /* EnvSpec.js in Sources */,
-				D3972B1F157D46E4000C1819 /* ExceptionsSpec.js in Sources */,
-				D3972B20157D46E4000C1819 /* JsApiReporterSpec.js in Sources */,
-				D3972B21157D46E4000C1819 /* MatchersSpec.js in Sources */,
-				D3972B22157D46E4000C1819 /* MockClockSpec.js in Sources */,
-				D3972B23157D46E4000C1819 /* MultiReporterSpec.js in Sources */,
-				D3972B24157D46E4000C1819 /* NestedResultsSpec.js in Sources */,
-				D3972B25157D46E4000C1819 /* PrettyPrintSpec.js in Sources */,
-				D3972B26157D46E4000C1819 /* QueueSpec.js in Sources */,
-				D3972B27157D46E4000C1819 /* ReporterSpec.js in Sources */,
-				D3972B28157D46E4000C1819 /* RunnerSpec.js in Sources */,
-				D3972B29157D46E4000C1819 /* SpecRunningSpec.js in Sources */,
-				D3972B2A157D46E4000C1819 /* SpecSpec.js in Sources */,
-				D3972B2B157D46E4000C1819 /* SpySpec.js in Sources */,
-				D3972B2C157D46E4000C1819 /* SuiteSpec.js in Sources */,
-				D3972B2D157D46E4000C1819 /* UtilSpec.js in Sources */,
-				D3972B2E157D46E4000C1819 /* WaitsForBlockSpec.js in Sources */,
-				D3972B2F157D46E4000C1819 /* HTMLReporterSpec.js in Sources */,
-				D3972B30157D46E4000C1819 /* MatchersHtmlSpec.js in Sources */,
-				D3972B31157D46E4000C1819 /* PrettyPrintHtmlSpec.js in Sources */,
-				D3972B32157D46E4000C1819 /* TrivialReporterSpec.js in Sources */,
-				D3972B33157D46E4000C1819 /* node_suite.js in Sources */,
-				D3972B41157D46E4000C1819 /* ConsoleReporter.js in Sources */,
-				D3972B42157D46E4000C1819 /* base.js in Sources */,
-				D3972B43157D46E4000C1819 /* Block.js in Sources */,
-				D3972B44157D46E4000C1819 /* Env.js in Sources */,
-				D3972B45157D46E4000C1819 /* JsApiReporter.js in Sources */,
-				D3972B46157D46E4000C1819 /* Matchers.js in Sources */,
-				D3972B47157D46E4000C1819 /* mock-timeout.js in Sources */,
-				D3972B48157D46E4000C1819 /* MultiReporter.js in Sources */,
-				D3972B49157D46E4000C1819 /* NestedResults.js in Sources */,
-				D3972B4A157D46E4000C1819 /* PrettyPrinter.js in Sources */,
-				D3972B4B157D46E4000C1819 /* Queue.js in Sources */,
-				D3972B4C157D46E4000C1819 /* Reporter.js in Sources */,
-				D3972B4D157D46E4000C1819 /* Runner.js in Sources */,
-				D3972B4E157D46E4000C1819 /* Spec.js in Sources */,
-				D3972B4F157D46E4000C1819 /* Suite.js in Sources */,
-				D3972B50157D46E4000C1819 /* util.js in Sources */,
-				D3972B51157D46E4000C1819 /* WaitsBlock.js in Sources */,
-				D3972B52157D46E4000C1819 /* WaitsForBlock.js in Sources */,
-				D3972B55157D46E4000C1819 /* HtmlReporter.js in Sources */,
-				D3972B56157D46E4000C1819 /* HtmlReporterHelpers.js in Sources */,
-				D3972B59157D46E4000C1819 /* ReporterView.js in Sources */,
-				D3972B5A157D46E5000C1819 /* SpecView.js in Sources */,
-				D3972B5B157D46E5000C1819 /* SuiteView.js in Sources */,
-				D3972B5C157D46E5000C1819 /* TrivialReporter.js in Sources */,
-				D3972B60157D46E5000C1819 /* version.js in Sources */,
-				D3972B6F157D46E5000C1819 /* jasmine-uiautomation-reporter.js in Sources */,
-				D3972B70157D46E5000C1819 /* jasmine-uiautomation.js in Sources */,
-				D3972B71157D46E5000C1819 /* suite.js in Sources */,
+				D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1463,6 +535,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF3B1536EF0500635736 /* AgileToolboxTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3972B97157D89C7000C1819 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3972BA8157D89C7000C1819 /* LogicUnitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,6 +577,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				D387EF371536EF0500635736 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3972BA3157D89C7000C1819 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3972BA4157D89C7000C1819 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1581,7 +669,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "AgileToolboxTests/AgileToolboxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1598,9 +695,68 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "AgileToolboxTests/AgileToolboxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		D3972BAB157D89C7000C1819 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicUnitTests/LogicUnitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
+				INFOPLIST_FILE = "LogicUnitTests/LogicUnitTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D3972BAC157D89C7000C1819 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicUnitTests/LogicUnitTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
+				INFOPLIST_FILE = "LogicUnitTests/LogicUnitTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -1626,7 +782,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "AgileToolboxTests" */ = {
+		D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "ApplicationUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D387EF421536EF0500635736 /* Debug */,
@@ -1634,6 +790,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D3972BAA157D89C7000C1819 /* Build configuration list for PBXNativeTarget "LogicUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3972BAB157D89C7000C1819 /* Debug */,
+				D3972BAC157D89C7000C1819 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,7 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "QATMainMenuListViewController.h"
+#import "QATAppDelegate.h"
 
 @interface AgileToolboxTests : SenTestCase
+
+@property (nonatomic,weak) QATMainMenuListViewController *vc;
 
 @end
