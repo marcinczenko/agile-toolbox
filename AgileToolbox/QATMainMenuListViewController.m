@@ -47,6 +47,18 @@
 {
     [super viewWillAppear:animated];
     
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://192.168.0.31:4443/ready"]];
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://localhost:4443/ready"]];
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://localhost/ready"]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/ready"]];
+    NSURLResponse* response = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
+    
+    NSLog(@"Status:%d",[(NSHTTPURLResponse*)response statusCode]);
+
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"data:%@",str);
+    
     UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"QuantumNavigationBarLogo"]];
     
     self.navigationItem.titleView = quantumLogo;

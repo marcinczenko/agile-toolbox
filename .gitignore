@@ -12,3 +12,13 @@ Snapshots
 
 # osx noise
 .DS_Store
+
+# Python noise
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+
+# TextMate noise
+*.tmproj
