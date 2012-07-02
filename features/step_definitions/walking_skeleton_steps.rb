@@ -1,10 +1,10 @@
 def wait_for_google_mock_to_start(failure_message)
   begin
-    Capybara.default_wait_time = 5
+    Capybara.default_wait_time = 7
     wait_until { get_from_uri("https://quantumagiletoolbox-dev.appspot.com/ready")  }
     yield if block_given?
   rescue Capybara::TimeoutError
-    flunk failure_message
+    raise failure_message
   end
 end
 
@@ -35,6 +35,7 @@ Given /^Google App Engine Server Mock with (\d+) items is started$/ do |arg1|
 end
 
 After do
+  # We have use a separate runner to kill the app becuase we running as the root user.
   killer = Runners::SimpleRunner.new("sudo kill -s INT #{@google_mock.pid()}")
   killer.start()
   killer.wait()

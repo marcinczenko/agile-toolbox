@@ -45,7 +45,7 @@
         <scene sceneID="cog-VE-oK8">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJL-R1-Qqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="Apw-M0-h7f" userLabel="Questions" sceneMemberID="viewController">
+                <tableViewController id="Apw-M0-h7f" userLabel="Questions" customClass="QATQuestionsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h8r-iv-cG4">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,6 +95,9 @@
     <classes>
         <class className="QATMainMenuListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QATMainMenuListViewController.h"/>
+        </class>
+        <class className="QATQuestionsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QATQuestionsTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

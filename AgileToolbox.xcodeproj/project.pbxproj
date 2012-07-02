@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
 		D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
@@ -65,6 +66,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D5421D91595148A0079061F /* QATQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsTableViewController.h; sourceTree = "<group>"; };
+		6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewController.m; sourceTree = "<group>"; };
 		D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPlanningPokerViewController.h; sourceTree = "<group>"; };
 		D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPlanningPokerViewController.m; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +219,8 @@
 				D387EF481537192600635736 /* QATTopicDetailsViewController.m */,
 				D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */,
 				D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */,
+				6D5421D91595148A0079061F /* QATQuestionsTableViewController.h */,
+				6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */,
 				D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */,
 				D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */,
+				6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +806,7 @@
 				D3972BAC157D89C7000C1819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

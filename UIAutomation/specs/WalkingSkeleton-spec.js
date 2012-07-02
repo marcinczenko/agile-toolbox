@@ -16,12 +16,12 @@ describe("Walking Skeleton", function() {
     
         mainWindow.tableViews()["MenuList"].cells()["Q&A"].tap();
         
-        //mainWindow.logElementTree();
+        mainWindow.logElementTree();
         
-        //UIALogger.logMessage(mainWindow.tableViews()["QuestionList"].checkIsValid().toString());
+        UIALogger.logMessage(mainWindow.tableViews()["Questions"].checkIsValid().toString());
         
-        expect(mainWindow.tableViews()["QuestionList"].checkIsValid()).toBe(true);
+        expect(mainWindow.tableViews()["Questions"].checkIsValid()).toBe(true);
         
-        expect(mainWindow.tableViews()["QuestionList"].cells().length).toEqual(0);
+        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(0);
     });
 });
