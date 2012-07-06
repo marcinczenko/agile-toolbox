@@ -3,7 +3,7 @@
 //  AgileToolbox
 //
 //  Created by AtrBea on 6/22/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
 #import "QATQuestionsTableViewController.h"

@@ -15,10 +15,9 @@ $exit_code = 0
 def instruments_command()
   template = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Instruments/PlugIns/AutomationInstrument.bundle/Contents/Resources/Automation.tracetemplate"
   app = "#{ENV['HOME']}/UIAutomation/build/bin/Release-iphonesimulator/HelloWorld.app"
-  script = "#{ENV['WORKSPACE']}/JasmineStyleUIAutomationTests/suite.js"
+  script = "#{ENV['WORKSPACE']}/UIAutomationTests/suite.js"
   log = "#{ENV['HOME']}/UIAutomation/log"
   puts "instruments -t '#{template}' '#{app}' -e UIASCRIPT '#{script}' -e UIARESULTSPATH '#{log}'"
-  # "instruments -t #{template} #{app} -e UIASCRIPT #{script} -e UIARESULTSPATH #{log}"
   "instruments -t '#{template}' '#{app}' -e UIASCRIPT '#{script}' -e UIARESULTSPATH '#{log}'"
 end
 

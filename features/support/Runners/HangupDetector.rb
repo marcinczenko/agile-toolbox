@@ -24,7 +24,7 @@ module Runners
             end
             if !@monitorStop
                 @observers.each do |observer|
-                    observer.notify()
+                    observer.notify('INT')
                 end                
             end
         end

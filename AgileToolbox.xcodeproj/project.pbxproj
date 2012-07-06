@@ -53,6 +53,14 @@
 		D3972BA8157D89C7000C1819 /* LogicUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972BA7157D89C7000C1819 /* LogicUnitTests.m */; };
 		D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
+		D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
+		D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5E615A4544200F0900D /* QATConnection.m */; };
+		D3C1F5EE15A4544300F0900D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
+		D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
+		D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
+		D3C1F5F315A4544300F0900D /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		D3C1F5F915A4544300F0900D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3C1F5F715A4544300F0900D /* InfoPlist.strings */; };
+		D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +70,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D387EF0A1536EF0400635736;
 			remoteInfo = AgileToolbox;
+		};
+		D3C1F5F115A4544300F0900D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D387EF021536EF0400635736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
+			remoteInfo = QATLibrary;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -119,7 +134,6 @@
 		D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicUnitTests-Info.plist"; sourceTree = "<group>"; };
 		D3972BA4157D89C7000C1819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D3972BA6157D89C7000C1819 /* LogicUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogicUnitTests.h; sourceTree = "<group>"; };
 		D3972BA7157D89C7000C1819 /* LogicUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicUnitTests.m; sourceTree = "<group>"; };
 		D3972BA9157D89C7000C1819 /* LogicUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D3972BDC157EBAB0000C1819 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
@@ -129,6 +143,14 @@
 		D3972BE0157EBAB0000C1819 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		D3972BE1157EBAB0000C1819 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		D3972BE3157EBAB0000C1819 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATConnectionTests.m; path = ../LogicUnitTests/QATConnectionTests.m; sourceTree = "<group>"; };
+		D3C1F5E015A4544200F0900D /* libQATLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQATLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATLibrary-Prefix.pch"; sourceTree = "<group>"; };
+		D3C1F5E515A4544200F0900D /* QATConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATConnection.h; sourceTree = "<group>"; };
+		D3C1F5E615A4544200F0900D /* QATConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATConnection.m; sourceTree = "<group>"; };
+		D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QATLibraryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QATLibraryTests-Info.plist"; sourceTree = "<group>"; };
+		D3C1F5F815A4544300F0900D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +186,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3C1F5DD15A4544200F0900D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3C1F5E915A4544200F0900D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3C1F5EE15A4544300F0900D /* SenTestingKit.framework in Frameworks */,
+				D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */,
+				D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */,
+				D3C1F5F315A4544300F0900D /* libQATLibrary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -174,6 +215,8 @@
 				D387EF151536EF0400635736 /* AgileToolbox */,
 				D387EF331536EF0500635736 /* ApplicationUnitTests */,
 				D3972BA0157D89C7000C1819 /* LogicUnitTests */,
+				D3C1F5E215A4544200F0900D /* QATLibrary */,
+				D3C1F5F415A4544300F0900D /* QATLibraryTests */,
 				D387EF0E1536EF0400635736 /* Frameworks */,
 				D387EF0C1536EF0400635736 /* Products */,
 			);
@@ -185,6 +228,8 @@
 				D387EF0B1536EF0400635736 /* AgileToolbox.app */,
 				D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */,
 				D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */,
+				D3C1F5E015A4544200F0900D /* libQATLibrary.a */,
+				D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,7 +347,6 @@
 		D3972BA0157D89C7000C1819 /* LogicUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3972BA6157D89C7000C1819 /* LogicUnitTests.h */,
 				D3972BA7157D89C7000C1819 /* LogicUnitTests.m */,
 				D3972BA1157D89C7000C1819 /* Supporting Files */,
 			);
@@ -357,7 +401,53 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		D3C1F5E215A4544200F0900D /* QATLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				D3C1F5E515A4544200F0900D /* QATConnection.h */,
+				D3C1F5E615A4544200F0900D /* QATConnection.m */,
+				D3C1F5E315A4544200F0900D /* Supporting Files */,
+			);
+			path = QATLibrary;
+			sourceTree = "<group>";
+		};
+		D3C1F5E315A4544200F0900D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3C1F5F415A4544300F0900D /* QATLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */,
+				D3C1F5F515A4544300F0900D /* Supporting Files */,
+			);
+			path = QATLibraryTests;
+			sourceTree = "<group>";
+		};
+		D3C1F5F515A4544300F0900D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */,
+				D3C1F5F715A4544300F0900D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D3C1F5DE15A4544200F0900D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		D387EF0A1536EF0400635736 /* AgileToolbox */ = {
@@ -414,6 +504,42 @@
 			productReference = D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		D3C1F5DF15A4544200F0900D /* QATLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibrary" */;
+			buildPhases = (
+				D3C1F5DC15A4544200F0900D /* Sources */,
+				D3C1F5DD15A4544200F0900D /* Frameworks */,
+				D3C1F5DE15A4544200F0900D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QATLibrary;
+			productName = QATLibrary;
+			productReference = D3C1F5E015A4544200F0900D /* libQATLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D3C1F5EC15A4544200F0900D /* QATLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibraryTests" */;
+			buildPhases = (
+				D3C1F5E815A4544200F0900D /* Sources */,
+				D3C1F5E915A4544200F0900D /* Frameworks */,
+				D3C1F5EA15A4544200F0900D /* Resources */,
+				D3C1F5EB15A4544200F0900D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3C1F5F215A4544300F0900D /* PBXTargetDependency */,
+			);
+			name = QATLibraryTests;
+			productName = QATLibraryTests;
+			productReference = D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -438,6 +564,8 @@
 				D387EF0A1536EF0400635736 /* AgileToolbox */,
 				D387EF2B1536EF0400635736 /* ApplicationUnitTests */,
 				D3972B9B157D89C7000C1819 /* LogicUnitTests */,
+				D3C1F5DF15A4544200F0900D /* QATLibrary */,
+				D3C1F5EC15A4544200F0900D /* QATLibraryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -489,6 +617,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3C1F5EA15A4544200F0900D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3C1F5F915A4544300F0900D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -506,6 +642,19 @@
 			shellScript = "# Run the unit tests in this test bundle.\n\"${PROJECT_DIR}/XcodeScripts/RunPlatformUnitTests\"\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		D3972B9A157D89C7000C1819 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		D3C1F5EB15A4544200F0900D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -552,6 +701,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D3C1F5DC15A4544200F0900D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3C1F5E815A4544200F0900D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -559,6 +724,11 @@
 			isa = PBXTargetDependency;
 			target = D387EF0A1536EF0400635736 /* AgileToolbox */;
 			targetProxy = D387EF311536EF0500635736 /* PBXContainerItemProxy */;
+		};
+		D3C1F5F215A4544300F0900D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			targetProxy = D3C1F5F115A4544300F0900D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -591,6 +761,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				D3972BA4157D89C7000C1819 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3C1F5F715A4544300F0900D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3C1F5F815A4544300F0900D /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -769,6 +947,80 @@
 			};
 			name = Release;
 		};
+		D3C1F5FE15A4544300F0900D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/QATLibrary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D3C1F5FF15A4544300F0900D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/QATLibrary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D3C1F60115A4544300F0900D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
+				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D3C1F60215A4544300F0900D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
+				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -807,6 +1059,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3C1F5FE15A4544300F0900D /* Debug */,
+				D3C1F5FF15A4544300F0900D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3C1F60115A4544300F0900D /* Debug */,
+				D3C1F60215A4544300F0900D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

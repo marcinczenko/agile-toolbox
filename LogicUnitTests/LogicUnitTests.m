@@ -6,8 +6,15 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "LogicUnitTests.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <OCMock/OCMock.h>
+
+
+
+@interface LogicUnitTests : SenTestCase
+
+@end
+
 
 @implementation LogicUnitTests
 
@@ -36,7 +43,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in LogicUnitTests");
+//    STFail(@"Unit tests are not implemented yet in LogicUnitTests");
 }
 
 @end
