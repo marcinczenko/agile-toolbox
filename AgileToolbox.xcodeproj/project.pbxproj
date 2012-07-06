@@ -63,6 +63,10 @@
 		D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */; };
 		D3C986DF15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986DE15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m */; };
 		D3C986E115A7543B007A41D8 /* QATMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */; };
+		D3C986E215A782D8007A41D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
+		D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */; };
+		D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */; };
+		D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +158,9 @@
 		D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QATLibraryTests-Info.plist"; sourceTree = "<group>"; };
 		D3C1F5F815A4544300F0900D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3C986DE15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATMainMenuListViewControllerTests.m; path = ../AgileToolbox/QATMainMenuListViewControllerTests.m; sourceTree = "<group>"; };
+		D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCellTest.m; sourceTree = "<group>"; };
+		D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATSmartTableViewCell.h; sourceTree = "<group>"; };
+		D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C986E215A782D8007A41D8 /* UIKit.framework in Frameworks */,
 				D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +418,8 @@
 			children = (
 				D3C1F5E515A4544200F0900D /* QATConnection.h */,
 				D3C1F5E615A4544200F0900D /* QATConnection.m */,
+				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
+				D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
 			path = QATLibrary;
@@ -427,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */,
+				D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */,
 				D3C1F5F515A4544300F0900D /* Supporting Files */,
 			);
 			path = QATLibraryTests;
@@ -448,6 +459,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +724,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */,
+				D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +733,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */,
+				D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
