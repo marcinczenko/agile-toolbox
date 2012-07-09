@@ -15,7 +15,7 @@ def main():
    import argparse
    
    parser = argparse.ArgumentParser()
-   parser.add_argument('-n',action="store",default=0,dest="number_of_items",help="Number of test items in data store after initialization.")
+   parser.add_argument('-n',action="store",default=0,dest="number_of_items",type=int,help="Number of test items in data store after initialization.")
 
    ItemsModel.number_of_test_items = parser.parse_args().number_of_items
    

@@ -24,10 +24,12 @@ typedef void (^QATConnectionCompletionBlock)(QATConnection *connection, NSError 
 @property (readonly) float percentComplete;
 @property (nonatomic, assign) NSUInteger progressThreshold;
 
++ (id)createWithURL:(NSURL*)url;
 + (id)createWithURL:(NSURL*)url
       progressBlock:(QATConnectionProgressBlock) progress
     completionBlock:(QATConnectionCompletionBlock) completion;
 
+- (id)initWithURL:(NSURL*)url;
 - (id)initWithURL:(NSURL*)url
     progressBlock:(QATConnectionProgressBlock) progress
   completionBlock:(QATConnectionCompletionBlock) completion;

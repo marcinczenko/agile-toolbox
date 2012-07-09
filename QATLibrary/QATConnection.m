@@ -42,11 +42,21 @@
 
 @synthesize connectionDelegate = _connectionDelegate;
 
++ (id)createWithURL:(NSURL*)url
+{
+    return [[self alloc] initWithURL:url];
+}
+
 + (id)createWithURL:(NSURL *)url
       progressBlock:(QATConnectionProgressBlock) progress
     completionBlock:(QATConnectionCompletionBlock) completion;
 {
     return [[self alloc] initWithURL:url progressBlock:progress completionBlock:completion];
+}
+
+- (id)initWithURL:(NSURL *)url
+{
+    return [self initWithURL:url progressBlock:nil completionBlock:nil];
 }
 
 - (id)initWithURL:(NSURL *)url

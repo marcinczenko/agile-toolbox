@@ -16,8 +16,6 @@
 
 @property (readonly) NSInteger length;
 
-//+ (id)questionsDataSourceFromJSONData:(NSData*)data;
-
 - (id)initWithConnection:(id<QATConnectionProtocol>)connection;
 - (void)loadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;
