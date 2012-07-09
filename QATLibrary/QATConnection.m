@@ -20,6 +20,9 @@
 @property (nonatomic, copy) QATConnectionProgressBlock progressBlock;
 @property (nonatomic, copy) QATConnectionCompletionBlock completionBlock;
 
+// OCMock has problem with "weak" properties:
+// http://stackoverflow.com/questions/9104544/how-can-i-get-ocmock-under-arc-to-stop-nilling-an-nsproxy-subclass-set-using-a-w
+// It should be fine to use assign for the remaining delegate properties.
 @property (nonatomic, weak) id<QATConnectionDelegateProtocol> connectionDelegate;
 
 @end

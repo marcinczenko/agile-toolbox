@@ -10,8 +10,9 @@
 
 #import "QATConnectionProtocol.h"
 #import "QATConnectionDelegateProtocol.h"
+#import "QATDataSourceProtocol.h"
 
-@interface QATQuestionsDataSource : NSObject<QATConnectionDelegateProtocol>
+@interface QATQuestionsDataSource : NSObject<QATDataSourceProtocol,QATConnectionDelegateProtocol>
 
 @property (readonly) NSInteger length;
 
@@ -21,6 +22,7 @@
 - (void)loadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;
 
+#pragma mark - QATConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;
 
 

@@ -111,4 +111,19 @@
     }
 }
 
+- (void)testSettingADelegate
+{
+    QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceDelegateProtocol)];
+    [[dataSourceDelegateMock expect] dataSoruceLoaded];
+    
+    [questions setDelegate:dataSourceDelegateMock];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONObject:[self generateTestJSONObjectWith:5]]];
+    
+    [dataSourceDelegateMock verify];
+    
+}
+
 @end
