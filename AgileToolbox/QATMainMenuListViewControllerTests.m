@@ -64,9 +64,6 @@
     
     [[[tableViewMock stub] andReturn:tableViewCellMock] dequeueReusableCellWithIdentifier:NSStringFromClass([QATMenuListSmartTableViewCell class])];
     
-    
-//    id tableViewMock = [OCMockObject mockForClass:[UITableView class]];
-//    id tableViewCellMock = [OCMockObject mockForClass:[UITableViewCell class]];
     id textLabelMock = [OCMockObject mockForClass:[UILabel class]];
     
     [[textLabelMock expect] setText:@"Q&A"];
@@ -74,8 +71,6 @@
     
     [[[tableViewCellMock stub] andReturn:textLabelMock] textLabel];
     [[tableViewCellMock expect] setAccessibilityLabel:@"Q&A"];
-    
-//    [[[tableViewMock stub] andReturn:tableViewCellMock] dequeueReusableCellWithIdentifier:@"QATCell"];
     
     [self.viewController tableView:tableViewMock cellForRowAtIndexPath:self.doesNotMatter];
     

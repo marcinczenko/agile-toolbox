@@ -46,7 +46,7 @@
     self.dataSourceDelegate = delegate;
 }
 
-- (void)loadData
+- (void)downloadData
 {
     [self.connection start];
 }

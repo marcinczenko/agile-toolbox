@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QATDataSourceProtocol.h"
 
 @interface QATQuestionsTableViewController : UITableViewController
+
+@property (nonatomic,strong) id<QATDataSourceProtocol> questionsDataSource;
 
 @end

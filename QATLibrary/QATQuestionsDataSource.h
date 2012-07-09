@@ -17,7 +17,7 @@
 @property (readonly) NSInteger length;
 
 - (id)initWithConnection:(id<QATConnectionProtocol>)connection;
-- (void)loadData;
+- (void)downloadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;
 
 #pragma mark - QATConnectionDelegateProtocol

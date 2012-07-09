@@ -12,7 +12,7 @@
 @protocol QATDataSourceProtocol <NSObject>
 
 
-- (void)loadData;
+- (void)downloadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;
 
 - (void)setDelegate:(id<QATDataSourceDelegateProtocol>)delegate;

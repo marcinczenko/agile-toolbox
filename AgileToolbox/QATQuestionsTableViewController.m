@@ -7,12 +7,14 @@
 //
 
 #import "QATQuestionsTableViewController.h"
+#import "QATQuestionsSmartTableViewCell.h"
 
 @interface QATQuestionsTableViewController ()
 
 @end
 
 @implementation QATQuestionsTableViewController
+@synthesize questionsDataSource = _dataSource;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,7 +29,10 @@
 {
     [super viewDidLoad];
     
+    // accesing view property seems to causing -viewDidLoad to be called again - at least in when called in test
     self.view.accessibilityLabel = @"Questions";
+    
+    [self.questionsDataSource downloadData];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,8 +72,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"QATQuestionsAndAnswersCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    QATQuestionsSmartTableViewCell* cell = [QATQuestionsSmartTableViewCell cellForTableView:tableView];
     
     cell.textLabel.text = @"Questions";
     cell.accessibilityLabel = cell.textLabel.text;

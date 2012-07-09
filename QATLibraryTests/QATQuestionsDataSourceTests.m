@@ -61,7 +61,7 @@
     
     QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:connectionMock];
     
-    [questions loadData];
+    [questions downloadData];
     
     [connectionMock verify];
     

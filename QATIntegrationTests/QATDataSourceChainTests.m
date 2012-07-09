@@ -41,7 +41,7 @@
     
     [self.dataSource setDelegate:self];
     
-    [self.dataSource loadData];
+    [self.dataSource downloadData];
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self

@@ -9,6 +9,10 @@
 #import "QATMainMenuListViewController.h"
 #import "QATMenuListSmartTableViewCell.h"
 
+#import "QATQuestionsTableViewController.h"
+#import "QATConnection.h"
+#import "QATQuestionsDataSource.h"
+
 
 @interface QATMainMenuListViewController ()
 
@@ -70,6 +74,18 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Questions"]) {
+        QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
+        QATQuestionsDataSource *dataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
+        
+        QATQuestionsTableViewController* destinationVC =  (QATQuestionsTableViewController*)segue.destinationViewController;
+        destinationVC.questionsDataSource = dataSource;
+    }
+    
 }
 
 #pragma mark - Table view data source
