@@ -10,6 +10,42 @@
 #import <OCMock/OCMock.h>
 
 #import "QATConnection.h"
+#import "QATConnectionDelegateProtocol.h"
+
+typedef void(^CallbackBlock)(NSData*);
+
+// OCMock has problem with "weak" properties:
+// http://stackoverflow.com/questions/9104544/how-can-i-get-ocmock-under-arc-to-stop-nilling-an-nsproxy-subclass-set-using-a-w
+@interface QATConnectionDelegateStub : NSObject<QATConnectionDelegateProtocol>
+
+- (id)initWithBlock:(CallbackBlock)callback;
+- (void)downloadCompleted:(NSData *)data;
+
+@property (nonatomic,copy) CallbackBlock callback;
+
+@end
+
+@implementation QATConnectionDelegateStub
+@synthesize callback = _callbackBlock;
+
+- (id)initWithBlock:(CallbackBlock)callback
+{
+    self = [super init];
+    if (self) {
+        _callbackBlock = callback;
+    }
+    return self;
+}
+
+- (void)downloadCompleted:(NSData *)data
+{
+    if (self.callback) {
+        self.callback(data);
+    }
+//    NSLog(@"Karwasz twarz!!!!");
+}
+
+@end
 
 @interface QATConnectionTests : SenTestCase
 
@@ -21,7 +57,7 @@
 
 
 - (NSData*) generateTestData;
-- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion;
+//- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion;
 - (NSHTTPURLResponse*) createHTTPResponseWithContentLength:(NSInteger) contentLength;
 
 @end
@@ -45,10 +81,10 @@
     return [NSURL URLWithString:@"https://example.com"];
 }
 
-- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion
-{
-    return [QATConnection createWithURL:self.exampleURL progressBlock:progress completionBlock:completion];
-}
+//- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion
+//{
+//    return [QATConnection createWithURL:self.exampleURL progressBlock:progress completionBlock:completion];
+//}
 
 - (NSHTTPURLResponse*) createHTTPResponseWithContentLength:(NSInteger) contentLength
 {
@@ -78,7 +114,7 @@
     [super setUp];
     
     // Set-up code here.
-    self.connection = [self createQATConnectionWithProgressBlock: nil completionBlock:nil];
+    self.connection = [QATConnection createWithURL:self.exampleURL progressBlock:nil completionBlock:nil];
 }
 
 - (NSData*) generateTestData
@@ -86,14 +122,6 @@
     Byte data_array[100];
     
     return [NSData dataWithBytes:&data_array length:100];
-//    NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:3];
-//    
-//    for (int index=0; index<3; index++) {
-//        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%d",index],@"contents", nil];
-//        [json_object addObject:dict];
-//    }
-//    
-//    return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
 }
 
 - (void)testCreatingAConnectionObjectWithURLUsingClassMethod
@@ -228,6 +256,29 @@
     STAssertEquals(self.connection.contentLength, content_length,@"Content length should equal the length of the test_data!");
     STAssertEquals(self.connection.downloadData.length, (NSUInteger)content_length,@"The length of the dowloaded data should equal the length of the test_data!");
     STAssertEquals(50,numberOfTimesCalled,@"Pregress Block Should have been called after every data block!");
+}
+
+- (void)testSettingTheDelegate
+{
+    NSData * test_data = [self generateTestData];
+    __block BOOL delegateOK = NO;
+    
+    QATConnectionDelegateStub* delegateStub = [[QATConnectionDelegateStub alloc] initWithBlock:^(NSData * data) {
+        if ([test_data isEqualToData:data]) {
+            delegateOK = YES;
+        } else {
+            delegateOK = NO;
+        }
+    }];
+    
+    [self.connection setDelegate:delegateStub];
+    
+    
+    [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:test_data.length]];    
+    [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data];
+    [self.connection connectionDidFinishLoading:self.connectionDoesNotMatter];
+    
+    STAssertTrue(delegateOK,@"Delgate was not called or with unexpected argument contents!");
 }
 
 @end

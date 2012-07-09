@@ -36,8 +36,11 @@
     
     [[[tableViewMock stub] andReturn:nil] dequeueReusableCellWithIdentifier:NSStringFromClass([QATSmartTableViewCell class])];
     
+    QATSmartTableViewCell* smartCell = [QATSmartTableViewCell cellForTableView:tableViewMock];
+    
     // this is the only thing we can really test here
-    STAssertNotNil([QATSmartTableViewCell cellForTableView:tableViewMock],nil);
+    STAssertNotNil(smartCell,nil);
+    STAssertEqualObjects(smartCell.reuseIdentifier, [QATSmartTableViewCell cellIdentifier],nil);
 }
 
 - (void)testGettingCellIdentifierBasedOnTheClassName

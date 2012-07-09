@@ -7,6 +7,7 @@
 //
 
 #import "QATConnection.h"
+#import "QATConnectionDelegateProtocol.h"
 
 @interface QATConnection ()
 
@@ -18,6 +19,8 @@
 
 @property (nonatomic, copy) QATConnectionProgressBlock progressBlock;
 @property (nonatomic, copy) QATConnectionCompletionBlock completionBlock;
+
+@property (nonatomic, weak) id<QATConnectionDelegateProtocol> connectionDelegate;
 
 @end
 
@@ -33,6 +36,8 @@
 @synthesize previousMilestone = _previousMilestone;
 @synthesize progressBlock = _progressBlock;
 @synthesize completionBlock = _completionBlock;
+
+@synthesize connectionDelegate = _connectionDelegate;
 
 + (id)createWithURL:(NSURL *)url
       progressBlock:(QATConnectionProgressBlock) progress
@@ -60,6 +65,11 @@
     [self createConnection];
 }
 
+- (void)setDelegate:(id<QATConnectionDelegateProtocol>)delegate
+{
+    self.connectionDelegate = delegate;
+}
+
 - (void)createConnection
 {
     self.connection = [NSURLConnection connectionWithRequest:self.urlRequest delegate:self];
@@ -74,7 +84,8 @@
 #pragma mark NSURLConnectionDelegate
 
 - (void)connection:(NSURLConnection *)connection 
-    didReceiveResponse:(NSURLResponse *)response {
+    didReceiveResponse:(NSURLResponse *)response
+{
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if ([httpResponse statusCode] == 200) {
@@ -87,7 +98,8 @@
 }
 
 - (void)connection:(NSURLConnection *)connection
-    didReceiveData:(NSData *)data {
+    didReceiveData:(NSData *)data
+{
     [self.downloadData appendData:data];
     float percentComplete = floor([self percentComplete]);
     if ((percentComplete - self.previousMilestone) >= self.progressThreshold) {
@@ -96,13 +108,18 @@
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
     NSLog(@"Connection failed");
     if (self.completionBlock) self.completionBlock(self, error);
     self.connection = nil;
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    if ([self.connectionDelegate respondsToSelector:@selector(downloadCompleted:)]) {
+        [self.connectionDelegate downloadCompleted:self.downloadData];
+    }
     if (self.completionBlock) self.completionBlock(self, nil);
     self.connection = nil;
 }

@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "QATConnectionProtocol.h"
+
 @class QATConnection;
 
 typedef void (^QATConnectionProgressBlock)(QATConnection *connection);
 typedef void (^QATConnectionCompletionBlock)(QATConnection *connection, NSError *error);
 
-@interface QATConnection : NSObject <NSURLConnectionDataDelegate>
+@interface QATConnection : NSObject <QATConnectionProtocol,NSURLConnectionDataDelegate>
 
 @property (nonatomic, copy, readonly) NSURL *url;
 @property (nonatomic, strong, readonly) NSURLRequest *urlRequest;
@@ -31,6 +33,7 @@ typedef void (^QATConnectionCompletionBlock)(QATConnection *connection, NSError 
   completionBlock:(QATConnectionCompletionBlock) completion;
 
 - (void)start;
+- (void)setDelegate:(id<QATConnectionDelegateProtocol>)delegate;
 - (void)createConnection;
 
 @end

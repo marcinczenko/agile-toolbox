@@ -67,6 +67,16 @@
 		D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */; };
 		D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */; };
 		D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */; };
+		D3C986EA15A79182007A41D8 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */; };
+		D3C986F115A7955F007A41D8 /* QATMenuListSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */; };
+		D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */; };
+		D3C986F715A79ED3007A41D8 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */; };
+		D3C986FE15A9E6DE007A41D8 /* QATConnectionProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */; };
+		D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */; };
+		D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */; };
+		D3C9870415A9F38B007A41D8 /* QATConnectionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +88,13 @@
 			remoteInfo = AgileToolbox;
 		};
 		D3C1F5F115A4544300F0900D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D387EF021536EF0400635736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
+			remoteInfo = QATLibrary;
+		};
+		D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
 			proxyType = 1;
@@ -161,6 +178,14 @@
 		D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCellTest.m; sourceTree = "<group>"; };
 		D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATSmartTableViewCell.h; sourceTree = "<group>"; };
 		D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCell.m; sourceTree = "<group>"; };
+		D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMenuListSmartTableViewCellTests.m; sourceTree = "<group>"; };
+		D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATMenuListSmartTableViewCell.h; sourceTree = "<group>"; };
+		D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMenuListSmartTableViewCell.m; sourceTree = "<group>"; };
+		D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsDataSourceTests.m; sourceTree = "<group>"; };
+		D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATConnectionProtocol.h; sourceTree = "<group>"; };
+		D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsDataSource.h; sourceTree = "<group>"; };
+		D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsDataSource.m; sourceTree = "<group>"; };
+		D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATConnectionDelegateProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C986F715A79ED3007A41D8 /* libQATLibrary.a in Frameworks */,
 				D387EF101536EF0400635736 /* UIKit.framework in Frameworks */,
 				D387EF121536EF0400635736 /* Foundation.framework in Frameworks */,
 				D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */,
@@ -192,6 +218,7 @@
 				D3972B9D157D89C7000C1819 /* SenTestingKit.framework in Frameworks */,
 				D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */,
 				D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */,
+				D3C986EA15A79182007A41D8 /* libQATLibrary.a in Frameworks */,
 				D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,10 +443,16 @@
 		D3C1F5E215A4544200F0900D /* QATLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
+				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
 				D3C1F5E515A4544200F0900D /* QATConnection.h */,
 				D3C1F5E615A4544200F0900D /* QATConnection.m */,
 				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
 				D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */,
+				D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */,
+				D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */,
+				D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */,
+				D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
 			path = QATLibrary;
@@ -438,6 +471,8 @@
 			children = (
 				D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */,
 				D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */,
+				D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */,
+				D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */,
 				D3C1F5F515A4544300F0900D /* Supporting Files */,
 			);
 			path = QATLibraryTests;
@@ -460,6 +495,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */,
+				D3C986F115A7955F007A41D8 /* QATMenuListSmartTableViewCell.h in Headers */,
+				D3C986FE15A9E6DE007A41D8 /* QATConnectionProtocol.h in Headers */,
+				D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */,
+				D3C9870415A9F38B007A41D8 /* QATConnectionDelegateProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +516,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D3C986F615A79ECD007A41D8 /* PBXTargetDependency */,
 			);
 			name = AgileToolbox;
 			productName = AgileToolbox;
@@ -725,6 +765,8 @@
 			files = (
 				D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */,
 				D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */,
+				D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */,
+				D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +776,8 @@
 			files = (
 				D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */,
 				D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */,
+				D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */,
+				D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +793,11 @@
 			isa = PBXTargetDependency;
 			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
 			targetProxy = D3C1F5F115A4544300F0900D /* PBXContainerItemProxy */;
+		};
+		D3C986F615A79ECD007A41D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			targetProxy = D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

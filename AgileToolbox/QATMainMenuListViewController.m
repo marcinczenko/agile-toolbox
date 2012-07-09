@@ -7,6 +7,8 @@
 //
 
 #import "QATMainMenuListViewController.h"
+#import "QATMenuListSmartTableViewCell.h"
+
 
 @interface QATMainMenuListViewController ()
 
@@ -84,8 +86,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"QATCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    QATMenuListSmartTableViewCell* cell = [QATMenuListSmartTableViewCell cellForTableView:tableView];
     
     cell.textLabel.text = @"Q&A";
     cell.accessibilityLabel = cell.textLabel.text;
