@@ -7,14 +7,24 @@
 //
 
 #import "QATAppDelegate.h"
-#import "QATTopicsListViewController.h"
+#import "QATConnection.h"
+
+@interface QATAppDelegate ()
+
+@property (strong, nonatomic) QATQuestionsDataSource* questionsDataSource;
+
+@end
 
 @implementation QATAppDelegate
 
 @synthesize window = _window;
+@synthesize questionsDataSource = _questionsDataSource;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
+    self.questionsDataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
+    
     return YES;
 }
 							

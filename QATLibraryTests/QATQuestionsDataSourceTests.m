@@ -39,7 +39,7 @@
     NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:3];
     
     for (NSInteger index=0; index<numberOfObjects; index++) {
-        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%d",index],@"contents", nil];
+        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%d",index],@"content", nil];
         [json_object addObject:dict];
     }
     
@@ -106,7 +106,7 @@
     
     NSUInteger index = 0;
     for (NSDictionary* questionObject in [self generateTestJSONObjectWith:3]) {
-        STAssertEqualObjects([questionObject objectForKey:@"contents"], [questions questionAtIndex:index],nil);
+        STAssertEqualObjects([questionObject objectForKey:@"content"], [questions questionAtIndex:index],nil);
         index++;
     }
 }

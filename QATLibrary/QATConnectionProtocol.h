@@ -14,5 +14,6 @@
 
 - (void)start;
 - (void) setDelegate:(id<QATConnectionDelegateProtocol>)delegate;
+- (NSString*)urlString;
 
 @end

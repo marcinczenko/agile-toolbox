@@ -11,6 +11,7 @@
 
 @protocol QATDataSourceProtocol <NSObject>
 
+@property (nonatomic,readonly) NSInteger length;
 
 - (void)downloadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;

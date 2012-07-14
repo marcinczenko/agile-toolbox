@@ -8,6 +8,7 @@
 
 #import "QATQuestionsTableViewController.h"
 #import "QATQuestionsSmartTableViewCell.h"
+#import "QATAddQuestionViewController.h"
 
 @interface QATQuestionsTableViewController ()
 
@@ -29,8 +30,9 @@
 {
     [super viewDidLoad];
     
-    // accesing view property seems to causing -viewDidLoad to be called again - at least in when called in test
     self.view.accessibilityLabel = @"Questions";
+    
+    [self.questionsDataSource setDelegate:self];
     
     [self.questionsDataSource downloadData];
 
@@ -58,24 +60,35 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"AddQuestion"]) {
+        
+        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
+        
+        QATAddQuestionViewController* destinationVC =  (QATAddQuestionViewController*)navigationController.topViewController;
+        destinationVC.delegate = self;
+    }
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.questionsDataSource.length;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     QATQuestionsSmartTableViewCell* cell = [QATQuestionsSmartTableViewCell cellForTableView:tableView];
     
-    cell.textLabel.text = @"Questions";
-    cell.accessibilityLabel = cell.textLabel.text;
+    cell.textLabel.text = [self.questionsDataSource questionAtIndex:indexPath.row];
     
     return cell;
 }
@@ -131,5 +144,21 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+#pragma mark - QATQuestionsDataSourceDelegate
+- (void)dataSoruceLoaded
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+#pragma mark - QATAddQuestionDelegateProtocol
+
+- (void)questionAdded:(NSString *)question
+{
+    NSLog(@"%@",question);
+}
+
 
 @end

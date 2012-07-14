@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "QATAppDelegate.h"
 #import "QATMainMenuListViewController.h"
 #import "QATMenuListSmartTableViewCell.h"
 
@@ -53,18 +54,6 @@
 {
     [super viewWillAppear:animated];
     
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://192.168.0.31:4443/ready"]];
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://localhost:4443/ready"]];
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://localhost/ready"]];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/ready"]];
-    NSURLResponse* response = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
-    
-    NSLog(@"Status:%d",[(NSHTTPURLResponse*)response statusCode]);
-
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"data:%@",str);
-    
     UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"QuantumNavigationBarLogo"]];
     
     self.navigationItem.titleView = quantumLogo;
@@ -79,11 +68,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Questions"]) {
-        QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
-        QATQuestionsDataSource *dataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
         
         QATQuestionsTableViewController* destinationVC =  (QATQuestionsTableViewController*)segue.destinationViewController;
-        destinationVC.questionsDataSource = dataSource;
+        QATAppDelegate* appDelegate = (QATAppDelegate*)[[UIApplication sharedApplication] delegate];
+        destinationVC.questionsDataSource = appDelegate.questionsDataSource; 
     }
     
 }

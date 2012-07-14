@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QATQuestionsDataSource.h"
 
 @interface QATAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic, readonly) QATQuestionsDataSource* questionsDataSource;
 
 @end

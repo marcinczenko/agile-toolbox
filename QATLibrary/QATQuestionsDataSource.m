@@ -30,6 +30,11 @@
     return self.json_object.count;
 }
 
+- (NSString*) connectionURL
+{
+    return [self.connection urlString];
+}
+
 - (id)initWithConnection:(id<QATConnectionProtocol>)connection
 {
     self = [super init];
@@ -53,7 +58,7 @@
 
 - (NSString*)questionAtIndex:(NSUInteger)index
 {
-    return [[self.json_object objectAtIndex:index] objectForKey:@"contents"];
+    return [[self.json_object objectAtIndex:index] objectForKey:@"content"];
 }
 
 - (void)downloadCompleted:(NSData *)data

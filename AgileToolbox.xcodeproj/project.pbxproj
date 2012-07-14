@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D268D2515AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */; };
+		6D268D2815B0448400946FE5 /* QATAppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */; };
+		6D268D2915B0497B00946FE5 /* QATAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* QATAppDelegate.m */; };
+		6D3B883415B0C8FA008EF63B /* QATAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */; };
+		6D3B883715B0D016008EF63B /* QATAddQuestionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */; };
+		6D3B883A15B0D12E008EF63B /* QATAddQuestionViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */; };
+		6D3B883B15B0D9BB008EF63B /* QATAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */; };
 		6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
 		6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */; };
 		6D5C238215AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */; };
@@ -25,7 +32,7 @@
 		D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF301536EF0500635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D387EF381536EF0500635736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D387EF361536EF0500635736 /* InfoPlist.strings */; };
-		D387EF3B1536EF0500635736 /* AgileToolboxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* AgileToolboxTests.m */; };
+		D387EF3B1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */; };
 		D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF451536FADF00635736 /* QATTopicsListViewController.m */; };
 		D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF481537192600635736 /* QATTopicDetailsViewController.m */; };
 		D3972841157D07FC000C1819 /* Concepts.png in Resources */ = {isa = PBXBuildFile; fileRef = D397282F157D07FC000C1819 /* Concepts.png */; };
@@ -54,7 +61,6 @@
 		D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3972BA3157D89C7000C1819 /* InfoPlist.strings */; };
-		D3972BA8157D89C7000C1819 /* LogicUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972BA7157D89C7000C1819 /* LogicUnitTests.m */; };
 		D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		D3A7B49415AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B49315AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h */; };
@@ -123,6 +129,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewControllerAppTests.m; sourceTree = "<group>"; };
+		6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAppDelegateTests.m; sourceTree = "<group>"; };
+		6D3B883215B0C8FA008EF63B /* QATAddQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATAddQuestionViewController.h; sourceTree = "<group>"; };
+		6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAddQuestionViewController.m; sourceTree = "<group>"; };
+		6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATAddQuestionDelegateProtocol.h; sourceTree = "<group>"; };
+		6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAddQuestionViewControllerTests.m; sourceTree = "<group>"; };
 		6D5421D91595148A0079061F /* QATQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsTableViewController.h; sourceTree = "<group>"; };
 		6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewController.m; sourceTree = "<group>"; };
 		6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
@@ -147,8 +159,7 @@
 		D387EF2D1536EF0400635736 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D387EF391536EF0500635736 /* AgileToolboxTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgileToolboxTests.h; sourceTree = "<group>"; };
-		D387EF3A1536EF0500635736 /* AgileToolboxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgileToolboxTests.m; sourceTree = "<group>"; };
+		D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewControllerAppTests.m; sourceTree = "<group>"; };
 		D387EF441536FADF00635736 /* QATTopicsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicsListViewController.h; sourceTree = "<group>"; };
 		D387EF451536FADF00635736 /* QATTopicsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicsListViewController.m; sourceTree = "<group>"; };
 		D387EF471537192600635736 /* QATTopicDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicDetailsViewController.h; sourceTree = "<group>"; };
@@ -179,7 +190,6 @@
 		D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicUnitTests-Info.plist"; sourceTree = "<group>"; };
 		D3972BA4157D89C7000C1819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D3972BA7157D89C7000C1819 /* LogicUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicUnitTests.m; sourceTree = "<group>"; };
 		D3972BA9157D89C7000C1819 /* LogicUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		D3972BDC157EBAB0000C1819 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		D3972BDD157EBAB0000C1819 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
@@ -334,6 +344,8 @@
 				D387EF1E1536EF0400635736 /* QATAppDelegate.h */,
 				D387EF1F1536EF0400635736 /* QATAppDelegate.m */,
 				D387EF211536EF0400635736 /* MainStoryboard.storyboard */,
+				6D3B883215B0C8FA008EF63B /* QATAddQuestionViewController.h */,
+				6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */,
 				D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */,
 				D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */,
 				D387EF241536EF0400635736 /* QATViewController.h */,
@@ -364,8 +376,8 @@
 		D387EF331536EF0500635736 /* ApplicationUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D387EF391536EF0500635736 /* AgileToolboxTests.h */,
-				D387EF3A1536EF0500635736 /* AgileToolboxTests.m */,
+				D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */,
+				6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */,
 				D387EF341536EF0500635736 /* Supporting Files */,
 			);
 			name = ApplicationUnitTests;
@@ -429,7 +441,8 @@
 			children = (
 				D3C986DE15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m */,
 				6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */,
-				D3972BA7157D89C7000C1819 /* LogicUnitTests.m */,
+				6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */,
+				6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */,
 				D3972BA1157D89C7000C1819 /* Supporting Files */,
 			);
 			path = LogicUnitTests;
@@ -505,6 +518,7 @@
 		D3C1F5E215A4544200F0900D /* QATLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */,
 				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
 				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
 				D3C1F5E515A4544200F0900D /* QATConnection.h */,
@@ -568,6 +582,7 @@
 				D3A7B49415AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h in Headers */,
 				D3A7B49715AAF1E200DD6772 /* QATDataSourceProtocol.h in Headers */,
 				6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */,
+				6D3B883715B0D016008EF63B /* QATAddQuestionDelegateProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,6 +863,7 @@
 				D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */,
 				D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */,
 				6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */,
+				6D3B883415B0C8FA008EF63B /* QATAddQuestionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,7 +871,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D387EF3B1536EF0500635736 /* AgileToolboxTests.m in Sources */,
+				D387EF3B1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m in Sources */,
+				6D268D2515AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,11 +880,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3972BA8157D89C7000C1819 /* LogicUnitTests.m in Sources */,
 				D3C986DF15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m in Sources */,
 				D3C986E115A7543B007A41D8 /* QATMainMenuListViewController.m in Sources */,
 				6D92CA2B15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m in Sources */,
 				6D92CA2D15AB4C77002602C4 /* QATQuestionsTableViewController.m in Sources */,
+				6D268D2815B0448400946FE5 /* QATAppDelegateTests.m in Sources */,
+				6D268D2915B0497B00946FE5 /* QATAppDelegate.m in Sources */,
+				6D3B883A15B0D12E008EF63B /* QATAddQuestionViewControllerTests.m in Sources */,
+				6D3B883B15B0D9BB008EF63B /* QATAddQuestionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

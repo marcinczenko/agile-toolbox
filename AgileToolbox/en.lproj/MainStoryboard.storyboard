@@ -67,11 +67,59 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Questions" id="f1K-bE-G5V">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRx-4l-bj6"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRx-4l-bj6">
+                            <connections>
+                                <segue destination="YYb-3q-FWc" kind="modal" identifier="AddQuestion" id="Lty-3D-6D6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1686" y="182"/>
+        </scene>
+        <!--Add Question View Controller - New Question-->
+        <scene sceneID="z4z-Ek-Gnf">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qif-VG-5w5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="y0Q-Hg-7zv" customClass="QATAddQuestionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ppj-gh-qMa">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="9FM-2q-lR5">
+                                <rect key="frame" x="20" y="61" width="280" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter new question below:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="RTb-J4-Rb0">
+                                <rect key="frame" x="20" y="32" width="206" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Question" id="ZGh-vi-4jr">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ElU-uK-1Pu">
+                            <connections>
+                                <action selector="cancel:" destination="y0Q-Hg-7zv" id="JMf-ws-KRl"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="RW3-3E-SWX">
+                            <connections>
+                                <action selector="done:" destination="y0Q-Hg-7zv" id="zDh-8V-htb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addedQuestionText" destination="9FM-2q-lR5" id="9c5-vV-fiQ"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2820" y="182"/>
         </scene>
         <!--MenuItems-->
         <scene sceneID="9bt-FA-D27">
@@ -91,8 +139,34 @@
             </objects>
             <point key="canvasLocation" x="458" y="182"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NWq-cX-elm">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GVm-P1-eE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="YYb-3q-FWc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="foK-rr-RDZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y0Q-Hg-7zv" kind="relationship" relationship="rootViewController" id="rxr-ua-4jl"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2294" y="182"/>
+        </scene>
     </scenes>
     <classes>
+        <class className="QATAddQuestionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QATAddQuestionViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="newQuestionText" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="QATMainMenuListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QATMainMenuListViewController.h"/>
         </class>

@@ -14,7 +14,8 @@
 
 @interface QATQuestionsDataSource : NSObject<QATDataSourceProtocol,QATConnectionDelegateProtocol>
 
-@property (readonly) NSInteger length;
+@property (nonatomic,readonly) NSInteger length;
+@property (nonatomic,readonly) NSString* connectionURL;
 
 - (id)initWithConnection:(id<QATConnectionProtocol>)connection;
 - (void)downloadData;

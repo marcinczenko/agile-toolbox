@@ -83,6 +83,11 @@
     self.connectionDelegate = delegate;
 }
 
+- (NSString*) urlString
+{
+    return self.url.absoluteString;
+}
+
 - (void)createConnection
 {
     self.connection = [NSURLConnection connectionWithRequest:self.urlRequest delegate:self];

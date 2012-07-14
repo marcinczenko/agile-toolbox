@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "QATDataSourceProtocol.h"
+#import "QATDataSourceDelegateProtocol.h"
+#import "QATAddQuestionDelegateProtocol.h"
 
-@interface QATQuestionsTableViewController : UITableViewController
+@interface QATQuestionsTableViewController : UITableViewController<QATDataSourceDelegateProtocol,QATAddQuestionDelegateProtocol>
 
 @property (nonatomic,strong) id<QATDataSourceProtocol> questionsDataSource;
 

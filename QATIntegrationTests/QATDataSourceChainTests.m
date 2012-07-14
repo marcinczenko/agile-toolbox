@@ -59,7 +59,11 @@
         NSLog(@"Polling...");
     }
     STAssertTrue(self.isDone,nil);
-    NSLog(@"%i",((QATQuestionsDataSource*)self.dataSource).length);
+    QATQuestionsDataSource* dataSource = (QATQuestionsDataSource*)self.dataSource;
+    NSLog(@"%i",dataSource.length);
+    for (NSInteger i=0; i<dataSource.length; i++) {
+        NSLog(@"objectAtIndex:%i:%@",i,[dataSource questionAtIndex:i]);
+    }
 }
 
 - (void) timeOut:(NSNotification*)notification;
