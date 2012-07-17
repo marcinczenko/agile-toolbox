@@ -28,6 +28,8 @@ describe("Walking Skeleton", function() {
         target.frontMostApp().keyboard().typeString("New Question");
         target.frontMostApp().navigationBar().buttons()["Done"].tap();
         
+	    target.delay(1);
+	   
         expect(mainWindow.tableViews()["Questions"].checkIsValid()).toBe(true);
         expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(6);
     });

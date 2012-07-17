@@ -37,6 +37,8 @@
     
     [self.questionsDataSource downloadData];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     [self.postman setDelegate:self];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -158,6 +160,7 @@
 - (void)dataSoruceLoaded
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.tableView reloadData];
     });
 }
@@ -166,6 +169,7 @@
 - (void)questionAdded:(NSString *)question
 {
     [self.postman post:question];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 #pragma mark - QATPostmanDelegateProtocol

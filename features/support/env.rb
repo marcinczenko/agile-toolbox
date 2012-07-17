@@ -9,6 +9,6 @@ require 'uri'
 Capybara.default_driver = :webkit
 Capybara.javascript_driver = :webkit
 
-Capybara.app_host = 'http://localhost:8000'
+# Capybara.app_host = 'http://localhost:8000'
 
 Capybara.run_server = false

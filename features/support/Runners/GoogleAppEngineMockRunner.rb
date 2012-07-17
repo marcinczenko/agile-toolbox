@@ -44,18 +44,21 @@ module Runners
             http.use_ssl = true
             # below is just to remember how to switch validation off
             # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+            # puts "#{uri.request_uri}"    
+            
+            begin
+                request = Net::HTTP::Get.new(uri.request_uri)
+                response = http.request(request)
 
-            request = Net::HTTP::Get.new(uri.request_uri)
-
-            response = http.request(request)
-
-            if response.is_a?(Net::HTTPOK)
-                true
-            else
+                if response.is_a?(Net::HTTPOK)
+                    true
+                else
+                    false
+                end
+            rescue Errno::EHOSTUNREACH
                 false
             end
-            # puts response.body
-            # puts response.code
+            
         end
     
     end
