@@ -12,7 +12,10 @@
 
 @protocol QATConnectionProtocol <NSObject>
 
+@property (nonatomic, copy) NSURLRequest *urlRequest;
+
 - (void)start;
+- (void)startPOSTWithBody:(NSData*)body;
 - (void) setDelegate:(id<QATConnectionDelegateProtocol>)delegate;
 - (NSString*)urlString;
 

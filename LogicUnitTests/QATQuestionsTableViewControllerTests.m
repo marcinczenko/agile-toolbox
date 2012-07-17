@@ -13,6 +13,8 @@
 #import "QATAddQuestionViewController.h"
 #import "QATDataSourceProtocol.h"
 
+#import "QATPostmanProtocol.h"
+
 #import "QATQuestionsSmartTableViewCell.h"
 
 #import <objc/runtime.h>
@@ -69,6 +71,13 @@
     self.vc.questionsDataSource = dataSourceMock;
 }
 
+- (void)testQATQuestionTableViewControllerHasPropertyForPostmanService
+{
+    id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
+    
+    self.vc.postman = postmanMock;
+}
+
 
 - (void)testThatTheRightCellForTheRightRowIsReturned
 {    
@@ -110,6 +119,42 @@
     [self.vc viewDidLoad];
     
     [dataSourceMock verify];
+}
+
+- (void)testThatViewRegistersItselfAsTheDelegateOfThePostman
+{
+    [self disableViewPropertyForTheVC:self.vc];
+    
+    id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
+    [[postmanMock expect] setDelegate:self.vc];
+    
+    self.vc.postman = postmanMock;
+    
+    [self.vc viewDidLoad];
+    
+    [postmanMock verify];
+}
+
+- (void)testThatViewSetsTheReferenceToDataSourceToNilWhenUnloaded
+{
+    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    
+    self.vc.questionsDataSource = dataSourceMock;
+    
+    [self.vc viewWillUnload];
+    
+    STAssertNil(self.vc.questionsDataSource,nil);
+}
+
+- (void)testThatViewSetsTheReferenceToPostmanToNilWhenUnloaded
+{
+    id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
+    
+    self.vc.postman = postmanMock;
+    
+    [self.vc viewWillUnload];
+    
+    STAssertNil(self.vc.postman,nil);
 }
 
 //- (void)testReloadingTheTableWhenQuestionsAreDownloaded
@@ -162,5 +207,29 @@
     [segueMock verify];
 }
 
+- (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded
+{
+    NSString * addedQuestion = [NSString stringWithString:@"New Question"];
+    id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
+    [[postmanMock expect] post:addedQuestion];
+
+    self.vc.postman = postmanMock;
+
+    [self.vc questionAdded:addedQuestion];
+
+    [postmanMock verify];
+}
+
+- (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
+{
+    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    [[questionsDataSourceMock expect] downloadData];
+    
+    self.vc.questionsDataSource = questionsDataSourceMock;
+    
+    [self.vc postDelivered];
+    
+    [questionsDataSourceMock verify];
+}
 
 @end

@@ -14,7 +14,7 @@
 
 @interface QATQuestionsDataSourceTests : SenTestCase
 
-@property (readonly) id doesNotMatter;
+@property (nonatomic,readonly) id doesNotMatter;
 
 - (NSData*) createJSONDataFromJSONObject:(id) json_object;
 - (NSArray*) generateTestJSONObjectWith:(NSInteger)numberOfObjects;
@@ -53,8 +53,6 @@
 
 - (void)testThatQATDataSourceStartsLoadingDataUsingSuppliedConnectionProtocol
 {
-//    QATQuestionsDataSource* questions = [QATQuestionsDataSource questionsDataSourceFromJSONData:[self createJSONDataFromJSONObject:[self generateTestJSONObject]]];
-    
     id connectionMock = [OCMockObject mockForProtocol:@protocol(QATConnectionProtocol)];
     [[connectionMock expect] setDelegate:[OCMArg any]];
     [[connectionMock expect] start];
@@ -89,7 +87,7 @@
     STAssertEqualObjects(delegate, questions,@"Wrong delegate passed to connection object.");
 }
 
-- (void)testNumberOfQuestionsAfterDataHasBeenDownloaded
+- (void)testThatNumberOfDownloadedQuestionsIsCorrect
 {
     QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
@@ -98,7 +96,7 @@
     STAssertEquals(5, questions.length,@"Incorrect number of objects returned.");
 }
 
-- (void)testQuestionsReflectTheQuestionsSentFromTheServer
+- (void)testReceivedQuestionsAreTheSameAsTheQuestionsSentFromTheServer
 {
     QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     

@@ -26,6 +26,21 @@
     return nil;
 }
 
+- (void)testThatAddedQuestionTextFieldHasAccessabilityLabelSet
+{
+    QATAddQuestionViewController* vc = [[QATAddQuestionViewController alloc] init];
+    
+    id addQuestionVC = [OCMockObject partialMockForObject:vc];
+    id textFieldMock = [OCMockObject mockForClass:[UITextField class]];
+    [[textFieldMock expect] setAccessibilityLabel:@"NewQuestionTextField"];
+    [[[addQuestionVC stub] andReturn:textFieldMock] addedQuestionText];
+    
+    [vc viewDidLoad];
+    
+    [addQuestionVC verify];
+    [textFieldMock verify];
+}
+
 - (void)testTheDoneActionDismissesTheModalControllerAndCallsTheDelegate
 {
     QATAddQuestionViewController* vc = [[QATAddQuestionViewController alloc] init];

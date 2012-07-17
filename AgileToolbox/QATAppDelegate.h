@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "QATQuestionsDataSource.h"
+#import "QATQuestionPostman.h"
 
 @interface QATAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic, readonly) QATQuestionsDataSource* questionsDataSource;
+@property (strong, nonatomic, readonly) QATQuestionPostman* postman;
 
 @end

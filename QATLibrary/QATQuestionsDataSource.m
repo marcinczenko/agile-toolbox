@@ -51,6 +51,11 @@
     self.dataSourceDelegate = delegate;
 }
 
+- (void)setPostConnection:(id<QATConnectionProtocol>)connection
+{
+    
+}
+
 - (void)downloadData
 {
     [self.connection start];

@@ -54,6 +54,11 @@
     return [[self alloc] initWithURL:url progressBlock:progress completionBlock:completion];
 }
 
+- (id)init
+{
+    return [self initWithURLRequest:nil];
+}
+
 - (id)initWithURL:(NSURL *)url
 {
     return [self initWithURL:url progressBlock:nil completionBlock:nil];
@@ -63,19 +68,55 @@
     progressBlock:(QATConnectionProgressBlock) progress
   completionBlock:(QATConnectionCompletionBlock) completion;
 {
+    return [self initWithURLRequest:[NSURLRequest requestWithURL:url] progressBlock:progress completionBlock:completion];
+}
+
+- (id)initWithURLRequest:(NSURLRequest*)urlRequest
+{
+    return [self initWithURLRequest:urlRequest progressBlock:nil completionBlock:nil];
+}
+
+- (id)initWithURLRequest:(NSURLRequest*)urlRequest
+           progressBlock:(QATConnectionProgressBlock) progress
+         completionBlock:(QATConnectionCompletionBlock) completion
+{
     if ((self = [super init])) {
-        _url = [url copy];
-        _urlRequest = [NSURLRequest requestWithURL:url];
+        _url = [[urlRequest URL] copy];
+        _urlRequest = [urlRequest copy];
         self.progressBlock = progress;
         self.completionBlock = completion;
-        self.progressThreshold = 1.0;
+        self.progressThreshold = 1;
     }
     return self;
+}
+
+- (void)setUrlRequest:(NSURLRequest *)urlRequest
+{
+    _urlRequest = [urlRequest copy];
+    _url = [urlRequest.URL copy];
 }
 
 - (void)start
 {
     [self createConnection];
+}
+
+- (BOOL)isValidPOSTRequest
+{
+    if ([_urlRequest isKindOfClass:[NSMutableURLRequest class]] &&
+        [_urlRequest.HTTPMethod isEqualToString:@"POST"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)startPOSTWithBody:(NSData *)body
+{
+    if ([self isValidPOSTRequest]) {
+        [(NSMutableURLRequest*)_urlRequest setHTTPBody:body];
+        [self start];
+    }
 }
 
 - (void)setDelegate:(id<QATConnectionDelegateProtocol>)delegate
@@ -112,6 +153,7 @@
             NSInteger length = self.contentLength = [contentLen integerValue];
             self.downloadData = [NSMutableData dataWithCapacity:length];
         }
+//        NSLog(@"Response Status:%u",[httpResponse statusCode]);
     }
 }
 

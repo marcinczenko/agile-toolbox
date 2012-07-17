@@ -18,7 +18,7 @@ typedef void (^QATConnectionCompletionBlock)(QATConnection *connection, NSError 
 @interface QATConnection : NSObject <QATConnectionProtocol,NSURLConnectionDataDelegate>
 
 @property (nonatomic, copy, readonly) NSURL *url;
-@property (nonatomic, strong, readonly) NSURLRequest *urlRequest;
+@property (nonatomic, copy) NSURLRequest *urlRequest;
 @property (nonatomic, assign, readonly) NSInteger contentLength;
 @property (nonatomic, strong, readonly) NSMutableData *downloadData;
 @property (readonly) float percentComplete;
@@ -29,10 +29,17 @@ typedef void (^QATConnectionCompletionBlock)(QATConnection *connection, NSError 
       progressBlock:(QATConnectionProgressBlock) progress
     completionBlock:(QATConnectionCompletionBlock) completion;
 
+- (id)init;
 - (id)initWithURL:(NSURL*)url;
 - (id)initWithURL:(NSURL*)url
     progressBlock:(QATConnectionProgressBlock) progress
   completionBlock:(QATConnectionCompletionBlock) completion;
+
+- (id)initWithURLRequest:(NSURLRequest*)urlRequest;
+- (id)initWithURLRequest:(NSURLRequest*)urlRequest
+    progressBlock:(QATConnectionProgressBlock) progress
+  completionBlock:(QATConnectionCompletionBlock) completion;
+
 
 - (void)start;
 - (void)setDelegate:(id<QATConnectionDelegateProtocol>)delegate;

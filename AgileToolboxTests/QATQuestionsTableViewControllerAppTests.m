@@ -8,10 +8,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <OCMock/OCMock.h>
+
+#import "QATAppDelegate.h"
+
 #import "QATMainMenuListViewController.h"
 #import "QATQuestionsTableViewController.h"
 #import "QATQuestionsDataSource.h"
-#import "QATAppDelegate.h"
+#import "QATQuestionPostman.h"
 
 @interface QATQuestionsTableViewControllerAppTests : SenTestCase
 
@@ -60,6 +63,10 @@
     STAssertEqualObjects(NSStringFromClass([self.vc.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]),nil);
 }
 
-
+- (void)testThatPostmanIsNotNilAndPointsToAnObjectOfTheAppropriateClass
+{
+    STAssertNotNil(self.vc.postman,@"Postman is not set!");
+    STAssertEqualObjects(NSStringFromClass([self.vc.postman class]), NSStringFromClass([QATQuestionPostman class]),nil);
+}
 
 @end

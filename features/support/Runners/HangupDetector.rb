@@ -2,12 +2,13 @@ module Runners
 
     class HangupDetector
 
-        def initialize (arrayOfProcessesToBeNotified, timeout)
+        def initialize (arrayOfProcessesToBeNotified, timeout, signal)
             @observers = Array.new
             arrayOfProcessesToBeNotified.each do |observer|
                 add_observer(observer)
             end            
             @monitorStop = false
+            @signal = signal
             @monitorThread = Thread.new { run(timeout) }
         end
 
@@ -24,7 +25,7 @@ module Runners
             end
             if !@monitorStop
                 @observers.each do |observer|
-                    observer.notify('INT')
+                    observer.notify(@signal)
                 end                
             end
         end

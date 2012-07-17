@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "QATDataSourceDelegateProtocol.h"
+#import "QATConnectionProtocol.h"
 
 @protocol QATDataSourceProtocol <NSObject>
 

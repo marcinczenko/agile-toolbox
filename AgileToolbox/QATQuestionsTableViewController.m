@@ -16,6 +16,7 @@
 
 @implementation QATQuestionsTableViewController
 @synthesize questionsDataSource = _dataSource;
+@synthesize postman = _postman;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +36,8 @@
     [self.questionsDataSource setDelegate:self];
     
     [self.questionsDataSource downloadData];
+    
+    [self.postman setDelegate:self];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -46,6 +49,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+-(void)viewWillUnload
+{
+    self.questionsDataSource = nil;
+    self.postman = nil;
 }
 
 - (void)viewDidUnload
@@ -154,10 +163,21 @@
 }
 
 #pragma mark - QATAddQuestionDelegateProtocol
-
 - (void)questionAdded:(NSString *)question
 {
-    NSLog(@"%@",question);
+    [self.postman post:question];
+}
+
+#pragma mark - QATPostmanDelegateProtocol
+- (void)postDelivered
+{
+    [self.questionsDataSource downloadData];
+}
+
+// TODO: not yet supported
+- (void)postDeliveryFailed
+{
+    
 }
 
 

@@ -1,20 +1,20 @@
 module Runners
   
   class InstrumentsRunner < ComplexRunner
-    def self.command(target)
+    def self.command(options)
         template = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Instruments/PlugIns/AutomationInstrument.bundle/Contents/Resources/Automation.tracetemplate"
-        app = "#{ENV['HOME']}/UIAutomation/#{target}/build/bin/Release-iphonesimulator/AgileToolbox.app"
-        script = "#{Helpers::PathFinder.find(:WORKSPACE)}/UIAutomation/suite.js"
-        log = "#{ENV['HOME']}/UIAutomation/#{target}/log"
+        app = "#{ENV['HOME']}/UIAutomation/#{options[:target]}/build/bin/Release-iphonesimulator/AgileToolbox.app"
+        script = "#{Helpers::PathFinder.find(:WORKSPACE)}/UIAutomation/specs/#{options[:feature]}/#{options[:scenario]}.js"
+        log = "#{ENV['HOME']}/UIAutomation/#{options[:target]}/log"
         "instruments -t '#{template}' '#{app}' -e UIASCRIPT '#{script}' -e UIARESULTSPATH '#{log}' 2>&1" 
     end
     
     def self.run(options)
-        cmd = command(options[:target])
+        cmd = command(options)
         if @@verbose
             puts cmd
         end
-        ret = super(cmd)
+        ret = super(cmd,'KILL')
         if 0!=ret
             ret
         else

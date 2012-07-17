@@ -16,6 +16,7 @@
 
 @property (nonatomic,readonly) NSInteger length;
 @property (nonatomic,readonly) NSString* connectionURL;
+@property (nonatomic,strong,readonly) id<QATConnectionProtocol> connection;
 
 - (id)initWithConnection:(id<QATConnectionProtocol>)connection;
 - (void)downloadData;

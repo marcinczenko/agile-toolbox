@@ -11,8 +11,12 @@
 #import "QATDataSourceDelegateProtocol.h"
 #import "QATAddQuestionDelegateProtocol.h"
 
-@interface QATQuestionsTableViewController : UITableViewController<QATDataSourceDelegateProtocol,QATAddQuestionDelegateProtocol>
+#import "QATPostmanProtocol.h"
+#import "QATPostmanDelegateProtocol.h"
+
+@interface QATQuestionsTableViewController : UITableViewController<QATDataSourceDelegateProtocol,QATAddQuestionDelegateProtocol,QATPostmanDelegateProtocol>
 
 @property (nonatomic,strong) id<QATDataSourceProtocol> questionsDataSource;
+@property (nonatomic,strong) id<QATPostmanProtocol> postman;
 
 @end

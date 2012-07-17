@@ -3,10 +3,10 @@ module Runners
   class ComplexRunner
       @@timeout = 20
       @@verbose = false
-      def self.run(command)
+      def self.run(command,signal='INT')
           runner = SimpleRunner.new(command)
           runner.start()
-          hangupDetector = HangupDetector.new([runner],@@timeout)
+          hangupDetector = HangupDetector.new([runner],@@timeout,signal)
           exit_status = runner.wait()
           hangupDetector.stop()
           if @@verbose

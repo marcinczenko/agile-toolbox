@@ -11,6 +11,7 @@
 
 #import "QATConnection.h"
 #import "QATConnectionDelegateProtocol.h"
+#import "QATJSONPostURLRequest.h"
 
 typedef void(^CallbackBlock)(NSData*);
 
@@ -49,15 +50,17 @@ typedef void(^CallbackBlock)(NSData*);
 
 @interface QATConnectionTests : SenTestCase
 
-@property (readonly) NSInteger StatusCode_OK;
-@property (readonly) NSURLConnection* connectionDoesNotMatter;
+@property (nonatomic,readonly) NSInteger StatusCode_OK;
+@property (nonatomic,readonly) NSURLConnection* connectionDoesNotMatter;
 
-@property (readonly) NSURL* exampleURL;
+@property (nonatomic,readonly) NSURL* exampleURL;
+@property (nonatomic,readonly) NSData* examplePOSTHTTPBody;
 @property (nonatomic,strong) QATConnection * connection;
+
+@property (nonatomic,assign) BOOL startStubCalled;
 
 
 - (NSData*) generateTestData;
-//- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion;
 - (NSHTTPURLResponse*) createHTTPResponseWithContentLength:(NSInteger) contentLength;
 
 @end
@@ -65,6 +68,12 @@ typedef void(^CallbackBlock)(NSData*);
 @implementation QATConnectionTests
 
 @synthesize connection = _connection;
+@synthesize startStubCalled = _startStubCalled;
+
+- (void)startStub
+{
+    self.startStubCalled = YES;
+}
 
 - (NSInteger) StatusCode_OK
 {
@@ -81,10 +90,11 @@ typedef void(^CallbackBlock)(NSData*);
     return [NSURL URLWithString:@"https://example.com"];
 }
 
-//- (QATConnection*) createQATConnectionWithProgressBlock:(QATConnectionProgressBlock)progress completionBlock:(QATConnectionCompletionBlock)completion
-//{
-//    return [QATConnection createWithURL:self.exampleURL progressBlock:progress completionBlock:completion];
-//}
+- (NSData*)examplePOSTHTTPBody
+{
+    NSString * bodyString = [NSString stringWithString:@"Example HTTP Body"];
+    return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+}
 
 - (NSHTTPURLResponse*) createHTTPResponseWithContentLength:(NSInteger) contentLength
 {
@@ -129,6 +139,40 @@ typedef void(^CallbackBlock)(NSData*);
     QATConnection * connection = [QATConnection createWithURL:self.exampleURL progressBlock:nil completionBlock:nil];
     
     STAssertNotNil(connection, @"Connection object is Nil!");
+    
+    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
+    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
+    STAssertEquals(connection.progressThreshold, (NSUInteger)1,nil);
+}
+
+- (void)testCreatingAConnectionObjectUsingExternalURLRequestObject
+{
+    QATConnection* connection = [[QATConnection alloc] initWithURLRequest:[NSURLRequest requestWithURL:self.exampleURL]];
+    
+    STAssertNotNil(connection, @"Connection object is Nil!");
+    
+    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
+    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
+    STAssertEquals(connection.progressThreshold, (NSUInteger)1,nil);
+}
+
+- (void)testCreatingAConnectionWithoutURLRequestAndSettingItLater
+{
+    QATConnection* connection = [[QATConnection alloc] init];
+    
+    STAssertNotNil(connection, @"Connection object is Nil!");
+    
+    STAssertNil(connection.url,@"connection.url should be nil");
+    STAssertNil(connection.urlRequest,@"connection.urlRequest should be nil");
+    STAssertEquals(connection.progressThreshold, (NSUInteger)1,@"connection.progressThreshold should be 1");
+    
+    connection.urlRequest = [NSURLRequest requestWithURL:self.exampleURL];
+    
+    STAssertNotNil(connection.url,@"After setting urlRequest, connection.url should no longer be nil");
+    STAssertNotNil(connection.urlRequest,@"After setting the urlRequest, connection.urlRequest should no longer be nil.");
+    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
+    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
+    STAssertEquals(connection.progressThreshold, (NSUInteger)1,@"After setting the urlRequest, connection.progressThreshold should still be 1");
 }
 
 - (void)testStartingConnection
@@ -139,6 +183,58 @@ typedef void(^CallbackBlock)(NSData*);
     
     [self.connection start];
 
+    [partialConnectionMock verify];
+}
+
+- (void)testStartingPOSTConnection
+{
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:self.exampleURL];
+    [postRequest setHTTPMethod:@"POST"];
+    
+    QATConnection* connection = [[QATConnection alloc] initWithURLRequest:postRequest];
+    
+    id partialConnectionMock = [OCMockObject partialMockForObject:connection];
+    [[partialConnectionMock expect] start];
+    
+    [connection startPOSTWithBody:self.examplePOSTHTTPBody];
+    
+    STAssertEqualObjects([[NSString alloc] initWithData:connection.urlRequest.HTTPBody encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:self.examplePOSTHTTPBody encoding:NSUTF8StringEncoding],nil);
+    
+    [partialConnectionMock verify];
+    
+}
+
+- (void)testThatStartingPOSTConnectionSilentlyFailsIfURLRequestIsNotMutable
+{
+    QATConnection* connection = [[QATConnection alloc] initWithURLRequest:[NSURLRequest requestWithURL:self.exampleURL]];
+    
+    id partialConnectionMock = [OCMockObject partialMockForObject:connection];
+    [[[partialConnectionMock stub] andCall:@selector(startStub) onObject:self] start];
+    
+    self.startStubCalled = NO;
+    
+    [connection startPOSTWithBody:self.examplePOSTHTTPBody];
+    
+    STAssertNil(connection.urlRequest.HTTPBody,nil);
+    STAssertFalse(self.startStubCalled,nil);
+        
+    [partialConnectionMock verify];
+}
+
+- (void)testThatStartingPOSTConnectionSilentlyFailsIfURLRequestDoesNotHavePOSTAsHTTPMethod
+{
+    QATConnection* connection = [[QATConnection alloc] initWithURLRequest:[NSMutableURLRequest requestWithURL:self.exampleURL]];
+    
+    id partialConnectionMock = [OCMockObject partialMockForObject:connection];
+    [[[partialConnectionMock stub] andCall:@selector(startStub) onObject:self] start];
+    
+    self.startStubCalled = NO;
+    
+    [connection startPOSTWithBody:self.examplePOSTHTTPBody];
+    
+    STAssertNil(connection.urlRequest.HTTPBody,nil);
+    STAssertFalse(self.startStubCalled,nil);
+    
     [partialConnectionMock verify];
 }
 
@@ -247,7 +343,7 @@ typedef void(^CallbackBlock)(NSData*);
     
     self.connection = [QATConnection createWithURL:self.exampleURL progressBlock:progress_block completionBlock:nil];
     
-    self.connection.progressThreshold = 2.0;
+    self.connection.progressThreshold = 2;
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:content_length]];
     

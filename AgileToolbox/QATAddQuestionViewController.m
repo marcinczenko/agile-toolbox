@@ -20,6 +20,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.addedQuestionText.accessibilityLabel = @"NewQuestionTextField";
 }
 
 - (void)viewDidUnload

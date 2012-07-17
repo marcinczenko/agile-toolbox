@@ -1,8 +1,19 @@
 
 class ItemsModel(object):
-    number_of_test_items = 0;
+    items = []
     
     @staticmethod
     def all():
-        return ["Test Item%d" % (item_index) for item_index in range(0,ItemsModel.number_of_test_items)]
+        return ItemsModel.items
+    
+    @staticmethod
+    def addItem(item):
+        ItemsModel.items.insert(0,item)
+            
+    @staticmethod
+    def populate(number_of_items):
+        ItemsModel.items = ["Test Item%d" % (item_index) for item_index in range(0,number_of_items)]
+    
+        
+    
     

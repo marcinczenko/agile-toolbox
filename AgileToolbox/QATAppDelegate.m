@@ -8,10 +8,12 @@
 
 #import "QATAppDelegate.h"
 #import "QATConnection.h"
+#import "QATJSONPostURLRequest.h"
 
 @interface QATAppDelegate ()
 
 @property (strong, nonatomic) QATQuestionsDataSource* questionsDataSource;
+@property (strong, nonatomic) QATQuestionPostman* postman;
 
 @end
 
@@ -19,11 +21,16 @@
 
 @synthesize window = _window;
 @synthesize questionsDataSource = _questionsDataSource;
+@synthesize postman = _postman;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
     self.questionsDataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
+    
+    QATJSONPostURLRequest* postRequest = [[QATJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/new_json_item"]];
+    QATConnection* postConnection = [[QATConnection alloc] initWithURLRequest:postRequest];
+    self.postman = [[QATQuestionPostman alloc] initWithConnection:postConnection];
     
     return YES;
 }

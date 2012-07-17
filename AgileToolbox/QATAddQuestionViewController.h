@@ -11,6 +11,7 @@
 
 @interface QATAddQuestionViewController : UIViewController
 
+// TODO: OCMock does not support testing weak properties - weak would be better here
 @property (nonatomic,assign) id<QATAddQuestionDelegateProtocol> delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *addedQuestionText;

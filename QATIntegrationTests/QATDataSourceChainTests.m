@@ -12,7 +12,6 @@
 #import "QATConnection.h"
 #import "QATQuestionsDataSource.h"
 #import "QATDataSourceDelegateProtocol.h"
- 
 
 @interface QATDataSourceChainTests : SenTestCase<QATDataSourceDelegateProtocol>
 
@@ -28,9 +27,21 @@
 @synthesize isDone = _isDone;
 @synthesize timeout = _timeout;
 
+- (NSData*) createJSONDataFromJSONObject:(id) json_object
+{
+    return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
+}
+
+#pragma mark - QATDataSourceDelegateProtocol
 - (void)dataSoruceLoaded
 {
     self.isDone = YES;
+}
+
+- (void)tearDown
+{
+    self.isDone = NO;
+    self.timeout = NO;
 }
 
 - (void)testThatJSONDataIsCorrectlyLoadedFromTheServer
@@ -55,7 +66,7 @@
     while (!self.isDone && !self.timeout)
     {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate
-                                                  dateWithTimeIntervalSinceNow:1.0]];
+                                                  dateWithTimeIntervalSinceNow:2.0]];
         NSLog(@"Polling...");
     }
     STAssertTrue(self.isDone,nil);
@@ -71,6 +82,10 @@
     self.timeout = YES;
     
 }
+
+
+                                   
+                                   
 
 
 @end

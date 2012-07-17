@@ -71,7 +71,8 @@
         
         QATQuestionsTableViewController* destinationVC =  (QATQuestionsTableViewController*)segue.destinationViewController;
         QATAppDelegate* appDelegate = (QATAppDelegate*)[[UIApplication sharedApplication] delegate];
-        destinationVC.questionsDataSource = appDelegate.questionsDataSource; 
+        destinationVC.questionsDataSource = appDelegate.questionsDataSource;
+        destinationVC.postman = appDelegate.postman;
     }
     
 }

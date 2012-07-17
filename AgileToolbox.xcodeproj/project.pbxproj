@@ -71,6 +71,11 @@
 		D3A7B4A615AB011C00DD6772 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B4A415AB011C00DD6772 /* InfoPlist.strings */; };
 		D3A7B4B015AB01E300DD6772 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 		D3A7B4B315AB022800DD6772 /* QATDataSourceChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */; };
+		D3A7B4BA15B37F9400DD6772 /* QATPostURLRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */; };
+		D3A7B4BF15B383FD00DD6772 /* QATJSONPostURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */; };
+		D3A7B4C215B3953E00DD6772 /* QATQuestionPostmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */; };
+		D3A7B4C515B4B3DF00DD6772 /* QATQuestionPostman.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */; };
+		D3A7B4C615B4B3DF00DD6772 /* QATQuestionPostman.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */; };
 		D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5E615A4544200F0900D /* QATConnection.m */; };
 		D3C1F5EE15A4544300F0900D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
@@ -95,6 +100,11 @@
 		D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */; };
 		D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */; };
 		D3C9870415A9F38B007A41D8 /* QATConnectionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */; };
+		D3CA100115B4FABA003B2D4E /* QATJSONPostURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */; };
+		D3CA100315B58600003B2D4E /* QATPostmanDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */; };
+		D3CA100615B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */; };
+		D3CA100815B594A3003B2D4E /* QATPostmanProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */; };
+		D3CA100B15B59E79003B2D4E /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +130,13 @@
 			remoteInfo = QATLibrary;
 		};
 		D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D387EF021536EF0400635736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
+			remoteInfo = QATLibrary;
+		};
+		D3CA100915B59E57003B2D4E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
 			proxyType = 1;
@@ -205,6 +222,12 @@
 		D3A7B4A515AB011C00DD6772 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3A7B4AA15AB011C00DD6772 /* QATIntegrationTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATIntegrationTests-Prefix.pch"; sourceTree = "<group>"; };
 		D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATDataSourceChainTests.m; sourceTree = "<group>"; };
+		D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPostURLRequestTests.m; sourceTree = "<group>"; };
+		D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATJSONPostURLRequest.h; sourceTree = "<group>"; };
+		D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATJSONPostURLRequest.m; sourceTree = "<group>"; };
+		D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostmanTests.m; sourceTree = "<group>"; };
+		D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionPostman.h; sourceTree = "<group>"; };
+		D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostman.m; sourceTree = "<group>"; };
 		D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATConnectionTests.m; path = ../LogicUnitTests/QATConnectionTests.m; sourceTree = "<group>"; };
 		D3C1F5E015A4544200F0900D /* libQATLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQATLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATLibrary-Prefix.pch"; sourceTree = "<group>"; };
@@ -225,6 +248,9 @@
 		D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsDataSource.h; sourceTree = "<group>"; };
 		D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsDataSource.m; sourceTree = "<group>"; };
 		D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATConnectionDelegateProtocol.h; sourceTree = "<group>"; };
+		D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPostmanDelegateProtocol.h; sourceTree = "<group>"; };
+		D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostmanIntegrationTests.m; sourceTree = "<group>"; };
+		D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPostmanProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +269,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3CA100B15B59E79003B2D4E /* libQATLibrary.a in Frameworks */,
 				D387EF2E1536EF0400635736 /* SenTestingKit.framework in Frameworks */,
 				D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */,
 				D387EF301536EF0500635736 /* Foundation.framework in Frameworks */,
@@ -499,6 +526,7 @@
 		D3A7B4A115AB011C00DD6772 /* QATIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */,
 				D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */,
 				D3A7B4A215AB011C00DD6772 /* Supporting Files */,
 			);
@@ -521,6 +549,8 @@
 				6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */,
 				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
 				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
+				D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */,
+				D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */,
 				D3C1F5E515A4544200F0900D /* QATConnection.h */,
 				D3C1F5E615A4544200F0900D /* QATConnection.m */,
 				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
@@ -533,6 +563,10 @@
 				D3A7B49615AAF1E200DD6772 /* QATDataSourceProtocol.h */,
 				D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */,
 				D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */,
+				D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */,
+				D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */,
+				D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */,
+				D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
 			path = QATLibrary;
@@ -553,6 +587,8 @@
 				D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */,
 				D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */,
 				D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */,
+				D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */,
+				D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */,
 				D3C1F5F515A4544300F0900D /* Supporting Files */,
 			);
 			path = QATLibraryTests;
@@ -583,6 +619,10 @@
 				D3A7B49715AAF1E200DD6772 /* QATDataSourceProtocol.h in Headers */,
 				6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */,
 				6D3B883715B0D016008EF63B /* QATAddQuestionDelegateProtocol.h in Headers */,
+				D3A7B4C515B4B3DF00DD6772 /* QATQuestionPostman.h in Headers */,
+				D3CA100115B4FABA003B2D4E /* QATJSONPostURLRequest.h in Headers */,
+				D3CA100315B58600003B2D4E /* QATPostmanDelegateProtocol.h in Headers */,
+				D3CA100815B594A3003B2D4E /* QATPostmanProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +659,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D3CA100A15B59E57003B2D4E /* PBXTargetDependency */,
 				D387EF321536EF0500635736 /* PBXTargetDependency */,
 			);
 			name = ApplicationUnitTests;
@@ -896,6 +937,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A7B4B315AB022800DD6772 /* QATDataSourceChainTests.m in Sources */,
+				D3CA100615B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,6 +950,8 @@
 				D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */,
 				D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */,
 				6D5C238215AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m in Sources */,
+				D3A7B4BF15B383FD00DD6772 /* QATJSONPostURLRequest.m in Sources */,
+				D3A7B4C615B4B3DF00DD6772 /* QATQuestionPostman.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -919,6 +963,8 @@
 				D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */,
 				D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */,
 				D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */,
+				D3A7B4BA15B37F9400DD6772 /* QATPostURLRequestTests.m in Sources */,
+				D3A7B4C215B3953E00DD6772 /* QATQuestionPostmanTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +990,11 @@
 			isa = PBXTargetDependency;
 			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
 			targetProxy = D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */;
+		};
+		D3CA100A15B59E57003B2D4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			targetProxy = D3CA100915B59E57003B2D4E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
