@@ -35,6 +35,10 @@
 		D387EF3B1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */; };
 		D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF451536FADF00635736 /* QATTopicsListViewController.m */; };
 		D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF481537192600635736 /* QATTopicDetailsViewController.m */; };
+		D39656B115B63676009D082E /* QATiPhoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B015B63676009D082E /* QATiPhoneIcon.png */; };
+		D39656B315B6367D009D082E /* QATiPhoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B215B6367D009D082E /* QATiPhoneIcon@2x.png */; };
+		D39656B515B639F1009D082E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B415B639F1009D082E /* Default.png */; };
+		D39656B715B639F8009D082E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B615B639F8009D082E /* Default@2x.png */; };
 		D3972841157D07FC000C1819 /* Concepts.png in Resources */ = {isa = PBXBuildFile; fileRef = D397282F157D07FC000C1819 /* Concepts.png */; };
 		D3972842157D07FC000C1819 /* Concepts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3972830157D07FC000C1819 /* Concepts@2x.png */; };
 		D3972843157D07FC000C1819 /* ConceptsHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D3972831157D07FC000C1819 /* ConceptsHighlighted.png */; };
@@ -181,6 +185,10 @@
 		D387EF451536FADF00635736 /* QATTopicsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicsListViewController.m; sourceTree = "<group>"; };
 		D387EF471537192600635736 /* QATTopicDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicDetailsViewController.h; sourceTree = "<group>"; };
 		D387EF481537192600635736 /* QATTopicDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicDetailsViewController.m; sourceTree = "<group>"; };
+		D39656B015B63676009D082E /* QATiPhoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = QATiPhoneIcon.png; path = ../../QATiPhoneIcon.png; sourceTree = "<group>"; };
+		D39656B215B6367D009D082E /* QATiPhoneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "QATiPhoneIcon@2x.png"; path = "../../QATiPhoneIcon@2x.png"; sourceTree = "<group>"; };
+		D39656B415B639F1009D082E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../Default.png; sourceTree = "<group>"; };
+		D39656B615B639F8009D082E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../Default@2x.png"; sourceTree = "<group>"; };
 		D397282F157D07FC000C1819 /* Concepts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Concepts.png; sourceTree = "<group>"; };
 		D3972830157D07FC000C1819 /* Concepts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Concepts@2x.png"; sourceTree = "<group>"; };
 		D3972831157D07FC000C1819 /* ConceptsHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConceptsHighlighted.png; sourceTree = "<group>"; };
@@ -423,6 +431,10 @@
 		D397282E157D07FC000C1819 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				D39656B615B639F8009D082E /* Default@2x.png */,
+				D39656B415B639F1009D082E /* Default.png */,
+				D39656B215B6367D009D082E /* QATiPhoneIcon@2x.png */,
+				D39656B015B63676009D082E /* QATiPhoneIcon.png */,
 				D397282F157D07FC000C1819 /* Concepts.png */,
 				D3972830157D07FC000C1819 /* Concepts@2x.png */,
 				D3972831157D07FC000C1819 /* ConceptsHighlighted.png */,
@@ -799,6 +811,10 @@
 				D3972852157D07FC000C1819 /* QuantumNavigationBarLogo@2x.png in Resources */,
 				D3972859157D0811000C1819 /* ProductOwner.html in Resources */,
 				D397285A157D0811000C1819 /* ScrumMaster.html in Resources */,
+				D39656B115B63676009D082E /* QATiPhoneIcon.png in Resources */,
+				D39656B315B6367D009D082E /* QATiPhoneIcon@2x.png in Resources */,
+				D39656B515B639F1009D082E /* Default.png in Resources */,
+				D39656B715B639F8009D082E /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,11 +1128,13 @@
 		D387EF401536EF0500635736 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Everyday Productive";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9787E4FA-38B2-4E2E-A522-3908F46120E7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
