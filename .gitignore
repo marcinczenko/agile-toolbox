@@ -13,6 +13,9 @@ Snapshots
 # osx noise
 .DS_Store
 
+# Intego Backup Express noise
+.PBSyncDB
+
 # Python noise
 *.py[co]
 
