@@ -92,7 +92,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 - (NSData*)examplePOSTHTTPBody
 {
-    NSString * bodyString = [NSString stringWithString:@"Example HTTP Body"];
+    NSString * bodyString = @"Example HTTP Body";
     return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
 }
 

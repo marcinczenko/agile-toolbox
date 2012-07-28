@@ -209,7 +209,7 @@
 
 - (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded
 {
-    NSString * addedQuestion = [NSString stringWithString:@"New Question"];
+    NSString * addedQuestion = @"New Question";
     id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
     [[postmanMock expect] post:addedQuestion];
 
