@@ -10,7 +10,7 @@ end
 
 Then /^I should be able to retrieve these (\d+) items using my iPhone App \(Feature: "(.*?)" Scenario:"(.*?)"\)$/ do |numberOfItems, featureName, scenarioName|
     FileUtils.cd "#{ENV['HOME']}/UIAutomation/AgileToolbox/log" do
-          Runners::ComplexRunner.setVerbose(true)  
+          Runners::ComplexRunner.setVerbose(false)  
           Runners::InstrumentsRunner.run({:target=>'AgileToolbox', :feature=>featureName, :scenario=>scenarioName}).should == 0
           Runners::ComplexRunner.setVerbose(false)  
     end
@@ -18,7 +18,7 @@ end
 
 Then /^I should be able to add a new item using my iPhone App \(Feature: "(.*?)" Scenario:"(.*?)"\)$/ do |featureName, scenarioName|
     FileUtils.cd "#{ENV['HOME']}/UIAutomation/AgileToolbox/log" do
-          Runners::ComplexRunner.setVerbose(true)  
+          Runners::ComplexRunner.setVerbose(false)  
           Runners::InstrumentsRunner.run({:target=>'AgileToolbox', :feature=>featureName, :scenario=>scenarioName}).should == 0
           Runners::ComplexRunner.setVerbose(false)  
     end
