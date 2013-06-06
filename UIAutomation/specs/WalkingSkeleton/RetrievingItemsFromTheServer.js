@@ -26,7 +26,7 @@ describe("Walking Skeleton", function() {
         
         expect(mainWindow.tableViews()["Questions"].checkIsValid()).toBe(true);
         
-        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(4);
+        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(5);
     });
 });
 
