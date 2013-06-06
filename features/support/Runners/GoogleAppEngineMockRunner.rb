@@ -6,6 +6,7 @@ module Runners
             @options = options
             @cmd = command()
             @verbose = false
+            ENV["SSL_CERT_FILE"] = File.expand_path("GoogleAppEngineAppMock/CA/new-quantumagiletoolbox-dev.appspot.com/ca.pem")
         end
     
         def start()
@@ -19,13 +20,16 @@ module Runners
         
         def stop()
             # We have use a separate runner to kill the app becuase we running as the root user.
-            killer = SimpleRunner.new("sudo kill -s INT #{@runner.pid()}")
+            # killer = SimpleRunner.new("sudo kill -s INT #{@runner.pid()}")
+            puts "sudo pkill -f '#{File.join(ENV['VIRTUALENV'],"/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}'"
+            killer = SimpleRunner.new("sudo pkill -f '#{File.join(ENV['VIRTUALENV'],"/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}'")
             killer.start()
             killer.wait()
         end
               
         def command()
-            "sudo #{File.join(ENV['WORKON_HOME'],"#{@options[:virtualenv]}/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            # "sudo #{File.join(ENV['WORKON_HOME'],"#{@options[:virtualenv]}/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            "sudo #{File.join(ENV['VIRTUALENV'],"/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
         end
         
         def waitForBeingOperational()
