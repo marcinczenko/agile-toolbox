@@ -894,7 +894,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Run the unit tests in this test bundle.\n\"${PROJECT_DIR}/XcodeScripts/RunPlatformUnitTests\"\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		D3C1F5EB15A4544200F0900D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1265,7 +1265,10 @@
 				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/OCMock/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
@@ -1289,7 +1292,10 @@
 				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/OCMock/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/OCMock/lib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",

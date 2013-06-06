@@ -27,6 +27,8 @@
 
 - (void)setUp
 {
+    [super setUp];
+    
     self.isDone = NO;
     self.timeout = NO;
 }
