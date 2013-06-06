@@ -1256,6 +1256,7 @@
 		D3A7B4AC15AB011C00DD6772 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1264,12 +1265,14 @@
 				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/OCMock/lib\"";
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1277,6 +1280,7 @@
 		D3A7B4AD15AB011C00DD6772 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1285,12 +1289,14 @@
 				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/OCMock/lib\"";
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
