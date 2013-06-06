@@ -25,6 +25,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *responseData;
+    
+    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/ready"]]
+                                         returningResponse:&response
+                                                     error:&error];
+                                                                        
+    if ([responseData length] > 0)
+    {
+        NSLog(@"Upload response: %@",[NSString stringWithCString:[responseData bytes]
+                                                        encoding:NSUTF8StringEncoding]);
+    } else {
+        NSLog(@"Bad response (%@)", [error description]);
+    }
+    
+    
     QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
     self.questionsDataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
     

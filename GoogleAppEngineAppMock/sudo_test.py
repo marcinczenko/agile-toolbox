@@ -16,4 +16,4 @@ def execute_command(cmd):
 
 preview_only = False
 
-execute_command("sudo python /Users/marcin/Projects/Quantum/AgileToolbox/GoogleAppEngineAppMock/main.py -n 5")
+execute_command("sudo python /Users/mczenko/Projects/Quantum/AgileToolbox/GoogleAppEngineAppMock/main.py -n 5")

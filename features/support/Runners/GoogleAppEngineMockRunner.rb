@@ -25,7 +25,7 @@ module Runners
         end
               
         def command()
-            "sudo #{File.join(ENV['WORKON_HOME'],"#{@options[:target]}/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            "sudo #{File.join(ENV['WORKON_HOME'],"#{@options[:virtualenv]}/bin/python")} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
         end
         
         def waitForBeingOperational()

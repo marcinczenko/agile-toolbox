@@ -25,7 +25,7 @@ def main():
    
    # httpserver.serve(app, host='192.168.0.31', ssl_pem='CA/192.168.0.31/server.pem')
    # httpserver.serve(app, host='localhost', port='443', ssl_pem='CA/localhost/server.pem')
-   httpserver.serve(app, host='quantumagiletoolbox-dev.appspot.com', port='443', ssl_pem=os.path.join(file_dir,'CA/quantumagiletoolbox-dev.appspot.com/server.pem'))
+   httpserver.serve(app, host='quantumagiletoolbox-dev.appspot.com', port='443', ssl_pem=os.path.join(file_dir,'CA/new-quantumagiletoolbox-dev.appspot.com/server.pem'))
 
 if __name__ == '__main__':
    main()
