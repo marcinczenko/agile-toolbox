@@ -18,6 +18,14 @@ module Runners
             waitForBeingOperational()
         end
         
+        def verbose
+            @verbose
+        end
+
+        def setVerbose(verbose)
+            @verbose = verbose
+        end
+
         def stop()
             # We have use a separate runner to kill the app becuase we running as the root user.
             # killer = SimpleRunner.new("sudo kill -s INT #{@runner.pid()}")
