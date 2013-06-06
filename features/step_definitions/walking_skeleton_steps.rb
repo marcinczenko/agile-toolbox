@@ -1,7 +1,9 @@
 
 Given /^Google App Engine Server Mock with (\d+) items is started$/ do |number_of_items|
+    Runners::ComplexRunner.setVerbose(true) 
     @google_mock = Runners::GoogleAppEngineMockRunner.new({:virtualenv=>'GoogleAppEngineAppMock',:number_of_items=>5})
     @google_mock.start()
+    Runners::ComplexRunner.setVerbose(false) 
 end
 
 After do
