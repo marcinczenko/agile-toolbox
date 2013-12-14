@@ -37,14 +37,14 @@
 
 - (IBAction)done:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.delegate questionAdded:self.addedQuestionText.text];
 }
 
 - (IBAction)cancel:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

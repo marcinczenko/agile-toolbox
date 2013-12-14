@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D2B81D26-E854-408D-BB44-B0346674DA7A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AgileToolbox</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7BF8FA39-6B47-4A52-9668-30C034EE38C9</key>
+		<string>ssh://everydayproductive.com/quantum/AgileToolbox</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AgileToolbox.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7BF8FA39-6B47-4A52-9668-30C034EE38C9</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://everydayproductive.com/quantum/AgileToolbox</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7BF8FA39-6B47-4A52-9668-30C034EE38C9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7BF8FA39-6B47-4A52-9668-30C034EE38C9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AgileToolbox</string>
+		</dict>
+	</array>
+</dict>
+</plist>

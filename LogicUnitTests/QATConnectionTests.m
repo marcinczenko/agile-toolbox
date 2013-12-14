@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATConnection.h"
@@ -48,7 +48,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 @end
 
-@interface QATConnectionTests : SenTestCase
+@interface QATConnectionTests : XCTestCase
 
 @property (nonatomic,readonly) NSInteger StatusCode_OK;
 @property (nonatomic,readonly) NSURLConnection* connectionDoesNotMatter;
@@ -138,41 +138,41 @@ typedef void(^CallbackBlock)(NSData*);
 {
     QATConnection * connection = [QATConnection createWithURL:self.exampleURL progressBlock:nil completionBlock:nil];
     
-    STAssertNotNil(connection, @"Connection object is Nil!");
+    XCTAssertNotNil(connection, @"Connection object is Nil!");
     
-    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
-    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
-    STAssertEquals(connection.progressThreshold, (NSUInteger)1,nil);
+    XCTAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString);
+    XCTAssertEqualObjects(connection.urlRequest.URL, self.exampleURL);
+    XCTAssertEqual(connection.progressThreshold, (NSUInteger)1);
 }
 
 - (void)testCreatingAConnectionObjectUsingExternalURLRequestObject
 {
     QATConnection* connection = [[QATConnection alloc] initWithURLRequest:[NSURLRequest requestWithURL:self.exampleURL]];
     
-    STAssertNotNil(connection, @"Connection object is Nil!");
+    XCTAssertNotNil(connection, @"Connection object is Nil!");
     
-    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
-    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
-    STAssertEquals(connection.progressThreshold, (NSUInteger)1,nil);
+    XCTAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString);
+    XCTAssertEqualObjects(connection.urlRequest.URL, self.exampleURL);
+    XCTAssertEqual(connection.progressThreshold, (NSUInteger)1);
 }
 
 - (void)testCreatingAConnectionWithoutURLRequestAndSettingItLater
 {
     QATConnection* connection = [[QATConnection alloc] init];
     
-    STAssertNotNil(connection, @"Connection object is Nil!");
+    XCTAssertNotNil(connection, @"Connection object is Nil!");
     
-    STAssertNil(connection.url,@"connection.url should be nil");
-    STAssertNil(connection.urlRequest,@"connection.urlRequest should be nil");
-    STAssertEquals(connection.progressThreshold, (NSUInteger)1,@"connection.progressThreshold should be 1");
+    XCTAssertNil(connection.url,@"connection.url should be nil");
+    XCTAssertNil(connection.urlRequest,@"connection.urlRequest should be nil");
+    XCTAssertEqual(connection.progressThreshold, (NSUInteger)1,@"connection.progressThreshold should be 1");
     
     connection.urlRequest = [NSURLRequest requestWithURL:self.exampleURL];
     
-    STAssertNotNil(connection.url,@"After setting urlRequest, connection.url should no longer be nil");
-    STAssertNotNil(connection.urlRequest,@"After setting the urlRequest, connection.urlRequest should no longer be nil.");
-    STAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString,nil);
-    STAssertEqualObjects(connection.urlRequest.URL, self.exampleURL,nil);
-    STAssertEquals(connection.progressThreshold, (NSUInteger)1,@"After setting the urlRequest, connection.progressThreshold should still be 1");
+    XCTAssertNotNil(connection.url,@"After setting urlRequest, connection.url should no longer be nil");
+    XCTAssertNotNil(connection.urlRequest,@"After setting the urlRequest, connection.urlRequest should no longer be nil.");
+    XCTAssertEqualObjects(connection.url.absoluteString, self.exampleURL.absoluteString);
+    XCTAssertEqualObjects(connection.urlRequest.URL, self.exampleURL);
+    XCTAssertEqual(connection.progressThreshold, (NSUInteger)1,@"After setting the urlRequest, connection.progressThreshold should still be 1");
 }
 
 - (void)testStartingConnection
@@ -198,7 +198,7 @@ typedef void(^CallbackBlock)(NSData*);
     
     [connection startPOSTWithBody:self.examplePOSTHTTPBody];
     
-    STAssertEqualObjects([[NSString alloc] initWithData:connection.urlRequest.HTTPBody encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:self.examplePOSTHTTPBody encoding:NSUTF8StringEncoding],nil);
+    XCTAssertEqualObjects([[NSString alloc] initWithData:connection.urlRequest.HTTPBody encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:self.examplePOSTHTTPBody encoding:NSUTF8StringEncoding]);
     
     [partialConnectionMock verify];
     
@@ -215,8 +215,8 @@ typedef void(^CallbackBlock)(NSData*);
     
     [connection startPOSTWithBody:self.examplePOSTHTTPBody];
     
-    STAssertNil(connection.urlRequest.HTTPBody,nil);
-    STAssertFalse(self.startStubCalled,nil);
+    XCTAssertNil(connection.urlRequest.HTTPBody);
+    XCTAssertFalse(self.startStubCalled);
         
     [partialConnectionMock verify];
 }
@@ -232,8 +232,8 @@ typedef void(^CallbackBlock)(NSData*);
     
     [connection startPOSTWithBody:self.examplePOSTHTTPBody];
     
-    STAssertNil(connection.urlRequest.HTTPBody,nil);
-    STAssertFalse(self.startStubCalled,nil);
+    XCTAssertNil(connection.urlRequest.HTTPBody);
+    XCTAssertFalse(self.startStubCalled);
     
     [partialConnectionMock verify];
 }
@@ -242,13 +242,13 @@ typedef void(^CallbackBlock)(NSData*);
 {
     NSInteger content_length = 100;
 
-    STAssertNil(self.connection.downloadData,@"Connection object should be nil at this point");
+    XCTAssertNil(self.connection.downloadData,@"Connection object should be nil at this point");
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:content_length]];
     
-    STAssertEquals(self.connection.contentLength,content_length,@"The length in the response is not the same as the intended content length!");
-    STAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
-    STAssertEquals(self.connection.downloadData.length, (NSUInteger)0, @"The length of the downloaded data shuld be 0!");
+    XCTAssertEqual(self.connection.contentLength,content_length,@"The length in the response is not the same as the intended content length!");
+    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertEqual(self.connection.downloadData.length, (NSUInteger)0, @"The length of the downloaded data shuld be 0!");
 }
 
 - (void)testDelegateDidReceivedData
@@ -257,12 +257,12 @@ typedef void(^CallbackBlock)(NSData*);
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:test_data.length]];
     
-    STAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data];
     
-    STAssertEquals(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
-    STAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
+    XCTAssertEqual(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
+    XCTAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
     
 }
 
@@ -275,14 +275,14 @@ typedef void(^CallbackBlock)(NSData*);
 
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:test_data.length]];
 
-    STAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
 
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_0];
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_1];
 
     
-    STAssertEquals(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
-    STAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
+    XCTAssertEqual(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
+    XCTAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
 }
 
 - (void)testIfCompletionBlockIsCalledAfterDataHasBeenReceived
@@ -291,17 +291,17 @@ typedef void(^CallbackBlock)(NSData*);
     
     QATConnectionCompletionBlock completion_block = ^(QATConnection *connection, NSError *error) {
         blockHasBeenCalled = YES;
-        STAssertEquals(connection, self.connection,@"Received connection pointer is just so wrong.");
-        STAssertEqualObjects(error,nil,@"error should be nil if no error!");
+        XCTAssertEqual(connection, self.connection,@"Received connection pointer is just so wrong.");
+        XCTAssertEqualObjects(error,nil,@"error should be nil if no error!");
     };
     
     self.connection = [QATConnection createWithURL:self.exampleURL progressBlock:nil completionBlock:completion_block];
     
-    STAssertFalse(blockHasBeenCalled,@"Completion block should not have been called at this point yet!");
+    XCTAssertFalse(blockHasBeenCalled,@"Completion block should not have been called at this point yet!");
     
     [self.connection connectionDidFinishLoading:self.connectionDoesNotMatter];
     
-    STAssertTrue(blockHasBeenCalled,@"Completion block should have been called by that time!");
+    XCTAssertTrue(blockHasBeenCalled,@"Completion block should have been called by that time!");
 }
 
 - (void)testIfProgressBlockIsCalledAsDataIsBeingReceived
@@ -309,13 +309,13 @@ typedef void(^CallbackBlock)(NSData*);
     __block NSInteger numberOfTimesCalled = 0;
     
     QATConnectionProgressBlock progress_block = ^(QATConnection *connection) {
-        STAssertEquals(connection, self.connection,@"Received connection pointer is just so wrong.");
+        XCTAssertEqual(connection, self.connection,@"Received connection pointer is just so wrong.");
         numberOfTimesCalled++;
     };
     
     self.connection = [QATConnection createWithURL:self.exampleURL progressBlock:progress_block completionBlock:nil];
     
-    STAssertEquals(numberOfTimesCalled,0,nil);
+    XCTAssertEqual(numberOfTimesCalled,0);
     
     NSData * test_data = [self generateTestData];
     
@@ -327,7 +327,7 @@ typedef void(^CallbackBlock)(NSData*);
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_0];
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_1];
     
-    STAssertEquals(2,numberOfTimesCalled,@"Pregress Block Should have been called twice!");
+    XCTAssertEqual(2,numberOfTimesCalled,@"Pregress Block Should have been called twice!");
 }
 
 - (void)testChangingProgressReportingResolution
@@ -335,7 +335,7 @@ typedef void(^CallbackBlock)(NSData*);
     __block NSInteger numberOfTimesCalled = 0;
     
     QATConnectionProgressBlock progress_block = ^(QATConnection *connection) {
-        STAssertEquals(connection, self.connection,@"Received connection pointer is just so wrong.");
+        XCTAssertEqual(connection, self.connection,@"Received connection pointer is just so wrong.");
         numberOfTimesCalled++;
     };
     
@@ -349,9 +349,9 @@ typedef void(^CallbackBlock)(NSData*);
     
     [self sendDataIncrementally:content_length];
     
-    STAssertEquals(self.connection.contentLength, content_length,@"Content length should equal the length of the test_data!");
-    STAssertEquals(self.connection.downloadData.length, (NSUInteger)content_length,@"The length of the dowloaded data should equal the length of the test_data!");
-    STAssertEquals(50,numberOfTimesCalled,@"Pregress Block Should have been called after every data block!");
+    XCTAssertEqual(self.connection.contentLength, content_length,@"Content length should equal the length of the test_data!");
+    XCTAssertEqual(self.connection.downloadData.length, (NSUInteger)content_length,@"The length of the dowloaded data should equal the length of the test_data!");
+    XCTAssertEqual(50,numberOfTimesCalled,@"Pregress Block Should have been called after every data block!");
 }
 
 - (void)testSettingTheDelegate
@@ -374,7 +374,7 @@ typedef void(^CallbackBlock)(NSData*);
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data];
     [self.connection connectionDidFinishLoading:self.connectionDoesNotMatter];
     
-    STAssertTrue(delegateOK,@"Delgate was not called or with unexpected argument contents!");
+    XCTAssertTrue(delegateOK,@"Delgate was not called or with unexpected argument contents!");
 }
 
 @end

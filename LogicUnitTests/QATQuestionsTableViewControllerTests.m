@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATQuestionsTableViewController.h"
@@ -20,7 +20,7 @@
 #import <objc/runtime.h>
 
 
-@interface QATQuestionsTableViewControllerTests : SenTestCase
+@interface QATQuestionsTableViewControllerTests : XCTestCase
 
 @property (nonatomic,strong) QATQuestionsTableViewController* vc;
 @property (nonatomic,strong) id partialVCMock;
@@ -135,26 +135,31 @@
     [postmanMock verify];
 }
 
-- (void)testThatViewSetsTheReferenceToDataSourceToNilWhenUnloaded
+- (void)testThatViewSetsTheReferenceToDataSourceToNilWhenMemoryWarningReceived
 {
+    
+    [self disableViewPropertyForTheVC:self.vc];
+    
     id dataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
     
     self.vc.questionsDataSource = dataSourceMock;
     
-    [self.vc viewWillUnload];
+    [self.vc didReceiveMemoryWarning];
     
-    STAssertNil(self.vc.questionsDataSource,nil);
+    XCTAssertNil(self.vc.questionsDataSource);
 }
 
-- (void)testThatViewSetsTheReferenceToPostmanToNilWhenUnloaded
+- (void)testThatViewSetsTheReferenceToPostmanToNilWhenMemoryWarningReceived
 {
+    [self disableViewPropertyForTheVC:self.vc];
+    
     id postmanMock = [OCMockObject mockForProtocol:@protocol(QATPostmanProtocol)];
     
     self.vc.postman = postmanMock;
     
-    [self.vc viewWillUnload];
+    [self.vc didReceiveMemoryWarning];
     
-    STAssertNil(self.vc.postman,nil);
+    XCTAssertNil(self.vc.postman);
 }
 
 //- (void)testReloadingTheTableWhenQuestionsAreDownloaded
@@ -175,7 +180,7 @@
 
 - (void)testThatNumberOfSectionsIsOne
 {    
-    STAssertEquals(1,[self.vc numberOfSectionsInTableView:self.doesNotMatter],nil);
+    XCTAssertEqual(1,[self.vc numberOfSectionsInTableView:self.doesNotMatter]);
 }
 
 - (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheDataSource
@@ -186,7 +191,7 @@
     
     self.vc.questionsDataSource = questionsDataSourceMock;
     
-    STAssertEquals(self.vc.questionsDataSource.length, [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0],nil);
+    XCTAssertEqual(self.vc.questionsDataSource.length, [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0]);
     
     [questionsDataSourceMock verify];
 }

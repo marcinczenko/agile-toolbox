@@ -17,9 +17,16 @@
 		6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
 		6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */; };
 		6D5C238215AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */; };
+		6D5CC2DB185B84C70017CDD1 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		6D5CC2DC185B84E40017CDD1 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
+		6D5CC2DD185B84FF0017CDD1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
+		6D82D54E185BB3F200CC75D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D83807D175FA5B400B305A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D83807C175FA5B400B305A5 /* Default-568h@2x.png */; };
 		6D92CA2B15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */; };
 		6D92CA2D15AB4C77002602C4 /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
+		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
+		6DB92147185AA7DC00440656 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		6DB92148185AA84200440656 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 		D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
@@ -29,7 +36,6 @@
 		D387EF201536EF0400635736 /* QATAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* QATAppDelegate.m */; };
 		D387EF231536EF0400635736 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D387EF211536EF0400635736 /* MainStoryboard.storyboard */; };
 		D387EF261536EF0400635736 /* QATViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF251536EF0400635736 /* QATViewController.m */; };
-		D387EF2E1536EF0400635736 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
 		D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF301536EF0500635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D387EF381536EF0500635736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D387EF361536EF0500635736 /* InfoPlist.strings */; };
@@ -62,7 +68,6 @@
 		D397285A157D0811000C1819 /* ScrumMaster.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972857157D0811000C1819 /* ScrumMaster.html */; };
 		D397285B157D4438000C1819 /* tapDetector.js in Resources */ = {isa = PBXBuildFile; fileRef = D3972855157D0811000C1819 /* tapDetector.js */; };
 		D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */; };
-		D3972B9D157D89C7000C1819 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
 		D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3972BA3157D89C7000C1819 /* InfoPlist.strings */; };
@@ -70,7 +75,6 @@
 		D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		D3A7B49415AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B49315AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h */; };
 		D3A7B49715AAF1E200DD6772 /* QATDataSourceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B49615AAF1E200DD6772 /* QATDataSourceProtocol.h */; };
-		D3A7B49E15AB011C00DD6772 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
 		D3A7B49F15AB011C00DD6772 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3A7B4A015AB011C00DD6772 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3A7B4A615AB011C00DD6772 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B4A415AB011C00DD6772 /* InfoPlist.strings */; };
@@ -83,10 +87,8 @@
 		D3A7B4C615B4B3DF00DD6772 /* QATQuestionPostman.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */; };
 		D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5E615A4544200F0900D /* QATConnection.m */; };
-		D3C1F5EE15A4544300F0900D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF2D1536EF0400635736 /* SenTestingKit.framework */; };
 		D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
-		D3C1F5F315A4544300F0900D /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 		D3C1F5F915A4544300F0900D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3C1F5F715A4544300F0900D /* InfoPlist.strings */; };
 		D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */; };
 		D3C986DF15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986DE15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m */; };
@@ -95,11 +97,9 @@
 		D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */; };
 		D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */; };
 		D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */; };
-		D3C986EA15A79182007A41D8 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 		D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */; };
 		D3C986F115A7955F007A41D8 /* QATMenuListSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */; };
 		D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */; };
-		D3C986F715A79ED3007A41D8 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
 		D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */; };
 		D3C986FE15A9E6DE007A41D8 /* QATConnectionProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */; };
 		D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */; };
@@ -113,6 +113,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6DB92149185AA85700440656 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D387EF021536EF0400635736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D387EF0A1536EF0400635736;
+			remoteInfo = AgileToolbox;
+		};
 		D387EF311536EF0500635736 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
@@ -163,6 +170,7 @@
 		6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
+		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPlanningPokerViewController.h; sourceTree = "<group>"; };
 		D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPlanningPokerViewController.m; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,8 +186,7 @@
 		D387EF221536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D387EF241536EF0400635736 /* QATViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATViewController.h; sourceTree = "<group>"; };
 		D387EF251536EF0400635736 /* QATViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATViewController.m; sourceTree = "<group>"; };
-		D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D387EF2D1536EF0400635736 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewControllerAppTests.m; sourceTree = "<group>"; };
@@ -214,7 +221,7 @@
 		D3972857157D0811000C1819 /* ScrumMaster.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ScrumMaster.html; sourceTree = "<group>"; };
 		D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATMainMenuListViewController.h; sourceTree = "<group>"; };
 		D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewController.m; sourceTree = "<group>"; };
-		D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicUnitTests-Info.plist"; sourceTree = "<group>"; };
 		D3972BA4157D89C7000C1819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3972BA9157D89C7000C1819 /* LogicUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicUnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -243,7 +250,7 @@
 		D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATLibrary-Prefix.pch"; sourceTree = "<group>"; };
 		D3C1F5E515A4544200F0900D /* QATConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATConnection.h; sourceTree = "<group>"; };
 		D3C1F5E615A4544200F0900D /* QATConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATConnection.m; sourceTree = "<group>"; };
-		D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QATLibraryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QATLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QATLibraryTests-Info.plist"; sourceTree = "<group>"; };
 		D3C1F5F815A4544300F0900D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3C986DE15A74FC8007A41D8 /* QATMainMenuListViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATMainMenuListViewControllerTests.m; path = ../AgileToolbox/QATMainMenuListViewControllerTests.m; sourceTree = "<group>"; };
@@ -268,7 +275,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C986F715A79ED3007A41D8 /* libQATLibrary.a in Frameworks */,
+				6DB92148185AA84200440656 /* libQATLibrary.a in Frameworks */,
 				D387EF101536EF0400635736 /* UIKit.framework in Frameworks */,
 				D387EF121536EF0400635736 /* Foundation.framework in Frameworks */,
 				D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */,
@@ -280,9 +287,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3CA100B15B59E79003B2D4E /* libQATLibrary.a in Frameworks */,
-				D387EF2E1536EF0400635736 /* SenTestingKit.framework in Frameworks */,
 				D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */,
 				D387EF301536EF0500635736 /* Foundation.framework in Frameworks */,
+				6D82D54E185BB3F200CC75D7 /* XCTest.framework in Frameworks */,
 				D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,10 +298,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3972B9D157D89C7000C1819 /* SenTestingKit.framework in Frameworks */,
+				6DB92147185AA7DC00440656 /* libQATLibrary.a in Frameworks */,
+				6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */,
 				D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */,
 				D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */,
-				D3C986EA15A79182007A41D8 /* libQATLibrary.a in Frameworks */,
 				D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A7B4B015AB01E300DD6772 /* libQATLibrary.a in Frameworks */,
-				D3A7B49E15AB011C00DD6772 /* SenTestingKit.framework in Frameworks */,
 				D3A7B49F15AB011C00DD6772 /* UIKit.framework in Frameworks */,
 				D3A7B4A015AB011C00DD6772 /* Foundation.framework in Frameworks */,
 			);
@@ -323,16 +329,65 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C1F5EE15A4544300F0900D /* SenTestingKit.framework in Frameworks */,
+				6D5CC2DB185B84C70017CDD1 /* libQATLibrary.a in Frameworks */,
 				D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */,
 				D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */,
-				D3C1F5F315A4544300F0900D /* libQATLibrary.a in Frameworks */,
+				6D5CC2DD185B84FF0017CDD1 /* XCTest.framework in Frameworks */,
+				6D5CC2DC185B84E40017CDD1 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D52A373185CAE120039C6C0 /* EPPostman */ = {
+			isa = PBXGroup;
+			children = (
+				D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */,
+				D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */,
+				D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */,
+				D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */,
+			);
+			name = EPPostman;
+			sourceTree = "<group>";
+		};
+		6D52A374185CAE5E0039C6C0 /* EPDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				D3A7B49315AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h */,
+				D3A7B49615AAF1E200DD6772 /* QATDataSourceProtocol.h */,
+				D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */,
+				D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */,
+			);
+			name = EPDataSource;
+			sourceTree = "<group>";
+		};
+		6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
+				D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */,
+				D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */,
+				D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */,
+				6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */,
+				6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */,
+			);
+			name = EPSmartTableViewCell;
+			sourceTree = "<group>";
+		};
+		6D52A376185CAF270039C6C0 /* EPConnections */ = {
+			isa = PBXGroup;
+			children = (
+				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
+				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
+				D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */,
+				D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */,
+				D3C1F5E515A4544200F0900D /* QATConnection.h */,
+				D3C1F5E615A4544200F0900D /* QATConnection.m */,
+			);
+			name = EPConnections;
+			sourceTree = "<group>";
+		};
 		D387EF001536EF0400635736 = {
 			isa = PBXGroup;
 			children = (
@@ -353,10 +408,10 @@
 			isa = PBXGroup;
 			children = (
 				D387EF0B1536EF0400635736 /* AgileToolbox.app */,
-				D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */,
-				D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */,
+				D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */,
+				D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */,
 				D3C1F5E015A4544200F0900D /* libQATLibrary.a */,
-				D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */,
+				D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */,
 				D3A7B49D15AB011C00DD6772 /* QATIntegrationTests.octest */,
 			);
 			name = Products;
@@ -365,10 +420,10 @@
 		D387EF0E1536EF0400635736 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DB92145185AA78D00440656 /* XCTest.framework */,
 				D387EF0F1536EF0400635736 /* UIKit.framework */,
 				D387EF111536EF0400635736 /* Foundation.framework */,
 				D387EF131536EF0400635736 /* CoreGraphics.framework */,
-				D387EF2D1536EF0400635736 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -562,26 +617,10 @@
 			isa = PBXGroup;
 			children = (
 				6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */,
-				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
-				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
-				D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */,
-				D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */,
-				D3C1F5E515A4544200F0900D /* QATConnection.h */,
-				D3C1F5E615A4544200F0900D /* QATConnection.m */,
-				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
-				D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */,
-				D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */,
-				D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */,
-				6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */,
-				6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */,
-				D3A7B49315AAEF5700DD6772 /* QATDataSourceDelegateProtocol.h */,
-				D3A7B49615AAF1E200DD6772 /* QATDataSourceProtocol.h */,
-				D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */,
-				D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */,
-				D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */,
-				D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */,
-				D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */,
-				D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */,
+				6D52A376185CAF270039C6C0 /* EPConnections */,
+				6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */,
+				6D52A374185CAE5E0039C6C0 /* EPDataSource */,
+				6D52A373185CAE120039C6C0 /* EPPostman */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
 			path = QATLibrary;
@@ -669,7 +708,6 @@
 				D387EF271536EF0400635736 /* Sources */,
 				D387EF281536EF0400635736 /* Frameworks */,
 				D387EF291536EF0400635736 /* Resources */,
-				D387EF2A1536EF0400635736 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -679,8 +717,8 @@
 			);
 			name = ApplicationUnitTests;
 			productName = AgileToolboxTests;
-			productReference = D387EF2C1536EF0400635736 /* ApplicationUnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D3972B9B157D89C7000C1819 /* LogicUnitTests */ = {
 			isa = PBXNativeTarget;
@@ -689,16 +727,16 @@
 				D3972B97157D89C7000C1819 /* Sources */,
 				D3972B98157D89C7000C1819 /* Frameworks */,
 				D3972B99157D89C7000C1819 /* Resources */,
-				D3972B9A157D89C7000C1819 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6DB9214A185AA85700440656 /* PBXTargetDependency */,
 			);
 			name = LogicUnitTests;
 			productName = LogicUnitTests;
-			productReference = D3972B9C157D89C7000C1819 /* LogicUnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D3A7B49C15AB011C00DD6772 /* QATIntegrationTests */ = {
 			isa = PBXNativeTarget;
@@ -743,7 +781,6 @@
 				D3C1F5E815A4544200F0900D /* Sources */,
 				D3C1F5E915A4544200F0900D /* Frameworks */,
 				D3C1F5EA15A4544200F0900D /* Resources */,
-				D3C1F5EB15A4544200F0900D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -752,8 +789,8 @@
 			);
 			name = QATLibraryTests;
 			productName = QATLibraryTests;
-			productReference = D3C1F5ED15A4544200F0900D /* QATLibraryTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -762,7 +799,15 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = QAT;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					D3972B9B157D89C7000C1819 = {
+						TestTargetID = D387EF0A1536EF0400635736;
+					};
+					D3C1F5EC15A4544200F0900D = {
+						TestTargetID = D3C1F5DF15A4544200F0900D;
+					};
+				};
 			};
 			buildConfigurationList = D387EF051536EF0400635736 /* Build configuration list for PBXProject "AgileToolbox" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -857,32 +902,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D387EF2A1536EF0400635736 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${PROJECT_DIR}/XcodeScripts/RunPlatformUnitTests\"\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		D3972B9A157D89C7000C1819 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
 		D3A7B49B15AB011C00DD6772 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -895,19 +914,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${PROJECT_DIR}/XcodeScripts/RunPlatformUnitTests\"\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		D3C1F5EB15A4544200F0900D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -991,6 +997,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6DB9214A185AA85700440656 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D387EF0A1536EF0400635736 /* AgileToolbox */;
+			targetProxy = 6DB92149185AA85700440656 /* PBXContainerItemProxy */;
+		};
 		D387EF321536EF0500635736 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D387EF0A1536EF0400635736 /* AgileToolbox */;
@@ -1074,9 +1085,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1091,10 +1103,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=*]" = "";
 				SDKROOT = iphoneos;
 			};
@@ -1104,9 +1120,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1114,8 +1131,11 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -1128,10 +1148,16 @@
 		D387EF3F1536EF0500635736 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1140,11 +1166,17 @@
 		D387EF401536EF0500635736 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Everyday Productive";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9787E4FA-38B2-4E2E-A522-3908F46120E7";
 				WRAPPER_EXTENSION = app;
@@ -1154,102 +1186,139 @@
 		D387EF421536EF0500635736 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "AgileToolboxTests/AgileToolboxTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
 		D387EF431536EF0500635736 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AgileToolbox/AgileToolbox-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "AgileToolboxTests/AgileToolboxTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
 		D3972BAB157D89C7000C1819 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicUnitTests/LogicUnitTests-Prefix.pch";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "LogicUnitTests/LogicUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_AFTER_BUILD = NO;
-				WRAPPER_EXTENSION = octest;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
 		D3972BAC157D89C7000C1819 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicUnitTests/LogicUnitTests-Prefix.pch";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "LogicUnitTests/LogicUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_AFTER_BUILD = NO;
-				WRAPPER_EXTENSION = octest;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
@@ -1310,9 +1379,13 @@
 		D3C1F5FE15A4544300F0900D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/QATLibrary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1322,9 +1395,13 @@
 		D3C1F5FF15A4544300F0900D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				DSTROOT = /tmp/QATLibrary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1334,50 +1411,73 @@
 		D3C1F60115A4544300F0900D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCMock/lib\"",
+					"$(SRCROOT)/OCMock/lib",
 				);
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
 		D3C1F60215A4544300F0900D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
 				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/OCMock/lib\"",
+					"$(SRCROOT)/OCMock/lib",
 				);
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};

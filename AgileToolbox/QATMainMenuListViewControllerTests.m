@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATMainMenuListViewController.h"
 #import "QATMenuListSmartTableViewCell.h"
 
-@interface QATMainMenuListViewControllerTests : SenTestCase
+@interface QATMainMenuListViewControllerTests : XCTestCase
 
 @property (nonatomic,strong) QATMainMenuListViewController* viewController;
 
@@ -43,18 +43,18 @@
     // Suprisingly it knows how to find it in story board file even in logic test.
     // I would expect this has to be tested in application logic tests, but if it
     // works, let it be :).
-    STAssertNotNil(self.viewController.view,@"View Controller's view is not set !");
-    STAssertEqualObjects(self.viewController.view.accessibilityLabel,@"MenuList",@"Accesibility Lable for the associated view is not set.");
+    XCTAssertNotNil(self.viewController.view,@"View Controller's view is not set !");
+    XCTAssertEqualObjects(self.viewController.view.accessibilityLabel,@"MenuList",@"Accesibility Lable for the associated view is not set.");
 }
 
 - (void)testNumberOfSectionsInTableViewReturnedByDataSource
 {
-    STAssertEquals(1,[self.viewController numberOfSectionsInTableView:self.doesNotMatter],@"Wrong number of sections returned!");
+    XCTAssertEqual(1,[self.viewController numberOfSectionsInTableView:self.doesNotMatter],@"Wrong number of sections returned!");
 }
 
 - (void)testNumberOfRowsInTableViewReturnedByDataSourceDelegate
 {
-    STAssertEquals(1,[self.viewController tableView:self.doesNotMatter numberOfRowsInSection:0],@"Wrong number of rows returned!");
+    XCTAssertEqual(2,[self.viewController tableView:self.doesNotMatter numberOfRowsInSection:0],@"Wrong number of rows returned!");
 }
 
 - (void)testThatTheCellForTheQACellIsSetupCorrectly

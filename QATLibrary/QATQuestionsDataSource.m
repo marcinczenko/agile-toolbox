@@ -13,9 +13,7 @@
 
 @property (nonatomic,strong) id<QATConnectionProtocol> connection;
 @property (nonatomic,strong) NSArray* json_object;
-// TODO: change to weak - we keep assign because OCMock has problem with weak delegates.
-// See: http://stackoverflow.com/questions/9104544/how-can-i-get-ocmock-under-arc-to-stop-nilling-an-nsproxy-subclass-set-using-a-w
-@property (nonatomic,assign) id<QATDataSourceDelegateProtocol> dataSourceDelegate;
+@property (nonatomic,weak) id<QATDataSourceDelegateProtocol> dataSourceDelegate;
 
 @end
 

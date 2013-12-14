@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATQuestionPostman.h"
@@ -14,7 +14,7 @@
 #import "QATConnection.h"
 #import "QATPostmanDelegateProtocol.h"
 
-@interface QATQuestionPostmanTests : SenTestCase
+@interface QATQuestionPostmanTests : XCTestCase
 
 @property (nonatomic,readonly) NSURL* exampleURL;
 @property (nonatomic,readonly) NSString *testItemString;
@@ -66,7 +66,7 @@
     id connection = [OCMockObject niceMockForProtocol:@protocol(QATConnectionProtocol)];
     [[[connection stub] andReturn:urlRequest] urlRequest];
     QATQuestionPostman * postman = [[QATQuestionPostman alloc] initWithConnection:connection];
-    STAssertNotNil(postman,nil);
+    XCTAssertNotNil(postman);
 }
 
 //---TODO: maybe throwing an exception if the URLRequest is not mutable, not JSON type and not POST method
@@ -111,7 +111,7 @@
     
     [connection verify];
     
-    STAssertEqualObjects(delegate, postman,@"Wrong delegate passed to connection object.");
+    XCTAssertEqualObjects(delegate, postman,@"Wrong delegate passed to connection object.");
 }
 
 - (void)testPostmanDelegateIsCalledOnSuccess

@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATAppDelegate.h"
 
-@interface QATAppDelegateTests : SenTestCase
+@interface QATAppDelegateTests : XCTestCase
 
 @end
 
@@ -26,15 +26,15 @@
 {
     QATAppDelegate* appDelegate = [[QATAppDelegate alloc]init];
     
-    STAssertNil(appDelegate.questionsDataSource,nil);
+    XCTAssertNil(appDelegate.questionsDataSource);
     
     [appDelegate application:self.doesNotMatter didFinishLaunchingWithOptions:self.doesNotMatter];
     
-    STAssertNotNil(appDelegate.questionsDataSource,nil);
+    XCTAssertNotNil(appDelegate.questionsDataSource);
     
-    STAssertEqualObjects(NSStringFromClass([appDelegate.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]),nil);
+    XCTAssertEqualObjects(NSStringFromClass([appDelegate.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]));
     
-    STAssertEqualObjects(@"https://quantumagiletoolbox-dev.appspot.com/items_json", appDelegate.questionsDataSource.connectionURL,nil);
+    XCTAssertEqualObjects(@"https://quantumagiletoolbox-dev.appspot.com/items_json", appDelegate.questionsDataSource.connectionURL);
 }
 
 @end
