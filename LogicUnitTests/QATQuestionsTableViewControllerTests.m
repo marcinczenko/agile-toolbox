@@ -180,7 +180,7 @@
 
 - (void)testThatNumberOfSectionsIsOne
 {    
-    XCTAssertEqual(1,[self.vc numberOfSectionsInTableView:self.doesNotMatter]);
+    XCTAssertEqual(1,(int)[self.vc numberOfSectionsInTableView:self.doesNotMatter]);
 }
 
 - (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheDataSource

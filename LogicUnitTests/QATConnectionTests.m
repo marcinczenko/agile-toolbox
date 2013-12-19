@@ -101,7 +101,7 @@ typedef void(^CallbackBlock)(NSData*);
     return [[NSHTTPURLResponse alloc] initWithURL:self.exampleURL 
                                        statusCode:self.StatusCode_OK
                                       HTTPVersion:@"HTTP/1.1" 
-                                     headerFields:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%i",contentLength], @"Content-Length", nil]];
+                                     headerFields:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%li",(long)contentLength], @"Content-Length", nil]];
 }
 
 - (void)sendDataIncrementally:(NSInteger)content_length
@@ -306,7 +306,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 - (void)testIfProgressBlockIsCalledAsDataIsBeingReceived
 {
-    __block NSInteger numberOfTimesCalled = 0;
+    __block int numberOfTimesCalled = 0;
     
     QATConnectionProgressBlock progress_block = ^(QATConnection *connection) {
         XCTAssertEqual(connection, self.connection,@"Received connection pointer is just so wrong.");
@@ -332,7 +332,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 - (void)testChangingProgressReportingResolution
 {
-    __block NSInteger numberOfTimesCalled = 0;
+    __block int numberOfTimesCalled = 0;
     
     QATConnectionProgressBlock progress_block = ^(QATConnection *connection) {
         XCTAssertEqual(connection, self.connection,@"Received connection pointer is just so wrong.");
