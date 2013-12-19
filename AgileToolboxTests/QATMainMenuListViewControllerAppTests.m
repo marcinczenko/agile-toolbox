@@ -59,12 +59,12 @@
 
 - (void)testNumberOfSectionsInTableViewReturnedByDataSource
 {
-    XCTAssertEqual(1,[self.vc.tableView numberOfSections],@"Wrong number of sections returned!");
+    XCTAssertEqual(1,(int)[self.vc.tableView numberOfSections],@"Wrong number of sections returned!");
 }
 
 - (void)testNumberOfRowsInTableViewReturnedByDataSourceDelegate
 {
-    XCTAssertEqual(2,[self.vc.tableView numberOfRowsInSection:0],@"Wrong number of rows returned!");
+    XCTAssertEqual(2,(int)[self.vc.tableView numberOfRowsInSection:0],@"Wrong number of rows returned!");
 }
 
 - (void)testThatTheCellForTheQACellIsSetupCorrectly
