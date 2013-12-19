@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D2B81D26-E854-408D-BB44-B0346674DA7A</string>
+	<string>24AF2F72-38F1-4AFE-B3F7-E64C1E830C2D</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AgileToolbox</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>7BF8FA39-6B47-4A52-9668-30C034EE38C9</key>
-		<string>ssh://everydayproductive.com/quantum/AgileToolbox</string>
+		<string>ssh://everydayproductive.com/~/quantum/AgileToolbox</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>AgileToolbox.xcworkspace</string>
@@ -21,7 +21,7 @@
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://everydayproductive.com/quantum/AgileToolbox</string>
+	<string>ssh://everydayproductive.com/~/quantum/AgileToolbox</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
