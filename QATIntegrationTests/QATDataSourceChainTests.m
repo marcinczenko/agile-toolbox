@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATConnection.h"
 #import "QATQuestionsDataSource.h"
 #import "QATDataSourceDelegateProtocol.h"
 
-@interface QATDataSourceChainTests : SenTestCase<QATDataSourceDelegateProtocol>
+@interface QATDataSourceChainTests : XCTestCase<QATDataSourceDelegateProtocol>
 
 @property (nonatomic,strong) id<QATDataSourceProtocol> dataSource;
 @property (nonatomic,assign) BOOL isDone;
@@ -69,7 +69,7 @@
                                                   dateWithTimeIntervalSinceNow:2.0]];
         NSLog(@"Polling...");
     }
-    STAssertTrue(self.isDone,nil);
+    XCTAssertTrue(self.isDone);
     QATQuestionsDataSource* dataSource = (QATQuestionsDataSource*)self.dataSource;
     NSLog(@"%i",dataSource.length);
     for (NSInteger i=0; i<dataSource.length; i++) {

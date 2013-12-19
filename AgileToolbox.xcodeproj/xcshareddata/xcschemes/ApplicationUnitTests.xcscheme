@@ -52,6 +52,36 @@
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D3972B9B157D89C7000C1819"
+               BuildableName = "LogicUnitTests.xctest"
+               BlueprintName = "LogicUnitTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D3C1F5EC15A4544200F0900D"
+               BuildableName = "QATLibraryTests.xctest"
+               BlueprintName = "QATLibraryTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D3A7B49C15AB011C00DD6772"
+               BuildableName = "QATIntegrationTests.xctest"
+               BlueprintName = "QATIntegrationTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
