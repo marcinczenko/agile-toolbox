@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATJSONPostURLRequest.h"
@@ -14,7 +14,7 @@
 #import "QATConnection.h"
 #import "QATQuestionPostman.h"
 
-@interface QATQuestionPostmanIntegrationTests : SenTestCase<QATPostmanDelegateProtocol>
+@interface QATQuestionPostmanIntegrationTests : XCTestCase<QATPostmanDelegateProtocol>
 
 @property (nonatomic,assign) BOOL isDone;
 @property (nonatomic,assign) BOOL timeout;
@@ -55,7 +55,7 @@
                                                   dateWithTimeIntervalSinceNow:2.0]];
         NSLog(@"Polling...");
     }
-    STAssertTrue(self.isDone,nil);
+    XCTAssertTrue(self.isDone);
 }
 
 #pragma mark - QATPostmanDelegateProtocol

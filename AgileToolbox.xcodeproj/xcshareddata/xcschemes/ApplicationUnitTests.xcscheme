@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0460"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -11,12 +11,26 @@
             buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.octest"
+               BuildableName = "ApplicationUnitTests.xctest"
                BlueprintName = "ApplicationUnitTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D387EF0A1536EF0400635736"
+               BuildableName = "AgileToolbox.app"
+               BlueprintName = "AgileToolbox"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,7 +47,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.octest"
+               BuildableName = "ApplicationUnitTests.xctest"
                BlueprintName = "ApplicationUnitTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>

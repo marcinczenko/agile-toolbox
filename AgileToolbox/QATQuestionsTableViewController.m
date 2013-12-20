@@ -53,17 +53,14 @@
     [super viewWillAppear:animated];
 }
 
--(void)viewWillUnload
+- (void)didReceiveMemoryWarning
 {
+    if ([self.view window] == nil) {
+        self.view = nil;
+    }
+    
     self.questionsDataSource = nil;
     self.postman = nil;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATAddQuestionViewController.h"
 #import "QATAddQuestionDelegateProtocol.h"
 
-@interface QATAddQuestionViewControllerTests : SenTestCase
+@interface QATAddQuestionViewControllerTests : XCTestCase
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -46,7 +46,7 @@
     QATAddQuestionViewController* vc = [[QATAddQuestionViewController alloc] init];
         
     id addQuestionVCPartialMock = [OCMockObject partialMockForObject:vc];
-    [[addQuestionVCPartialMock expect] dismissModalViewControllerAnimated:YES];
+    [[addQuestionVCPartialMock expect] dismissViewControllerAnimated:YES completion:nil];
     
     id textFieldMock = [OCMockObject mockForClass:[UITextField class]];
     [[[textFieldMock stub] andReturn:@"New Question"] text];
@@ -69,7 +69,7 @@
     QATAddQuestionViewController* vc = [[QATAddQuestionViewController alloc] init];
     
     id addQuestionVCPartialMock = [OCMockObject partialMockForObject:vc];
-    [[addQuestionVCPartialMock expect] dismissModalViewControllerAnimated:YES];
+    [[addQuestionVCPartialMock expect] dismissViewControllerAnimated:YES completion:nil];
     
     [vc cancel:self.doesNotMatter];
     

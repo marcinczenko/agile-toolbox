@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0460"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3C1F5EC15A4544200F0900D"
-               BuildableName = "QATLibraryTests.octest"
+               BuildableName = "QATLibraryTests.xctest"
                BlueprintName = "QATLibraryTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
@@ -43,8 +43,18 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3A7B49C15AB011C00DD6772"
-               BuildableName = "QATIntegrationTests.octest"
+               BuildableName = "QATIntegrationTests.xctest"
                BlueprintName = "QATIntegrationTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6DB06903185B838A00B41A67"
+               BuildableName = "QATLibrary Tests 4322.xctest"
+               BlueprintName = "QATLibrary Tests 4322"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>

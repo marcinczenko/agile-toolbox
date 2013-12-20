@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATSmartTableViewCell.h"
 
-@interface QATSmartTableViewCellTest : SenTestCase
+@interface QATSmartTableViewCellTest : XCTestCase
 
 @end
 
@@ -27,7 +27,7 @@
     
     QATSmartTableViewCell* smart_cell = [QATSmartTableViewCell cellForTableView:tableViewMock];
     
-    STAssertEqualObjects(smart_cell, tableViewCellMock,nil);
+    XCTAssertEqualObjects(smart_cell, tableViewCellMock);
 }
 
 - (void)testCreatingQATSmartTableViewCellWithoutReusableCell
@@ -39,13 +39,13 @@
     QATSmartTableViewCell* smartCell = [QATSmartTableViewCell cellForTableView:tableViewMock];
     
     // this is the only thing we can really test here
-    STAssertNotNil(smartCell,nil);
-    STAssertEqualObjects(smartCell.reuseIdentifier, [QATSmartTableViewCell cellIdentifier],nil);
+    XCTAssertNotNil(smartCell);
+    XCTAssertEqualObjects(smartCell.reuseIdentifier, [QATSmartTableViewCell cellIdentifier]);
 }
 
 - (void)testGettingCellIdentifierBasedOnTheClassName
 {
-    STAssertEqualObjects([QATSmartTableViewCell cellIdentifier],NSStringFromClass([QATSmartTableViewCell class]),nil);
+    XCTAssertEqualObjects([QATSmartTableViewCell cellIdentifier],NSStringFromClass([QATSmartTableViewCell class]));
 }
 
 @end

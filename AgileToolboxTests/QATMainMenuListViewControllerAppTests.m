@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 #import "QATMainMenuListViewController.h"
 #import "QATAppDelegate.h"
 #import "QATMenuListSmartTableViewCell.h"
 
-@interface QATMainMenuListViewControllerAppTests : SenTestCase
+@interface QATMainMenuListViewControllerAppTests : XCTestCase
 
 @property (nonatomic,strong) QATMainMenuListViewController *vc;
 
@@ -48,23 +48,23 @@
 
 - (void)testThatMainMenuViewControllerIsNotNil
 {
-    STAssertNotNil(self.vc,@"ViewController is not set!");
+    XCTAssertNotNil(self.vc,@"ViewController is not set!");
 }
 
 - (void)testThatAccessibilityLabelIsSetUpAfterViewIsLoaded
 {
-    STAssertNotNil(self.vc.view,@"View Controller's view is not set !");
-    STAssertEqualObjects(self.vc.view.accessibilityLabel,@"MenuList",@"Accesibility Lable for the associated view is not set.");
+    XCTAssertNotNil(self.vc.view,@"View Controller's view is not set !");
+    XCTAssertEqualObjects(self.vc.view.accessibilityLabel,@"MenuList",@"Accesibility Lable for the associated view is not set.");
 }
 
 - (void)testNumberOfSectionsInTableViewReturnedByDataSource
 {
-    STAssertEquals(1,[self.vc.tableView numberOfSections],@"Wrong number of sections returned!");
+    XCTAssertEqual(1,(int)[self.vc.tableView numberOfSections],@"Wrong number of sections returned!");
 }
 
 - (void)testNumberOfRowsInTableViewReturnedByDataSourceDelegate
 {
-    STAssertEquals(1,[self.vc.tableView numberOfRowsInSection:0],@"Wrong number of rows returned!");
+    XCTAssertEqual(2,(int)[self.vc.tableView numberOfRowsInSection:0],@"Wrong number of rows returned!");
 }
 
 - (void)testThatTheCellForTheQACellIsSetupCorrectly
@@ -73,9 +73,9 @@
     
     UITableViewCell* cell = [self.vc.tableView cellForRowAtIndexPath:qaIndexPath];
     
-    STAssertEqualObjects([QATMenuListSmartTableViewCell cellIdentifier], cell.reuseIdentifier,nil);
-    STAssertEqualObjects(@"Q&A", cell.textLabel.text,nil);
-    STAssertEqualObjects(cell.accessibilityLabel, cell.textLabel.text,nil);
+    XCTAssertEqualObjects([QATMenuListSmartTableViewCell cellIdentifier], cell.reuseIdentifier);
+    XCTAssertEqualObjects(@"Q&A", cell.textLabel.text);
+    XCTAssertEqualObjects(cell.accessibilityLabel, cell.textLabel.text);
 }
 
 - (void)testThatQuestionsSegueIsPerformedRegardlessOfIndexPath

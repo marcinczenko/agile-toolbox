@@ -14,6 +14,8 @@
 #import "QATConnection.h"
 #import "QATQuestionsDataSource.h"
 
+#import "QATTopicsListViewController.h"
+
 
 @interface QATMainMenuListViewController ()
 
@@ -74,6 +76,10 @@
         destinationVC.questionsDataSource = appDelegate.questionsDataSource;
         destinationVC.postman = appDelegate.postman;
     }
+//    else
+//    {
+//        QATTopicsListViewController* destinationVC = (QATTopicsListViewController*)segue.destinationViewController;
+//    }
     
 }
 
@@ -86,15 +92,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     QATMenuListSmartTableViewCell* cell = [QATMenuListSmartTableViewCell cellForTableView:tableView];
     
-    cell.textLabel.text = @"Q&A";
-    cell.accessibilityLabel = cell.textLabel.text;
+    
+    if(0==indexPath.row)
+    {
+        cell.textLabel.text = @"Q&A";
+        cell.accessibilityLabel = cell.textLabel.text;
+    }
+    else
+    {
+        cell.textLabel.text = @"Topics";
+        cell.accessibilityLabel = cell.textLabel.text;
+    }
     
     return cell;
 }
@@ -142,7 +157,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier: @"Questions" sender: self];
+    if (0==indexPath.row) {
+        [self performSegueWithIdentifier: @"Questions" sender: self];
+    }
+    else
+    {
+        [self performSegueWithIdentifier: @"Topics" sender: self];
+    }
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

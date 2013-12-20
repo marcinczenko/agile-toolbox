@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATQuestionsDataSource.h"
 #import "QATConnectionDelegateProtocol.h"
 
-@interface QATQuestionsDataSourceTests : SenTestCase
+@interface QATQuestionsDataSourceTests : XCTestCase
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -39,7 +39,7 @@
     NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:3];
     
     for (NSInteger index=0; index<numberOfObjects; index++) {
-        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%d",index],@"content", nil];
+        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content", nil];
         [json_object addObject:dict];
     }
     
@@ -69,7 +69,7 @@
 {
     QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
-    STAssertEquals(questions.length, 0,@"Before loading any data the length should be 0!");
+    XCTAssertEqual((int)questions.length, 0,@"Before loading any data the length should be 0!");
     
 }
 
@@ -84,7 +84,7 @@
     
     [connectionMock verify];
     
-    STAssertEqualObjects(delegate, questions,@"Wrong delegate passed to connection object.");
+    XCTAssertEqualObjects(delegate, questions,@"Wrong delegate passed to connection object.");
 }
 
 - (void)testThatNumberOfDownloadedQuestionsIsCorrect
@@ -93,7 +93,7 @@
     
     [questions downloadCompleted:[self createJSONDataFromJSONObject:[self generateTestJSONObjectWith:5]]];
     
-    STAssertEquals(5, questions.length,@"Incorrect number of objects returned.");
+    XCTAssertEqual(5, (int)questions.length,@"Incorrect number of objects returned.");
 }
 
 - (void)testReceivedQuestionsAreTheSameAsTheQuestionsSentFromTheServer
@@ -104,7 +104,7 @@
     
     NSUInteger index = 0;
     for (NSDictionary* questionObject in [self generateTestJSONObjectWith:3]) {
-        STAssertEqualObjects([questionObject objectForKey:@"content"], [questions questionAtIndex:index],nil);
+        XCTAssertEqualObjects([questionObject objectForKey:@"content"], [questions questionAtIndex:index]);
         index++;
     }
 }

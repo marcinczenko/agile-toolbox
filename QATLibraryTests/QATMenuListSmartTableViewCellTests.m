@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATMenuListSmartTableViewCell.h"
 
-@interface QATMenuListSmartTableViewCellTests : SenTestCase
+@interface QATMenuListSmartTableViewCellTests : XCTestCase
 
 @end
 
@@ -24,7 +24,7 @@
     
     [[[tableViewMock stub] andReturn:tableViewCellMock] dequeueReusableCellWithIdentifier:NSStringFromClass([QATMenuListSmartTableViewCell class])];
     
-    STAssertEqualObjects([QATMenuListSmartTableViewCell cellForTableView:tableViewMock], tableViewCellMock ,nil);
+    XCTAssertEqualObjects([QATMenuListSmartTableViewCell cellForTableView:tableViewMock], tableViewCellMock );
 }
 
 - (void)testThatTableCellIsCreatedWithAppropriateReuseIdentifier
@@ -35,8 +35,8 @@
     
     QATMenuListSmartTableViewCell* smartCell = [QATMenuListSmartTableViewCell cellForTableView:tableViewMock];
     
-    STAssertNotNil(smartCell,nil);
-    STAssertEqualObjects(smartCell.reuseIdentifier, [QATMenuListSmartTableViewCell cellIdentifier],nil);
+    XCTAssertNotNil(smartCell);
+    XCTAssertEqualObjects(smartCell.reuseIdentifier, [QATMenuListSmartTableViewCell cellIdentifier]);
 }
 
 @end

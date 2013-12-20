@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import "QATAppDelegate.h"
@@ -16,7 +16,7 @@
 #import "QATQuestionsDataSource.h"
 #import "QATQuestionPostman.h"
 
-@interface QATQuestionsTableViewControllerAppTests : SenTestCase
+@interface QATQuestionsTableViewControllerAppTests : XCTestCase
 
 @property (nonatomic,strong) QATQuestionsTableViewController* vc;
 
@@ -54,19 +54,19 @@
 
 - (void)testThatQuestionViewControllerIsNotNil
 {
-    STAssertNotNil(self.vc,@"ViewController is not set!");
+    XCTAssertNotNil(self.vc,@"ViewController is not set!");
 }
 
 - (void)testThatQuestionsDataSourceIsNotNilAndPointsToAnObjectOfTheAppropriateClass
 {
-    STAssertNotNil(self.vc.questionsDataSource,@"Questions Data Source is not set!");
-    STAssertEqualObjects(NSStringFromClass([self.vc.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]),nil);
+    XCTAssertNotNil(self.vc.questionsDataSource,@"Questions Data Source is not set!");
+    XCTAssertEqualObjects(NSStringFromClass([self.vc.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]));
 }
 
 - (void)testThatPostmanIsNotNilAndPointsToAnObjectOfTheAppropriateClass
 {
-    STAssertNotNil(self.vc.postman,@"Postman is not set!");
-    STAssertEqualObjects(NSStringFromClass([self.vc.postman class]), NSStringFromClass([QATQuestionPostman class]),nil);
+    XCTAssertNotNil(self.vc.postman,@"Postman is not set!");
+    XCTAssertEqualObjects(NSStringFromClass([self.vc.postman class]), NSStringFromClass([QATQuestionPostman class]));
 }
 
 @end
