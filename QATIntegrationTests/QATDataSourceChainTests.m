@@ -71,9 +71,9 @@
     }
     XCTAssertTrue(self.isDone);
     QATQuestionsDataSource* dataSource = (QATQuestionsDataSource*)self.dataSource;
-    NSLog(@"%i",dataSource.length);
+    NSLog(@"%ld",(long)dataSource.length);
     for (NSInteger i=0; i<dataSource.length; i++) {
-        NSLog(@"objectAtIndex:%i:%@",i,[dataSource questionAtIndex:i]);
+        NSLog(@"objectAtIndex:%ld:%@",(long)i,[dataSource questionAtIndex:i]);
     }
 }
 
