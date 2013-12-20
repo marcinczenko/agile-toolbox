@@ -59,7 +59,7 @@
 {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackOpaque];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     
 //    if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
