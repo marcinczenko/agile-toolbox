@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <type id="JRUBY" />
+  </component>
+  <component name="IdProvider" IDEtalkID="9715BB4DAF85917CA5665C846BDDF9D1" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Python 2.7.5 virtualenv at ~/.virtualenvs/GoogleAppEngineAppMock" project-jdk-type="Python SDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
+

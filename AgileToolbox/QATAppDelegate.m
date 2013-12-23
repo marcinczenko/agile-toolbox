@@ -29,7 +29,7 @@
     NSError *error = nil;
     NSData *responseData;
     
-    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/ready"]]
+    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/ready"]]
                                          returningResponse:&response
                                                      error:&error];
                                                                         
@@ -42,10 +42,10 @@
     }
     
     
-    QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
+    QATConnection* connection = [QATConnection createWithURL:[NSURL URLWithString:@"http://localhost:9001/items_json"]];
     self.questionsDataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
     
-    QATJSONPostURLRequest* postRequest = [[QATJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/new_json_item"]];
+    QATJSONPostURLRequest* postRequest = [[QATJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/new_json_item"]];
     QATConnection* postConnection = [[QATConnection alloc] initWithURLRequest:postRequest];
     self.postman = [[QATQuestionPostman alloc] initWithConnection:postConnection];
     

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Support/AcceptanceTests/AcceptanceTests.iml" filepath="$PROJECT_DIR$/Support/AcceptanceTests/AcceptanceTests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Support/GoogleAppEngineAppMock/GoogleAppEngineAppMock.iml" filepath="$PROJECT_DIR$/Support/GoogleAppEngineAppMock/GoogleAppEngineAppMock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Support/UIAutomation/UIAutomation.iml" filepath="$PROJECT_DIR$/Support/UIAutomation/UIAutomation.iml" />
+    </modules>
+  </component>
+</project>
+

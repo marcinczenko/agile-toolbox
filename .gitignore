@@ -24,3 +24,7 @@ Snapshots
 
 # TextMate noise
 *.tmproj
+
+# IntelliJ user settings
+**/.idea/workspace.xml
+**/.idea/tasks.xml
