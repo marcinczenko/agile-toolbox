@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol QATDataSourceDelegateProtocol <NSObject>
+@protocol EPQuestionsDataSourceDelegateProtocol <NSObject>
 
-- (void) dataSoruceLoaded;
+- (void) questionsFetched;
 
 @end

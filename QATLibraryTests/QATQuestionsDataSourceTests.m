@@ -51,6 +51,7 @@
     return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
 }
 
+
 - (void)testThatQATDataSourceStartsLoadingDataUsingSuppliedConnectionProtocol
 {
     id connectionMock = [OCMockObject mockForProtocol:@protocol(QATConnectionProtocol)];
@@ -113,8 +114,8 @@
 {
     QATQuestionsDataSource *questions = [[QATQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
-    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceDelegateProtocol)];
-    [[dataSourceDelegateMock expect] dataSoruceLoaded];
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [[dataSourceDelegateMock expect] questionsFetched];
     
     [questions setDelegate:dataSourceDelegateMock];
     

@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "QATConnectionProtocol.h"
-#import "QATConnectionDelegateProtocol.h"
-#import "QATDataSourceProtocol.h"
+#import "EPQuestionsDataSourceProtocol.h"
+#import "EPQuestionsDataSourceDelegateProtocol.h"
+#import "EPQuestionsDataSourceProtocol.h"
 
-@interface QATQuestionsDataSource : NSObject<QATDataSourceProtocol,QATConnectionDelegateProtocol>
+@interface QATQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,QATConnectionDelegateProtocol>
 
 @property (nonatomic,readonly) NSInteger length;
 @property (nonatomic,readonly) NSString* connectionURL;

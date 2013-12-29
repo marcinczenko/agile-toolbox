@@ -34,7 +34,7 @@
     
     XCTAssertEqualObjects(NSStringFromClass([appDelegate.questionsDataSource class]), NSStringFromClass([QATQuestionsDataSource class]));
     
-    XCTAssertEqualObjects(@"https://quantumagiletoolbox-dev.appspot.com/items_json", appDelegate.questionsDataSource.connectionURL);
+    XCTAssertEqualObjects(@"http://localhost:9001/items_json", appDelegate.questionsDataSource.connectionURL);
 }
 
 @end

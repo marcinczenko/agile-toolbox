@@ -121,7 +121,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 - (void)setUp
 {
-    [super setUp];
+    [super setUp];    
     
     // Set-up code here.
     self.connection = [QATConnection createWithURL:self.exampleURL progressBlock:nil completionBlock:nil];

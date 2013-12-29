@@ -35,7 +35,7 @@
 
 - (void)testPostConnectionWithJSON
 {
-    QATJSONPostURLRequest* postRequest = [[QATJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/new_json_item"]];
+    QATJSONPostURLRequest* postRequest = [[QATJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/new_json_item"]];
     QATConnection* connection = [[QATConnection alloc] initWithURLRequest:postRequest];
     QATQuestionPostman* postman = [[QATQuestionPostman alloc] initWithConnection:connection];
     

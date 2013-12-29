@@ -11,7 +11,7 @@
 
 #import "QATQuestionsTableViewController.h"
 #import "QATAddQuestionViewController.h"
-#import "QATDataSourceProtocol.h"
+#import "EPQuestionsDataSourceProtocol.h"
 
 #import "QATPostmanProtocol.h"
 
@@ -66,7 +66,7 @@
 
 - (void)testQATQuestionTableViewControllerHasPropertyForDataSource
 {
-    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     
     self.vc.questionsDataSource = dataSourceMock;
 }
@@ -81,7 +81,7 @@
 
 - (void)testThatTheRightCellForTheRightRowIsReturned
 {    
-    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     [[[questionsDataSourceMock stub] andReturn:@"Question 1"] questionAtIndex:0];
 
     id tableViewMock = [OCMockObject mockForClass:[UITableView class]];
@@ -108,7 +108,7 @@
 {
     [self disableViewPropertyForTheVC:self.vc];
     
-    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     
     [dataSourceMock setExpectationOrderMatters:YES];
     [[dataSourceMock expect] setDelegate:self.vc];
@@ -140,7 +140,7 @@
     
     [self disableViewPropertyForTheVC:self.vc];
     
-    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id dataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     
     self.vc.questionsDataSource = dataSourceMock;
     
@@ -185,7 +185,7 @@
 
 - (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheDataSource
 {
-    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     NSInteger numberOfRows = [self magicNumber:5];
     [[[questionsDataSourceMock stub] andReturnValue:OCMOCK_VALUE(numberOfRows)] length];
     
@@ -227,7 +227,7 @@
 
 - (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
 {
-    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(QATDataSourceProtocol)];
+    id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     [[questionsDataSourceMock expect] downloadData];
     
     self.vc.questionsDataSource = questionsDataSourceMock;

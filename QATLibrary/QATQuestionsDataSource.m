@@ -7,13 +7,13 @@
 //
 
 #import "QATQuestionsDataSource.h"
-#import "QATDataSourceDelegateProtocol.h"
+#import "EPQuestionsDataSourceProtocol.h"
 
 @interface QATQuestionsDataSource ()
 
 @property (nonatomic,strong) id<QATConnectionProtocol> connection;
 @property (nonatomic,strong) NSArray* json_object;
-@property (nonatomic,weak) id<QATDataSourceDelegateProtocol> dataSourceDelegate;
+@property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> dataSourceDelegate;
 
 @end
 
@@ -44,12 +44,17 @@
     return self;
 }
 
-- (void)setDelegate:(id<QATDataSourceDelegateProtocol>)delegate
+- (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate
 {
     self.dataSourceDelegate = delegate;
 }
 
 - (void)setPostConnection:(id<QATConnectionProtocol>)connection
+{
+    
+}
+
+- (void)fetch:(NSUInteger)numberOfQuestions
 {
     
 }
@@ -68,8 +73,8 @@
 {
     self.json_object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    if ([self.dataSourceDelegate respondsToSelector:@selector(dataSoruceLoaded)]) {
-        [self.dataSourceDelegate dataSoruceLoaded];
+    if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetched)]) {
+        [self.dataSourceDelegate questionsFetched];
     }
 }
 

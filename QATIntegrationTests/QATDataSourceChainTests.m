@@ -11,11 +11,11 @@
 
 #import "QATConnection.h"
 #import "QATQuestionsDataSource.h"
-#import "QATDataSourceDelegateProtocol.h"
+#import "EPQuestionsDataSourceDelegateProtocol.h"
 
-@interface QATDataSourceChainTests : XCTestCase<QATDataSourceDelegateProtocol>
+@interface QATDataSourceChainTests : XCTestCase<EPQuestionsDataSourceDelegateProtocol>
 
-@property (nonatomic,strong) id<QATDataSourceProtocol> dataSource;
+@property (nonatomic,strong) id<EPQuestionsDataSourceProtocol> dataSource;
 @property (nonatomic,assign) BOOL isDone;
 @property (nonatomic,assign) BOOL timeout;
 
@@ -33,7 +33,7 @@
 }
 
 #pragma mark - QATDataSourceDelegateProtocol
-- (void)dataSoruceLoaded
+- (void)questionsFetched
 {
     self.isDone = YES;
 }
@@ -46,7 +46,7 @@
 
 - (void)testThatJSONDataIsCorrectlyLoadedFromTheServer
 {
-    QATConnection * connection = [[QATConnection alloc] initWithURL:[NSURL URLWithString:@"https://quantumagiletoolbox-dev.appspot.com/items_json"]];
+    QATConnection * connection = [[QATConnection alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/items_json"]];
     
     self.dataSource = [[QATQuestionsDataSource alloc] initWithConnection:connection];
     

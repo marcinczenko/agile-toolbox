@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QATDataSourceProtocol.h"
-#import "QATDataSourceDelegateProtocol.h"
+#import "EPQuestionsDataSourceProtocol.h"
+#import "EPQuestionsDataSourceDelegateProtocol.h"
 #import "QATAddQuestionDelegateProtocol.h"
 
 #import "QATPostmanProtocol.h"
 #import "QATPostmanDelegateProtocol.h"
 
-@interface QATQuestionsTableViewController : UITableViewController<QATDataSourceDelegateProtocol,QATAddQuestionDelegateProtocol,QATPostmanDelegateProtocol>
+@interface QATQuestionsTableViewController : UITableViewController<EPQuestionsDataSourceDelegateProtocol,QATAddQuestionDelegateProtocol,QATPostmanDelegateProtocol>
 
-@property (nonatomic,strong) id<QATDataSourceProtocol> questionsDataSource;
+@property (nonatomic,strong) id<EPQuestionsDataSourceProtocol> questionsDataSource;
 @property (nonatomic,strong) id<QATPostmanProtocol> postman;
 
 @end

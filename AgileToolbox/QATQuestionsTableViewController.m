@@ -154,7 +154,7 @@
 }
 
 #pragma mark - QATQuestionsDataSourceDelegate
-- (void)dataSoruceLoaded
+- (void)questionsFetched
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
