@@ -7,43 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D0B29D21863929A00A27014 /* QATMainMenuListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0B29D11863929A00A27014 /* QATMainMenuListViewControllerTests.m */; };
-		6D268D2515AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */; };
-		6D268D2815B0448400946FE5 /* QATAppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */; };
-		6D268D2915B0497B00946FE5 /* QATAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* QATAppDelegate.m */; };
-		6D3B883415B0C8FA008EF63B /* QATAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */; };
-		6D3B883715B0D016008EF63B /* QATAddQuestionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */; };
-		6D3B883A15B0D12E008EF63B /* QATAddQuestionViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */; };
-		6D3B883B15B0D9BB008EF63B /* QATAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */; };
-		6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
-		6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */; };
-		6D5C238215AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */; };
-		6D5CC2DB185B84C70017CDD1 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		6D0B29D21863929A00A27014 /* EPMainMenuListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0B29D11863929A00A27014 /* EPMainMenuListViewControllerTests.m */; };
+		6D268D2515AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2415AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m */; };
+		6D268D2815B0448400946FE5 /* EPAppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D268D2715B0448400946FE5 /* EPAppDelegateTests.m */; };
+		6D268D2915B0497B00946FE5 /* EPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* EPAppDelegate.m */; };
+		6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* EPAddQuestionViewController.m */; };
+		6D3B883715B0D016008EF63B /* EPAddQuestionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3B883615B0D016008EF63B /* EPAddQuestionDelegateProtocol.h */; };
+		6D3B883A15B0D12E008EF63B /* EPAddQuestionViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */; };
+		6D3B883B15B0D9BB008EF63B /* EPAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* EPAddQuestionViewController.m */; };
+		6D5421DB1595148A0079061F /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */; };
+		6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */; };
+		6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */; };
+		6D5CC2DB185B84C70017CDD1 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6D5CC2DC185B84E40017CDD1 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		6D5CC2DD185B84FF0017CDD1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D7FD6D218639B4400988B44 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D82D54E185BB3F200CC75D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D83807D175FA5B400B305A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D83807C175FA5B400B305A5 /* Default-568h@2x.png */; };
-		6D92CA2B15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */; };
-		6D92CA2D15AB4C77002602C4 /* QATQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */; };
+		6D92CA2B15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */; };
+		6D92CA2D15AB4C77002602C4 /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
-		6DB92147185AA7DC00440656 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
-		6DB92148185AA84200440656 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
-		D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */; };
+		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF131536EF0400635736 /* CoreGraphics.framework */; };
 		D387EF1A1536EF0400635736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D387EF181536EF0400635736 /* InfoPlist.strings */; };
 		D387EF1C1536EF0400635736 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1B1536EF0400635736 /* main.m */; };
-		D387EF201536EF0400635736 /* QATAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* QATAppDelegate.m */; };
+		D387EF201536EF0400635736 /* EPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF1F1536EF0400635736 /* EPAppDelegate.m */; };
 		D387EF231536EF0400635736 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D387EF211536EF0400635736 /* MainStoryboard.storyboard */; };
-		D387EF261536EF0400635736 /* QATViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF251536EF0400635736 /* QATViewController.m */; };
+		D387EF261536EF0400635736 /* EPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF251536EF0400635736 /* EPViewController.m */; };
 		D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF301536EF0500635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D387EF381536EF0500635736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D387EF361536EF0500635736 /* InfoPlist.strings */; };
-		D387EF3B1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */; };
-		D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF451536FADF00635736 /* QATTopicsListViewController.m */; };
-		D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF481537192600635736 /* QATTopicDetailsViewController.m */; };
+		D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF3A1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m */; };
+		D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF451536FADF00635736 /* EPTopicsListViewController.m */; };
+		D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D387EF481537192600635736 /* EPTopicDetailsViewController.m */; };
 		D39656B115B63676009D082E /* QATiPhoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B015B63676009D082E /* QATiPhoneIcon.png */; };
 		D39656B315B6367D009D082E /* QATiPhoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B215B6367D009D082E /* QATiPhoneIcon@2x.png */; };
 		D39656B515B639F1009D082E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D39656B415B639F1009D082E /* Default.png */; };
@@ -69,7 +69,7 @@
 		D3972859157D0811000C1819 /* ProductOwner.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972856157D0811000C1819 /* ProductOwner.html */; };
 		D397285A157D0811000C1819 /* ScrumMaster.html in Resources */ = {isa = PBXBuildFile; fileRef = D3972857157D0811000C1819 /* ScrumMaster.html */; };
 		D397285B157D4438000C1819 /* tapDetector.js in Resources */ = {isa = PBXBuildFile; fileRef = D3972855157D0811000C1819 /* tapDetector.js */; };
-		D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */; };
+		D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* EPMainMenuListViewController.m */; };
 		D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3972BA3157D89C7000C1819 /* InfoPlist.strings */; };
@@ -79,37 +79,37 @@
 		D3A7B49F15AB011C00DD6772 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3A7B4A015AB011C00DD6772 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3A7B4A615AB011C00DD6772 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B4A415AB011C00DD6772 /* InfoPlist.strings */; };
-		D3A7B4B015AB01E300DD6772 /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
-		D3A7B4B315AB022800DD6772 /* QATDataSourceChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */; };
-		D3A7B4BA15B37F9400DD6772 /* QATPostURLRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */; };
-		D3A7B4BF15B383FD00DD6772 /* QATJSONPostURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */; };
-		D3A7B4C215B3953E00DD6772 /* QATQuestionPostmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */; };
-		D3A7B4C515B4B3DF00DD6772 /* QATQuestionPostman.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */; };
-		D3A7B4C615B4B3DF00DD6772 /* QATQuestionPostman.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */; };
+		D3A7B4B015AB01E300DD6772 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		D3A7B4B315AB022800DD6772 /* EPDataSourceChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B215AB022800DD6772 /* EPDataSourceChainTests.m */; };
+		D3A7B4BA15B37F9400DD6772 /* EPPostURLRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4B915B37F9400DD6772 /* EPPostURLRequestTests.m */; };
+		D3A7B4BF15B383FD00DD6772 /* EPJSONPostURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4BD15B383FD00DD6772 /* EPJSONPostURLRequest.m */; };
+		D3A7B4C215B3953E00DD6772 /* EPQuestionPostmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C115B3953E00DD6772 /* EPQuestionPostmanTests.m */; };
+		D3A7B4C515B4B3DF00DD6772 /* EPQuestionPostman.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4C315B4B3DF00DD6772 /* EPQuestionPostman.h */; };
+		D3A7B4C615B4B3DF00DD6772 /* EPQuestionPostman.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B4C415B4B3DF00DD6772 /* EPQuestionPostman.m */; };
 		D3C1F5E115A4544200F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
-		D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5E615A4544200F0900D /* QATConnection.m */; };
+		D3C1F5E715A4544200F0900D /* EPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5E615A4544200F0900D /* EPConnection.m */; };
 		D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3C1F5F915A4544300F0900D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3C1F5F715A4544300F0900D /* InfoPlist.strings */; };
-		D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */; };
-		D3C986E115A7543B007A41D8 /* QATMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */; };
+		D3C1F60315A4577E00F0900D /* EPConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1F5D915A37F3100F0900D /* EPConnectionTests.m */; };
+		D3C986E115A7543B007A41D8 /* EPMainMenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3972B87157D4F91000C1819 /* EPMainMenuListViewController.m */; };
 		D3C986E215A782D8007A41D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
-		D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */; };
-		D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */; };
-		D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */; };
-		D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */; };
-		D3C986F115A7955F007A41D8 /* QATMenuListSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */; };
-		D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */; };
-		D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */; };
-		D3C986FE15A9E6DE007A41D8 /* QATConnectionProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */; };
-		D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */; };
-		D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */; };
-		D3C9870415A9F38B007A41D8 /* QATConnectionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */; };
-		D3CA100115B4FABA003B2D4E /* QATJSONPostURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */; };
-		D3CA100315B58600003B2D4E /* QATPostmanDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */; };
-		D3CA100615B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */; };
-		D3CA100815B594A3003B2D4E /* QATPostmanProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */; };
-		D3CA100B15B59E79003B2D4E /* libQATLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libQATLibrary.a */; };
+		D3C986E515A7832F007A41D8 /* EPSmartTableViewCellTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E415A7832F007A41D8 /* EPSmartTableViewCellTest.m */; };
+		D3C986E815A78409007A41D8 /* EPSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986E615A78409007A41D8 /* EPSmartTableViewCell.h */; };
+		D3C986E915A78409007A41D8 /* EPSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986E715A78409007A41D8 /* EPSmartTableViewCell.m */; };
+		D3C986EE15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */; };
+		D3C986F115A7955F007A41D8 /* EPMenuListSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986EF15A7955F007A41D8 /* EPMenuListSmartTableViewCell.h */; };
+		D3C986F215A7955F007A41D8 /* EPMenuListSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F015A7955F007A41D8 /* EPMenuListSmartTableViewCell.m */; };
+		D3C986FA15A89E1C007A41D8 /* EPQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */; };
+		D3C986FE15A9E6DE007A41D8 /* EPConnectionProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FD15A9E6DE007A41D8 /* EPConnectionProtocol.h */; };
+		D3C9870115A9EB0A007A41D8 /* EPQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */; };
+		D3C9870215A9EB0A007A41D8 /* EPQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */; };
+		D3C9870415A9F38B007A41D8 /* EPConnectionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C9870315A9F38B007A41D8 /* EPConnectionDelegateProtocol.h */; };
+		D3CA100115B4FABA003B2D4E /* EPJSONPostURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4BC15B383FD00DD6772 /* EPJSONPostURLRequest.h */; };
+		D3CA100315B58600003B2D4E /* EPPostmanDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100215B585FF003B2D4E /* EPPostmanDelegateProtocol.h */; };
+		D3CA100615B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CA100515B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m */; };
+		D3CA100815B594A3003B2D4E /* EPPostmanProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100715B594A3003B2D4E /* EPPostmanProtocol.h */; };
+		D3CA100B15B59E79003B2D4E /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,7 +132,7 @@
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
-			remoteInfo = QATLibrary;
+			remoteInfo = Library;
 		};
 		6DB92149185AA85700440656 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -153,35 +153,35 @@
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
-			remoteInfo = QATLibrary;
+			remoteInfo = Library;
 		};
 		D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
-			remoteInfo = QATLibrary;
+			remoteInfo = Library;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6D0B29D11863929A00A27014 /* QATMainMenuListViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewControllerTests.m; sourceTree = "<group>"; };
-		6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewControllerAppTests.m; sourceTree = "<group>"; };
-		6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAppDelegateTests.m; sourceTree = "<group>"; };
-		6D3B883215B0C8FA008EF63B /* QATAddQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATAddQuestionViewController.h; sourceTree = "<group>"; };
-		6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAddQuestionViewController.m; sourceTree = "<group>"; };
-		6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATAddQuestionDelegateProtocol.h; sourceTree = "<group>"; };
-		6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATAddQuestionViewControllerTests.m; sourceTree = "<group>"; };
-		6D5421D91595148A0079061F /* QATQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsTableViewController.h; sourceTree = "<group>"; };
-		6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewController.m; sourceTree = "<group>"; };
-		6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
-		6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
+		6D0B29D11863929A00A27014 /* EPMainMenuListViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMainMenuListViewControllerTests.m; sourceTree = "<group>"; };
+		6D268D2415AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerAppTests.m; sourceTree = "<group>"; };
+		6D268D2715B0448400946FE5 /* EPAppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAppDelegateTests.m; sourceTree = "<group>"; };
+		6D3B883215B0C8FA008EF63B /* EPAddQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPAddQuestionViewController.h; sourceTree = "<group>"; };
+		6D3B883315B0C8FA008EF63B /* EPAddQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAddQuestionViewController.m; sourceTree = "<group>"; };
+		6D3B883615B0D016008EF63B /* EPAddQuestionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPAddQuestionDelegateProtocol.h; sourceTree = "<group>"; };
+		6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAddQuestionViewControllerTests.m; sourceTree = "<group>"; };
+		6D5421D91595148A0079061F /* EPQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewController.h; sourceTree = "<group>"; };
+		6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewController.m; sourceTree = "<group>"; };
+		6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
+		6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6D8579A7186E5E1B00DCC000 /* EPQuestionsDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPQuestionsDataSourceProtocol.h; path = ExternalDependenciesProtocols/EPQuestionsDataSourceProtocol.h; sourceTree = "<group>"; };
-		6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
+		6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPlanningPokerViewController.h; sourceTree = "<group>"; };
-		D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPlanningPokerViewController.m; sourceTree = "<group>"; };
+		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
+		D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPlanningPokerViewController.m; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF0F1536EF0400635736 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D387EF111536EF0400635736 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -190,19 +190,19 @@
 		D387EF191536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D387EF1B1536EF0400635736 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D387EF1D1536EF0400635736 /* AgileToolbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AgileToolbox-Prefix.pch"; sourceTree = "<group>"; };
-		D387EF1E1536EF0400635736 /* QATAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATAppDelegate.h; sourceTree = "<group>"; };
-		D387EF1F1536EF0400635736 /* QATAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATAppDelegate.m; sourceTree = "<group>"; };
+		D387EF1E1536EF0400635736 /* EPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPAppDelegate.h; sourceTree = "<group>"; };
+		D387EF1F1536EF0400635736 /* EPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPAppDelegate.m; sourceTree = "<group>"; };
 		D387EF221536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		D387EF241536EF0400635736 /* QATViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATViewController.h; sourceTree = "<group>"; };
-		D387EF251536EF0400635736 /* QATViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATViewController.m; sourceTree = "<group>"; };
+		D387EF241536EF0400635736 /* EPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPViewController.h; sourceTree = "<group>"; };
+		D387EF251536EF0400635736 /* EPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPViewController.m; sourceTree = "<group>"; };
 		D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewControllerAppTests.m; sourceTree = "<group>"; };
-		D387EF441536FADF00635736 /* QATTopicsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicsListViewController.h; sourceTree = "<group>"; };
-		D387EF451536FADF00635736 /* QATTopicsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicsListViewController.m; sourceTree = "<group>"; };
-		D387EF471537192600635736 /* QATTopicDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATTopicDetailsViewController.h; sourceTree = "<group>"; };
-		D387EF481537192600635736 /* QATTopicDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATTopicDetailsViewController.m; sourceTree = "<group>"; };
+		D387EF3A1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPMainMenuListViewControllerAppTests.m; sourceTree = "<group>"; };
+		D387EF441536FADF00635736 /* EPTopicsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPTopicsListViewController.h; sourceTree = "<group>"; };
+		D387EF451536FADF00635736 /* EPTopicsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPTopicsListViewController.m; sourceTree = "<group>"; };
+		D387EF471537192600635736 /* EPTopicDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPTopicDetailsViewController.h; sourceTree = "<group>"; };
+		D387EF481537192600635736 /* EPTopicDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPTopicDetailsViewController.m; sourceTree = "<group>"; };
 		D39656B015B63676009D082E /* QATiPhoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = QATiPhoneIcon.png; path = ../../QATiPhoneIcon.png; sourceTree = "<group>"; };
 		D39656B215B6367D009D082E /* QATiPhoneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "QATiPhoneIcon@2x.png"; path = "../../QATiPhoneIcon@2x.png"; sourceTree = "<group>"; };
 		D39656B415B639F1009D082E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../Default.png; sourceTree = "<group>"; };
@@ -228,8 +228,8 @@
 		D3972855157D0811000C1819 /* tapDetector.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tapDetector.js; sourceTree = "<group>"; };
 		D3972856157D0811000C1819 /* ProductOwner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProductOwner.html; sourceTree = "<group>"; };
 		D3972857157D0811000C1819 /* ScrumMaster.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ScrumMaster.html; sourceTree = "<group>"; };
-		D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATMainMenuListViewController.h; sourceTree = "<group>"; };
-		D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMainMenuListViewController.m; sourceTree = "<group>"; };
+		D3972B86157D4F91000C1819 /* EPMainMenuListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMainMenuListViewController.h; sourceTree = "<group>"; };
+		D3972B87157D4F91000C1819 /* EPMainMenuListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMainMenuListViewController.m; sourceTree = "<group>"; };
 		D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3972BA2157D89C7000C1819 /* LogicUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicUnitTests-Info.plist"; sourceTree = "<group>"; };
 		D3972BA4157D89C7000C1819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -242,39 +242,39 @@
 		D3972BE1157EBAB0000C1819 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		D3972BE3157EBAB0000C1819 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		D3A7B49315AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSourceDelegateProtocol.h; sourceTree = "<group>"; };
-		D3A7B49D15AB011C00DD6772 /* QATIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QATIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3A7B4A315AB011C00DD6772 /* QATIntegrationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QATIntegrationTests-Info.plist"; sourceTree = "<group>"; };
+		D3A7B49D15AB011C00DD6772 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3A7B4A315AB011C00DD6772 /* IntegrationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IntegrationTests-Info.plist"; sourceTree = "<group>"; };
 		D3A7B4A515AB011C00DD6772 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D3A7B4AA15AB011C00DD6772 /* QATIntegrationTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATIntegrationTests-Prefix.pch"; sourceTree = "<group>"; };
-		D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATDataSourceChainTests.m; sourceTree = "<group>"; };
-		D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATPostURLRequestTests.m; sourceTree = "<group>"; };
-		D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATJSONPostURLRequest.h; sourceTree = "<group>"; };
-		D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATJSONPostURLRequest.m; sourceTree = "<group>"; };
-		D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostmanTests.m; sourceTree = "<group>"; };
-		D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionPostman.h; sourceTree = "<group>"; };
-		D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostman.m; sourceTree = "<group>"; };
-		D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATConnectionTests.m; path = ../LogicUnitTests/QATConnectionTests.m; sourceTree = "<group>"; };
-		D3C1F5E015A4544200F0900D /* libQATLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQATLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QATLibrary-Prefix.pch"; sourceTree = "<group>"; };
-		D3C1F5E515A4544200F0900D /* QATConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QATConnection.h; sourceTree = "<group>"; };
-		D3C1F5E615A4544200F0900D /* QATConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QATConnection.m; sourceTree = "<group>"; };
-		D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QATLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QATLibraryTests-Info.plist"; sourceTree = "<group>"; };
+		D3A7B4AA15AB011C00DD6772 /* IntegrationTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IntegrationTests-Prefix.pch"; sourceTree = "<group>"; };
+		D3A7B4B215AB022800DD6772 /* EPDataSourceChainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPDataSourceChainTests.m; sourceTree = "<group>"; };
+		D3A7B4B915B37F9400DD6772 /* EPPostURLRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPostURLRequestTests.m; sourceTree = "<group>"; };
+		D3A7B4BC15B383FD00DD6772 /* EPJSONPostURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPJSONPostURLRequest.h; sourceTree = "<group>"; };
+		D3A7B4BD15B383FD00DD6772 /* EPJSONPostURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPJSONPostURLRequest.m; sourceTree = "<group>"; };
+		D3A7B4C115B3953E00DD6772 /* EPQuestionPostmanTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostmanTests.m; sourceTree = "<group>"; };
+		D3A7B4C315B4B3DF00DD6772 /* EPQuestionPostman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionPostman.h; sourceTree = "<group>"; };
+		D3A7B4C415B4B3DF00DD6772 /* EPQuestionPostman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostman.m; sourceTree = "<group>"; };
+		D3C1F5D915A37F3100F0900D /* EPConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPConnectionTests.m; path = ../LogicUnitTests/EPConnectionTests.m; sourceTree = "<group>"; };
+		D3C1F5E015A4544200F0900D /* libLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C1F5E415A4544200F0900D /* Library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Library-Prefix.pch"; sourceTree = "<group>"; };
+		D3C1F5E515A4544200F0900D /* EPConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPConnection.h; sourceTree = "<group>"; };
+		D3C1F5E615A4544200F0900D /* EPConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPConnection.m; sourceTree = "<group>"; };
+		D3C1F5ED15A4544200F0900D /* LibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C1F5F615A4544300F0900D /* LibraryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LibraryTests-Info.plist"; sourceTree = "<group>"; };
 		D3C1F5F815A4544300F0900D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCellTest.m; sourceTree = "<group>"; };
-		D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATSmartTableViewCell.h; sourceTree = "<group>"; };
-		D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATSmartTableViewCell.m; sourceTree = "<group>"; };
-		D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMenuListSmartTableViewCellTests.m; sourceTree = "<group>"; };
-		D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATMenuListSmartTableViewCell.h; sourceTree = "<group>"; };
-		D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATMenuListSmartTableViewCell.m; sourceTree = "<group>"; };
-		D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsDataSourceTests.m; sourceTree = "<group>"; };
-		D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATConnectionProtocol.h; sourceTree = "<group>"; };
-		D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATQuestionsDataSource.h; sourceTree = "<group>"; };
-		D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionsDataSource.m; sourceTree = "<group>"; };
-		D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATConnectionDelegateProtocol.h; sourceTree = "<group>"; };
-		D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPostmanDelegateProtocol.h; sourceTree = "<group>"; };
-		D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QATQuestionPostmanIntegrationTests.m; sourceTree = "<group>"; };
-		D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QATPostmanProtocol.h; sourceTree = "<group>"; };
+		D3C986E415A7832F007A41D8 /* EPSmartTableViewCellTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPSmartTableViewCellTest.m; sourceTree = "<group>"; };
+		D3C986E615A78409007A41D8 /* EPSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPSmartTableViewCell.h; sourceTree = "<group>"; };
+		D3C986E715A78409007A41D8 /* EPSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPSmartTableViewCell.m; sourceTree = "<group>"; };
+		D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMenuListSmartTableViewCellTests.m; sourceTree = "<group>"; };
+		D3C986EF15A7955F007A41D8 /* EPMenuListSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMenuListSmartTableViewCell.h; sourceTree = "<group>"; };
+		D3C986F015A7955F007A41D8 /* EPMenuListSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMenuListSmartTableViewCell.m; sourceTree = "<group>"; };
+		D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSourceTests.m; sourceTree = "<group>"; };
+		D3C986FD15A9E6DE007A41D8 /* EPConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPConnectionProtocol.h; sourceTree = "<group>"; };
+		D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSource.h; sourceTree = "<group>"; };
+		D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSource.m; sourceTree = "<group>"; };
+		D3C9870315A9F38B007A41D8 /* EPConnectionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPConnectionDelegateProtocol.h; sourceTree = "<group>"; };
+		D3CA100215B585FF003B2D4E /* EPPostmanDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPostmanDelegateProtocol.h; sourceTree = "<group>"; };
+		D3CA100515B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostmanIntegrationTests.m; sourceTree = "<group>"; };
+		D3CA100715B594A3003B2D4E /* EPPostmanProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPostmanProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,7 +282,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DB92148185AA84200440656 /* libQATLibrary.a in Frameworks */,
+				6DB92148185AA84200440656 /* libLibrary.a in Frameworks */,
 				D387EF101536EF0400635736 /* UIKit.framework in Frameworks */,
 				D387EF121536EF0400635736 /* Foundation.framework in Frameworks */,
 				D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */,
@@ -293,7 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3CA100B15B59E79003B2D4E /* libQATLibrary.a in Frameworks */,
+				D3CA100B15B59E79003B2D4E /* libLibrary.a in Frameworks */,
 				D387EF2F1536EF0500635736 /* UIKit.framework in Frameworks */,
 				D387EF301536EF0500635736 /* Foundation.framework in Frameworks */,
 				6D82D54E185BB3F200CC75D7 /* XCTest.framework in Frameworks */,
@@ -305,7 +305,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DB92147185AA7DC00440656 /* libQATLibrary.a in Frameworks */,
+				6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */,
 				6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */,
 				D3972B9E157D89C7000C1819 /* UIKit.framework in Frameworks */,
 				D3972B9F157D89C7000C1819 /* Foundation.framework in Frameworks */,
@@ -317,7 +317,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A7B4B015AB01E300DD6772 /* libQATLibrary.a in Frameworks */,
+				D3A7B4B015AB01E300DD6772 /* libLibrary.a in Frameworks */,
 				D3A7B49F15AB011C00DD6772 /* UIKit.framework in Frameworks */,
 				D3A7B4A015AB011C00DD6772 /* Foundation.framework in Frameworks */,
 				6D7FD6D218639B4400988B44 /* XCTest.framework in Frameworks */,
@@ -337,7 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D5CC2DB185B84C70017CDD1 /* libQATLibrary.a in Frameworks */,
+				6D5CC2DB185B84C70017CDD1 /* libLibrary.a in Frameworks */,
 				D3C1F5EF15A4544300F0900D /* UIKit.framework in Frameworks */,
 				D3C1F5F015A4544300F0900D /* Foundation.framework in Frameworks */,
 				6D5CC2DD185B84FF0017CDD1 /* XCTest.framework in Frameworks */,
@@ -351,10 +351,10 @@
 		6D52A373185CAE120039C6C0 /* EPPostman */ = {
 			isa = PBXGroup;
 			children = (
-				D3CA100215B585FF003B2D4E /* QATPostmanDelegateProtocol.h */,
-				D3CA100715B594A3003B2D4E /* QATPostmanProtocol.h */,
-				D3A7B4C315B4B3DF00DD6772 /* QATQuestionPostman.h */,
-				D3A7B4C415B4B3DF00DD6772 /* QATQuestionPostman.m */,
+				D3CA100215B585FF003B2D4E /* EPPostmanDelegateProtocol.h */,
+				D3CA100715B594A3003B2D4E /* EPPostmanProtocol.h */,
+				D3A7B4C315B4B3DF00DD6772 /* EPQuestionPostman.h */,
+				D3A7B4C415B4B3DF00DD6772 /* EPQuestionPostman.m */,
 			);
 			name = EPPostman;
 			sourceTree = "<group>";
@@ -363,8 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A7B49315AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h */,
-				D3C986FF15A9EB0A007A41D8 /* QATQuestionsDataSource.h */,
-				D3C9870015A9EB0A007A41D8 /* QATQuestionsDataSource.m */,
+				D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */,
+				D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */,
 			);
 			name = EPDataSource;
 			sourceTree = "<group>";
@@ -372,12 +372,12 @@
 		6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				D3C986E615A78409007A41D8 /* QATSmartTableViewCell.h */,
-				D3C986E715A78409007A41D8 /* QATSmartTableViewCell.m */,
-				D3C986EF15A7955F007A41D8 /* QATMenuListSmartTableViewCell.h */,
-				D3C986F015A7955F007A41D8 /* QATMenuListSmartTableViewCell.m */,
-				6D5C237F15AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h */,
-				6D5C238015AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m */,
+				D3C986E615A78409007A41D8 /* EPSmartTableViewCell.h */,
+				D3C986E715A78409007A41D8 /* EPSmartTableViewCell.m */,
+				D3C986EF15A7955F007A41D8 /* EPMenuListSmartTableViewCell.h */,
+				D3C986F015A7955F007A41D8 /* EPMenuListSmartTableViewCell.m */,
+				6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */,
+				6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */,
 			);
 			name = EPSmartTableViewCell;
 			sourceTree = "<group>";
@@ -385,12 +385,12 @@
 		6D52A376185CAF270039C6C0 /* EPConnections */ = {
 			isa = PBXGroup;
 			children = (
-				D3C986FD15A9E6DE007A41D8 /* QATConnectionProtocol.h */,
-				D3C9870315A9F38B007A41D8 /* QATConnectionDelegateProtocol.h */,
-				D3A7B4BC15B383FD00DD6772 /* QATJSONPostURLRequest.h */,
-				D3A7B4BD15B383FD00DD6772 /* QATJSONPostURLRequest.m */,
-				D3C1F5E515A4544200F0900D /* QATConnection.h */,
-				D3C1F5E615A4544200F0900D /* QATConnection.m */,
+				D3C986FD15A9E6DE007A41D8 /* EPConnectionProtocol.h */,
+				D3C9870315A9F38B007A41D8 /* EPConnectionDelegateProtocol.h */,
+				D3A7B4BC15B383FD00DD6772 /* EPJSONPostURLRequest.h */,
+				D3A7B4BD15B383FD00DD6772 /* EPJSONPostURLRequest.m */,
+				D3C1F5E515A4544200F0900D /* EPConnection.h */,
+				D3C1F5E615A4544200F0900D /* EPConnection.m */,
 			);
 			name = EPConnections;
 			sourceTree = "<group>";
@@ -411,9 +411,9 @@
 				D387EF151536EF0400635736 /* AgileToolbox */,
 				D387EF331536EF0500635736 /* ApplicationUnitTests */,
 				D3972BA0157D89C7000C1819 /* LogicUnitTests */,
-				D3C1F5E215A4544200F0900D /* QATLibrary */,
-				D3C1F5F415A4544300F0900D /* QATLibraryTests */,
-				D3A7B4A115AB011C00DD6772 /* QATIntegrationTests */,
+				D3C1F5E215A4544200F0900D /* Library */,
+				D3C1F5F415A4544300F0900D /* LibraryTests */,
+				D3A7B4A115AB011C00DD6772 /* IntegrationTests */,
 				D387EF0E1536EF0400635736 /* Frameworks */,
 				D387EF0C1536EF0400635736 /* Products */,
 			);
@@ -425,9 +425,9 @@
 				D387EF0B1536EF0400635736 /* AgileToolbox.app */,
 				D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */,
 				D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */,
-				D3C1F5E015A4544200F0900D /* libQATLibrary.a */,
-				D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */,
-				D3A7B49D15AB011C00DD6772 /* QATIntegrationTests.xctest */,
+				D3C1F5E015A4544200F0900D /* libLibrary.a */,
+				D3C1F5ED15A4544200F0900D /* LibraryTests.xctest */,
+				D3A7B49D15AB011C00DD6772 /* IntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -450,23 +450,23 @@
 				D3972853157D0811000C1819 /* topics */,
 				D397282E157D07FC000C1819 /* images */,
 				D387EF161536EF0400635736 /* Supporting Files */,
-				D387EF1E1536EF0400635736 /* QATAppDelegate.h */,
-				D387EF1F1536EF0400635736 /* QATAppDelegate.m */,
+				D387EF1E1536EF0400635736 /* EPAppDelegate.h */,
+				D387EF1F1536EF0400635736 /* EPAppDelegate.m */,
 				D387EF211536EF0400635736 /* MainStoryboard.storyboard */,
-				6D3B883215B0C8FA008EF63B /* QATAddQuestionViewController.h */,
-				6D3B883315B0C8FA008EF63B /* QATAddQuestionViewController.m */,
-				D3972B86157D4F91000C1819 /* QATMainMenuListViewController.h */,
-				D3972B87157D4F91000C1819 /* QATMainMenuListViewController.m */,
-				D387EF241536EF0400635736 /* QATViewController.h */,
-				D387EF251536EF0400635736 /* QATViewController.m */,
-				D387EF441536FADF00635736 /* QATTopicsListViewController.h */,
-				D387EF451536FADF00635736 /* QATTopicsListViewController.m */,
-				D387EF471537192600635736 /* QATTopicDetailsViewController.h */,
-				D387EF481537192600635736 /* QATTopicDetailsViewController.m */,
-				D338B77C153B0DE200611765 /* QATPlanningPokerViewController.h */,
-				D338B77D153B0DE200611765 /* QATPlanningPokerViewController.m */,
-				6D5421D91595148A0079061F /* QATQuestionsTableViewController.h */,
-				6D5421DA1595148A0079061F /* QATQuestionsTableViewController.m */,
+				6D3B883215B0C8FA008EF63B /* EPAddQuestionViewController.h */,
+				6D3B883315B0C8FA008EF63B /* EPAddQuestionViewController.m */,
+				D3972B86157D4F91000C1819 /* EPMainMenuListViewController.h */,
+				D3972B87157D4F91000C1819 /* EPMainMenuListViewController.m */,
+				D387EF241536EF0400635736 /* EPViewController.h */,
+				D387EF251536EF0400635736 /* EPViewController.m */,
+				D387EF441536FADF00635736 /* EPTopicsListViewController.h */,
+				D387EF451536FADF00635736 /* EPTopicsListViewController.m */,
+				D387EF471537192600635736 /* EPTopicDetailsViewController.h */,
+				D387EF481537192600635736 /* EPTopicDetailsViewController.m */,
+				D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */,
+				D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */,
+				6D5421D91595148A0079061F /* EPQuestionsTableViewController.h */,
+				6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -485,8 +485,8 @@
 		D387EF331536EF0500635736 /* ApplicationUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				D387EF3A1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m */,
-				6D268D2415AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m */,
+				D387EF3A1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m */,
+				6D268D2415AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m */,
 				D387EF341536EF0500635736 /* Supporting Files */,
 			);
 			name = ApplicationUnitTests;
@@ -552,10 +552,10 @@
 		D3972BA0157D89C7000C1819 /* LogicUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				6D0B29D11863929A00A27014 /* QATMainMenuListViewControllerTests.m */,
-				6D92CA2A15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m */,
-				6D268D2715B0448400946FE5 /* QATAppDelegateTests.m */,
-				6D3B883915B0D12E008EF63B /* QATAddQuestionViewControllerTests.m */,
+				6D0B29D11863929A00A27014 /* EPMainMenuListViewControllerTests.m */,
+				6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */,
+				6D268D2715B0448400946FE5 /* EPAppDelegateTests.m */,
+				6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */,
 				D3972BA1157D89C7000C1819 /* Supporting Files */,
 			);
 			path = LogicUnitTests;
@@ -609,65 +609,68 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
-		D3A7B4A115AB011C00DD6772 /* QATIntegrationTests */ = {
+		D3A7B4A115AB011C00DD6772 /* IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3CA100515B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m */,
-				D3A7B4B215AB022800DD6772 /* QATDataSourceChainTests.m */,
+				D3CA100515B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m */,
+				D3A7B4B215AB022800DD6772 /* EPDataSourceChainTests.m */,
 				D3A7B4A215AB011C00DD6772 /* Supporting Files */,
 			);
-			path = QATIntegrationTests;
+			name = IntegrationTests;
+			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
 		D3A7B4A215AB011C00DD6772 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D3A7B4A315AB011C00DD6772 /* QATIntegrationTests-Info.plist */,
+				D3A7B4A315AB011C00DD6772 /* IntegrationTests-Info.plist */,
 				D3A7B4A415AB011C00DD6772 /* InfoPlist.strings */,
-				D3A7B4AA15AB011C00DD6772 /* QATIntegrationTests-Prefix.pch */,
+				D3A7B4AA15AB011C00DD6772 /* IntegrationTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D3C1F5E215A4544200F0900D /* QATLibrary */ = {
+		D3C1F5E215A4544200F0900D /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				6D3B883615B0D016008EF63B /* QATAddQuestionDelegateProtocol.h */,
+				6D3B883615B0D016008EF63B /* EPAddQuestionDelegateProtocol.h */,
 				6D52A376185CAF270039C6C0 /* EPConnections */,
 				6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */,
 				6D52A374185CAE5E0039C6C0 /* EPDataSource */,
 				6D52A373185CAE120039C6C0 /* EPPostman */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
-			path = QATLibrary;
+			name = Library;
+			path = Library;
 			sourceTree = "<group>";
 		};
 		D3C1F5E315A4544200F0900D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D3C1F5E415A4544200F0900D /* QATLibrary-Prefix.pch */,
+				D3C1F5E415A4544200F0900D /* Library-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D3C1F5F415A4544300F0900D /* QATLibraryTests */ = {
+		D3C1F5F415A4544300F0900D /* LibraryTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3C1F5D915A37F3100F0900D /* QATConnectionTests.m */,
-				D3C986E415A7832F007A41D8 /* QATSmartTableViewCellTest.m */,
-				D3C986ED15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m */,
-				D3C986F915A89E1C007A41D8 /* QATQuestionsDataSourceTests.m */,
-				D3A7B4B915B37F9400DD6772 /* QATPostURLRequestTests.m */,
-				D3A7B4C115B3953E00DD6772 /* QATQuestionPostmanTests.m */,
+				D3C1F5D915A37F3100F0900D /* EPConnectionTests.m */,
+				D3C986E415A7832F007A41D8 /* EPSmartTableViewCellTest.m */,
+				D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */,
+				D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */,
+				D3A7B4B915B37F9400DD6772 /* EPPostURLRequestTests.m */,
+				D3A7B4C115B3953E00DD6772 /* EPQuestionPostmanTests.m */,
 				D3C1F5F515A4544300F0900D /* Supporting Files */,
 			);
-			path = QATLibraryTests;
+			name = LibraryTests;
+			path = LibraryTests;
 			sourceTree = "<group>";
 		};
 		D3C1F5F515A4544300F0900D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D3C1F5F615A4544300F0900D /* QATLibraryTests-Info.plist */,
+				D3C1F5F615A4544300F0900D /* LibraryTests-Info.plist */,
 				D3C1F5F715A4544300F0900D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -680,18 +683,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C986E815A78409007A41D8 /* QATSmartTableViewCell.h in Headers */,
-				D3C986F115A7955F007A41D8 /* QATMenuListSmartTableViewCell.h in Headers */,
-				D3C986FE15A9E6DE007A41D8 /* QATConnectionProtocol.h in Headers */,
-				D3C9870115A9EB0A007A41D8 /* QATQuestionsDataSource.h in Headers */,
-				D3C9870415A9F38B007A41D8 /* QATConnectionDelegateProtocol.h in Headers */,
+				D3C986E815A78409007A41D8 /* EPSmartTableViewCell.h in Headers */,
+				D3C986F115A7955F007A41D8 /* EPMenuListSmartTableViewCell.h in Headers */,
+				D3C986FE15A9E6DE007A41D8 /* EPConnectionProtocol.h in Headers */,
+				D3C9870115A9EB0A007A41D8 /* EPQuestionsDataSource.h in Headers */,
+				D3C9870415A9F38B007A41D8 /* EPConnectionDelegateProtocol.h in Headers */,
 				D3A7B49415AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h in Headers */,
-				6D5C238115AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.h in Headers */,
-				6D3B883715B0D016008EF63B /* QATAddQuestionDelegateProtocol.h in Headers */,
-				D3A7B4C515B4B3DF00DD6772 /* QATQuestionPostman.h in Headers */,
-				D3CA100115B4FABA003B2D4E /* QATJSONPostURLRequest.h in Headers */,
-				D3CA100315B58600003B2D4E /* QATPostmanDelegateProtocol.h in Headers */,
-				D3CA100815B594A3003B2D4E /* QATPostmanProtocol.h in Headers */,
+				6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */,
+				6D3B883715B0D016008EF63B /* EPAddQuestionDelegateProtocol.h in Headers */,
+				D3A7B4C515B4B3DF00DD6772 /* EPQuestionPostman.h in Headers */,
+				D3CA100115B4FABA003B2D4E /* EPJSONPostURLRequest.h in Headers */,
+				D3CA100315B58600003B2D4E /* EPPostmanDelegateProtocol.h in Headers */,
+				D3CA100815B594A3003B2D4E /* EPPostmanProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,9 +755,9 @@
 			productReference = D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D3A7B49C15AB011C00DD6772 /* QATIntegrationTests */ = {
+		D3A7B49C15AB011C00DD6772 /* IntegrationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3A7B4AB15AB011C00DD6772 /* Build configuration list for PBXNativeTarget "QATIntegrationTests" */;
+			buildConfigurationList = D3A7B4AB15AB011C00DD6772 /* Build configuration list for PBXNativeTarget "IntegrationTests" */;
 			buildPhases = (
 				D3A7B49815AB011C00DD6772 /* Sources */,
 				D3A7B49915AB011C00DD6772 /* Frameworks */,
@@ -766,14 +769,14 @@
 				6D7FD6D118639AFF00988B44 /* PBXTargetDependency */,
 				D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */,
 			);
-			name = QATIntegrationTests;
-			productName = QATIntegrationTests;
-			productReference = D3A7B49D15AB011C00DD6772 /* QATIntegrationTests.xctest */;
+			name = IntegrationTests;
+			productName = IntegrationTests;
+			productReference = D3A7B49D15AB011C00DD6772 /* IntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D3C1F5DF15A4544200F0900D /* QATLibrary */ = {
+		D3C1F5DF15A4544200F0900D /* Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibrary" */;
+			buildConfigurationList = D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "Library" */;
 			buildPhases = (
 				D3C1F5DC15A4544200F0900D /* Sources */,
 				D3C1F5DD15A4544200F0900D /* Frameworks */,
@@ -783,14 +786,14 @@
 			);
 			dependencies = (
 			);
-			name = QATLibrary;
-			productName = QATLibrary;
-			productReference = D3C1F5E015A4544200F0900D /* libQATLibrary.a */;
+			name = Library;
+			productName = Library;
+			productReference = D3C1F5E015A4544200F0900D /* libLibrary.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		D3C1F5EC15A4544200F0900D /* QATLibraryTests */ = {
+		D3C1F5EC15A4544200F0900D /* LibraryTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibraryTests" */;
+			buildConfigurationList = D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "LibraryTests" */;
 			buildPhases = (
 				D3C1F5E815A4544200F0900D /* Sources */,
 				D3C1F5E915A4544200F0900D /* Frameworks */,
@@ -802,9 +805,9 @@
 				6D813857185FE1DA00A5A283 /* PBXTargetDependency */,
 				6D8579A9186FB52F00DCC000 /* PBXTargetDependency */,
 			);
-			name = QATLibraryTests;
-			productName = QATLibraryTests;
-			productReference = D3C1F5ED15A4544200F0900D /* QATLibraryTests.xctest */;
+			name = LibraryTests;
+			productName = LibraryTests;
+			productReference = D3C1F5ED15A4544200F0900D /* LibraryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -848,9 +851,9 @@
 				D387EF0A1536EF0400635736 /* AgileToolbox */,
 				D387EF2B1536EF0400635736 /* ApplicationUnitTests */,
 				D3972B9B157D89C7000C1819 /* LogicUnitTests */,
-				D3C1F5DF15A4544200F0900D /* QATLibrary */,
-				D3C1F5EC15A4544200F0900D /* QATLibraryTests */,
-				D3A7B49C15AB011C00DD6772 /* QATIntegrationTests */,
+				D3C1F5DF15A4544200F0900D /* Library */,
+				D3C1F5EC15A4544200F0900D /* LibraryTests */,
+				D3A7B49C15AB011C00DD6772 /* IntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -931,14 +934,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF1C1536EF0400635736 /* main.m in Sources */,
-				D387EF201536EF0400635736 /* QATAppDelegate.m in Sources */,
-				D387EF261536EF0400635736 /* QATViewController.m in Sources */,
-				D387EF461536FADF00635736 /* QATTopicsListViewController.m in Sources */,
-				D387EF491537192600635736 /* QATTopicDetailsViewController.m in Sources */,
-				D338B77E153B0DE200611765 /* QATPlanningPokerViewController.m in Sources */,
-				D3972B88157D4F91000C1819 /* QATMainMenuListViewController.m in Sources */,
-				6D5421DB1595148A0079061F /* QATQuestionsTableViewController.m in Sources */,
-				6D3B883415B0C8FA008EF63B /* QATAddQuestionViewController.m in Sources */,
+				D387EF201536EF0400635736 /* EPAppDelegate.m in Sources */,
+				D387EF261536EF0400635736 /* EPViewController.m in Sources */,
+				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
+				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
+				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
+				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
+				6D5421DB1595148A0079061F /* EPQuestionsTableViewController.m in Sources */,
+				6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,8 +949,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D387EF3B1536EF0500635736 /* QATMainMenuListViewControllerAppTests.m in Sources */,
-				6D268D2515AEB1E300946FE5 /* QATQuestionsTableViewControllerAppTests.m in Sources */,
+				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
+				6D268D2515AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,14 +958,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D0B29D21863929A00A27014 /* QATMainMenuListViewControllerTests.m in Sources */,
-				D3C986E115A7543B007A41D8 /* QATMainMenuListViewController.m in Sources */,
-				6D92CA2B15AB4916002602C4 /* QATQuestionsTableViewControllerTests.m in Sources */,
-				6D92CA2D15AB4C77002602C4 /* QATQuestionsTableViewController.m in Sources */,
-				6D268D2815B0448400946FE5 /* QATAppDelegateTests.m in Sources */,
-				6D268D2915B0497B00946FE5 /* QATAppDelegate.m in Sources */,
-				6D3B883A15B0D12E008EF63B /* QATAddQuestionViewControllerTests.m in Sources */,
-				6D3B883B15B0D9BB008EF63B /* QATAddQuestionViewController.m in Sources */,
+				6D0B29D21863929A00A27014 /* EPMainMenuListViewControllerTests.m in Sources */,
+				D3C986E115A7543B007A41D8 /* EPMainMenuListViewController.m in Sources */,
+				6D92CA2B15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m in Sources */,
+				6D92CA2D15AB4C77002602C4 /* EPQuestionsTableViewController.m in Sources */,
+				6D268D2815B0448400946FE5 /* EPAppDelegateTests.m in Sources */,
+				6D268D2915B0497B00946FE5 /* EPAppDelegate.m in Sources */,
+				6D3B883A15B0D12E008EF63B /* EPAddQuestionViewControllerTests.m in Sources */,
+				6D3B883B15B0D9BB008EF63B /* EPAddQuestionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,8 +973,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A7B4B315AB022800DD6772 /* QATDataSourceChainTests.m in Sources */,
-				D3CA100615B58CFD003B2D4E /* QATQuestionPostmanIntegrationTests.m in Sources */,
+				D3A7B4B315AB022800DD6772 /* EPDataSourceChainTests.m in Sources */,
+				D3CA100615B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,13 +982,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C1F5E715A4544200F0900D /* QATConnection.m in Sources */,
-				D3C986E915A78409007A41D8 /* QATSmartTableViewCell.m in Sources */,
-				D3C986F215A7955F007A41D8 /* QATMenuListSmartTableViewCell.m in Sources */,
-				D3C9870215A9EB0A007A41D8 /* QATQuestionsDataSource.m in Sources */,
-				6D5C238215AB94EA005EAEBB /* QATQuestionsSmartTableViewCell.m in Sources */,
-				D3A7B4BF15B383FD00DD6772 /* QATJSONPostURLRequest.m in Sources */,
-				D3A7B4C615B4B3DF00DD6772 /* QATQuestionPostman.m in Sources */,
+				D3C1F5E715A4544200F0900D /* EPConnection.m in Sources */,
+				D3C986E915A78409007A41D8 /* EPSmartTableViewCell.m in Sources */,
+				D3C986F215A7955F007A41D8 /* EPMenuListSmartTableViewCell.m in Sources */,
+				D3C9870215A9EB0A007A41D8 /* EPQuestionsDataSource.m in Sources */,
+				6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */,
+				D3A7B4BF15B383FD00DD6772 /* EPJSONPostURLRequest.m in Sources */,
+				D3A7B4C615B4B3DF00DD6772 /* EPQuestionPostman.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,12 +996,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C1F60315A4577E00F0900D /* QATConnectionTests.m in Sources */,
-				D3C986E515A7832F007A41D8 /* QATSmartTableViewCellTest.m in Sources */,
-				D3C986EE15A793E7007A41D8 /* QATMenuListSmartTableViewCellTests.m in Sources */,
-				D3C986FA15A89E1C007A41D8 /* QATQuestionsDataSourceTests.m in Sources */,
-				D3A7B4BA15B37F9400DD6772 /* QATPostURLRequestTests.m in Sources */,
-				D3A7B4C215B3953E00DD6772 /* QATQuestionPostmanTests.m in Sources */,
+				D3C1F60315A4577E00F0900D /* EPConnectionTests.m in Sources */,
+				D3C986E515A7832F007A41D8 /* EPSmartTableViewCellTest.m in Sources */,
+				D3C986EE15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m in Sources */,
+				D3C986FA15A89E1C007A41D8 /* EPQuestionsDataSourceTests.m in Sources */,
+				D3A7B4BA15B37F9400DD6772 /* EPPostURLRequestTests.m in Sources */,
+				D3A7B4C215B3953E00DD6772 /* EPQuestionPostmanTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,7 +1020,7 @@
 		};
 		6D8579A9186FB52F00DCC000 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			target = D3C1F5DF15A4544200F0900D /* Library */;
 			targetProxy = 6D8579A8186FB52F00DCC000 /* PBXContainerItemProxy */;
 		};
 		6DB9214A185AA85700440656 /* PBXTargetDependency */ = {
@@ -1032,12 +1035,12 @@
 		};
 		D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			target = D3C1F5DF15A4544200F0900D /* Library */;
 			targetProxy = D3A7B4AE15AB01D700DD6772 /* PBXContainerItemProxy */;
 		};
 		D3C986F615A79ECD007A41D8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3C1F5DF15A4544200F0900D /* QATLibrary */;
+			target = D3C1F5DF15A4544200F0900D /* Library */;
 			targetProxy = D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1369,10 +1372,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "IntegrationTests/IntegrationTests-Prefix.pch";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
-				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
+				INFOPLIST_FILE = "IntegrationTests/IntegrationTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1398,10 +1401,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATIntegrationTests/QATIntegrationTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "IntegrationTests/IntegrationTests-Prefix.pch";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
-				INFOPLIST_FILE = "QATIntegrationTests/QATIntegrationTests-Info.plist";
+				INFOPLIST_FILE = "IntegrationTests/IntegrationTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1423,9 +1426,9 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				DSTROOT = /tmp/QATLibrary.dst;
+				DSTROOT = /tmp/Library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1440,9 +1443,9 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				DSTROOT = /tmp/QATLibrary.dst;
+				DSTROOT = /tmp/Library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1466,11 +1469,11 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
-				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				INFOPLIST_FILE = "LibraryTests/LibraryTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1504,11 +1507,11 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QATLibrary/QATLibrary-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OCMock/include\"";
-				INFOPLIST_FILE = "QATLibraryTests/QATLibraryTests-Info.plist";
+				INFOPLIST_FILE = "LibraryTests/LibraryTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1565,7 +1568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3A7B4AB15AB011C00DD6772 /* Build configuration list for PBXNativeTarget "QATIntegrationTests" */ = {
+		D3A7B4AB15AB011C00DD6772 /* Build configuration list for PBXNativeTarget "IntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3A7B4AC15AB011C00DD6772 /* Debug */,
@@ -1574,7 +1577,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibrary" */ = {
+		D3C1F5FD15A4544300F0900D /* Build configuration list for PBXNativeTarget "Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3C1F5FE15A4544300F0900D /* Debug */,
@@ -1583,7 +1586,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "QATLibraryTests" */ = {
+		D3C1F60015A4544300F0900D /* Build configuration list for PBXNativeTarget "LibraryTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3C1F60115A4544300F0900D /* Debug */,

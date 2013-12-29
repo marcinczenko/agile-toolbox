@@ -24,7 +24,7 @@ function touch_end(event) {
 		var myJSONObject = {"tap":"short"};
 		var JSONString = (JSON.stringify(myJSONObject));
 		var URLString = escape(JSONString);
-		var uri = 'QAT:/tap' + '#' + URLString;
+		var uri = 'EP:/tap' + '#' + URLString;
 		window.location = uri;
 	}
 };
