@@ -1,7 +1,7 @@
 import webapp2
 import json
 
-from models.items import ItemsModel
+from models.questions import QuestionRepository
 
 
 class ItemsJSON(webapp2.RequestHandler):
@@ -11,9 +11,9 @@ class ItemsJSON(webapp2.RequestHandler):
         number_of_items_to_be_fetched = self.request.get('n')
 
         if not number_of_items_to_be_fetched:
-            items = ItemsModel.all()
+            items = QuestionRepository.all()
         else:
-            items = ItemsModel.fetch(int(number_of_items_to_be_fetched))
+            items = QuestionRepository.fetch(int(number_of_items_to_be_fetched))
 
         items_json = []
         for item in items:

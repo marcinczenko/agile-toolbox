@@ -5,7 +5,7 @@ import os.path
 from handlers.items.items_json import ItemsJSON
 from handlers.items.new_item import NewItem
 from handlers.helpers import Ready
-from models.items import ItemsModel
+from models.questions import QuestionRepository
 
 app = webapp2.WSGIApplication([('/items_json',ItemsJSON),
                                ('/ready',Ready),
@@ -19,7 +19,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-n',action="store",default=0,dest="number_of_items",type=int,help="Number of test items in data store after initialization.")
 
-    ItemsModel.populate(parser.parse_args().number_of_items)
+    QuestionRepository.populate(parser.parse_args().number_of_items)
 
     file_dir = os.path.dirname(os.path.abspath(__file__))
 
