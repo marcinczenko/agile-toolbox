@@ -11,7 +11,7 @@
 
 @protocol EPQuestionsDataSourceProtocol <NSObject>
 
-@property (nonatomic,readonly) NSInteger length;
+@property (nonatomic,readonly) NSUInteger length;
 
 - (void)downloadData;
 - (NSString*)questionAtIndex:(NSUInteger)index;

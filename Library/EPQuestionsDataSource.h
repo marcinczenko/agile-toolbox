@@ -15,7 +15,7 @@
 
 @interface EPQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,EPConnectionDelegateProtocol>
 
-@property (nonatomic,readonly) NSInteger length;
+@property (nonatomic,readonly) NSUInteger length;
 @property (nonatomic,readonly) NSString* connectionURL;
 @property (nonatomic,strong,readonly) id<EPConnectionProtocol> connection;
 

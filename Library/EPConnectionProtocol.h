@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSURLRequest *urlRequest;
 
 - (void)start;
+- (void)getAsynchronousWithParams:(NSDictionary*)params;
 - (void)startPOSTWithBody:(NSData*)body;
 - (void) setDelegate:(id<EPConnectionDelegateProtocol>)delegate;
 - (NSString*)urlString;

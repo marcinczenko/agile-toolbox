@@ -16,8 +16,8 @@
 
 @property (nonatomic,readonly) id doesNotMatter;
 
-- (NSData*) createJSONDataFromJSONObject:(id) json_object;
-- (NSArray*) generateTestJSONObjectWith:(NSInteger)numberOfObjects;
+- (NSData*) createJSONDataFromJSONArray:(id) json_object;
+- (NSArray*) generateTestJSONArrayWith:(NSInteger)numberOfObjects;
 
 
 @end
@@ -26,7 +26,7 @@
 
 - (NSURL*) exampleURL
 {
-    return [NSURL URLWithString:@"https://example.com"];
+    return [NSURL URLWithString:@"http://example.com"];
 }
 
 - (id) doesNotMatter
@@ -34,9 +34,9 @@
     return nil;
 }
 
-- (NSArray*) generateTestJSONObjectWith:(NSInteger)numberOfObjects
+- (NSArray*) generateTestJSONArrayWith:(NSInteger)numberOfObjects
 {
-    NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:3];
+    NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:numberOfObjects];
     
     for (NSInteger index=0; index<numberOfObjects; index++) {
         NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content", nil];
@@ -46,7 +46,7 @@
     return json_object;
 }
 
-- (NSData*) createJSONDataFromJSONObject:(id) json_object
+- (NSData*) createJSONDataFromJSONArray:(id) json_object
 {
     return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
 }
@@ -66,12 +66,43 @@
     
 }
 
+- (void)testThatFetchNQuestionsCallsAppropriateConnectionMethods
+{
+    NSArray* jsonArray = [self generateTestJSONArrayWith:10];
+    
+    id connectionMock = [OCMockObject mockForProtocol:@protocol(EPConnectionProtocol)];
+    [[connectionMock expect] setDelegate:[OCMArg any]];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%ld",(long)jsonArray.count]}];
+    
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock];
+    
+    [questions fetch:jsonArray.count];
+    
+    [connectionMock verify];
+}
+
+- (void)testFetchingNFirstAvailableQuestions
+{
+    NSArray* jsonArray = [self generateTestJSONArrayWith:10];
+    
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertEqual(jsonArray.count, questions.length, @"Incorrect number of questions reported!");
+    
+    int index = 0;
+    for (NSDictionary* questionObject in jsonArray) {
+        XCTAssertEqualObjects([questionObject objectForKey:@"content"], [questions questionAtIndex:index]);
+        index++;
+    }
+}
+
 - (void)testNumberOfQuestionsBeforeAnyDataAreDownloadedShouldBeZero
 {
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
-    XCTAssertEqual((int)questions.length, 0,@"Before loading any data the length should be 0!");
-    
+    XCTAssertEqual(@[].count,questions.length, @"Before loading any data the length should be 0!");
 }
 
 - (void)testThatTheDelegateOfTheConnectionObjectIsSet
@@ -85,26 +116,28 @@
     
     [connectionMock verify];
     
-    XCTAssertEqualObjects(delegate, questions,@"Wrong delegate passed to connection object.");
+    XCTAssertEqualObjects(questions, delegate, @"Wrong delegate passed to connection object.");
 }
 
 - (void)testThatNumberOfDownloadedQuestionsIsCorrect
 {
+    NSArray* jsonArray = [self generateTestJSONArrayWith:5];
+    
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
-    [questions downloadCompleted:[self createJSONDataFromJSONObject:[self generateTestJSONObjectWith:5]]];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
     
-    XCTAssertEqual(5, (int)questions.length,@"Incorrect number of objects returned.");
+    XCTAssertEqual(jsonArray.count, questions.length,@"Incorrect number of objects returned.");
 }
 
 - (void)testReceivedQuestionsAreTheSameAsTheQuestionsSentFromTheServer
 {
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     
-    [questions downloadCompleted:[self createJSONDataFromJSONObject:[self generateTestJSONObjectWith:3]]];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:[self generateTestJSONArrayWith:5]]];
     
-    NSUInteger index = 0;
-    for (NSDictionary* questionObject in [self generateTestJSONObjectWith:3]) {
+    int index = 0;
+    for (NSDictionary* questionObject in [self generateTestJSONArrayWith:3]) {
         XCTAssertEqualObjects([questionObject objectForKey:@"content"], [questions questionAtIndex:index]);
         index++;
     }
@@ -119,7 +152,7 @@
     
     [questions setDelegate:dataSourceDelegateMock];
     
-    [questions downloadCompleted:[self createJSONDataFromJSONObject:[self generateTestJSONObjectWith:5]]];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:[self generateTestJSONArrayWith:5]]];
     
     [dataSourceDelegateMock verify];
     

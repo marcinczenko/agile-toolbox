@@ -101,6 +101,12 @@
     [self createConnection];
 }
 
+// TODO: IMPLEMENT ME!!!
+- (void)getAsynchronousWithParams:(NSDictionary*)params
+{
+    
+}
+
 - (BOOL)isValidPOSTRequest
 {
     if ([_urlRequest isKindOfClass:[NSMutableURLRequest class]] &&

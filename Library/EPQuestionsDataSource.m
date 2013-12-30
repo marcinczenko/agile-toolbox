@@ -23,7 +23,7 @@
 @synthesize json_object = _json_object;
 @synthesize dataSourceDelegate = _dataSourceDelegate;
 
-- (NSInteger) length
+- (NSUInteger) length
 {
     return self.json_object.count;
 }
@@ -53,10 +53,28 @@
 {
     
 }
+//
+//NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:numberOfObjects];
+//
+//for (NSInteger index=0; index<numberOfObjects; index++) {
+//    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content", nil];
+//    [json_object addObject:dict];
+//}
+//
+//return json_object;
+//}
+//
+//- (NSData*) createJSONDataFromJSONArray:(id) json_object
+//{
+//    return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
+
 
 - (void)fetch:(NSUInteger)numberOfQuestions
 {
     
+    NSDictionary *params = @{@"n": [NSString stringWithFormat:@"%lu",(long)numberOfQuestions]};
+    
+    [self.connection getAsynchronousWithParams:params];
 }
 
 - (void)downloadData
