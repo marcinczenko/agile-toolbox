@@ -30,7 +30,8 @@ module Runners
         end
               
         def command
-            "#{File.join(ENV['VIRTUAL_ENV'], '/bin/python')} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            "#{Helpers::PathFinder.find(:Python)} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            #"#{File.join(ENV['VIRTUAL_ENV'], '/bin/python')} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
         end
         
         def wait_for_being_operational

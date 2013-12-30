@@ -112,7 +112,7 @@
     
     [dataSourceMock setExpectationOrderMatters:YES];
     [[dataSourceMock expect] setDelegate:self.vc];
-    [[dataSourceMock expect] downloadData];
+    [[dataSourceMock expect] fetch:20];
     
     self.vc.questionsDataSource = dataSourceMock;
     
@@ -186,12 +186,12 @@
 - (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheDataSource
 {
     id questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
-    NSInteger numberOfRows = [self magicNumber:5];
+    NSUInteger numberOfRows = [self magicNumber:5];
     [[[questionsDataSourceMock stub] andReturnValue:OCMOCK_VALUE(numberOfRows)] length];
     
     self.vc.questionsDataSource = questionsDataSourceMock;
     
-    XCTAssertEqual(self.vc.questionsDataSource.length, [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0]);
+    XCTAssertEqual(self.vc.questionsDataSource.length, (NSUInteger)[self.vc tableView:self.doesNotMatter numberOfRowsInSection:0]);
     
     [questionsDataSourceMock verify];
 }

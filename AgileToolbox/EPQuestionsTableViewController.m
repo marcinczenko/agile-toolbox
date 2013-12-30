@@ -35,7 +35,7 @@
     
     [self.questionsDataSource setDelegate:self];
     
-    [self.questionsDataSource downloadData];
+    [self.questionsDataSource fetch:20];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     

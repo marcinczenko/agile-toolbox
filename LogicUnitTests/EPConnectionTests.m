@@ -87,7 +87,7 @@ typedef void(^CallbackBlock)(NSData*);
 
 - (NSURL*) exampleURL
 {
-    return [NSURL URLWithString:@"https://example.com"];
+    return [NSURL URLWithString:@"http://example.com/items"];
 }
 
 - (NSData*)examplePOSTHTTPBody
@@ -132,6 +132,29 @@ typedef void(^CallbackBlock)(NSData*);
     Byte data_array[100];
     
     return [NSData dataWithBytes:&data_array length:100];
+}
+
+- (NSDictionary*)createDictionaryWithNParams:(NSUInteger)numberOfParams
+{
+    NSMutableDictionary *query = [NSMutableDictionary dictionaryWithDictionary:@{}];
+    
+    for (int i=0; i<numberOfParams; i++) {
+        query[[NSString stringWithFormat:@"param_key_%u",i+1]] = [NSString stringWithFormat:@"param_value_%u",i+1];
+    }
+    return query;
+}
+
+- (NSString*)queryStringFromDictionary:(NSDictionary*)dictionary
+{
+    __block NSMutableString *queryString = [NSMutableString stringWithString:@""];
+    
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [queryString appendFormat:@"%@=%@&",key,obj];
+    }];
+    
+    [queryString deleteCharactersInRange:NSMakeRange(queryString.length-1, 1)];
+    
+    return queryString;
 }
 
 - (void)testCreatingAConnectionObjectWithURLUsingClassMethod
@@ -185,6 +208,39 @@ typedef void(^CallbackBlock)(NSData*);
 
     [partialConnectionMock verify];
 }
+
+- (void)testStartingConnectionWithQueryParameters
+{
+    NSDictionary *params = [self createDictionaryWithNParams:2];
+    
+    id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
+    
+    [[partialConnectionMock expect] createConnection];
+    
+    [self.connection getAsynchronousWithParams:params];
+    
+    [partialConnectionMock verify];
+    
+    NSString *expectedQuery = [self queryStringFromDictionary:params];
+    
+    XCTAssertEqualObjects(expectedQuery, [self connection].url.query);
+}
+
+- (void)testThatURLWithQueryStringHasCorrectFormat
+{
+    NSDictionary *params = [self createDictionaryWithNParams:1];
+    
+    id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
+    
+    [[partialConnectionMock stub] createConnection];
+    
+    [self.connection getAsynchronousWithParams:params];
+    
+    NSString *expectedURLString = [NSString stringWithFormat:@"%@?%@",self.exampleURL.absoluteString,[self queryStringFromDictionary:params]];
+    
+    XCTAssertEqualObjects(expectedURLString, [self connection].url.absoluteString);
+}
+
 
 - (void)testStartingPOSTConnection
 {

@@ -5,6 +5,10 @@ class ItemsModel(object):
     @staticmethod
     def all():
         return ItemsModel.items
+
+    @staticmethod
+    def fetch(n):
+        return ItemsModel.items[0:n]
     
     @staticmethod
     def add_item(item):

@@ -101,10 +101,23 @@
     [self createConnection];
 }
 
-// TODO: IMPLEMENT ME!!!
 - (void)getAsynchronousWithParams:(NSDictionary*)params
 {
+    if (0<params.count) {
+        
+        __block NSString *url_with_params = [_url.absoluteString stringByAppendingString:@"?"];
+        __block BOOL isFirstParam = YES;
+        
+        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSString *format = (isFirstParam) ? @"%@=%@" : @"&%@=%@";
+            url_with_params = [url_with_params stringByAppendingFormat:format,key,obj];
+            isFirstParam = NO;
+        }];
+        
+        self.urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url_with_params]];
+    }
     
+    [self createConnection];
 }
 
 - (BOOL)isValidPOSTRequest
@@ -139,6 +152,7 @@
 {
     self.connection = [NSURLConnection connectionWithRequest:self.urlRequest delegate:self];
 }
+
 
 - (float)percentComplete
 {
