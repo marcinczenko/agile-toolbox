@@ -35,7 +35,7 @@
     
     [self.questionsDataSource setDelegate:self];
     
-    [self.questionsDataSource fetch:20];
+    [self.questionsDataSource fetch];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -61,6 +61,12 @@
     
     self.questionsDataSource = nil;
     self.postman = nil;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    
+//    NSLog(@"contentSize=%f\ncontentOffset=%f",scrollView.contentSize.height,scrollView.contentOffset.y);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -95,6 +101,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EPQuestionsSmartTableViewCell* cell = [EPQuestionsSmartTableViewCell cellForTableView:tableView];
+    
+//    NSLog(@"indexPath.row=%ld",(long)indexPath.row);
     
     cell.textLabel.text = [self.questionsDataSource questionAtIndex:indexPath.row];
     
@@ -153,12 +161,32 @@
      */
 }
 
+- (NSArray*)indexPathsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSInteger row=fromIndex; row<=toIndex; row++) {
+        [array addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+    }
+    
+    return array;
+}
+
+- (void)updateTableViewRowsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
+{
+    [self.tableView beginUpdates];
+    
+    [self.tableView insertRowsAtIndexPaths:[self indexPathsFrom:fromIndex to:toIndex] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self.tableView endUpdates];
+}
+
 #pragma mark - EPQuestionsDataSourceDelegate
-- (void)questionsFetched
+- (void)questionsFetchedFromIndex:(NSInteger)fromIndex to:(NSInteger)toIndex
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self.tableView reloadData];
+        [self updateTableViewRowsFrom:fromIndex to:toIndex];
     });
 }
 

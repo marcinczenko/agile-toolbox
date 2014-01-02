@@ -18,6 +18,6 @@
 
 - (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate;
 
-- (void)fetch:(NSUInteger)numberOfQuestions;
+- (void)fetch;
 
 @end

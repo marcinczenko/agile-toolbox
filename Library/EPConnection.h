@@ -44,6 +44,6 @@ typedef void (^EPConnectionCompletionBlock)(EPConnection *connection, NSError *e
 - (void)start;
 - (void)getAsynchronousWithParams:(NSDictionary*)params;
 - (void)setDelegate:(id<EPConnectionDelegateProtocol>)delegate;
-- (void)createConnection;
+- (void)createConnectionWithURLRequest:(NSURLRequest*)urlRequest;
 
 @end

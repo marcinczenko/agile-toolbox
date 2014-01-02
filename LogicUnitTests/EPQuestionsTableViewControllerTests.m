@@ -112,7 +112,7 @@
     
     [dataSourceMock setExpectationOrderMatters:YES];
     [[dataSourceMock expect] setDelegate:self.vc];
-    [[dataSourceMock expect] fetch:20];
+    [[dataSourceMock expect] fetch];
     
     self.vc.questionsDataSource = dataSourceMock;
     
@@ -210,6 +210,35 @@
     
     [destinationController verify];
     [segueMock verify];
+}
+
+- (NSArray*)indexPathsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSInteger row=fromIndex; row<=toIndex; row++) {
+        [array addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+    }
+    
+    return array;
+}
+
+- (void) testThatCorrectRowsAreInsertedToTheTableWhenDataSourceDelegateIsCalled
+{
+    NSArray* expectedIndexes = [self indexPathsFrom:0 to:9];
+    
+    id questionsTableViewControllePartialMock = [OCMockObject partialMockForObject:self.vc];
+    id tableViewMock = [OCMockObject mockForClass:[UITableView class]];
+    [[tableViewMock expect] beginUpdates];
+    [[tableViewMock expect] insertRowsAtIndexPaths:[OCMArg checkWithBlock:^BOOL(id obj) {
+        return [expectedIndexes isEqualToArray:obj];
+    }] withRowAnimation:UITableViewRowAnimationNone];
+    [[tableViewMock expect] endUpdates];
+    [[[questionsTableViewControllePartialMock stub] andReturn:tableViewMock] tableView];
+    
+    [self.vc updateTableViewRowsFrom:0 to:9];
+    
+    [tableViewMock verify];
 }
 
 - (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded

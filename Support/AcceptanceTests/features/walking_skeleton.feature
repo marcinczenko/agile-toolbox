@@ -8,8 +8,8 @@ Scenario: Retrieving text items form the server
   Then I should be able to retrieve these 5 items using my iPhone App (Feature: "WalkingSkeleton" Scenario:"RetrievingItemsFromTheServer")
 
 Scenario: Retrieving first n items form the server
-  Given Google App Engine Server Mock with 40 items is started
-  Then RUN: Feature: "WalkingSkeleton" Scenario:"RetrievingFirstNItemsFromTheServer"
+  Given Google App Engine Server Mock with 60 items is started
+  Then RUN: Feature: "WalkingSkeleton" Scenario:"RetrievingFirstPageFromTheServer"
   
 Scenario: Posting a new text item to the server
   Given Google App Engine Server Mock with 5 items is started

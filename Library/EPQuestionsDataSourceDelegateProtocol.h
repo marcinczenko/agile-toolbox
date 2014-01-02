@@ -10,6 +10,6 @@
 
 @protocol EPQuestionsDataSourceDelegateProtocol <NSObject>
 
-- (void) questionsFetched;
+- (void) questionsFetchedFromIndex:(NSInteger)fromIndex to:(NSInteger)toIndex;
 
 @end

@@ -1,5 +1,6 @@
 import webapp2
 import json
+from datetime import datetime
 
 from models.questions import QuestionRepository
 
@@ -8,15 +9,15 @@ class ItemsJSON(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
 
-        number_of_items_to_be_fetched = self.request.get('n')
+        page = self.request.get('page')
 
-        if not number_of_items_to_be_fetched:
+        if not page:
             items = QuestionRepository.all()
         else:
-            items = QuestionRepository.fetch(int(number_of_items_to_be_fetched))
+            items = QuestionRepository.fetch_page(int(page))
 
         items_json = []
         for item in items:
-            items_json.append({'content': item})
+            items_json.append({'content': item.content, 'timestamp': item.timestamp.strftime('%A %d-%m-%Y %H:%M')})
 
         self.response.out.write(json.dumps(items_json))

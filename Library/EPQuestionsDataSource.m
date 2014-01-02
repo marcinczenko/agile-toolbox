@@ -12,8 +12,10 @@
 @interface EPQuestionsDataSource ()
 
 @property (nonatomic,strong) id<EPConnectionProtocol> connection;
-@property (nonatomic,strong) NSArray* json_object;
+@property (nonatomic,strong) NSMutableArray* json_object;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> dataSourceDelegate;
+@property (nonatomic,assign) NSUInteger currentPageNumber;
+@property (nonatomic,readonly) NSUInteger nextPageIndex;
 
 @end
 
@@ -22,6 +24,9 @@
 @synthesize connection = _connection;
 @synthesize json_object = _json_object;
 @synthesize dataSourceDelegate = _dataSourceDelegate;
+
+const NSUInteger QUESTIONS_PER_PAGE = 40;
+const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
 
 - (NSUInteger) length
 {
@@ -40,6 +45,7 @@
     if (self) {
         _connection = connection;
         [_connection setDelegate:self];
+        _json_object = [NSMutableArray array];
     }
     return self;
 }
@@ -49,30 +55,35 @@
     self.dataSourceDelegate = delegate;
 }
 
+- (NSUInteger)nextPageIndex
+{
+    return self.currentPageNumber*self.questionsPerPage-self.nextPageIndexTreshold;
+}
+
+- (NSUInteger)questionsPerPage
+{
+    return QUESTIONS_PER_PAGE;
+}
+
+- (NSUInteger)nextPageIndexTreshold
+{
+    return NEXT_PAGE_INDEX_TRESHOLD;
+}
+
 - (void)setPostConnection:(id<EPConnectionProtocol>)connection
 {
     
 }
-//
-//NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:numberOfObjects];
-//
-//for (NSInteger index=0; index<numberOfObjects; index++) {
-//    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content", nil];
-//    [json_object addObject:dict];
-//}
-//
-//return json_object;
-//}
-//
-//- (NSData*) createJSONDataFromJSONArray:(id) json_object
-//{
-//    return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
 
-
-- (void)fetch:(NSUInteger)numberOfQuestions
+- (void)fetch
 {
-    
-    NSDictionary *params = @{@"n": [NSString stringWithFormat:@"%lu",(long)numberOfQuestions]};
+    self.currentPageNumber = 1;
+    [self fetchPage:self.currentPageNumber];
+}
+
+-(void)fetchPage:(NSUInteger)pageNumber
+{
+    NSDictionary *params = @{@"page": [NSString stringWithFormat:@"%lu",(unsigned long)pageNumber]};
     
     [self.connection getAsynchronousWithParams:params];
 }
@@ -84,15 +95,26 @@
 
 - (NSString*)questionAtIndex:(NSUInteger)index
 {
+    if (self.nextPageIndex==index) {
+        self.currentPageNumber++;
+        [self fetchPage:self.currentPageNumber];
+    }
     return [[self.json_object objectAtIndex:index] objectForKey:@"content"];
 }
 
 - (void)downloadCompleted:(NSData *)data
 {
-    self.json_object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetched)]) {
-        [self.dataSourceDelegate questionsFetched];
+    if (0 < new_data.count) {
+        NSInteger fromIndex = self.json_object.count;
+        NSInteger toIndex = fromIndex+new_data.count-1;
+        
+        [self.json_object addObjectsFromArray:new_data];
+        
+        if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetchedFromIndex:to:)]) {
+            [self.dataSourceDelegate questionsFetchedFromIndex:fromIndex to:toIndex];
+        }
     }
 }
 

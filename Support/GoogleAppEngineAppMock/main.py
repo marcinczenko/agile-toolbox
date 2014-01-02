@@ -19,9 +19,11 @@ def main():
     parser.add_argument('-n', action="store", default=0, dest="number_of_items", type=int,
                         help="Number of test items in data store after initialization.")
 
+    QuestionRepository.create_table()
+    QuestionRepository.truncate()
     QuestionRepository.populate(parser.parse_args().number_of_items)
 
-    httpserver.serve(app, host='localhost', port='9001')
+    httpserver.serve(app, host='192.168.1.33', port='9001')
 
 
 if __name__ == '__main__':

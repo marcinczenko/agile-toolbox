@@ -29,7 +29,7 @@
     NSError *error = nil;
     NSData *responseData;
     
-    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/ready"]]
+    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/ready"]]
                                          returningResponse:&response
                                                      error:&error];
                                                                         
@@ -42,10 +42,10 @@
     }
     
     
-    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:@"http://localhost:9001/items_json"]];
+    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]];
     self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection];
     
-    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:9001/new_json_item"]];
+    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/new_json_item"]];
     EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
     self.postman = [[EPQuestionPostman alloc] initWithConnection:postConnection];
     

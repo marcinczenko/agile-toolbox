@@ -16,7 +16,7 @@ describe("Walking Skeleton", function() {
         target.frontMostApp().navigationBar().leftButton().tap();
     });
 
-    it("fetches first 20 items from the server", function() {
+    it("fetches first page from the server", function() {
     
         mainWindow.tableViews()["MenuList"].cells()["Q&A"].tap();
         
@@ -26,7 +26,7 @@ describe("Walking Skeleton", function() {
         
         expect(mainWindow.tableViews()["Questions"].checkIsValid()).toBe(true);
         
-        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(20);
+        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(40);
     });
 });
 

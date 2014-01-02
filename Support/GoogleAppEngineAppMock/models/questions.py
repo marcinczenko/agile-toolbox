@@ -5,7 +5,7 @@ import sqlite_model
 
 
 class Question(sqlite_model.SQLiteModel):
-    contents = peewee.TextField()
+    content = peewee.TextField()
     timestamp = peewee.DateTimeField()
 
     class Meta:
@@ -15,22 +15,30 @@ class Question(sqlite_model.SQLiteModel):
 
 class QuestionRepository(object):
 
-    Question.create_table_if_does_not_exist()
-    Question.truncate()
+    PAGE_SIZE = 40
 
     @classmethod
     def all(cls):
-        return [q.contents for q in Question.select()]
+        return Question.select()
 
     @classmethod
-    def fetch(cls, n):
-        return [q.contents for q in Question.select().paginate(1, n)]
+    def fetch_page(cls, page):
+        # return [q.contents for q in Question.select().paginate(page, cls.PAGE_SIZE)]
+        return Question.select().paginate(page, cls.PAGE_SIZE)
 
     @classmethod
     def add_item(cls, item):
-        Question.create(contents=item, timestamp=datetime.datetime.now())
+        Question.create(content=item, timestamp=datetime.datetime.now())
 
     @classmethod
     def populate(cls, number_of_items):
         for item_index in range(0, number_of_items):
-            Question.create(contents="Test Item%d" % item_index, timestamp=datetime.datetime.now())
+            Question.create(content="Test Item%d" % item_index, timestamp=datetime.datetime.now())
+
+    @classmethod
+    def create_table(cls):
+        Question.create_table_if_does_not_exist()
+
+    @classmethod
+    def truncate(cls):
+        Question.truncate()

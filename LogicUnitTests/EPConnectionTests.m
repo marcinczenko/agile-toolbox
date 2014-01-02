@@ -202,7 +202,7 @@ typedef void(^CallbackBlock)(NSData*);
 {
     id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
     
-    [[partialConnectionMock expect] createConnection];
+    [[partialConnectionMock expect] createConnectionWithURLRequest:self.connection.urlRequest];
     
     [self.connection start];
 
@@ -215,15 +215,13 @@ typedef void(^CallbackBlock)(NSData*);
     
     id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
     
-    [[partialConnectionMock expect] createConnection];
+    [[partialConnectionMock expect] createConnectionWithURLRequest:[OCMArg checkWithBlock:^BOOL(NSURLRequest *urlRequest) {
+        return [urlRequest.URL.query isEqualToString:[self queryStringFromDictionary:params]];
+    }]];
     
     [self.connection getAsynchronousWithParams:params];
     
     [partialConnectionMock verify];
-    
-    NSString *expectedQuery = [self queryStringFromDictionary:params];
-    
-    XCTAssertEqualObjects(expectedQuery, [self connection].url.query);
 }
 
 - (void)testThatURLWithQueryStringHasCorrectFormat
@@ -232,13 +230,37 @@ typedef void(^CallbackBlock)(NSData*);
     
     id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
     
-    [[partialConnectionMock stub] createConnection];
+    [[partialConnectionMock expect] createConnectionWithURLRequest:[OCMArg checkWithBlock:^BOOL(NSURLRequest *urlRequest) {
+        NSString *expectedURLString = [NSString stringWithFormat:@"%@?%@",self.exampleURL.absoluteString,[self queryStringFromDictionary:params]];
+        return [urlRequest.URL.absoluteString isEqualToString:expectedURLString];
+    }]];
     
     [self.connection getAsynchronousWithParams:params];
     
-    NSString *expectedURLString = [NSString stringWithFormat:@"%@?%@",self.exampleURL.absoluteString,[self queryStringFromDictionary:params]];
+    [partialConnectionMock verify];
+}
+
+- (void)testThatURLWithQueryStringHasCorrectFormatOnConsecutiveCalls
+{
+    NSDictionary *params = [self createDictionaryWithNParams:1];
     
-    XCTAssertEqualObjects(expectedURLString, [self connection].url.absoluteString);
+    id partialConnectionMock = [OCMockObject partialMockForObject:self.connection];
+    
+    [[partialConnectionMock expect] createConnectionWithURLRequest:[OCMArg checkWithBlock:^BOOL(NSURLRequest *urlRequest) {
+        NSString *expectedURLString = [NSString stringWithFormat:@"%@?%@",self.exampleURL.absoluteString,[self queryStringFromDictionary:params]];
+        return [urlRequest.URL.absoluteString isEqualToString:expectedURLString];
+    }]];
+    
+    [[partialConnectionMock expect] createConnectionWithURLRequest:[OCMArg checkWithBlock:^BOOL(NSURLRequest *urlRequest) {
+        NSString *expectedURLString = [NSString stringWithFormat:@"%@?%@",self.exampleURL.absoluteString,[self queryStringFromDictionary:params]];
+        return [urlRequest.URL.absoluteString isEqualToString:expectedURLString];
+    }]];
+    
+    [self.connection getAsynchronousWithParams:params];
+    
+    [self.connection getAsynchronousWithParams:params];
+    
+    [partialConnectionMock verify];
 }
 
 

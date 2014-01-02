@@ -98,11 +98,13 @@
 
 - (void)start
 {
-    [self createConnection];
+    [self createConnectionWithURLRequest:self.urlRequest];
 }
 
 - (void)getAsynchronousWithParams:(NSDictionary*)params
 {
+    NSURLRequest *urlRequest = self.urlRequest;
+    
     if (0<params.count) {
         
         __block NSString *url_with_params = [_url.absoluteString stringByAppendingString:@"?"];
@@ -114,10 +116,10 @@
             isFirstParam = NO;
         }];
         
-        self.urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url_with_params]];
+        urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url_with_params]];
     }
     
-    [self createConnection];
+    [self createConnectionWithURLRequest:urlRequest];
 }
 
 - (BOOL)isValidPOSTRequest
@@ -148,9 +150,9 @@
     return self.url.absoluteString;
 }
 
-- (void)createConnection
+- (void)createConnectionWithURLRequest:(NSURLRequest*)urlRequest
 {
-    self.connection = [NSURLConnection connectionWithRequest:self.urlRequest delegate:self];
+    self.connection = [NSURLConnection connectionWithRequest:urlRequest delegate:self];
 }
 
 
