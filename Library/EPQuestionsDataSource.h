@@ -16,20 +16,20 @@
 @interface EPQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,EPConnectionDelegateProtocol>
 
 @property (nonatomic,readonly) NSUInteger length;
+@property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,readonly) NSString* connectionURL;
 @property (nonatomic,strong,readonly) id<EPConnectionProtocol> connection;
 @property (nonatomic,assign,readonly) NSUInteger currentPageNumber;
 @property (nonatomic,assign,readonly) NSUInteger questionsPerPage;
 @property (nonatomic,assign,readonly) NSUInteger nextPageIndexTreshold;
 
++ (NSUInteger)pageSize;
+
 - (id)initWithConnection:(id<EPConnectionProtocol>)connection;
-- (void)downloadData;
 - (void)fetch;
+- (void)fetchNew;
 - (NSString*)questionAtIndex:(NSUInteger)index;
 - (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate;
-
-#pragma mark - private interfece - part of the testing interface
--(void)fetchPage:(NSUInteger)pageNumber;
 
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;

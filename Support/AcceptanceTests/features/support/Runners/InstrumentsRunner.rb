@@ -34,9 +34,13 @@ module Runners
             parse_log_file(options[:scheme])
         end 
     end
+
+    def self.find_most_recent_run_dir(scheme)
+        Dir.glob("#{Helpers::PathFinder.find(:UIAutomation_build)}/#{scheme}/log/Run*").last
+    end
     
     def self.parse_log_file(scheme)
-        parser = Helpers::Parser.new("#{Helpers::PathFinder.find(:UIAutomation_build)}/#{scheme}/log/Run 1/Automation Results.plist")
+        parser = Helpers::Parser.new("#{find_most_recent_run_dir(scheme)}/Automation Results.plist")
         if @@verbose
             puts parser.output
         end

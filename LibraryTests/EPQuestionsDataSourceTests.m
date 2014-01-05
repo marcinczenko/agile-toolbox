@@ -38,8 +38,13 @@
 {
     NSMutableArray* json_object = [NSMutableArray arrayWithCapacity:numberOfObjects];
     
-    for (NSInteger index=0; index<numberOfObjects; index++) {
-        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content", nil];
+    for (int index=(int)numberOfObjects; index>0; index--) {
+//        NSDateFormatter *df = [NSDateFormatter new];
+//        [df setDateFormat:@"dd MM yyyy HH:mm a z"];
+//        NSString* timestamp = [df stringFromDate: [NSDate date]];
+        
+        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content",
+                               [NSString stringWithFormat:@"03-01-2013 %0d:%0d",13+index/60,index%60],@"timestamp",[NSString stringWithFormat:@"%d",index], @"id", nil];
         [json_object addObject:dict];
     }
     
@@ -52,103 +57,71 @@
 }
 
 
-- (void)testThatQATDataSourceStartsLoadingDataUsingSuppliedConnectionProtocol
+-(void)testFetching1stSetOfQuestions
 {
     id connectionMock = [OCMockObject mockForProtocol:@protocol(EPConnectionProtocol)];
     [[connectionMock expect] setDelegate:[OCMArg any]];
-    [[connectionMock expect] start];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize]}];
     
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock];
     
-    [questions downloadData];
-    
-    [connectionMock verify];
-    
-}
-
-- (void)testFetching1stPage
-{
-    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
-    
-    id partialQuestionsMock = [OCMockObject partialMockForObject:questions];
-    
-    [[partialQuestionsMock expect] fetchPage:1];
-    
     [questions fetch];
-    
-    [partialQuestionsMock verify];
-}
-
-- (void)testFetching2ndPageAfter1stPageIsFetched
-{
-    NSArray* jsonArray = [self generateTestJSONArrayWith:40];
-    
-    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
-    
-    id partialQuestionsMock = [OCMockObject partialMockForObject:questions];
-    
-    [[partialQuestionsMock expect] fetchPage:2];
-    
-    [questions fetch];
-    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
-    
-    [questions questionAtIndex:20];
-    
-    [partialQuestionsMock verify];
-}
-
-- (void)testConsecutivePageFetches
-{
-    NSArray* jsonArray = [self generateTestJSONArrayWith:40];
-    
-    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
-    
-    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
-    
-    XCTAssertEqual(jsonArray.count, questions.length);
-    
-    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
-    
-    XCTAssertEqual(jsonArray.count*2, questions.length);
-}
-
-- (void)testFetching3rdPageAfter2ndPageIsFetched
-{
-    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
-    NSArray* jsonArray = [self generateTestJSONArrayWith:questions.questionsPerPage];
-    
-    id partialQuestionsMock = [OCMockObject partialMockForObject:questions];
-    
-    [[partialQuestionsMock expect] fetchPage:3];
-    
-    [questions fetch];
-    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
-    
-    [questions questionAtIndex:questions.nextPageIndexTreshold];
-    
-    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
-    
-    [questions questionAtIndex:questions.questionsPerPage*2-questions.nextPageIndexTreshold];
-    
-    [partialQuestionsMock verify];
-}
-
-
--(void)testThatFetchingPagesUsesCorrectURL
-{
-    NSUInteger pageNumberToFetch = 1;
-    
-    id connectionMock = [OCMockObject mockForProtocol:@protocol(EPConnectionProtocol)];
-    [[connectionMock expect] setDelegate:[OCMArg any]];
-    [[connectionMock expect] getAsynchronousWithParams:@{@"page": [NSString stringWithFormat:@"%lu",(long)pageNumberToFetch]}];
-    
-    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock];
-    
-    [questions fetchPage:pageNumberToFetch];
     
     [connectionMock verify];
 }
 
+-(void)testFetching2ndSetOfQuestions
+{
+    NSArray* jsonArray = [self generateTestJSONArrayWith:EPQuestionsDataSource.pageSize];
+    
+    id connectionMock = [OCMockObject mockForProtocol:@protocol(EPConnectionProtocol)];
+    [[connectionMock expect] setDelegate:[OCMArg any]];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize]}];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
+                                                         @"id": [NSString stringWithFormat:@"%d",1]}];
+    
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock];
+    
+    // fetch 1st set of questions
+    [questions fetch];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    // fetch 2nd set of questions
+    [questions fetch];
+    
+    [connectionMock verify];
+}
+
+-(void)testFetching3rdSetOfQuestions
+{
+    NSArray* jsonArray = [self generateTestJSONArrayWith:EPQuestionsDataSource.pageSize*2];
+    NSArray* firstSetOfQuestions = [jsonArray subarrayWithRange:NSMakeRange(0, EPQuestionsDataSource.pageSize)];
+    NSArray* secondSetOfQuestions = [jsonArray subarrayWithRange:NSMakeRange(EPQuestionsDataSource.pageSize, EPQuestionsDataSource.pageSize)];
+    
+    id connectionMock = [OCMockObject mockForProtocol:@protocol(EPConnectionProtocol)];
+    [[connectionMock expect] setDelegate:[OCMArg any]];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize]}];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
+                                                         @"id": [NSString stringWithFormat:@"%ld",(long)EPQuestionsDataSource.pageSize+1]}];
+    [[connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
+                                                         @"id": [NSString stringWithFormat:@"%d",1]}];
+    
+    
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock];
+    
+    // fetch 1st set of questions
+    [questions fetch];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:firstSetOfQuestions]];
+    
+    // fetch 2nd set of questions
+    [questions fetch];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:secondSetOfQuestions]];
+    
+    // fetch 3rd set of questions
+    [questions fetch];
+    
+    [connectionMock verify];
+}
 
 - (void)testNumberOfQuestionsBeforeAnyDataAreDownloadedShouldBeZero
 {
@@ -249,12 +222,13 @@
     
 }
 
-- (void) testThatDataSourceDelegateIsNotCalledWhenNoQuestionsFetched
+- (void)testThatDataSourceDelegateIsCalledEvenWhenNoQuestionsFetched
 {
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
     NSArray* jsonArray = [self generateTestJSONArrayWith:0];
     
     id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:0 to:-1];
     
     [questions setDelegate:dataSourceDelegateMock];
     
@@ -262,6 +236,113 @@
     
     [dataSourceDelegateMock verify];
 }
+
+- (void)testThatDataSourceDelegateIsCalledWhenNoQuestionsAreFetchedForIndexesGreaterThanZero
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:10];
+    NSArray* jsonArrayEmpty = [self generateTestJSONArrayWith:0];
+    
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [dataSourceDelegateMock setExpectationOrderMatters:YES];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:0 to:9];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:10 to:9];
+    
+    [questions setDelegate:dataSourceDelegateMock];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArrayEmpty]];
+    
+    [dataSourceDelegateMock verify];
+}
+
+- (void)testThatDataSourceSetsHasMoreQuestionsToFetchToNOWhenLastFetchReturnedNoQuestions
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = @[];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertFalse(questions.hasMoreQuestionsToFetch);
+}
+
+
+- (void)testThatDataSourceSetsHasMoreQuestionsToFetchToNOWhenLastFetchReturnedLessThanOnePageOfQuestions
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:questions.questionsPerPage-1];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertFalse(questions.hasMoreQuestionsToFetch);
+}
+
+- (void)testThatDataSourceSetsHasMoreQuestionsToFetchToNOWhenLastFetchReturnedExactlyOneQuestion
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:1];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertFalse(questions.hasMoreQuestionsToFetch);
+}
+
+- (void)testThatDataSourceSetsHasMoreQuestionsToFetchToYESWhenLastFetchReturnedExactlyOnePageOfQuestions
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:questions.questionsPerPage];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertTrue(questions.hasMoreQuestionsToFetch);
+}
+
+- (void)testThatDataSourceSetsHasMoreQuestionsToFetchToYESWhenLastFetchReturnedMoreThanOnePageOfQuestions
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:questions.questionsPerPage+1];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    XCTAssertTrue(questions.hasMoreQuestionsToFetch);
+}
+
+
+
+- (void)testThatDataSourceDelegateIsCalledWhenOnlyOneQuestionIsFetched
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:1];
+    
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:0 to:0];
+    
+    [questions setDelegate:dataSourceDelegateMock];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    
+    [dataSourceDelegateMock verify];
+}
+
+- (void)testThatDataSourceDelegateIsCalledWhenOnlyOneQuestionIsFetchedForIndexesGreaterThanZero
+{
+    EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:self.doesNotMatter];
+    NSArray* jsonArray = [self generateTestJSONArrayWith:10];
+    NSArray* jsonArrayWithOneElement = [self generateTestJSONArrayWith:1];
+    
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [dataSourceDelegateMock setExpectationOrderMatters:YES];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:0 to:9];
+    [[dataSourceDelegateMock expect] questionsFetchedFromIndex:10 to:10];
+    
+    [questions setDelegate:dataSourceDelegateMock];
+    
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [questions downloadCompleted:[self createJSONDataFromJSONArray:jsonArrayWithOneElement]];
+    
+    [dataSourceDelegateMock verify];
+}
+
 
 
 

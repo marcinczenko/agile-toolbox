@@ -16,6 +16,7 @@
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> dataSourceDelegate;
 @property (nonatomic,assign) NSUInteger currentPageNumber;
 @property (nonatomic,readonly) NSUInteger nextPageIndex;
+@property (nonatomic,assign) BOOL hasMoreQuestionsToFetch;
 
 @end
 
@@ -46,6 +47,7 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
         _connection = connection;
         [_connection setDelegate:self];
         _json_object = [NSMutableArray array];
+        _hasMoreQuestionsToFetch = YES;
     }
     return self;
 }
@@ -53,6 +55,11 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
 - (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate
 {
     self.dataSourceDelegate = delegate;
+}
+
++ (NSUInteger)pageSize
+{
+    return QUESTIONS_PER_PAGE;
 }
 
 - (NSUInteger)nextPageIndex
@@ -75,30 +82,30 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
     
 }
 
-- (void)fetch
+- (NSString*)getOldestQuestionId
 {
-    self.currentPageNumber = 1;
-    [self fetchPage:self.currentPageNumber];
+    return [self.json_object.lastObject objectForKey:@"id"];
 }
 
--(void)fetchPage:(NSUInteger)pageNumber
+- (void)fetch
 {
-    NSDictionary *params = @{@"page": [NSString stringWithFormat:@"%lu",(unsigned long)pageNumber]};
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
+                                                                                         (unsigned long)QUESTIONS_PER_PAGE]}];
+    
+    if ([self getOldestQuestionId]) {
+        [params addEntriesFromDictionary:@{@"id": [self getOldestQuestionId]}];
+    }
     
     [self.connection getAsynchronousWithParams:params];
 }
 
-- (void)downloadData
+- (void)fetchNew
 {
-    [self.connection start];
+    
 }
 
 - (NSString*)questionAtIndex:(NSUInteger)index
 {
-    if (self.nextPageIndex==index) {
-        self.currentPageNumber++;
-        [self fetchPage:self.currentPageNumber];
-    }
     return [[self.json_object objectAtIndex:index] objectForKey:@"content"];
 }
 
@@ -106,15 +113,17 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
 {
     NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    if (0 < new_data.count) {
-        NSInteger fromIndex = self.json_object.count;
-        NSInteger toIndex = fromIndex+new_data.count-1;
-        
-        [self.json_object addObjectsFromArray:new_data];
-        
-        if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetchedFromIndex:to:)]) {
-            [self.dataSourceDelegate questionsFetchedFromIndex:fromIndex to:toIndex];
-        }
+    NSInteger fromIndex = self.json_object.count;
+    NSInteger toIndex = fromIndex+new_data.count-1;
+    
+    if (QUESTIONS_PER_PAGE > new_data.count) {
+        _hasMoreQuestionsToFetch = NO;
+    }
+    
+    [self.json_object addObjectsFromArray:new_data];
+    
+    if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetchedFromIndex:to:)]) {
+        [self.dataSourceDelegate questionsFetchedFromIndex:fromIndex to:toIndex];
     }
 }
 

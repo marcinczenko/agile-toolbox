@@ -19,6 +19,8 @@ describe("Walking Skeleton", function() {
     it("shows text items available on the server", function() {
     
         mainWindow.tableViews()["MenuList"].cells()["Q&A"].tap();
+
+        target.delay(2);
         
         mainWindow.logElementTree();
         

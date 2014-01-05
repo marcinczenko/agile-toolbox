@@ -19,14 +19,17 @@ describe("Walking Skeleton", function() {
     it("fetches first page from the server", function() {
     
         mainWindow.tableViews()["MenuList"].cells()["Q&A"].tap();
+
+        target.delay(2);
         
         mainWindow.logElementTree();
         
         UIALogger.logMessage(mainWindow.tableViews()["Questions"].checkIsValid().toString());
         
         expect(mainWindow.tableViews()["Questions"].checkIsValid()).toBe(true);
-        
-        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(40);
+
+        // we expect to have 40 items per page + one more row for "Fetch More" operation.
+        expect(mainWindow.tableViews()["Questions"].cells().length).toEqual(41);
     });
 });
 

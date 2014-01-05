@@ -34,7 +34,7 @@
     
     XCTAssertEqualObjects(NSStringFromClass([appDelegate.questionsDataSource class]), NSStringFromClass([EPQuestionsDataSource class]));
     
-    XCTAssertEqualObjects(@"http://localhost:9001/items_json", appDelegate.questionsDataSource.connectionURL);
+    XCTAssertEqualObjects(@"http://192.168.1.33:9001/items_json", appDelegate.questionsDataSource.connectionURL);
 }
 
 @end

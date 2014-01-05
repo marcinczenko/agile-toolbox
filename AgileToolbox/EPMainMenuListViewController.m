@@ -69,10 +69,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    EPAppDelegate* appDelegate = (EPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     if ([segue.identifier isEqualToString:@"Questions"]) {
         
         EPQuestionsTableViewController* destinationVC =  (EPQuestionsTableViewController*)segue.destinationViewController;
-        EPAppDelegate* appDelegate = (EPAppDelegate*)[[UIApplication sharedApplication] delegate];
         destinationVC.questionsDataSource = appDelegate.questionsDataSource;
         destinationVC.postman = appDelegate.postman;
     }
@@ -157,11 +158,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //EPAppDelegate* appDelegate = (EPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     if (0==indexPath.row) {
         [self performSegueWithIdentifier: @"Questions" sender: self];
-    }
-    else
-    {
+//        if (0 == appDelegate.questionsDataSource.length) {
+//            [self performSegueWithIdentifier: @"Loading" sender: self];
+//        } else {
+//            [self performSegueWithIdentifier: @"Questions" sender: self];
+//        }
+    } else {
         [self performSegueWithIdentifier: @"Topics" sender: self];
     }
     

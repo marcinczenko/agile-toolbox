@@ -23,6 +23,13 @@ class ItemsTestCase(unittest.TestCase):
         self.assertEqual(response.status_int, 200)
         self.assertEqual(response.body, "OK")
 
+    def test_each_question_has_unique_id(self):
+        QuestionRepository.populate(2)
+        response = self.testapp.get('/items_json')
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(len(response.json), 2)
+        self.assertNotEqual(response.json[0][u'id'], response.json[1][u'id'])
+
     def test_retrieving_items_using_json(self):
         QuestionRepository.populate(5)
         response = self.testapp.get('/items_json')
@@ -32,15 +39,24 @@ class ItemsTestCase(unittest.TestCase):
             self.assertEqual(record[u'content'], "%s%d" % (ItemsTestCase.TEST_ITEM, 5 - record_index - 1),
                              "record_index:%d, record:%s" % (record_index, record))
 
-    def test_pagination(self):
-        QuestionRepository.populate(ItemsTestCase.NUMBER_OF_QUESTIONS)
-        response = self.testapp.get('/items_json?page=1')
+    def test_retrieving_first_n_items_posted_after_items_with_given_id(self):
+        QuestionRepository.populate(15)
+        response = self.testapp.get('/items_json?n=5')
         self.assertEqual(response.status_int, 200)
-        self.assertEqual(len(response.json), 40)
-        for record_index, record in enumerate(response.json):
-            self.assertEqual(record[u'content'], "%s%d" % (ItemsTestCase.TEST_ITEM,
-                                                           ItemsTestCase.NUMBER_OF_QUESTIONS - record_index - 1),
-                             "record_index:%d, record:%s" % (record_index, record))
+        self.assertEqual(len(response.json), 5)
+        oldest_item_id = response.json[4][u'id']
+        self.assertEqual(11, oldest_item_id)
+        response = self.testapp.get("/items_json?id=%d&n=5" % oldest_item_id)
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(len(response.json), 5)
+        self.assertEqual(10, response.json[0][u'id'])
+        self.assertEqual(6, response.json[4][u'id'])
+
+    def test_retrieving_first_n_items(self):
+        QuestionRepository.populate(20)
+        response = self.testapp.get('/items_json?n=10')
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(len(response.json), 10)
 
     def test_retrieving_first_n_items_when_number_of_available_items_less_than_n(self):
         QuestionRepository.populate(5)

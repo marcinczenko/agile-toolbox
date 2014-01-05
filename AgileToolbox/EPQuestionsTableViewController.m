@@ -7,10 +7,17 @@
 //
 
 #import "EPQuestionsTableViewController.h"
-#import "EPQuestionsSmartTableViewCell.h"
+#import "EPQuestionTableViewCell.h"
 #import "EPAddQuestionViewController.h"
+#import "EPFetchMoreTableViewCell.h"
+#import "EPQuestionsDataSource.h"
 
 @interface EPQuestionsTableViewController ()
+
+@property (nonatomic,assign) BOOL isLoadingData ;
+@property (nonatomic,assign) BOOL lastCellIsVisible;
+@property (nonatomic,readonly) CGFloat contentHeight;
+@property (nonatomic,readonly) BOOL totalContentHeightSmallerThanScreenSize;
 
 @end
 
@@ -22,7 +29,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.isLoadingData = NO;
+        self.lastCellIsVisible = NO;
     }
     return self;
 }
@@ -31,15 +39,22 @@
 {
     [super viewDidLoad];
     
+    self.isLoadingData = NO;
+    self.lastCellIsVisible = NO;
+    
     self.view.accessibilityLabel = @"Questions";
     
     [self.questionsDataSource setDelegate:self];
     
-    [self.questionsDataSource fetch];
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if (0 == self.questionsDataSource.length) {
+        [self.questionsDataSource fetch];
+        self.isLoadingData = YES;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
     
     [self.postman setDelegate:self];
+    
+    self.tableView.delegate = self;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -63,10 +78,25 @@
     self.postman = nil;
 }
 
+- (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
+{
+    return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
-//    NSLog(@"contentSize=%f\ncontentOffset=%f",scrollView.contentSize.height,scrollView.contentOffset.y);
+    NSLog(@"%d",self.lastCellIsVisible);
+    if (self.questionsDataSource.hasMoreQuestionsToFetch && self.lastCellIsVisible) {
+        if ([self scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollView])
+        {
+            if (!self.isLoadingData) {
+                self.isLoadingData = YES;
+                [self.questionsDataSource fetch];
+                [self activateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            }
+        }
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -83,30 +113,111 @@
         EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
         destinationVC.delegate = self;
     }
-    
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.questionsDataSource.hasMoreQuestionsToFetch ? 2 : 1 ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.questionsDataSource.length;
+    if (0==section) {
+        return self.questionsDataSource.length;
+    } else {
+        return 1 ;
+    }
+}
+
+- (EPFetchMoreTableViewCell*)fetchMoreTableViewCell
+{
+    return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+}
+
+- (void)activateFetchingIndicatorForCell:(EPFetchMoreTableViewCell*)fetchMoreCell
+{
+    fetchMoreCell.label.hidden = YES;
+    [fetchMoreCell.activityIndicator startAnimating];
+}
+
+- (void)deactivateFetchingIndicatorForCell:(EPFetchMoreTableViewCell*)fetchMoreCell
+{
+    [fetchMoreCell.activityIndicator stopAnimating];
+    fetchMoreCell.label.hidden = NO;
+}
+
+
+- (void)hideSeparatorLineForCell:(EPFetchMoreTableViewCell*)fetchMoreCell
+{
+    fetchMoreCell.separatorInset = UIEdgeInsetsMake(0, 0, 0, fetchMoreCell.bounds.size.width);
+}
+
+- (CGFloat)contentHeight
+{
+    CGFloat trueContentHeight = 0;
+    
+    for (int i=0; i<self.tableView.numberOfSections; i++) {
+        trueContentHeight += [self.tableView rectForSection:i].size.height;
+    }
+    
+    return trueContentHeight;
+}
+
+- (void)addTableFooterViewInOrderToHideEmptyCells
+{
+    if (!self.tableView.tableFooterView) {
+        
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height-self.tableView.contentInset.top-self.contentHeight)];
+        [footerView setBackgroundColor:[UIColor whiteColor]];
+        [self.tableView setTableFooterView:footerView];
+    }
+}
+
+- (void)setUpFetchMoreCell:(EPFetchMoreTableViewCell*)fetchMoreCell
+{
+    [self hideSeparatorLineForCell:fetchMoreCell];
+    if (0==self.questionsDataSource.length && self.isLoadingData) {
+        [self activateFetchingIndicatorForCell:fetchMoreCell];
+        [self addTableFooterViewInOrderToHideEmptyCells];
+        
+    } else {
+        fetchMoreCell.label.hidden = NO;
+    }
+    
+}
+
+- (BOOL) totalContentHeightSmallerThanScreenSize
+{
+    return (self.contentHeight+self.tableView.contentInset.top < self.tableView.frame.size.height);
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EPQuestionsSmartTableViewCell* cell = [EPQuestionsSmartTableViewCell cellForTableView:tableView];
-    
-//    NSLog(@"indexPath.row=%ld",(long)indexPath.row);
-    
-    cell.textLabel.text = [self.questionsDataSource questionAtIndex:indexPath.row];
-    
-    return cell;
+    if (0==indexPath.section) {
+        EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
+                                                                        forIndexPath:indexPath];
+        questionCell.textLabel.text = [self.questionsDataSource questionAtIndex:indexPath.row];
+        
+        if (indexPath.row == self.questionsDataSource.length-1) {
+            self.lastCellIsVisible = YES;
+            
+            if (self.totalContentHeightSmallerThanScreenSize) {
+                [self addTableFooterViewInOrderToHideEmptyCells];
+            }
+        }
+        
+        return questionCell;
+    } else {
+        EPFetchMoreTableViewCell *fetchMoreCell = [tableView dequeueReusableCellWithIdentifier:@"FetchMore"
+                                        forIndexPath:indexPath];
+        
+        [self setUpFetchMoreCell:fetchMoreCell];
+
+        return fetchMoreCell;
+    }
 }
 
 /*
@@ -172,11 +283,53 @@
     return array;
 }
 
+//- (void)animateFetchMoreCellLabelWithText:(NSString*)text
+//{
+//    [UIView beginAnimations:@"animateText" context:nil];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//    [UIView setAnimationDuration:1.0f];
+//    [[self fetchMoreTableViewCell].label setAlpha:0];
+//    [self fetchMoreTableViewCell].label.text = text;
+//    [[self fetchMoreTableViewCell].label setAlpha:1];
+//    [UIView commitAnimations];
+//}
+
+//- (void)removeFetchMoreSection
+//{
+//    int64_t delayInSeconds = 1.0f;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [self.tableView beginUpdates];
+//        
+//        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+//        
+//        [self.tableView endUpdates];
+//    });
+//}
+
+- (void)insertRows:(NSInteger)fromIndex to:(NSInteger)toIndex
+{
+    [self.tableView insertRowsAtIndexPaths:[self indexPathsFrom:fromIndex to:toIndex] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)deleteFetchMoreCell
+{
+    if (self.totalContentHeightSmallerThanScreenSize) {
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationTop];
+    } else {
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
+    }
+}
+
 - (void)updateTableViewRowsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
 {
     [self.tableView beginUpdates];
     
-    [self.tableView insertRowsAtIndexPaths:[self indexPathsFrom:fromIndex to:toIndex] withRowAnimation:UITableViewRowAnimationNone];
+    [self insertRows:fromIndex to:toIndex];
+    
+    if (!self.questionsDataSource.hasMoreQuestionsToFetch) {
+        [self deleteFetchMoreCell];
+    }
     
     [self.tableView endUpdates];
 }
@@ -186,7 +339,10 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.tableView setTableFooterView:nil];
+        [self deactivateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
         [self updateTableViewRowsFrom:fromIndex to:toIndex];
+        self.isLoadingData = NO;
     });
 }
 
@@ -200,7 +356,7 @@
 #pragma mark - EPPostmanDelegateProtocol
 - (void)postDelivered
 {
-    [self.questionsDataSource downloadData];
+    [self.questionsDataSource fetchNew];
 }
 
 // TODO: not yet supported
