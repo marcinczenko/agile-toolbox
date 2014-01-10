@@ -27,6 +27,9 @@
 		6D83807D175FA5B400B305A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D83807C175FA5B400B305A5 /* Default-568h@2x.png */; };
 		6D92CA2B15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */; };
 		6D92CA2D15AB4C77002602C4 /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */; };
+		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
+		6DAFB6EB1880420C00FC91C9 /* AgileToolbox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */; };
+		6DAFB72F18804D7D00FC91C9 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFB72E18804D7D00FC91C9 /* Question.m */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -183,6 +186,10 @@
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6D8579A7186E5E1B00DCC000 /* EPQuestionsDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPQuestionsDataSourceProtocol.h; path = ExternalDependenciesProtocols/EPQuestionsDataSourceProtocol.h; sourceTree = "<group>"; };
 		6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
+		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6DAFB6EA1880420C00FC91C9 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
+		6DAFB72D18804D7D00FC91C9 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = CoreData/Question.h; sourceTree = "<group>"; };
+		6DAFB72E18804D7D00FC91C9 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = CoreData/Question.m; sourceTree = "<group>"; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6DF1F79E1875CF1400085D58 /* EPFetchMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPFetchMoreTableViewCell.h; sourceTree = "<group>"; };
 		6DF1F79F1875CF1400085D58 /* EPFetchMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPFetchMoreTableViewCell.m; sourceTree = "<group>"; };
@@ -292,6 +299,7 @@
 				D387EF101536EF0400635736 /* UIKit.framework in Frameworks */,
 				D387EF121536EF0400635736 /* Foundation.framework in Frameworks */,
 				D387EF141536EF0400635736 /* CoreGraphics.framework in Frameworks */,
+				6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,12 +428,22 @@
 			name = ExternalDependenciesProtocols;
 			sourceTree = "<group>";
 		};
+		6DAFB73118804DAE00FC91C9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */,
+				6DAFB72D18804D7D00FC91C9 /* Question.h */,
+				6DAFB72E18804D7D00FC91C9 /* Question.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
 		D387EF001536EF0400635736 = {
 			isa = PBXGroup;
 			children = (
 				6D83807C175FA5B400B305A5 /* Default-568h@2x.png */,
-				D3972BD9157EBAB0000C1819 /* OCMock */,
 				D387EF151536EF0400635736 /* AgileToolbox */,
+				D3972BD9157EBAB0000C1819 /* OCMock */,
 				D387EF331536EF0500635736 /* ApplicationUnitTests */,
 				D3972BA0157D89C7000C1819 /* LogicUnitTests */,
 				D3C1F5E215A4544200F0900D /* Library */,
@@ -452,6 +470,7 @@
 		D387EF0E1536EF0400635736 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DAFB6E718803F1900FC91C9 /* CoreData.framework */,
 				6DB92145185AA78D00440656 /* XCTest.framework */,
 				D387EF0F1536EF0400635736 /* UIKit.framework */,
 				D387EF111536EF0400635736 /* Foundation.framework */,
@@ -463,6 +482,7 @@
 		D387EF151536EF0400635736 /* AgileToolbox */ = {
 			isa = PBXGroup;
 			children = (
+				6DAFB73118804DAE00FC91C9 /* CoreData */,
 				6D8579A6186E58F200DCC000 /* ExternalDependenciesProtocols */,
 				D3972853157D0811000C1819 /* topics */,
 				D397282E157D07FC000C1819 /* images */,
@@ -949,11 +969,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF1C1536EF0400635736 /* main.m in Sources */,
+				6DAFB72F18804D7D00FC91C9 /* Question.m in Sources */,
 				D387EF201536EF0400635736 /* EPAppDelegate.m in Sources */,
 				6D65B7CE1877769E0022004C /* EPQuestionTableViewCell.m in Sources */,
 				D387EF261536EF0400635736 /* EPViewController.m in Sources */,
 				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
 				6DF1F7A01875CF1400085D58 /* EPFetchMoreTableViewCell.m in Sources */,
+				6DAFB6EB1880420C00FC91C9 /* AgileToolbox.xcdatamodeld in Sources */,
 				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
 				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
 				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
@@ -1613,6 +1635,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DAFB6EA1880420C00FC91C9 /* AgileToolbox.xcdatamodel */,
+			);
+			currentVersion = 6DAFB6EA1880420C00FC91C9 /* AgileToolbox.xcdatamodel */;
+			name = AgileToolbox.xcdatamodeld;
+			path = CoreData/AgileToolbox.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D387EF021536EF0400635736 /* Project object */;
 }
