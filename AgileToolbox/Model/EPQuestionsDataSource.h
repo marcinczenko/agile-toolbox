@@ -36,4 +36,6 @@
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;
 
+// only for testing purposes - do not call these methods directly
+- (void)saveToCoreData:(NSArray*)questionsArray;
 @end
