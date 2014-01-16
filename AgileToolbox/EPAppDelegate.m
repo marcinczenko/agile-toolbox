@@ -12,6 +12,7 @@
 
 @interface EPAppDelegate ()
 
+@property (strong, nonatomic) NSFetchedResultsController *questionsFetchedResultsController;
 @property (strong, nonatomic) EPQuestionsDataSource* questionsDataSource;
 @property (strong, nonatomic) EPQuestionPostman* postman;
 
@@ -48,7 +49,19 @@
     
     
     EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]];
-    self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection];
+    
+    NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
+    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+
+    questionsFetchRequest.sortDescriptors = @[timestampSort];
+    
+    self.questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    NSError *fetchError = nil;
+    [self.questionsFetchedResultsController performFetch:&fetchError];
+    
+    self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
+                                               andWithPersistentStoreCoordinator:self.persistentStoreCoordinator];
     
     EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/new_json_item"]];
     EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
@@ -137,11 +150,12 @@
         return _persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
+//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
+//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          
@@ -178,6 +192,15 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+
+#pragma mark - This method is only used for the purpose of testing - should be removed from production code
+
+-(void)clearPersistentStore
+{
+    _persistentStoreCoordinator = nil;
+    _managedObjectContext = nil;
 }
 
 @end

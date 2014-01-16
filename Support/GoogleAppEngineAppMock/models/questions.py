@@ -32,12 +32,12 @@ class QuestionRepository(object):
 
     @classmethod
     def add_item(cls, item):
-        Question.create(content=item, timestamp=datetime.datetime.now())
+        Question.create(content=item, timestamp=datetime.datetime.utcnow())
 
     @classmethod
     def populate(cls, number_of_items):
         for item_index in range(0, number_of_items):
-            Question.create(content="Test Item%d" % item_index, timestamp=datetime.datetime.now())
+            Question.create(content="Test Item%d" % item_index, timestamp=datetime.datetime.utcnow())
 
     @classmethod
     def create_table(cls):

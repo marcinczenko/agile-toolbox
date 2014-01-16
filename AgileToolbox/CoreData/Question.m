@@ -2,7 +2,7 @@
 //  Question.m
 //  AgileToolbox
 //
-//  Created by Marcin Czenko on 10/01/14.
+//  Created by Marcin Czenko on 15/01/14.
 //
 //
 
@@ -12,6 +12,7 @@
 @implementation Question
 
 @dynamic content;
+@dynamic question_id;
 @dynamic timestamp;
 
 @end

@@ -12,12 +12,17 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsDataSource.h"
 
+#import "EPAppDelegate.h"
+
+#import "Question.h"
+
 @interface EPQuestionsTableViewController ()
 
 @property (nonatomic,assign) BOOL isLoadingData ;
 @property (nonatomic,assign) BOOL lastCellIsVisible;
 @property (nonatomic,readonly) CGFloat contentHeight;
 @property (nonatomic,readonly) BOOL totalContentHeightSmallerThanScreenSize;
+@property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -42,13 +47,40 @@
     self.isLoadingData = NO;
     self.lastCellIsVisible = NO;
     
+    if (![NSThread isMainThread]) {
+        NSLog(@"I am not in the MainThread");
+        return;
+    }
+    
     self.view.accessibilityLabel = @"Questions";
     
-    [self.questionsDataSource setDelegate:self];
+    EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
     
-    if (0 == self.questionsDataSource.length) {
-        [self.questionsDataSource fetch];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextChanged:) name:NSManagedObjectContextDidSaveNotification object:nil];
+    
+//    NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
+//    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+//    
+//    questionsFetchRequest.sortDescriptors = @[timestampSort];
+//    
+//    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    
+    self.fetchedResultsController.delegate = self;
+    
+//    NSError *fetchError = nil;
+//    if ([self.fetchedResultsController performFetch:&fetchError]) {
+//        NSLog(@"Successfully fetched.");
+//     } else {
+//        NSLog(@"Failed to fetch.");
+//    }
+    
+//    [self.questionsDataSource setDelegate:self];
+    
+    if (0 == self.fetchedResultsController.fetchedObjects.count) {
         self.isLoadingData = YES;
+        [self.questionsDataSource fetchOlderThan:-1];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
     
@@ -63,6 +95,18 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)contextChanged:(NSNotification*)notification
+{
+    if ([notification object] == self.managedObjectContext) return;
+    
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(contextChanged:) withObject:notification waitUntilDone:YES];
+        return;
+    }
+    
+    [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -73,6 +117,8 @@
     if ([self.view window] == nil) {
         self.view = nil;
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.questionsDataSource = nil;
     self.postman = nil;
@@ -91,7 +137,8 @@
         {
             if (!self.isLoadingData) {
                 self.isLoadingData = YES;
-                [self.questionsDataSource fetch];
+                Question *question = (Question*)self.fetchedResultsController.fetchedObjects.lastObject;
+                [self.questionsDataSource fetchOlderThan:question.question_id.integerValue];
                 [self activateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
             }
@@ -125,7 +172,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (0==section) {
-        return self.questionsDataSource.length;
+        return self.fetchedResultsController.fetchedObjects.count;
     } else {
         return 1 ;
     }
@@ -178,7 +225,7 @@
 - (void)setUpFetchMoreCell:(EPFetchMoreTableViewCell*)fetchMoreCell
 {
     [self hideSeparatorLineForCell:fetchMoreCell];
-    if (0==self.questionsDataSource.length && self.isLoadingData) {
+    if (0==self.fetchedResultsController.fetchedObjects.count && self.isLoadingData) {
         [self activateFetchingIndicatorForCell:fetchMoreCell];
         [self addTableFooterViewInOrderToHideEmptyCells];
         
@@ -199,9 +246,10 @@
     if (0==indexPath.section) {
         EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
                                                                         forIndexPath:indexPath];
-        questionCell.textLabel.text = [self.questionsDataSource questionAtIndex:indexPath.row];
+        Question *question = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        questionCell.textLabel.text = question.content;
         
-        if (indexPath.row == self.questionsDataSource.length-1) {
+        if (indexPath.row == self.fetchedResultsController.fetchedObjects.count-1) {
             self.lastCellIsVisible = YES;
             
             if (self.totalContentHeightSmallerThanScreenSize) {
@@ -307,10 +355,10 @@
 //    });
 //}
 
-- (void)insertRows:(NSInteger)fromIndex to:(NSInteger)toIndex
-{
-    [self.tableView insertRowsAtIndexPaths:[self indexPathsFrom:fromIndex to:toIndex] withRowAnimation:UITableViewRowAnimationNone];
-}
+//- (void)insertRows:(NSInteger)fromIndex to:(NSInteger)toIndex
+//{
+//    [self.tableView insertRowsAtIndexPaths:[self indexPathsFrom:fromIndex to:toIndex] withRowAnimation:UITableViewRowAnimationNone];
+//}
 
 - (void)deleteFetchMoreCell
 {
@@ -321,30 +369,30 @@
     }
 }
 
-- (void)updateTableViewRowsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
-{
-    [self.tableView beginUpdates];
-    
-    [self insertRows:fromIndex to:toIndex];
-    
-    if (!self.questionsDataSource.hasMoreQuestionsToFetch) {
-        [self deleteFetchMoreCell];
-    }
-    
-    [self.tableView endUpdates];
-}
+//- (void)updateTableViewRowsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
+//{
+//    [self.tableView beginUpdates];
+//    
+//    [self insertRows:fromIndex to:toIndex];
+//    
+//    if (!self.questionsDataSource.hasMoreQuestionsToFetch) {
+//        [self deleteFetchMoreCell];
+//    }
+//    
+//    [self.tableView endUpdates];
+//}
 
 #pragma mark - EPQuestionsDataSourceDelegate
-- (void)questionsFetchedFromIndex:(NSInteger)fromIndex to:(NSInteger)toIndex
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self.tableView setTableFooterView:nil];
-        [self deactivateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
-        [self updateTableViewRowsFrom:fromIndex to:toIndex];
-        self.isLoadingData = NO;
-    });
-}
+//- (void)questionsFetchedFromIndex:(NSInteger)fromIndex to:(NSInteger)toIndex
+//{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        [self.tableView setTableFooterView:nil];
+//        [self deactivateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
+//        [self updateTableViewRowsFrom:fromIndex to:toIndex];
+//        self.isLoadingData = NO;
+//    });
+//}
 
 #pragma mark - EPAddQuestionDelegateProtocol
 - (void)questionAdded:(NSString *)question
@@ -365,5 +413,41 @@
     
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate methods
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.tableView setTableFooterView:nil];
+    [self deactivateFetchingIndicatorForCell:[self fetchMoreTableViewCell]];
+    
+    [self.tableView beginUpdates];
+}
+
+-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    if (NSFetchedResultsChangeInsert == type) {
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                         withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    if (!self.questionsDataSource.hasMoreQuestionsToFetch) {
+        [self deleteFetchMoreCell];
+    }
+    [self.tableView endUpdates];
+    
+    self.isLoadingData = NO;
+}
+
+//-(void)mergeContext:(NSManagedObjectContext *)context
+//{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self saveToCoreData:new_data];
+//    });
+//
+//}
 
 @end

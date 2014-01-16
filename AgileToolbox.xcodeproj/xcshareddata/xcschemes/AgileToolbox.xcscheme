@@ -58,6 +58,16 @@
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6DD4DE9C188145990009C083"
+               BuildableName = "CoreDataModelTests.xctest"
+               BlueprintName = "CoreDataModelTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -10,6 +10,9 @@
 
 @protocol EPQuestionsDataSourceDelegateProtocol <NSObject>
 
-- (void) questionsFetchedFromIndex:(NSInteger)fromIndex to:(NSInteger)toIndex;
+- (void)dataSourceWillUpdate;
+- (void)dataSourceInsertedObject:(id)anObject atIndex:(NSInteger)index;
+- (void)dataSourceDidUpdate;
+- (void)mergeContext:(NSManagedObjectContext*)context;
 
 @end

@@ -16,6 +16,7 @@
 		6D3B883A15B0D12E008EF63B /* EPAddQuestionViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */; };
 		6D3B883B15B0D9BB008EF63B /* EPAddQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B883315B0C8FA008EF63B /* EPAddQuestionViewController.m */; };
 		6D5421DB1595148A0079061F /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */; };
+		6D56E12A1886D04C00A96723 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D56E1291886D04C00A96723 /* Question.m */; };
 		6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */; };
 		6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */; };
 		6D5CC2DB185B84C70017CDD1 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -29,10 +30,11 @@
 		6D92CA2D15AB4C77002602C4 /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */; };
 		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
 		6DAFB6EB1880420C00FC91C9 /* AgileToolbox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */; };
-		6DAFB72F18804D7D00FC91C9 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFB72E18804D7D00FC91C9 /* Question.m */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		6DD4DEBC18814C6D0009C083 /* EPQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD4DEBA18814C6D0009C083 /* EPQuestionsDataSource.m */; };
+		6DD4DEBE18814D1A0009C083 /* EPQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD4DEBD18814D1A0009C083 /* EPQuestionsDataSourceTests.m */; };
 		6DF1F7A01875CF1400085D58 /* EPFetchMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF1F79F1875CF1400085D58 /* EPFetchMoreTableViewCell.m */; };
 		D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
@@ -80,7 +82,6 @@
 		D3972BA5157D89C7000C1819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3972BA3157D89C7000C1819 /* InfoPlist.strings */; };
 		D3972BE4157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
 		D3972BE5157EBAB0000C1819 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3972BE3157EBAB0000C1819 /* libOCMock.a */; };
-		D3A7B49415AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B49315AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h */; };
 		D3A7B49F15AB011C00DD6772 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D3A7B4A015AB011C00DD6772 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
 		D3A7B4A615AB011C00DD6772 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B4A415AB011C00DD6772 /* InfoPlist.strings */; };
@@ -105,10 +106,7 @@
 		D3C986EE15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */; };
 		D3C986F115A7955F007A41D8 /* EPMenuListSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986EF15A7955F007A41D8 /* EPMenuListSmartTableViewCell.h */; };
 		D3C986F215A7955F007A41D8 /* EPMenuListSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F015A7955F007A41D8 /* EPMenuListSmartTableViewCell.m */; };
-		D3C986FA15A89E1C007A41D8 /* EPQuestionsDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */; };
 		D3C986FE15A9E6DE007A41D8 /* EPConnectionProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FD15A9E6DE007A41D8 /* EPConnectionProtocol.h */; };
-		D3C9870115A9EB0A007A41D8 /* EPQuestionsDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */; };
-		D3C9870215A9EB0A007A41D8 /* EPQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */; };
 		D3C9870415A9F38B007A41D8 /* EPConnectionDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C9870315A9F38B007A41D8 /* EPConnectionDelegateProtocol.h */; };
 		D3CA100115B4FABA003B2D4E /* EPJSONPostURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7B4BC15B383FD00DD6772 /* EPJSONPostURLRequest.h */; };
 		D3CA100315B58600003B2D4E /* EPPostmanDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CA100215B585FF003B2D4E /* EPPostmanDelegateProtocol.h */; };
@@ -179,6 +177,8 @@
 		6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAddQuestionViewControllerTests.m; sourceTree = "<group>"; };
 		6D5421D91595148A0079061F /* EPQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewController.h; sourceTree = "<group>"; };
 		6D5421DA1595148A0079061F /* EPQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewController.m; sourceTree = "<group>"; };
+		6D56E1281886D04C00A96723 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = CoreData/Question.h; sourceTree = "<group>"; };
+		6D56E1291886D04C00A96723 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = CoreData/Question.m; sourceTree = "<group>"; };
 		6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
 		6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
 		6D65B7CC1877769E0022004C /* EPQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -188,9 +188,11 @@
 		6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DAFB6EA1880420C00FC91C9 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
-		6DAFB72D18804D7D00FC91C9 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = CoreData/Question.h; sourceTree = "<group>"; };
-		6DAFB72E18804D7D00FC91C9 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = CoreData/Question.m; sourceTree = "<group>"; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6DD4DEB918814C6D0009C083 /* EPQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSource.h; sourceTree = "<group>"; };
+		6DD4DEBA18814C6D0009C083 /* EPQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSource.m; sourceTree = "<group>"; };
+		6DD4DEBB18814C6D0009C083 /* EPQuestionsDataSourceDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSourceDelegateProtocol.h; sourceTree = "<group>"; };
+		6DD4DEBD18814D1A0009C083 /* EPQuestionsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSourceTests.m; sourceTree = "<group>"; };
 		6DF1F79E1875CF1400085D58 /* EPFetchMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPFetchMoreTableViewCell.h; sourceTree = "<group>"; };
 		6DF1F79F1875CF1400085D58 /* EPFetchMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPFetchMoreTableViewCell.m; sourceTree = "<group>"; };
 		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
@@ -254,7 +256,6 @@
 		D3972BE0157EBAB0000C1819 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		D3972BE1157EBAB0000C1819 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		D3972BE3157EBAB0000C1819 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
-		D3A7B49315AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSourceDelegateProtocol.h; sourceTree = "<group>"; };
 		D3A7B49D15AB011C00DD6772 /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A7B4A315AB011C00DD6772 /* IntegrationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IntegrationTests-Info.plist"; sourceTree = "<group>"; };
 		D3A7B4A515AB011C00DD6772 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -280,10 +281,7 @@
 		D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMenuListSmartTableViewCellTests.m; sourceTree = "<group>"; };
 		D3C986EF15A7955F007A41D8 /* EPMenuListSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMenuListSmartTableViewCell.h; sourceTree = "<group>"; };
 		D3C986F015A7955F007A41D8 /* EPMenuListSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMenuListSmartTableViewCell.m; sourceTree = "<group>"; };
-		D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSourceTests.m; sourceTree = "<group>"; };
 		D3C986FD15A9E6DE007A41D8 /* EPConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPConnectionProtocol.h; sourceTree = "<group>"; };
-		D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSource.h; sourceTree = "<group>"; };
-		D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSource.m; sourceTree = "<group>"; };
 		D3C9870315A9F38B007A41D8 /* EPConnectionDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPConnectionDelegateProtocol.h; sourceTree = "<group>"; };
 		D3CA100215B585FF003B2D4E /* EPPostmanDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPostmanDelegateProtocol.h; sourceTree = "<group>"; };
 		D3CA100515B58CFD003B2D4E /* EPQuestionPostmanIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostmanIntegrationTests.m; sourceTree = "<group>"; };
@@ -373,16 +371,6 @@
 			name = EPPostman;
 			sourceTree = "<group>";
 		};
-		6D52A374185CAE5E0039C6C0 /* EPDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				D3A7B49315AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h */,
-				D3C986FF15A9EB0A007A41D8 /* EPQuestionsDataSource.h */,
-				D3C9870015A9EB0A007A41D8 /* EPQuestionsDataSource.m */,
-			);
-			name = EPDataSource;
-			sourceTree = "<group>";
-		};
 		6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,10 +420,20 @@
 			isa = PBXGroup;
 			children = (
 				6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */,
-				6DAFB72D18804D7D00FC91C9 /* Question.h */,
-				6DAFB72E18804D7D00FC91C9 /* Question.m */,
+				6D56E1281886D04C00A96723 /* Question.h */,
+				6D56E1291886D04C00A96723 /* Question.m */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		6DD4DEB818814C6D0009C083 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6DD4DEB918814C6D0009C083 /* EPQuestionsDataSource.h */,
+				6DD4DEBA18814C6D0009C083 /* EPQuestionsDataSource.m */,
+				6DD4DEBB18814C6D0009C083 /* EPQuestionsDataSourceDelegateProtocol.h */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D387EF001536EF0400635736 = {
@@ -482,6 +480,7 @@
 		D387EF151536EF0400635736 /* AgileToolbox */ = {
 			isa = PBXGroup;
 			children = (
+				6DD4DEB818814C6D0009C083 /* Model */,
 				6DAFB73118804DAE00FC91C9 /* CoreData */,
 				6D8579A6186E58F200DCC000 /* ExternalDependenciesProtocols */,
 				D3972853157D0811000C1819 /* topics */,
@@ -523,6 +522,7 @@
 		D387EF331536EF0500635736 /* ApplicationUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				6DD4DEBD18814D1A0009C083 /* EPQuestionsDataSourceTests.m */,
 				D387EF3A1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m */,
 				6D268D2415AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m */,
 				D387EF341536EF0500635736 /* Supporting Files */,
@@ -673,7 +673,6 @@
 				6D3B883615B0D016008EF63B /* EPAddQuestionDelegateProtocol.h */,
 				6D52A376185CAF270039C6C0 /* EPConnections */,
 				6D52A375185CAEE90039C6C0 /* EPSmartTableViewCell */,
-				6D52A374185CAE5E0039C6C0 /* EPDataSource */,
 				6D52A373185CAE120039C6C0 /* EPPostman */,
 				D3C1F5E315A4544200F0900D /* Supporting Files */,
 			);
@@ -694,7 +693,6 @@
 				D3C1F5D915A37F3100F0900D /* EPConnectionTests.m */,
 				D3C986E415A7832F007A41D8 /* EPSmartTableViewCellTest.m */,
 				D3C986ED15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m */,
-				D3C986F915A89E1C007A41D8 /* EPQuestionsDataSourceTests.m */,
 				D3A7B4B915B37F9400DD6772 /* EPPostURLRequestTests.m */,
 				D3A7B4C115B3953E00DD6772 /* EPQuestionPostmanTests.m */,
 				D3C1F5F515A4544300F0900D /* Supporting Files */,
@@ -721,9 +719,7 @@
 				D3C986E815A78409007A41D8 /* EPSmartTableViewCell.h in Headers */,
 				D3C986F115A7955F007A41D8 /* EPMenuListSmartTableViewCell.h in Headers */,
 				D3C986FE15A9E6DE007A41D8 /* EPConnectionProtocol.h in Headers */,
-				D3C9870115A9EB0A007A41D8 /* EPQuestionsDataSource.h in Headers */,
 				D3C9870415A9F38B007A41D8 /* EPConnectionDelegateProtocol.h in Headers */,
-				D3A7B49415AAEF5700DD6772 /* EPQuestionsDataSourceDelegateProtocol.h in Headers */,
 				6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */,
 				6D3B883715B0D016008EF63B /* EPAddQuestionDelegateProtocol.h in Headers */,
 				D3A7B4C515B4B3DF00DD6772 /* EPQuestionPostman.h in Headers */,
@@ -969,7 +965,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF1C1536EF0400635736 /* main.m in Sources */,
-				6DAFB72F18804D7D00FC91C9 /* Question.m in Sources */,
+				6DD4DEBC18814C6D0009C083 /* EPQuestionsDataSource.m in Sources */,
 				D387EF201536EF0400635736 /* EPAppDelegate.m in Sources */,
 				6D65B7CE1877769E0022004C /* EPQuestionTableViewCell.m in Sources */,
 				D387EF261536EF0400635736 /* EPViewController.m in Sources */,
@@ -979,6 +975,7 @@
 				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
 				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
 				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
+				6D56E12A1886D04C00A96723 /* Question.m in Sources */,
 				6D5421DB1595148A0079061F /* EPQuestionsTableViewController.m in Sources */,
 				6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */,
 			);
@@ -989,6 +986,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
+				6DD4DEBE18814D1A0009C083 /* EPQuestionsDataSourceTests.m in Sources */,
 				6D268D2515AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1024,7 +1022,6 @@
 				D3C1F5E715A4544200F0900D /* EPConnection.m in Sources */,
 				D3C986E915A78409007A41D8 /* EPSmartTableViewCell.m in Sources */,
 				D3C986F215A7955F007A41D8 /* EPMenuListSmartTableViewCell.m in Sources */,
-				D3C9870215A9EB0A007A41D8 /* EPQuestionsDataSource.m in Sources */,
 				6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */,
 				D3A7B4BF15B383FD00DD6772 /* EPJSONPostURLRequest.m in Sources */,
 				D3A7B4C615B4B3DF00DD6772 /* EPQuestionPostman.m in Sources */,
@@ -1038,7 +1035,6 @@
 				D3C1F60315A4577E00F0900D /* EPConnectionTests.m in Sources */,
 				D3C986E515A7832F007A41D8 /* EPSmartTableViewCellTest.m in Sources */,
 				D3C986EE15A793E7007A41D8 /* EPMenuListSmartTableViewCellTests.m in Sources */,
-				D3C986FA15A89E1C007A41D8 /* EPQuestionsDataSourceTests.m in Sources */,
 				D3A7B4BA15B37F9400DD6772 /* EPPostURLRequestTests.m in Sources */,
 				D3A7B4C215B3953E00DD6772 /* EPQuestionPostmanTests.m in Sources */,
 			);
@@ -1469,6 +1465,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1486,6 +1486,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Library/Library-Prefix.pch";
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

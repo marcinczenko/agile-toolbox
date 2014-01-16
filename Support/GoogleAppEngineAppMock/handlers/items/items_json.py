@@ -1,6 +1,7 @@
 import webapp2
 import json
 import time
+import calendar
 from datetime import datetime
 
 from models.questions import QuestionRepository
@@ -26,6 +27,9 @@ class ItemsJSON(webapp2.RequestHandler):
         items_json = []
         for item in items:
             items_json.append({'id': item.id, 'content': item.content,
-                               'timestamp': item.timestamp.strftime('%A %d-%m-%Y %H:%M')})
+                               'timestamp': calendar.timegm(item.timestamp.utctimetuple()) +
+                                            item.timestamp.microsecond / 1000000.0})
+            # items_json.append({'id': item.id, 'content': item.content,
+            #                    'timestamp': item.timestamp.strftime('%A %d-%m-%Y %H:%M')})
 
         self.response.out.write(json.dumps(items_json))
