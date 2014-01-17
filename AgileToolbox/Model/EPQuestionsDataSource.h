@@ -19,6 +19,7 @@
 
 //@property (nonatomic,readonly) NSUInteger length;
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
+@property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
 @property (nonatomic,readonly) NSString* connectionURL;
 @property (nonatomic,strong,readonly) id<EPConnectionProtocol> connection;
 //@property (nonatomic,assign,readonly) NSUInteger currentPageNumber;

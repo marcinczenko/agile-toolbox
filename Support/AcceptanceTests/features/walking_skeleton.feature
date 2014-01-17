@@ -23,3 +23,7 @@ Scenario: Re-entering the questions list does not trigger fetch
 Scenario: Posting a new text item to the server
   Given Google App Engine Server Mock with 5 items is started
   Then I should be able to add a new item using my iPhone App (Feature: "WalkingSkeleton" Scenario:"PostingNewItemToTheServer")
+
+Scenario: Re-entering the questions list does not trigger fetch
+  Given Google App Engine Server Mock with 40 items is started
+  Then RUN: Feature: "WalkingSkeleton" Scenario:"ServerReturnsZeroQuestionsAfterFetchingFullPage"

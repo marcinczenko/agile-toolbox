@@ -12,19 +12,15 @@ describe("Walking Skeleton", function() {
         helpers.goBack();
     });
 
-    it("re-entering the questions list does not trigger fetch", function() {
+    it("server returns zero questions after returning full page", function() {
 
         helpers.enterQuestions();
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
-        helpers.goBack();
+        helpers.fetchMore(41);
 
-        helpers.enterQuestions();
-        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
-        helpers.goBack();
-
-        helpers.enterQuestions();
-        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
+        // server returns 0 questions which means we should not see "Fetch More" cell anymore
+        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);
     });
 });
 

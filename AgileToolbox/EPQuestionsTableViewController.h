@@ -20,6 +20,7 @@
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
                                                                   NSFetchedResultsControllerDelegate,
+                                                                  EPQuestionsDataSourceDelegateProtocol,
                                                                   EPAddQuestionDelegateProtocol,
                                                                   EPPostmanDelegateProtocol>
 
@@ -31,11 +32,7 @@
 //
 // Do not call these methods directly - they are made public only for the purpose of testing.
 //
-// This method is called within dispach_async in questionsFetchedFromIndex:to:
-//- (void)updateTableViewRowsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex;
-- (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView;
-- (void)activateFetchingIndicatorForCell:(EPFetchMoreTableViewCell*)fetchMoreCell;
-- (BOOL) totalContentHeightSmallerThanScreenSize;
-- (EPFetchMoreTableViewCell*)fetchMoreTableViewCell;
+- (void)setFetchIndicatorsStatusTo:(BOOL)status;
+- (void)deleteFetchMoreCell;
 
 @end

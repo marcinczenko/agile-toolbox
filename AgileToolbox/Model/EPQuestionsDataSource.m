@@ -50,20 +50,14 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
     self = [super init];
     
     if (self) {
-        _connection = connection;
-        _persistentStoreCoordinator = persistentStoreCoordinator;
-        [_connection setDelegate:self];
-        _json_object = [NSMutableArray array];
-        _hasMoreQuestionsToFetch = YES;
+        self.connection = connection;
+        self.persistentStoreCoordinator = persistentStoreCoordinator;
+        [self.connection setDelegate:self];
+        self.hasMoreQuestionsToFetch = YES;
         EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         self.backgroundObjectContext = appDelegate.managedObjectContext;
     }
     return self;
-}
-
-- (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate
-{
-    self.dataSourceDelegate = delegate;
 }
 
 + (NSUInteger)pageSize
@@ -168,35 +162,14 @@ const NSUInteger NEXT_PAGE_INDEX_TRESHOLD = 20;
     if (QUESTIONS_PER_PAGE > new_data.count) {
         _hasMoreQuestionsToFetch = NO;
     }
-    
-    if (![NSThread isMainThread]) {
-        NSLog(@"I am not in the MainThread");
-        return;
+
+    if (0==new_data.count) {
+        if ([self.delegate respondsToSelector:@selector(fetchReturnedNoData)]) {
+            [self.delegate fetchReturnedNoData];
+        }
+    } else {
+        [self saveToCoreData:new_data];
     }
-    
-    //_backgroundObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    //_backgroundObjectContext.persistentStoreCoordinator = _persistentStoreCoordinator;
-    
-    //[_backgroundObjectContext performBlock:^{
-    //    [self saveToCoreData:new_data];
-    //}];
-    
-    [self saveToCoreData:new_data];
-    
-//    [self.dataSourceDelegate mergeContext:_backgroundObjectContext];
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self saveToCoreData:new_data];
-//    });
-    
-//    NSInteger fromIndex = self.json_object.count;
-//    NSInteger toIndex = fromIndex+new_data.count-1;
-//    
-//    [self.json_object addObjectsFromArray:new_data];
-//    
-//    if ([self.dataSourceDelegate respondsToSelector:@selector(questionsFetchedFromIndex:to:)]) {
-//        [self.dataSourceDelegate questionsFetchedFromIndex:fromIndex to:toIndex];
-//    }
 }
 
 @end

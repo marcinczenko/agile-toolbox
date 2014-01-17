@@ -77,6 +77,17 @@ BOOL valueNO = NO;
     [[[self.questionsDataSourceMock expect] andReturnValue:OCMOCK_VALUE(valueYES)] hasMoreQuestionsToFetch];
 }
 
+-(void)expectThatFetchResultsControllerWithNItems:(NSUInteger)numberOfRows
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (int i=0; i<numberOfRows; i++) {
+        [array addObject:[NSNumber numberWithInt:i]];
+    }
+    
+    [[[self.fetchedResultsControllerMock stub] andReturn:array] fetchedObjects];
+}
+
 -(void)mockTableView
 {
     [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewMock] tableView];
@@ -128,10 +139,13 @@ BOOL valueNO = NO;
     [self disableViewPropertyForTheVC];
     
     [self expectThatFetchResultsControllerHasNoData];
+    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
     
+    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
     [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
     
     self.vc.questionsDataSource = self.questionsDataSourceMock;
+    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
     [self.vc viewDidLoad];
     
     [self.questionsDataSourceMock verify];
@@ -144,6 +158,7 @@ BOOL valueNO = NO;
     [self expectThatFetchResultsControllerHasNoData];
     [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
     
+    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
     [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
     
     self.vc.questionsDataSource = self.questionsDataSourceMock;
@@ -161,6 +176,8 @@ BOOL valueNO = NO;
     
     [self expectThatFetchResultsControllerHasSomeData];
     [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+
+    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
     
     self.vc.questionsDataSource = self.questionsDataSourceMock;
     self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
@@ -208,6 +225,24 @@ BOOL valueNO = NO;
     [self.postmanMock verify];
 }
 
+- (void)testThatViewRegistersItselfAsTheDelegateOfTheDataSource
+{
+    [self disableViewPropertyForTheVC];
+    
+    [self expectThatFetchResultsControllerHasSomeData];
+    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+    
+    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
+    
+    self.vc.questionsDataSource = self.questionsDataSourceMock;
+    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
+    
+    [self.vc viewDidLoad];
+    
+    [self.questionsDataSourceMock verify];
+}
+
+
 - (void)testThatViewSetsTheReferenceToDataSourceToNilWhenMemoryWarningReceived
 {
     [self disableViewPropertyForTheVC];
@@ -251,17 +286,6 @@ BOOL valueNO = NO;
     [self.questionsDataSourceMock verify];
 }
 
--(void)expectThatFetchResultsControllerWithNItems:(NSUInteger)numberOfRows
-{
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (int i=0; i<numberOfRows; i++) {
-        [array addObject:[NSNumber numberWithInt:i]];
-    }
-    
-    [[[self.fetchedResultsControllerMock stub] andReturn:array] fetchedObjects];
-}
-
 - (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheFetchedResultsController
 {
     NSUInteger numberOfRows = [self magicNumber:5];
@@ -290,16 +314,53 @@ BOOL valueNO = NO;
 {
     [self expectThatDataSourceHasNoMoreQuestionsToFetch];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturnValue:OCMOCK_VALUE(valueNO)] totalContentHeightSmallerThanScreenSize];
+    id appPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
+    [[appPartialMock expect] setNetworkActivityIndicatorVisible:NO];
     
     [self mockTableView];
-    [[[self.tableViewMock expect] ignoringNonObjectArgs] deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:0];
+    
+    [[self.questionsTableViewControllePartialMock expect] deleteFetchMoreCell];
     [[self.tableViewMock expect] endUpdates];
     
     self.vc.questionsDataSource = self.questionsDataSourceMock;
     [self.vc controllerDidChangeContent:self.doesNotMatter];
     
+    [appPartialMock verify];
     [self.tableViewMock verify];
+}
+
+-(void)testThatFetchStatusIndicatorsAreSetCorrectlyOnControllerDidChangeContentDelegateCall
+{
+    [self expectThatDataSourceHasSomeMoreQuestionsToFetch];
+    
+    [self mockTableView];
+    [[self.tableViewMock expect] endUpdates];
+    [[self.questionsTableViewControllePartialMock expect] setFetchIndicatorsStatusTo:NO];
+    
+    self.vc.questionsDataSource = self.questionsDataSourceMock;
+    [self.vc controllerDidChangeContent:self.doesNotMatter];
+    
+    [self.tableViewMock verify];
+    [self.questionsTableViewControllePartialMock verify];
+}
+
+-(void)testThatTheFetchMoreCellIsDeletedWhenDataSourceDelegateIsCalled
+{
+    id appPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
+    [[appPartialMock expect] setNetworkActivityIndicatorVisible:NO];
+    
+    [self mockTableView];
+    [self.tableViewMock setExpectationOrderMatters:YES];
+    
+    [[self.tableViewMock expect] beginUpdates];
+    [[self.questionsTableViewControllePartialMock expect] deleteFetchMoreCell];
+    [[self.tableViewMock expect] endUpdates];
+    
+    [self.vc fetchReturnedNoData];
+    
+    [appPartialMock verify];
+    [self.tableViewMock verify];
+    [self.questionsTableViewControllePartialMock verify];
 }
 
 - (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded

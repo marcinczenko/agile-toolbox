@@ -15,6 +15,7 @@
 
 #import "EPQuestionsDataSource.h"
 #import "EPConnectionDelegateProtocol.h"
+#import "EPQuestionsDataSourceDelegateProtocol.h"
 
 @interface EPQuestionsDataSourceTests : XCTestCase
 
@@ -216,6 +217,19 @@
     [self.questionsPartialMock downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
     
     XCTAssertTrue(((EPQuestionsDataSource*)self.questionsPartialMock).hasMoreQuestionsToFetch);
+}
+
+- (void)testThatDataSourceCallsTheDelegateWhenNoDataHasBeenFetchedFromTheServer
+{
+    id dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
+    [[dataSourceDelegateMock expect] fetchReturnedNoData];
+    
+    [self mockOutCallingCoreDataFor:self.questionsWithNilConnection];
+    
+    ((EPQuestionsDataSource*)self.questionsPartialMock).delegate = dataSourceDelegateMock;
+    [self.questionsPartialMock downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    
+    [dataSourceDelegateMock verify];
 }
 
 @end
