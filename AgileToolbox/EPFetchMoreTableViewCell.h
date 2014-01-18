@@ -14,4 +14,9 @@
 
 @property (nonatomic,weak) IBOutlet UILabel *label;
 
+@property (nonatomic,weak) UITableView *tableView;
+
++ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath;
+
+
 @end
