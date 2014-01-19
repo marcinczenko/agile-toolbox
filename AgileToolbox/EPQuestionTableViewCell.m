@@ -26,4 +26,13 @@
     // Configure the view for the selected state
 }
 
++ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath andQuestion:(Question*)question
+{
+    EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
+                                                                            forIndexPath:indexPath];
+    questionCell.textLabel.text = question.content;
+    
+    return questionCell;
+}
+
 @end

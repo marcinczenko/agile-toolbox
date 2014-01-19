@@ -12,11 +12,8 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsDataSource.h"
 
-#import "EPQuestionsTableViewControllerState.h"
-#import "EPQuestionsTableViewControllerEmptyLoadingState.h"
-#import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
-#import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
+#import "EPQuestionsTableViewControllerStateMachine.h"
+#import "EPQuestionsTableViewExpert.h"
 
 #import "EPAppDelegate.h"
 
@@ -24,9 +21,9 @@
 
 @interface EPQuestionsTableViewController ()
 
-@property (nonatomic,readonly) BOOL totalContentHeightSmallerThanScreenSize;
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic,readonly) EPFetchMoreTableViewCell *fetchMoreTableViewCell;
+@property (nonatomic,strong) EPQuestionsTableViewControllerStateMachine *stateMachine;
+@property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
 
 @end
 
@@ -42,28 +39,12 @@
     return self;
 }
 
-- (BOOL)noQuestionsOnTheScreen
+- (void)setDelegates
 {
-    return (0 == self.fetchedResultsController.fetchedObjects.count);
-}
-
-- (EPQuestionsTableViewControllerState*)getEntryState
-{
-    if ([self noQuestionsOnTheScreen]) {
-        if ([self.questionsDataSource hasMoreQuestionsToFetch]) {
-            return [EPQuestionsTableViewControllerEmptyLoadingState instance];
-        }
-        else {
-            return [EPQuestionsTableViewControllerEmptyNoQuestionsState instance];
-        }
-    } else {
-        if ([self.questionsDataSource hasMoreQuestionsToFetch]) {
-            return [EPQuestionsTableViewControllerQuestionsWithFetchMoreState instance];
-        }
-        else {
-            return [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState instance];
-        }
-    }
+    self.fetchedResultsController.delegate = self;
+    self.questionsDataSource.delegate = self;
+    [self.postman setDelegate:self];
+    self.tableView.delegate = self;
 }
 
 - (void)viewDidLoad
@@ -75,14 +56,15 @@
     EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    self.fetchedResultsController.delegate = self;
-    self.questionsDataSource.delegate = self;
-    [self.postman setDelegate:self];
-    self.tableView.delegate = self;
+    [self setDelegates];
     
-    self.state = [self getEntryState];
+    self.tableViewExpert = [[EPQuestionsTableViewExpert alloc] initWithTableView:self.tableView];
     
-    [self.state viewDidLoad:self];
+    self.stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] initWithViewController:self
+                                                                                andTableViewExpert:self.tableViewExpert];
+    [self.stateMachine start];
+    
+    [self.stateMachine viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -124,67 +106,11 @@
     self.postman = nil;
 }
 
-//--------------------------------------------------------------
-// Calculations
-
-- (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
-{
-    return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
-}
-
-- (CGFloat)contentHeight
-{
-    CGFloat trueContentHeight = 0;
-    
-    for (int i=0; i<self.tableView.numberOfSections; i++) {
-        trueContentHeight += [self.tableView rectForSection:i].size.height;
-    }
-    
-    return trueContentHeight;
-}
-
-- (BOOL) totalContentHeightSmallerThanScreenSize
-{
-    return (self.contentHeight+self.tableView.contentInset.top < self.tableView.frame.size.height);
-}
-
-
-- (void)fetchNextSetOfQuestions
-{
-    Question *question = (Question*)self.fetchedResultsController.fetchedObjects.lastObject;
-    [self.questionsDataSource fetchOlderThan:question.question_id.integerValue];
-}
-
-- (UITableViewCell*)setUpQuestionCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath
-{
-    EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
-                                                                            forIndexPath:indexPath];
-    Question *question = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    questionCell.textLabel.text = question.content;
-    
-    return questionCell;
-}
-
-- (void)deleteFetchMoreCell
-{
-    if (self.totalContentHeightSmallerThanScreenSize) {
-        if ([self noQuestionsOnTheScreen]) {
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-        } else {
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationTop];
-        }
-        
-    } else {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
-    }
-}
-
-
 #pragma mark - Scroll view delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.state viewController:self scrollViewDidScroll:scrollView];
+    [self.stateMachine scrollViewDidScroll:scrollView];
 }
 
 
@@ -192,17 +118,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.state numberOfSectionsInTableView:self];
+    return [self.stateMachine numberOfSections];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.state viewController:self numberOfRowsInSection:section];
+    return [self.stateMachine numberOfRowsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.state viewController:self cellForRowAtIndexPath:indexPath];
+    return [self.stateMachine cellForRowAtIndexPath:indexPath];
 }
 
 /*
@@ -261,7 +187,7 @@
 
 - (void)fetchReturnedNoData
 {
-    [self.state fetchReturnedNoData:self];
+    [self.stateMachine fetchReturnedNoData];
 }
 
 #pragma mark - EPAddQuestionDelegateProtocol
@@ -287,7 +213,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView setTableFooterView:nil];
+    [self.tableViewExpert removeTableFooter];
     [self.tableView beginUpdates];
 }
 
@@ -301,7 +227,7 @@
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.state controllerDidChangeContent:self];
+    [self.stateMachine controllerDidChangeContent];
 }
 
 @end

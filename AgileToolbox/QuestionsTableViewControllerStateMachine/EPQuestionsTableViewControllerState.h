@@ -8,19 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import "EPQuestionsTableViewController.h"
+#import "EPQuestionsTableViewExpert.h"
+#import "EPQuestionsTableViewControllerStateMachine.h"
 
 @interface EPQuestionsTableViewControllerState : NSObject
 
-+ (id)instance;
+@property (nonatomic,readonly,weak) EPQuestionsTableViewController *viewController;
+@property (nonatomic,readonly,weak) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,readonly,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
 
-- (void)addTableFooterViewInOrderToHideEmptyCellsIn:(EPQuestionsTableViewController*)viewController;
+- (id)initWithViewController:(EPQuestionsTableViewController*)viewController
+          tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
+             andStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine;
 
-- (void)viewDidLoad:(EPQuestionsTableViewController*)viewController;
-- (void)controllerDidChangeContent:(EPQuestionsTableViewController*)viewController;
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)viewController:(EPQuestionsTableViewController*)viewController scrollViewDidScroll:(UIScrollView *)scrollView;
-- (void)fetchReturnedNoData:(EPQuestionsTableViewController*)viewController;
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section;
-- (NSInteger)numberOfSectionsInTableView:(EPQuestionsTableViewController*)viewController;
+- (void)viewDidLoad;
+- (void)controllerDidChangeContent;
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)fetchReturnedNoData;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
+- (NSInteger)numberOfSections;
 
 @end

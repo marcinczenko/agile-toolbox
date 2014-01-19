@@ -7,46 +7,38 @@
 //
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreLastRowVisibleState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
+#import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreState
 
-+ (id)instance
-{
-    static EPQuestionsTableViewControllerQuestionsWithFetchMoreState *instance = nil;
-    
-    if (nil == instance) {
-        instance = [[EPQuestionsTableViewControllerQuestionsWithFetchMoreState alloc] init];
-    }
-    return instance;
-}
-
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0==indexPath.section) {
-        if (indexPath.row == viewController.fetchedResultsController.fetchedObjects.count-1) {
-            viewController.state = [EPQuestionsTableViewControllerQuestionsWithFetchMoreLastRowVisibleState instance];
+        if (indexPath.row == [self.tableViewExpert.tableView numberOfRowsInSection:0]-1) {
+            [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class]];
         }
         
-        return [viewController setUpQuestionCellForTableView:viewController.tableView atIndexPath:indexPath];
+        return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
+                                                     forIndexPath:indexPath
+                                                      andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:indexPath]];
     } else {
-        EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:viewController.tableView forIndexPath:indexPath];
-        [fetchMoreCell.activityIndicator stopAnimating];
-        fetchMoreCell.label.hidden = NO;
-        return fetchMoreCell;
+        return [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
+                                                      forIndexPath:indexPath
+                                                           loading:NO];
     }
 }
 
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     if (0==section) {
-        return viewController.fetchedResultsController.fetchedObjects.count;
+        return self.viewController.fetchedResultsController.fetchedObjects.count;
     } else {
         return 1 ;
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(EPQuestionsTableViewController*)viewController
+- (NSInteger)numberOfSections
 {
     return 2;
 }

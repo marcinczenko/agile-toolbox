@@ -13,65 +13,49 @@
 
 @implementation EPQuestionsTableViewControllerEmptyLoadingState
 
-+ (id)instance
+- (void)viewDidLoad
 {
-    static EPQuestionsTableViewControllerEmptyLoadingState *instance = nil;
-    
-    if (nil == instance) {
-        instance = [[EPQuestionsTableViewControllerEmptyLoadingState alloc] init];
-    }
-    return instance;
-}
-
-- (void)viewDidLoad:(EPQuestionsTableViewController*)viewController
-{
-    [viewController.questionsDataSource fetchOlderThan:-1];
+    [self.viewController.questionsDataSource fetchOlderThan:-1];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
-- (void)controllerDidChangeContent:(EPQuestionsTableViewController*)viewController
+- (void)controllerDidChangeContent
 {
-    if (!viewController.questionsDataSource.hasMoreQuestionsToFetch) {
-        viewController.state = [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState instance];
-        [viewController deleteFetchMoreCell];
-        [viewController.tableView endUpdates];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    if (!self.viewController.questionsDataSource.hasMoreQuestionsToFetch) {
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]] ;
+        [self.tableViewExpert deleteFetchMoreCell];
     } else {
-        viewController.state = [EPQuestionsTableViewControllerQuestionsWithFetchMoreState instance];
-        [viewController.tableView endUpdates];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        //[viewController setFetchIndicatorsStatusTo:NO];
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
     }
-}
-
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (1==indexPath.section) {
-        EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:viewController.tableView forIndexPath:indexPath];
-        fetchMoreCell.label.hidden = YES;
-        [fetchMoreCell.activityIndicator startAnimating];
-        
-        [self addTableFooterViewInOrderToHideEmptyCellsIn:viewController];
-        
-        return fetchMoreCell;
-    } else {
-        return nil;
-    }
-}
-
-- (void)fetchReturnedNoData:(EPQuestionsTableViewController*)viewController
-{
-    viewController.state = [EPQuestionsTableViewControllerEmptyNoQuestionsState instance];
+    [self.tableViewExpert.tableView endUpdates];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [viewController.tableView beginUpdates];
-    [viewController deleteFetchMoreCell];
-    [viewController.tableView setTableFooterView:nil];
-    [viewController.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
-                          withRowAnimation:UITableViewRowAnimationNone];
-    [viewController.tableView endUpdates];
 }
 
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.viewController.tableView
+                                                                                     forIndexPath:indexPath
+                                                                                          loading:YES];
+    
+    [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
+    
+    return fetchMoreCell;
+}
+
+- (void)fetchReturnedNoData
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.tableViewExpert removeTableFooter];
+    
+    [self.tableViewExpert.tableView beginUpdates];
+    [self.tableViewExpert deleteFetchMoreCell];
+    [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
+                          withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableViewExpert.tableView endUpdates];
+}
+
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     if (0==section) {
         return 0;
@@ -80,7 +64,7 @@
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(EPQuestionsTableViewController*)viewController
+- (NSInteger)numberOfSections
 {
     return 2;
 }

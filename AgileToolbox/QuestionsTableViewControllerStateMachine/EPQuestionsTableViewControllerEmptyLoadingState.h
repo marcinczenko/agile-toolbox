@@ -11,6 +11,4 @@
 
 @interface EPQuestionsTableViewControllerEmptyLoadingState : EPQuestionsTableViewControllerState
 
-+ (id)instance;
-
 @end

@@ -16,7 +16,8 @@
 
 @property (nonatomic,weak) UITableView *tableView;
 
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath;
++ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath loading:(BOOL)status;
 
+- (void)setLoadingStatus:(BOOL)status;
 
 @end

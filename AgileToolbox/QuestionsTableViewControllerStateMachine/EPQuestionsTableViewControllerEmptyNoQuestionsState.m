@@ -10,29 +10,18 @@
 
 @implementation EPQuestionsTableViewControllerEmptyNoQuestionsState
 
-+ (id)instance
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static EPQuestionsTableViewControllerEmptyNoQuestionsState *instance = nil;
-    
-    if (nil == instance) {
-        instance = [[EPQuestionsTableViewControllerEmptyNoQuestionsState alloc] init];
-    }
-    return instance;
-}
-
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    EPFetchMoreTableViewCell *fetchMoreCell = [viewController.tableView dequeueReusableCellWithIdentifier:@"FetchMore"
-                                                                              forIndexPath:indexPath];
+    EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.viewController.tableView forIndexPath:indexPath loading:NO];
     
     fetchMoreCell.label.text = @"No questions on the server";
     
-    [self addTableFooterViewInOrderToHideEmptyCellsIn:viewController];
+    [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     
     return fetchMoreCell;
 }
 
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }

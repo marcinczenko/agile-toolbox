@@ -7,30 +7,23 @@
 //
 
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
+#import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsNoMoreToFetchState
 
-+ (id)instance
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static EPQuestionsTableViewControllerQuestionsNoMoreToFetchState *instance = nil;
-    
-    if (nil == instance) {
-        instance = [[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState alloc] init];
+    if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
+        [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     }
-    return instance;
+    return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
+                                                 forIndexPath:indexPath
+                                                  andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
-    if (viewController.totalContentHeightSmallerThanScreenSize) {
-        [self addTableFooterViewInOrderToHideEmptyCellsIn:viewController];
-    }
-    return [viewController setUpQuestionCellForTableView:viewController.tableView atIndexPath:indexPath];
-}
-
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section
-{
-    return viewController.fetchedResultsController.fetchedObjects.count;
+    return self.viewController.fetchedResultsController.fetchedObjects.count;
 }
 
 

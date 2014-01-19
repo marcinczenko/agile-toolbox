@@ -21,12 +21,13 @@ static const NSString *cellId = @"FetchMore";
     return self;
 }
 
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath
++ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath loading:(BOOL)status
 {
     EPFetchMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FetchMore"
                                       forIndexPath:indexPath];
     cell.tableView = tableView;
     [cell hideSeparatorLine];
+    [cell setLoadingStatus:status];
     return cell;
 }
 
@@ -42,5 +43,15 @@ static const NSString *cellId = @"FetchMore";
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, self.bounds.size.width);
 }
 
+- (void)setLoadingStatus:(BOOL)status
+{
+    if (status) {
+        self.label.hidden = YES;
+        [self.activityIndicator startAnimating];
+    } else {
+        [self.activityIndicator stopAnimating];
+        self.label.hidden = NO;
+    }
+}
 
 @end

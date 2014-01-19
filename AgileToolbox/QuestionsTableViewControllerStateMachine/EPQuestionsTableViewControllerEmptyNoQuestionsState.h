@@ -10,6 +10,4 @@
 
 @interface EPQuestionsTableViewControllerEmptyNoQuestionsState : EPQuestionsTableViewControllerState
 
-+ (id)instance;
-
 @end

@@ -30,12 +30,38 @@
     [super tearDown];
 }
 
-- (void)testCreatingAState
+- (void)testThatStateHasViewControllerProperty
 {
-//    id stateMachine = [OCMockObject mockForClass:[EPQuestionsTableViewControllerStateMachine class]];
+    id viewControllerMock = [OCMockObject mockForClass:[EPQuestionsTableViewController class]];
     
-    EPQuestionsTableViewControllerState *state = [EPQuestionsTableViewControllerState instance];
+    EPQuestionsTableViewControllerState *state = [[EPQuestionsTableViewControllerState alloc] initWithViewController:viewControllerMock
+                                                                                                     tableViewExpert:nil
+                                                                                                     andStateMachine:nil];
     XCTAssertNotNil(state);
+    XCTAssertEqualObjects(viewControllerMock, state.viewController);
 }
+
+- (void)testThatStateHasTableViewExpertProperty
+{
+    id tableViewExpertMock = [OCMockObject mockForClass:[EPQuestionsTableViewExpert class]];
+    
+    EPQuestionsTableViewControllerState *state = [[EPQuestionsTableViewControllerState alloc] initWithViewController:nil
+                                                                                                     tableViewExpert:tableViewExpertMock
+                                                                                                     andStateMachine:nil];
+    XCTAssertNotNil(state);
+    XCTAssertEqualObjects(tableViewExpertMock, state.tableViewExpert);
+}
+
+- (void)testThatStateHasStateMachineProperty
+{
+    id stateMachineMock = [OCMockObject mockForClass:[EPQuestionsTableViewControllerStateMachine class]];
+    
+    EPQuestionsTableViewControllerState *state = [[EPQuestionsTableViewControllerState alloc] initWithViewController:nil
+                                                                                                  tableViewExpert:nil
+                                                                                                     andStateMachine:stateMachineMock];
+    XCTAssertNotNil(state);
+    XCTAssertEqualObjects(stateMachineMock, state.stateMachine);
+}
+
 
 @end

@@ -10,6 +10,4 @@
 
 @interface EPQuestionsTableViewControllerQuestionsWithFetchMoreState : EPQuestionsTableViewControllerState
 
-+ (id)instance;
-
 @end

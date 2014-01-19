@@ -9,60 +9,60 @@
 #import "EPQuestionsTableViewControllerState.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 
+@interface EPQuestionsTableViewControllerState ()
+
+@property (nonatomic,weak) EPQuestionsTableViewController *viewController;
+@property (nonatomic,weak) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
+
+@end
+
 @implementation EPQuestionsTableViewControllerState
 
-+ (id)instance
+- (id)initWithViewController:(EPQuestionsTableViewController*)viewController
+             tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
+             andStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
 {
-    static EPQuestionsTableViewControllerState *instance = nil;
-    
-    if (nil == instance) {
-        instance = [[EPQuestionsTableViewControllerState alloc] init];
+    if ((self = [super init])) {
+        _viewController = viewController;
+        _tableViewExpert = tableViewExpert;
+        _stateMachine = stateMachine;
     }
-    return instance;
+    
+    return self;
 }
 
-- (void)addTableFooterViewInOrderToHideEmptyCellsIn:(EPQuestionsTableViewController*)viewController
-{
-    if (!viewController.tableView.tableFooterView) {
-        
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewController.tableView.frame.size.width, viewController.tableView.frame.size.height-viewController.tableView.contentInset.top-viewController.contentHeight)];
-        [footerView setBackgroundColor:[UIColor whiteColor]];
-        [viewController.tableView setTableFooterView:footerView];
-    }
-}
-
-
-- (void)viewDidLoad:(EPQuestionsTableViewController*)viewController
+- (void)viewDidLoad
 {
     
 }
 
-- (void)controllerDidChangeContent:(EPQuestionsTableViewController*)viewController
+- (void)controllerDidChangeContent
 {
     
 }
 
-- (void)fetchReturnedNoData:(EPQuestionsTableViewController*)viewController
+- (void)fetchReturnedNoData
 {
     
 }
 
-- (UITableViewCell*)viewController:(EPQuestionsTableViewController*)viewController cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
 }
 
-- (void)viewController:(EPQuestionsTableViewController*)viewController scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
 }
 
-- (NSInteger)viewController:(EPQuestionsTableViewController*)viewController numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     return 0;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(EPQuestionsTableViewController*)viewController
+- (NSInteger)numberOfSections
 {
     return 1;
 }

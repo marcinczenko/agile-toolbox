@@ -37,7 +37,8 @@
     
     self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"QuestionsViewController"];
     self.fetchMoreTableViewCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
-                                                                          forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                                                                         forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                                              loading:NO];
 }
 
 - (void)tearDown
@@ -49,7 +50,8 @@
 - (void)testCreatingTableViewCellByDequeueingFromTableView
 {
     EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
-                                                                                     forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                                                                                     forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                                                          loading:NO];
     XCTAssertNotNil(fetchMoreCell);
     XCTAssertEqualObjects(@"FetchMore", fetchMoreCell.reuseIdentifier);
 }
