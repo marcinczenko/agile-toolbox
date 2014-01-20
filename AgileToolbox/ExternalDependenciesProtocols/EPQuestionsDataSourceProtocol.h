@@ -11,15 +11,11 @@
 
 @protocol EPQuestionsDataSourceProtocol <NSObject>
 
-@property (nonatomic,readonly) NSUInteger length;
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
+@property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
 
-//- (void)downloadData;
-- (NSString*)questionAtIndex:(NSUInteger)index;
 
-- (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate;
-
-- (void)fetch;
+- (void)fetchOlderThan:(NSInteger)questionId;
 - (void)fetchNew;
 
 @end

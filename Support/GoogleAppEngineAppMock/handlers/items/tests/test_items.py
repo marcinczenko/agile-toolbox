@@ -1,8 +1,10 @@
 import unittest
 import webtest
 import json
+import calendar
+from datetime import datetime
 
-from models.questions import QuestionRepository, Question
+from models.questions import QuestionRepository
 
 import main
 
@@ -29,6 +31,14 @@ class ItemsTestCase(unittest.TestCase):
         self.assertEqual(response.status_int, 200)
         self.assertEqual(len(response.json), 2)
         self.assertNotEqual(response.json[0][u'id'], response.json[1][u'id'])
+
+    def test_each_question_has_timestamp_encoded_as_float(self):
+        QuestionRepository.populate(2)
+        response = self.testapp.get('/items_json')
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(len(response.json), 2)
+        self.assertGreater(response.json[0][u'timestamp'],
+                           response.json[1][u'timestamp'])
 
     def test_retrieving_items_using_json(self):
         QuestionRepository.populate(5)
