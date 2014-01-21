@@ -17,8 +17,8 @@
 #import "EPPostmanDelegateProtocol.h"
 
 #import "EPFetchMoreTableViewCell.h"
-
-@class EPQuestionsTableViewControllerState;
+#import "EPQuestionsTableViewControllerStateMachine.h"
+#import "EPQuestionsTableViewExpert.h"
 
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
@@ -31,8 +31,7 @@
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic,strong) id<EPPostmanProtocol> postman;
 
-
-
-- (UITableViewCell*)setUpQuestionCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
+@property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
+@property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
 @end

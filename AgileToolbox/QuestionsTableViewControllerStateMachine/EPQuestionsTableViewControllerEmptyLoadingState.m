@@ -21,11 +21,11 @@
 
 - (void)controllerDidChangeContent
 {
-    if (!self.viewController.questionsDataSource.hasMoreQuestionsToFetch) {
+    if (self.viewController.questionsDataSource.hasMoreQuestionsToFetch) {
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
+    } else {
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]] ;
         [self.tableViewExpert deleteFetchMoreCell];
-    } else {
-        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
     }
     [self.tableViewExpert.tableView endUpdates];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -33,7 +33,7 @@
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.viewController.tableView
+    EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
                                                                                      forIndexPath:indexPath
                                                                                           loading:YES];
     

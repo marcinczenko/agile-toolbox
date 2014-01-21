@@ -12,9 +12,6 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsDataSource.h"
 
-#import "EPQuestionsTableViewControllerStateMachine.h"
-#import "EPQuestionsTableViewExpert.h"
-
 #import "EPAppDelegate.h"
 
 #import "Question.h"
@@ -62,7 +59,7 @@
     
     self.stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] initWithViewController:self
                                                                                 andTableViewExpert:self.tableViewExpert];
-    [self.stateMachine start];
+    [self.stateMachine startStateMachine];
     
     [self.stateMachine viewDidLoad];
     

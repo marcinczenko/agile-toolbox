@@ -69,7 +69,13 @@ static const BOOL valueYES = YES;
                noQuestionsToShow:(BOOL)noQuestionsToShow
          hasMoreQuestionsToFetch:(BOOL)hasMoreQuestionsToFetch
 {
-    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(noQuestionsToShow)] noQuestionsToShow];
+    id fetchedResultsControllerMock = [OCMockObject mockForClass:[NSFetchedResultsController class]];
+    if (NO == noQuestionsToShow) {
+        [[[fetchedResultsControllerMock stub] andReturn:@[@"something"]] fetchedObjects];
+    } else {
+        [[[fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
+    }
+    [[[self.viewControllerMock stub] andReturn:fetchedResultsControllerMock] fetchedResultsController];
     [[[self.questionsDataSourceMock stub] andReturnValue:OCMOCK_VALUE(hasMoreQuestionsToFetch)] hasMoreQuestionsToFetch];
     
     [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
@@ -85,7 +91,7 @@ static const BOOL valueYES = YES;
                  noQuestionsToShow:YES
            hasMoreQuestionsToFetch:YES];
     
-    [self.stateMachine start];
+    [self.stateMachine startStateMachine];
     
     XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
 }
@@ -97,7 +103,7 @@ static const BOOL valueYES = YES;
                  noQuestionsToShow:YES
            hasMoreQuestionsToFetch:NO];
     
-    [self.stateMachine start];
+    [self.stateMachine startStateMachine];
     
     XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
 }
@@ -109,7 +115,7 @@ static const BOOL valueYES = YES;
                  noQuestionsToShow:NO
            hasMoreQuestionsToFetch:YES];
     
-    [self.stateMachine start];
+    [self.stateMachine startStateMachine];
     
     XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
 }
@@ -121,18 +127,9 @@ static const BOOL valueYES = YES;
                  noQuestionsToShow:NO
            hasMoreQuestionsToFetch:NO];
     
-    [self.stateMachine start];
+    [self.stateMachine startStateMachine];
     
     XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
 }
-
-//- (void)testSettingTheStateMachineState
-//{
-//    EPQuestionsTableViewControllerStateMachine *stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] initWithDelegate:nil];
-//    id state = [OCMockObject mockForClass:[EPQuestionsTableViewControllerState class]];
-//    
-//    stateMachine.state = state;
-//    XCTAssertEqualObjects(state, stateMachine.state);
-//}
 
 @end

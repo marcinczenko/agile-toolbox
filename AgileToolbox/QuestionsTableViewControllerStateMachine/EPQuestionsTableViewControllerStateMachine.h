@@ -8,20 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-#import "EPQuestionsTableViewController.h"
 #import "EPQuestionsTableViewControllerStateMachineDelegateProtocol.h"
 #import "EPQuestionsTableViewExpert.h"
 
+@class EPQuestionsTableViewController;
 @class EPQuestionsTableViewControllerState;
 
 @interface EPQuestionsTableViewControllerStateMachine : NSObject
 
-@property (nonatomic,readonly,strong) EPQuestionsTableViewControllerState *currentState;
+@property (nonatomic,readonly) EPQuestionsTableViewControllerState *currentState;
+@property (nonatomic,readonly) EPQuestionsTableViewController *viewController;
+@property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
+
 
 - (id)initWithViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
 
 
-- (void)start;
+- (void)startStateMachine;
 - (void)changeCurrentStateTo:(Class)stateClass;
 
 - (void)viewDidLoad;

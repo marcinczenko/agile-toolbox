@@ -14,29 +14,26 @@
 #import "EPQuestionsDataSourceDelegateProtocol.h"
 #import "EPQuestionsDataSourceProtocol.h"
 
-//@interface EPQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,EPConnectionDelegateProtocol,NSFetchedResultsControllerDelegate>
 @interface EPQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,EPConnectionDelegateProtocol>
 
-//@property (nonatomic,readonly) NSUInteger length;
+#pragma mark EPQuestionsDataSourceProtocol
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
-@property (nonatomic,readonly) NSString* connectionURL;
-@property (nonatomic,strong,readonly) id<EPConnectionProtocol> connection;
-//@property (nonatomic,assign,readonly) NSUInteger currentPageNumber;
-//@property (nonatomic,assign,readonly) NSUInteger questionsPerPage;
-//@property (nonatomic,assign,readonly) NSUInteger nextPageIndexTreshold;
-
-+ (NSUInteger)pageSize;
-
-- (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator*)persistentStoreCoordinator;
 - (void)fetchOlderThan:(NSInteger)questionId;
 - (void)fetchNew;
-//- (NSString*)questionAtIndex:(NSUInteger)index;
-//- (void)setDelegate:(id<EPQuestionsDataSourceDelegateProtocol>)delegate;
 
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;
 
-// only for testing purposes - do not call these methods directly
+#pragma mark - EPQuestionsDataSource additional public interface
+@property (nonatomic,readonly) NSString* connectionURL;
+@property (nonatomic,readonly) id<EPConnectionProtocol> connection;
+
++ (NSUInteger)pageSize;
+
+- (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+
+
+#pragma mark - only for testing purposes - do not call these methods directly
 - (void)saveToCoreData:(NSArray*)questionsArray;
 @end

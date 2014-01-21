@@ -20,6 +20,8 @@
 
 @implementation EPAppDelegate
 
+static const NSString* hostURL = @"http://192.168.1.33:9001";
+
 // The following three @synthesize statements are for CoreData
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -35,7 +37,7 @@
     NSError *error = nil;
     NSData *responseData;
     
-    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/ready"]]
+    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ready",hostURL]]]
                                          returningResponse:&response
                                                      error:&error];
                                                                         
@@ -48,7 +50,7 @@
     }
     
     
-    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]];
+    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
     
     NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
     NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
@@ -61,9 +63,9 @@
     [self.questionsFetchedResultsController performFetch:&fetchError];
     
     self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
-                                               andWithPersistentStoreCoordinator:self.persistentStoreCoordinator];
+                                               andWithManagedObjectContext:self.managedObjectContext];
     
-    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/new_json_item"]];
+    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/new_json_item",hostURL]]];
     EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
     self.postman = [[EPQuestionPostman alloc] initWithConnection:postConnection];
     

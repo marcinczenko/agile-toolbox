@@ -109,7 +109,7 @@
 -(EPQuestionsDataSource*)createQuestionsDataSourceWithConnectio:(id)connection
 {
     return [[EPQuestionsDataSource alloc] initWithConnection:connection
-                           andWithPersistentStoreCoordinator:self.persistentStoreCoordinator];
+                           andWithManagedObjectContext:self.managedObjectContext];
 }
 
 -(EPQuestionsDataSource*)setupQuestionsWithConnectionMock:(id)connectionMock
@@ -179,7 +179,7 @@
     [[connectionMock expect] setDelegate:[OCMArg checkWithBlock:^(id delegateParam) { delegate = delegateParam ; return YES; }]];
     
     EPQuestionsDataSource *questions = [[EPQuestionsDataSource alloc] initWithConnection:connectionMock
-                                                       andWithPersistentStoreCoordinator:self.persistentStoreCoordinator];
+                                                       andWithManagedObjectContext:self.managedObjectContext];
     
     [connectionMock verify];
     

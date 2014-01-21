@@ -59,7 +59,7 @@
     }
 }
 
-- (void)start
+- (void)startStateMachine
 {
     if (0 == self.viewController.fetchedResultsController.fetchedObjects.count) {
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
@@ -87,7 +87,6 @@
 {
     [self.stateObjects setObject:object forKey:name];
 }
-
 
 - (void)viewDidLoad
 {
