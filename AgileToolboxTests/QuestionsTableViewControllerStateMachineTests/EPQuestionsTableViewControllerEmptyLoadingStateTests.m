@@ -14,13 +14,6 @@
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
 
-#import "EPQuestionsDataSourceProtocol.h"
-#import "EPQuestionsTableViewController.h"
-#import "EPQuestionsTableViewExpert.h"
-#import "EPQuestionsTableViewControllerStateMachine.h"
-
-#import "EPFetchMoreTableViewCell.h"
-
 @interface EPQuestionsTableViewControllerEmptyLoadingStateTests : XCTestCase
 
 @property (nonatomic,strong) id questionsDataSourceMock;

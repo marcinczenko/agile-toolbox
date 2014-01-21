@@ -19,15 +19,18 @@
 @interface EPQuestionsTableViewControllerTests : XCTestCase
 
 @property (nonatomic,strong) EPQuestionsTableViewController* vc;
+@property (nonatomic,strong) id questionsTableViewControllePartialMock;
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 @property (nonatomic,strong) id questionsDataSourceMock;
+
 @property (nonatomic,strong) id stateMachineMock;
 @property (nonatomic,strong) id tableViewMock;
+@property (nonatomic,strong) id tableViewExpertMock;
+
 @property (nonatomic,strong) id postmanMock;
 @property (nonatomic,strong) id navigationControllerMock;
 @property (nonatomic,strong) id addQuestionController;
 @property (nonatomic,strong) id segueMock;
-@property (nonatomic,strong) id questionsTableViewControllePartialMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -114,14 +117,18 @@ BOOL valueNO = NO;
 {
     self.vc = [[EPQuestionsTableViewController alloc] init];
     self.questionsTableViewControllePartialMock = [OCMockObject partialMockForObject:self.vc];
-    self.fetchedResultsControllerMock = [OCMockObject mockForClass:[NSFetchedResultsController class]];
-    self.questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
-    self.stateMachineMock = [OCMockObject mockForClass:[EPQuestionsTableViewControllerStateMachine class]];
-    self.tableViewMock = [OCMockObject mockForClass:[UITableView class]];
-    self.postmanMock = [OCMockObject mockForProtocol:@protocol(EPPostmanProtocol)];
-    self.navigationControllerMock = [OCMockObject mockForClass:[UINavigationController class]];
-    self.addQuestionController = [OCMockObject mockForClass:[EPAddQuestionViewController class]];
-    self.segueMock = [OCMockObject mockForClass:[UIStoryboardSegue class]];
+    self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
+    self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
+    
+    self.stateMachineMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStateMachine class]];
+    self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
+    self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
+    [[[self.tableViewExpertMock stub] andReturn:self.tableViewMock] tableView];
+    
+    self.postmanMock = [OCMockObject niceMockForProtocol:@protocol(EPPostmanProtocol)];
+    self.navigationControllerMock = [OCMockObject niceMockForClass:[UINavigationController class]];
+    self.addQuestionController = [OCMockObject niceMockForClass:[EPAddQuestionViewController class]];
+    self.segueMock = [OCMockObject niceMockForClass:[UIStoryboardSegue class]];
 }
 
 - (void)testQATQuestionTableViewControllerHasPropertyForDataSource
@@ -177,6 +184,7 @@ BOOL valueNO = NO;
     XCTAssertEqualObjects(self.vc.tableViewExpert, self.vc.stateMachine.tableViewExpert);
 }
 
+#pragma StateMachine delegate
 - (void)testThatViewDidLoadStartsStateMachineAndCallsViewDidLoadOnIt
 {
     [self disableViewPropertyForTheVC];
@@ -196,67 +204,6 @@ BOOL valueNO = NO;
     self.vc.postman = postmanMock;
 }
 
--(void)testThatLoadingDataStatusIsSetToYESWhenViewDidLoadTriggeredFetch
-{
-    [self disableViewPropertyForTheVC];
-    
-    [self expectThatFetchResultsControllerHasNoData];
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
-    
-    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
-    [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
-    [self.vc viewDidLoad];
-    
-//    XCTAssertTrue(self.vc.isLoadingData);
-    
-    [self.questionsDataSourceMock verify];
-}
-
--(void)testThatViewDidLoadDoesNotTriggerFetchWhenDataSourceAlreadyHasData
-{
-    [self disableViewPropertyForTheVC];
-    
-    [self expectThatFetchResultsControllerHasSomeData];
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
-
-    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
-    [self.vc viewDidLoad];
-    
-//    XCTAssertFalse(self.vc.isLoadingData);
-    
-    [self.questionsDataSourceMock verify];
-}
-
-- (void)testThatQuestionTableCellIsRequestedForSectionIndex0
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    [[self.tableViewMock expect] dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
-                                                 forIndexPath:indexPath];
-    
-    [self.vc tableView:self.tableViewMock cellForRowAtIndexPath:indexPath];
-    
-    [self.tableViewMock verify];
-}
-
-- (void)testThatFetchMoreTableCellIsRequestedForSectionIndex1
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-    
-    [[self.tableViewMock expect] dequeueReusableCellWithIdentifier:@"FetchMore"
-                                                 forIndexPath:indexPath];
-    
-    [self.vc tableView:self.tableViewMock cellForRowAtIndexPath:indexPath];
-    
-    [self.tableViewMock verify];
-}
-
 - (void)testThatViewRegistersItselfAsTheDelegateOfThePostman
 {
     [self disableViewPropertyForTheVC];
@@ -274,19 +221,101 @@ BOOL valueNO = NO;
 {
     [self disableViewPropertyForTheVC];
     
-    [self expectThatFetchResultsControllerHasSomeData];
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
-    
     [[self.questionsDataSourceMock expect] setDelegate:self.vc];
     
     self.vc.questionsDataSource = self.questionsDataSourceMock;
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
     
     [self.vc viewDidLoad];
     
     [self.questionsDataSourceMock verify];
 }
 
+- (void)testThatViewRegistersItselfAsTheDelegateOfTheFetchedResultsController
+{
+    [self disableViewPropertyForTheVC];
+    
+    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+    
+    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
+    
+    [self.vc viewDidLoad];
+    
+    [self.fetchedResultsControllerMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatScrollViewDidScrollDelegatesToTheStateMachine
+{
+    id scrollViewMock = [OCMockObject mockForClass:[UIScrollView class]];
+    [[self.stateMachineMock expect] scrollViewDidScroll:scrollViewMock];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc scrollViewDidScroll:scrollViewMock];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatNumberOfSectionsInTableViewDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] numberOfSections];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc numberOfSectionsInTableView:self.doesNotMatter];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatNumberOfRowsInSectionDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] numberOfRowsInSection:0];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatCellForRowAtIndexPathDelegatesToTheStateMachine
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [[self.stateMachineMock expect] cellForRowAtIndexPath:indexPath];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc tableView:self.doesNotMatter cellForRowAtIndexPath:indexPath];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatFetchReturnedNoDataDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] fetchReturnedNoData];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc fetchReturnedNoData];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatControllerDidChangeContentDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] controllerDidChangeContent];
+    
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
+    
+    [self.vc controllerDidChangeContent:self.doesNotMatter];
+    
+    [self.stateMachineMock verify];
+}
 
 - (void)testThatViewSetsTheReferenceToDataSourceToNilWhenMemoryWarningReceived
 {
@@ -310,37 +339,6 @@ BOOL valueNO = NO;
     XCTAssertNil(self.vc.postman);
 }
 
-- (void)testThatThereIsOnlyOneSectionWhenDataSourceHasNoMoreDataToFetch
-{
-    [self expectThatDataSourceHasNoMoreQuestionsToFetch];
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    
-    XCTAssertEqual(1,(int)[self.vc numberOfSectionsInTableView:self.doesNotMatter]);
-    
-    [self.questionsDataSourceMock verify];
-}
-
-- (void)testThatThereAreTwoSectionsWhenDataSourceHasSomeMoreDataToFetch
-{
-    [self expectThatDataSourceHasSomeMoreQuestionsToFetch];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    
-    XCTAssertEqual(2,(int)[self.vc numberOfSectionsInTableView:self.doesNotMatter]);
-    
-    [self.questionsDataSourceMock verify];
-}
-
-- (void)testThatNumberOfRowsInTheSectionReflectsNumberOfItemsInTheFetchedResultsController
-{
-    NSUInteger numberOfRows = [self magicNumber:5];
-    
-    [self expectThatFetchResultsControllerWithNItems:numberOfRows];
-    
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
-    XCTAssertEqual(numberOfRows, (NSUInteger)[self.vc tableView:self.doesNotMatter numberOfRowsInSection:0]);
-}
-
 - (void)testThatCurrentViewControllerIsSetToBeDelegateOfTheDestinationControllerOnPerformingAddQuestionSegue
 {
     [[[self.navigationControllerMock stub] andReturn:self.addQuestionController] topViewController];
@@ -353,59 +351,6 @@ BOOL valueNO = NO;
     
     [self.addQuestionController verify];
     [self.segueMock verify];
-}
-
--(void)testThatTheFetchMoreCellIsDeletedWhenDataSourceDoesNotHaveAnyMoreDataToFetch
-{
-    [self expectThatDataSourceHasNoMoreQuestionsToFetch];
-    
-    id appPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
-    [[appPartialMock expect] setNetworkActivityIndicatorVisible:NO];
-    
-    [self mockTableView];
-    
-//    [[self.questionsTableViewControllePartialMock expect] deleteFetchMoreCell];
-    [[self.tableViewMock expect] endUpdates];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    [self.vc controllerDidChangeContent:self.doesNotMatter];
-    
-    [appPartialMock verify];
-    [self.tableViewMock verify];
-}
-
--(void)testThatFetchStatusIndicatorsAreSetCorrectlyOnControllerDidChangeContentDelegateCall
-{
-    [self expectThatDataSourceHasSomeMoreQuestionsToFetch];
-    
-    [self mockTableView];
-    [[self.tableViewMock expect] endUpdates];
-//    [[self.questionsTableViewControllePartialMock expect] setFetchIndicatorsStatusTo:NO];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    [self.vc controllerDidChangeContent:self.doesNotMatter];
-    
-    [self.tableViewMock verify];
-    [self.questionsTableViewControllePartialMock verify];
-}
-
--(void)testThatTheFetchMoreCellIsDeletedWhenDataSourceDelegateIsCalled
-{
-    id appPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
-    [[appPartialMock expect] setNetworkActivityIndicatorVisible:NO];
-    
-    [self mockTableView];
-    [self.tableViewMock setExpectationOrderMatters:YES];
-    
-    [[self.tableViewMock expect] beginUpdates];
-//    [[self.questionsTableViewControllePartialMock expect] deleteFetchMoreCell];
-    [[self.tableViewMock expect] endUpdates];
-    
-    [self.vc fetchReturnedNoData];
-    
-    [appPartialMock verify];
-    [self.tableViewMock verify];
-    [self.questionsTableViewControllePartialMock verify];
 }
 
 - (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded

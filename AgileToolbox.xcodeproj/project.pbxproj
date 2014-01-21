@@ -43,6 +43,8 @@
 		6DA6B594188AAFE10025E06A /* EPQuestionsTableViewExpert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA6B593188AAFE10025E06A /* EPQuestionsTableViewExpert.m */; };
 		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
 		6DAFB6EB1880420C00FC91C9 /* AgileToolbox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFB6E91880420C00FC91C9 /* AgileToolbox.xcdatamodeld */; };
+		6DB26B64188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB26B63188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m */; };
+		6DB26B66188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB26B65188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -224,6 +226,8 @@
 		6DA6B593188AAFE10025E06A /* EPQuestionsTableViewExpert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewExpert.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DAFB6EA1880420C00FC91C9 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
+		6DB26B63188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m; path = QuestionsTableViewControllerStateMachineTests/EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m; sourceTree = "<group>"; };
+		6DB26B65188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m; path = QuestionsTableViewControllerStateMachineTests/EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m; sourceTree = "<group>"; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6DD4DEB918814C6D0009C083 /* EPQuestionsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSource.h; sourceTree = "<group>"; };
 		6DD4DEBA18814C6D0009C083 /* EPQuestionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsDataSource.m; sourceTree = "<group>"; };
@@ -466,6 +470,8 @@
 				6DA6B57218898F080025E06A /* EPQuestionsTableViewControllerEmptyLoadingStateTests.m */,
 				6DA6B57318898F080025E06A /* EPQuestionsTableViewStateTests.m */,
 				6DA6B57618898F470025E06A /* EPQuestionsTableViewControllerStateMachineTests.m */,
+				6DB26B63188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m */,
+				6DB26B65188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */,
 			);
 			name = QuestionsTableViewStateMachineTests;
 			sourceTree = "<group>";
@@ -1077,6 +1083,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DB26B66188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */,
 				6DA6B57418898F080025E06A /* EPQuestionsTableViewControllerEmptyLoadingStateTests.m in Sources */,
 				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
 				6DA6B57518898F080025E06A /* EPQuestionsTableViewStateTests.m in Sources */,
@@ -1084,6 +1091,7 @@
 				6DD4DEBE18814D1A0009C083 /* EPQuestionsDataSourceTests.m in Sources */,
 				6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */,
 				6D268D2515AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
+				6DB26B64188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
