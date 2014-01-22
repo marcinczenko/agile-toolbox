@@ -23,9 +23,8 @@ def main():
     QuestionRepository.truncate()
     QuestionRepository.populate(parser.parse_args().number_of_items)
 
-    httpserver.serve(app, host='192.168.1.33', port='9001')
+    httpserver.serve(app, host='everydayproductive-test.com', port='9001')
 
 
 if __name__ == '__main__':
     main()
-

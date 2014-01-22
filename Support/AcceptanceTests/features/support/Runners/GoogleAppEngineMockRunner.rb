@@ -37,7 +37,7 @@ module Runners
         def wait_for_being_operational
             begin
                 Capybara.default_wait_time = 7
-                wait_until { ready?('http://192.168.1.33:9001/ready')  }
+                wait_until { ready?('http://everydayproductive-test.com:9001/ready')  }
                 yield if block_given?
             rescue TimeoutError
                 raise 'GoogleAppEngine Mock does not appear to be operational.'
