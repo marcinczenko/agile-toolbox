@@ -13,13 +13,15 @@
 
 @interface EPQuestionsTableViewControllerState : NSObject
 
-@property (nonatomic,readonly,weak) EPQuestionsTableViewController *viewController;
-@property (nonatomic,readonly,weak) EPQuestionsTableViewExpert *tableViewExpert;
-@property (nonatomic,readonly,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
+@property (nonatomic,weak) EPQuestionsTableViewController *viewController;
+@property (nonatomic,weak) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
 
 - (id)initWithViewController:(EPQuestionsTableViewController*)viewController
           tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
              andStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine;
+
+- (id)initWithStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine;
 
 - (void)viewDidLoad;
 - (void)controllerDidChangeContent;

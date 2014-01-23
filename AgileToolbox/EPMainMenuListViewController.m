@@ -76,6 +76,7 @@
         EPQuestionsTableViewController* destinationVC =  (EPQuestionsTableViewController*)segue.destinationViewController;
         destinationVC.questionsDataSource = appDelegate.questionsDataSource;
         destinationVC.fetchedResultsController = appDelegate.questionsFetchedResultsController;
+        destinationVC.stateMachine = appDelegate.questionsTableViewControllerStateMachine;
         destinationVC.postman = appDelegate.postman;
     }
 //    else

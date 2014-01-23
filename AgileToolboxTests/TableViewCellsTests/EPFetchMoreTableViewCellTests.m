@@ -10,6 +10,7 @@
 
 #import "EPQuestionsTableViewController.h"
 #import "EPFetchMoreTableViewCell.h"
+#import "EPAppDelegate.h"
 
 @interface EPFetchMoreTableViewCellTests : XCTestCase
 
@@ -36,6 +37,7 @@
     [super setUp];
     
     self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"QuestionsViewController"];
+    self.questionsTableViewController.stateMachine = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerStateMachine;
     self.fetchMoreTableViewCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
                                                                          forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                                               loading:NO];

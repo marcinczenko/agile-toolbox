@@ -31,7 +31,7 @@
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic,strong) id<EPPostmanProtocol> postman;
 
-@property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
+@property (nonatomic,strong) EPQuestionsTableViewControllerStateMachine *stateMachine;
 @property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
 @end

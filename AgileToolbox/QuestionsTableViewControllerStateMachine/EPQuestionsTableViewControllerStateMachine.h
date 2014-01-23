@@ -21,10 +21,8 @@
 @property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
 
-- (id)initWithViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
+- (void)assignViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
 
-
-- (void)startStateMachine;
 - (void)changeCurrentStateTo:(Class)stateClass;
 
 - (void)viewDidLoad;

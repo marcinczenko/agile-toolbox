@@ -17,10 +17,13 @@
 #import "EPQuestionsTableViewExpert.h"
 #import "EPQuestionsDataSourceProtocol.h"
 
+#import "EPQuestionsTableViewControllerInitialState.h"
 #import "EPQuestionsTableViewControllerEmptyLoadingState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
 
 @interface EPQuestionsTableViewControllerStateMachineTests : XCTestCase
 
@@ -38,14 +41,30 @@
 static const BOOL valueNO = NO;
 static const BOOL valueYES = YES;
 
++ (NSMutableArray*)stateClasses
+{
+    static NSMutableArray* stateClassesArray = nil;
+    
+    if (nil == stateClassesArray) {
+        stateClassesArray = [NSMutableArray arrayWithArray:@[[EPQuestionsTableViewControllerInitialState class],
+                                                             [EPQuestionsTableViewControllerEmptyLoadingState class],
+                                                             [EPQuestionsTableViewControllerEmptyNoQuestionsState class],
+                                                             [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
+                                                             [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
+                                                             [EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class],
+                                                             [EPQuestionsTableViewControllerQuestionsLoadingState class]]];
+    }
+    return stateClassesArray;
+}
+
 - (void)setUp
 {
     [super setUp];
     self.viewControllerMock = [OCMockObject mockForClass:[EPQuestionsTableViewController class]];
     self.tableViewExpertMock = [OCMockObject mockForClass:[EPQuestionsTableViewExpert class]];
     self.questionsDataSourceMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
-    self.stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] initWithViewController:self.viewControllerMock
-                                                                                andTableViewExpert:self.tableViewExpertMock];
+    self.stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
+    [self.stateMachine assignViewController:self.viewControllerMock andTableViewExpert:self.tableViewExpertMock];
     
     self.genericStateObject = [[EPQuestionsTableViewControllerState alloc] init];
 }
@@ -58,78 +77,44 @@ static const BOOL valueYES = YES;
 
 - (void)testCreatingStateMachine
 {
-    EPQuestionsTableViewControllerStateMachine *stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc]
-                                                                initWithViewController:self.viewControllerMock
-                                                                andTableViewExpert:self.tableViewExpertMock];
+    EPQuestionsTableViewControllerStateMachine *stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
     XCTAssertNotNil(stateMachine);
 }
 
-- (void)expectInitialStateObject:(EPQuestionsTableViewControllerState*)stateObject
-                        forClass:(Class)stateClass
-               noQuestionsToShow:(BOOL)noQuestionsToShow
-         hasMoreQuestionsToFetch:(BOOL)hasMoreQuestionsToFetch
+- (void)testThatAfterCreatingTheCurrentStateIsSetToInitialState
 {
-    id fetchedResultsControllerMock = [OCMockObject mockForClass:[NSFetchedResultsController class]];
-    if (NO == noQuestionsToShow) {
-        [[[fetchedResultsControllerMock stub] andReturn:@[@"something"]] fetchedObjects];
-    } else {
-        [[[fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
+    XCTAssertEqualObjects([EPQuestionsTableViewControllerInitialState class], [self.stateMachine.currentState class]);
+}
+
+- (void)testChangingTheState
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
+    XCTAssertEqualObjects([EPQuestionsTableViewControllerEmptyLoadingState class], [self.stateMachine.currentState class]);
+}
+
+- (void)testThatStateMachineKnowsAllRequiredStates
+{
+    for (Class stateClass in [[self class] stateClasses]) {
+        [self.stateMachine changeCurrentStateTo:stateClass];
+        XCTAssertEqualObjects(stateClass, [self.stateMachine.currentState class]);
     }
-    [[[self.viewControllerMock stub] andReturn:fetchedResultsControllerMock] fetchedResultsController];
-    [[[self.questionsDataSourceMock stub] andReturnValue:OCMOCK_VALUE(hasMoreQuestionsToFetch)] hasMoreQuestionsToFetch];
-    
-    [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
-    
-    [self.stateMachine setStateObject:stateObject
-                         forStateName:NSStringFromClass(stateClass)];
 }
 
-- (void)testThatTheInitialStateIsCorrectlyRecognizedForEmptyLoadingState
+- (void)testAssigningViewControllerAndTableViewExpertToStateMachineAndAllStates
 {
-    [self expectInitialStateObject:self.genericStateObject
-                          forClass:[EPQuestionsTableViewControllerEmptyLoadingState class]
-                 noQuestionsToShow:YES
-           hasMoreQuestionsToFetch:YES];
+    EPQuestionsTableViewControllerStateMachine *stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
     
-    [self.stateMachine startStateMachine];
+    [stateMachine assignViewController:self.viewControllerMock andTableViewExpert:self.tableViewExpertMock];
     
-    XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
-}
-
-- (void)testThatTheInitialStateIsCorrectlyRecognizedForEmptyNoQuestionsState
-{
-    [self expectInitialStateObject:self.genericStateObject
-                          forClass:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]
-                 noQuestionsToShow:YES
-           hasMoreQuestionsToFetch:NO];
+    XCTAssertEqualObjects(self.viewControllerMock, stateMachine.viewController);
+    XCTAssertEqualObjects(self.tableViewExpertMock, stateMachine.tableViewExpert);
     
-    [self.stateMachine startStateMachine];
-    
-    XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
-}
-
-- (void)testThatTheInitialStateIsCorrectlyRecognizedForQuestionsWithFetchMoreState
-{
-    [self expectInitialStateObject:self.genericStateObject
-                          forClass:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]
-                 noQuestionsToShow:NO
-           hasMoreQuestionsToFetch:YES];
-    
-    [self.stateMachine startStateMachine];
-    
-    XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
-}
-
-- (void)testThatTheInitialStateIsCorrectlyRecognizedForQuestionsNoMoreToFetchState
-{
-    [self expectInitialStateObject:self.genericStateObject
-                          forClass:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]
-                 noQuestionsToShow:NO
-           hasMoreQuestionsToFetch:NO];
-    
-    [self.stateMachine startStateMachine];
-    
-    XCTAssertEqualObjects(self.genericStateObject, self.stateMachine.currentState);
+    for (Class stateClass in [self.class stateClasses]) {
+        [stateMachine changeCurrentStateTo:stateClass];
+        XCTAssertEqualObjects(self.viewControllerMock, stateMachine.currentState.viewController);
+        XCTAssertEqualObjects(self.tableViewExpertMock, stateMachine.currentState.tableViewExpert);
+        XCTAssertEqualObjects(stateMachine, stateMachine.currentState.stateMachine);
+    }
 }
 
 @end

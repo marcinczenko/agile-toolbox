@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *questionsFetchedResultsController;
 @property (strong, nonatomic) EPQuestionsDataSource* questionsDataSource;
+@property (strong, nonatomic) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
 @property (strong, nonatomic) EPQuestionPostman* postman;
 
 @end
@@ -62,6 +63,8 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     NSError *fetchError = nil;
     [self.questionsFetchedResultsController performFetch:&fetchError];
     
+    self.questionsTableViewControllerStateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
+    
     self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
                                                andWithManagedObjectContext:self.managedObjectContext];
     
@@ -76,27 +79,38 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    NSLog(@"applicationWillResignActive");
+    if (![NSThread isMainThread]) {
+        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"applicationDidEnterBackground");
+    if (![NSThread isMainThread]) {
+        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSLog(@"applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSLog(@"applicationDidBecomeActive");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSLog(@"applicationWillTerminate");
 }
 
 - (void)saveContext

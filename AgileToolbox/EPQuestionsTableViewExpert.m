@@ -60,16 +60,6 @@
     return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 }
 
-//- (UITableViewCell*)setUpQuestionCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath
-//{
-//    EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
-//                                                                            forIndexPath:indexPath];
-//    Question *question = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    questionCell.textLabel.text = question.content;
-//    
-//    return questionCell;
-//}
-
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
 {
     return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);

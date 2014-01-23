@@ -15,6 +15,8 @@
 #import "EPQuestionsDataSourceProtocol.h"
 #import "EPPostmanProtocol.h"
 
+#import "EPQuestionsTableViewControllerState.h"
+
 
 @interface EPQuestionsTableViewControllerTests : XCTestCase
 
@@ -61,56 +63,9 @@ BOOL valueNO = NO;
     [[[self.questionsTableViewControllePartialMock stub] andReturn:nil] view];
 }
 
--(void)expectThatFetchResultsControllerHasNoData
-{
-    [[[self.fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
-}
-
--(void)expectThatFetchResultsControllerHasSomeData
-{
-    [[[self.fetchedResultsControllerMock stub] andReturn:@[@"Some data"]] fetchedObjects];
-}
-
-- (void)expectThatDataSourceHasNoMoreQuestionsToFetch
-{
-    [[[self.questionsDataSourceMock expect] andReturnValue:OCMOCK_VALUE(valueNO)] hasMoreQuestionsToFetch];
-}
-
-- (void)expectThatDataSourceHasSomeMoreQuestionsToFetch
-{
-    [[[self.questionsDataSourceMock expect] andReturnValue:OCMOCK_VALUE(valueYES)] hasMoreQuestionsToFetch];
-}
-
--(void)expectThatFetchResultsControllerWithNItems:(NSUInteger)numberOfRows
-{
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (int i=0; i<numberOfRows; i++) {
-        [array addObject:[NSNumber numberWithInt:i]];
-    }
-    
-    [[[self.fetchedResultsControllerMock stub] andReturn:array] fetchedObjects];
-}
-
 -(void)mockTableView
 {
     [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewMock] tableView];
-}
-
-- (void)mockStateMachine
-{
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-}
-
-- (NSArray*)indexPathsFrom:(NSInteger)fromIndex to:(NSInteger)toIndex
-{
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (NSInteger row=fromIndex; row<=toIndex; row++) {
-        [array addObject:[NSIndexPath indexPathForRow:row inSection:0]];
-    }
-    
-    return array;
 }
 
 - (void)setUp
@@ -143,13 +98,10 @@ BOOL valueNO = NO;
     XCTAssertEqualObjects(self.vc.fetchedResultsController, self.fetchedResultsControllerMock);
 }
 
-- (void)testThatViewDidInitializesStateMachine
+- (void)testQATQuestionTableViewControllerHasPropertyForStateMachine
 {
-    [self disableViewPropertyForTheVC];
-    
-    [self.vc viewDidLoad];
-    
-    XCTAssertNotNil(self.vc.stateMachine);
+    self.vc.stateMachine = self.stateMachineMock;
+    XCTAssertEqualObjects(self.vc.stateMachine, self.stateMachineMock);
 }
 
 - (void)testThatViewDidLoadInitializesTableViewExpert
@@ -173,25 +125,28 @@ BOOL valueNO = NO;
     XCTAssertEqualObjects(self.vc.tableView, self.vc.tableViewExpert.tableView);
 }
 
-- (void)testThatStateMachineIsSetupWithViewControllerAndTableViewExpert
+- (void)testThatViewDidLoadAssignsViewControllerAndTableViewExpertToTheStateMachine
 {
     [self disableViewPropertyForTheVC];
     
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewExpertMock] tableViewExpert];
+    
+    [[self.stateMachineMock expect] assignViewController:self.vc andTableViewExpert:self.tableViewExpertMock];
+    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc viewDidLoad];
     
-    XCTAssertEqualObjects(self.vc, self.vc.stateMachine.viewController);
-    XCTAssertNotNil(self.vc.tableViewExpert);
-    XCTAssertEqualObjects(self.vc.tableViewExpert, self.vc.stateMachine.tableViewExpert);
+    [self.stateMachineMock verify];
 }
 
 #pragma StateMachine delegate
-- (void)testThatViewDidLoadStartsStateMachineAndCallsViewDidLoadOnIt
+- (void)testThatViewDidLoadDelegatesToStateMachine
 {
     [self disableViewPropertyForTheVC];
-    [self mockStateMachine];
-    [[self.stateMachineMock expect] startStateMachine];
+
     [[self.stateMachineMock expect] viewDidLoad];
     
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc viewDidLoad];
     
     [self.stateMachineMock verify];
@@ -249,8 +204,7 @@ BOOL valueNO = NO;
     id scrollViewMock = [OCMockObject mockForClass:[UIScrollView class]];
     [[self.stateMachineMock expect] scrollViewDidScroll:scrollViewMock];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc scrollViewDidScroll:scrollViewMock];
     
     [self.stateMachineMock verify];
@@ -261,8 +215,7 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] numberOfSections];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc numberOfSectionsInTableView:self.doesNotMatter];
     
     [self.stateMachineMock verify];
@@ -273,8 +226,7 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] numberOfRowsInSection:0];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0];
     
     [self.stateMachineMock verify];
@@ -286,8 +238,7 @@ BOOL valueNO = NO;
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [[self.stateMachineMock expect] cellForRowAtIndexPath:indexPath];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc tableView:self.doesNotMatter cellForRowAtIndexPath:indexPath];
     
     [self.stateMachineMock verify];
@@ -298,8 +249,7 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] fetchReturnedNoData];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc fetchReturnedNoData];
     
     [self.stateMachineMock verify];
@@ -310,8 +260,7 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] controllerDidChangeContent];
     
-    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.stateMachineMock] stateMachine];
-    
+    self.vc.stateMachine = self.stateMachineMock;
     [self.vc controllerDidChangeContent:self.doesNotMatter];
     
     [self.stateMachineMock verify];

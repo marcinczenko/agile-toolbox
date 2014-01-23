@@ -73,24 +73,6 @@ const static BOOL valueYES = YES;
     [super tearDown];
 }
 
-- (void)testThatViewDidLoadTriggersFetch
-{
-    [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
-    
-    [self.state viewDidLoad];
-    
-    [self.questionsDataSourceMock verify];
-}
-
-- (void)testThatViewDidLoadActivatesNetworkActivityIndicator
-{
-    [[self.applicationPartialMock expect] setNetworkActivityIndicatorVisible:YES];
-    
-    [self.state viewDidLoad];
-    
-    [self.applicationPartialMock verify];
-}
-
 - (void)testThatControllerDidChangeContentsChangesTheStateToQuestionsWithFetchMoreStateWhenDataSourceHasMoreQuestionsToFetch
 {
     [self expectThatDataSourceHasSomeMoreQuestionsToFetch];

@@ -19,7 +19,6 @@
 @interface EPQuestionsTableViewController ()
 
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic,strong) EPQuestionsTableViewControllerStateMachine *stateMachine;
 @property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
 
 @end
@@ -57,9 +56,7 @@
     
     self.tableViewExpert = [[EPQuestionsTableViewExpert alloc] initWithTableView:self.tableView];
     
-    self.stateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] initWithViewController:self
-                                                                                andTableViewExpert:self.tableViewExpert];
-    [self.stateMachine startStateMachine];
+    [self.stateMachine assignViewController:self andTableViewExpert:self.tableViewExpert];
     
     [self.stateMachine viewDidLoad];
     

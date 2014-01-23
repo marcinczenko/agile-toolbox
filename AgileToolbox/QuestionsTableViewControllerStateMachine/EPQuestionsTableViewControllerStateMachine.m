@@ -7,6 +7,7 @@
 //
 
 #import "EPQuestionsTableViewControllerStateMachine.h"
+#import "EPQuestionsTableViewControllerInitialState.h"
 #import "EPQuestionsTableViewControllerEmptyLoadingState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
@@ -16,36 +17,42 @@
 
 @interface EPQuestionsTableViewControllerStateMachine ()
 
-@property (nonatomic,strong) EPQuestionsTableViewControllerState *currentState;
+@property (nonatomic,strong) EPQuestionsTableViewControllerState* currentState;
 
-@property (nonatomic,weak) EPQuestionsTableViewController *viewController;
-@property (nonatomic,weak) EPQuestionsTableViewExpert *tableViewExpert;
-@property (nonatomic,strong) NSMutableDictionary *stateObjects;
+@property (nonatomic,weak) EPQuestionsTableViewController* viewController;
+@property (nonatomic,weak) EPQuestionsTableViewExpert* tableViewExpert;
+@property (nonatomic,strong) NSMutableDictionary* stateObjects;
 
 @end
 
 @implementation EPQuestionsTableViewControllerStateMachine
 
-- (id)initWithViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
+- (id)init
 {
     if ((self = [super init])) {
-        _viewController = viewController;
-        _tableViewExpert = tableViewExpert;
         _stateObjects = [NSMutableDictionary new];
         [EPQuestionsTableViewControllerStateMachine populateStatesDictionary:_stateObjects
-                                                          withViewController:_viewController
-                                                             tableViewExpert:_tableViewExpert
-                                                                AndStateMachine:self];
+                                                            withStateMachine:self];
+        _currentState = _stateObjects[NSStringFromClass([EPQuestionsTableViewControllerInitialState class])];
     }
     return self;
 }
 
-+ (void)populateStatesDictionary:(NSMutableDictionary*)dictionary
-              withViewController:(EPQuestionsTableViewController*)viewController
-                 tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
-                  AndStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
+- (void)assignViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
 {
-    NSArray *stateClasses = @[[EPQuestionsTableViewControllerEmptyLoadingState class],
+    self.viewController = viewController;
+    self.tableViewExpert = tableViewExpert;
+    [self.stateObjects enumerateKeysAndObjectsUsingBlock:^(NSString* stateName, EPQuestionsTableViewControllerState* stateObj, BOOL *stop) {
+        stateObj.viewController = viewController;
+        stateObj.tableViewExpert = tableViewExpert;
+    }];
+}
+
++ (void)populateStatesDictionary:(NSMutableDictionary*)dictionary
+                withStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
+{
+    NSArray *stateClasses = @[[EPQuestionsTableViewControllerInitialState class],
+                              [EPQuestionsTableViewControllerEmptyLoadingState class],
                               [EPQuestionsTableViewControllerEmptyNoQuestionsState class],
                               [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
@@ -53,28 +60,7 @@
                               [EPQuestionsTableViewControllerQuestionsLoadingState class]];
     
     for (Class stateClass in stateClasses) {
-        dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithViewController:viewController
-                                                                               tableViewExpert:tableViewExpert
-                                                                               andStateMachine:stateMachine];
-    }
-}
-
-- (void)startStateMachine
-{
-    if (0 == self.viewController.fetchedResultsController.fetchedObjects.count) {
-        if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
-            [self changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-        }
-        else {
-            [self changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
-        }
-    } else {
-        if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
-            [self changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-        }
-        else {
-            [self changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
-        }
+        dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithStateMachine:stateMachine];
     }
 }
 

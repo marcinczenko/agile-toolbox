@@ -11,8 +11,6 @@
 
 @interface EPQuestionsTableViewControllerState ()
 
-@property (nonatomic,weak) EPQuestionsTableViewController *viewController;
-@property (nonatomic,weak) EPQuestionsTableViewExpert *tableViewExpert;
 @property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
 
 @end
@@ -30,6 +28,11 @@
     }
     
     return self;
+}
+
+- (id)initWithStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
+{
+    return [self initWithViewController:nil tableViewExpert:nil andStateMachine:stateMachine];
 }
 
 - (void)viewDidLoad

@@ -13,11 +13,6 @@
 
 @implementation EPQuestionsTableViewControllerEmptyLoadingState
 
-- (void)viewDidLoad
-{
-    [self.viewController.questionsDataSource fetchOlderThan:-1];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-}
 
 - (void)controllerDidChangeContent
 {
