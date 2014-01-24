@@ -45,6 +45,8 @@
 		6DAB883E1892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88291892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m */; };
 		6DAB883F1892D783003075D8 /* EPFetchMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB882D1892D783003075D8 /* EPFetchMoreTableViewCell.m */; };
 		6DAB88401892D783003075D8 /* EPQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB882F1892D783003075D8 /* EPQuestionTableViewCell.m */; };
+		6DAB88421892DBC2003075D8 /* EPDependencyBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88411892DBC2003075D8 /* EPDependencyBoxTests.m */; };
+		6DAB88451892DC2F003075D8 /* EPDependencyBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88441892DC2F003075D8 /* EPDependencyBox.m */; };
 		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
 		6DB26B64188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB26B63188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m */; };
 		6DB26B66188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB26B65188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */; };
@@ -234,6 +236,9 @@
 		6DAB882D1892D783003075D8 /* EPFetchMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPFetchMoreTableViewCell.m; sourceTree = "<group>"; };
 		6DAB882E1892D783003075D8 /* EPQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionTableViewCell.h; sourceTree = "<group>"; };
 		6DAB882F1892D783003075D8 /* EPQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionTableViewCell.m; sourceTree = "<group>"; };
+		6DAB88411892DBC2003075D8 /* EPDependencyBoxTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPDependencyBoxTests.m; sourceTree = "<group>"; };
+		6DAB88431892DC2F003075D8 /* EPDependencyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPDependencyBox.h; sourceTree = "<group>"; };
+		6DAB88441892DC2F003075D8 /* EPDependencyBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPDependencyBox.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DB26B63188F236D006A7AA0 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m; path = QuestionsTableViewControllerStateMachineTests/EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m; sourceTree = "<group>"; };
 		6DB26B65188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m; path = QuestionsTableViewControllerStateMachineTests/EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m; sourceTree = "<group>"; };
@@ -541,7 +546,7 @@
 				6D83807C175FA5B400B305A5 /* Default-568h@2x.png */,
 				D387EF151536EF0400635736 /* AgileToolbox */,
 				D3972BD9157EBAB0000C1819 /* OCMock */,
-				D387EF331536EF0500635736 /* ApplicationUnitTests */,
+				D387EF331536EF0500635736 /* AgileToolboxTests */,
 				D3972BA0157D89C7000C1819 /* LogicUnitTests */,
 				D3C1F5E215A4544200F0900D /* Library */,
 				D3C1F5F415A4544300F0900D /* LibraryTests */,
@@ -598,6 +603,8 @@
 				D387EF481537192600635736 /* EPTopicDetailsViewController.m */,
 				D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */,
 				D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */,
+				6DAB88431892DC2F003075D8 /* EPDependencyBox.h */,
+				6DAB88441892DC2F003075D8 /* EPDependencyBox.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -613,7 +620,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D387EF331536EF0500635736 /* ApplicationUnitTests */ = {
+		D387EF331536EF0500635736 /* AgileToolboxTests */ = {
 			isa = PBXGroup;
 			children = (
 				6DA6B57118898E470025E06A /* QuestionsTableViewStateMachineTests */,
@@ -622,8 +629,8 @@
 				6D268D2415AEB1E300946FE5 /* EPQuestionsTableViewControllerAppTests.m */,
 				D387EF341536EF0500635736 /* Supporting Files */,
 				6DA6B56C18894E9F0025E06A /* TableViewCellsTests */,
+				6DAB88411892DBC2003075D8 /* EPDependencyBoxTests.m */,
 			);
-			name = ApplicationUnitTests;
 			path = AgileToolboxTests;
 			sourceTree = "<group>";
 		};
@@ -846,9 +853,9 @@
 			productReference = D387EF0B1536EF0400635736 /* AgileToolbox.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D387EF2B1536EF0400635736 /* ApplicationUnitTests */ = {
+		D387EF2B1536EF0400635736 /* AgileToolboxTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "ApplicationUnitTests" */;
+			buildConfigurationList = D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "AgileToolboxTests" */;
 			buildPhases = (
 				D387EF271536EF0400635736 /* Sources */,
 				D387EF281536EF0400635736 /* Frameworks */,
@@ -859,7 +866,7 @@
 			dependencies = (
 				D387EF321536EF0500635736 /* PBXTargetDependency */,
 			);
-			name = ApplicationUnitTests;
+			name = AgileToolboxTests;
 			productName = AgileToolboxTests;
 			productReference = D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -976,7 +983,7 @@
 			projectRoot = "";
 			targets = (
 				D387EF0A1536EF0400635736 /* AgileToolbox */,
-				D387EF2B1536EF0400635736 /* ApplicationUnitTests */,
+				D387EF2B1536EF0400635736 /* AgileToolboxTests */,
 				D3972B9B157D89C7000C1819 /* LogicUnitTests */,
 				D3C1F5DF15A4544200F0900D /* Library */,
 				D3C1F5EC15A4544200F0900D /* LibraryTests */,
@@ -1083,6 +1090,7 @@
 				6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */,
 				6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */,
 				6DAB883E1892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m in Sources */,
+				6DAB88451892DC2F003075D8 /* EPDependencyBox.m in Sources */,
 				6DAB88341892D783003075D8 /* EPQuestionsDataSource.m in Sources */,
 				6DAB88371892D783003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsState.m in Sources */,
 			);
@@ -1093,6 +1101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DB26B66188F2A39006A7AA0 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */,
+				6DAB88421892DBC2003075D8 /* EPDependencyBoxTests.m in Sources */,
 				6D22757918916FFF001D6A74 /* EPQuestionsTableViewControllerInitialStateTests.m in Sources */,
 				6DA6B57418898F080025E06A /* EPQuestionsTableViewControllerEmptyLoadingStateTests.m in Sources */,
 				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
@@ -1705,7 +1714,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "ApplicationUnitTests" */ = {
+		D387EF411536EF0500635736 /* Build configuration list for PBXNativeTarget "AgileToolboxTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D387EF421536EF0500635736 /* Debug */,
