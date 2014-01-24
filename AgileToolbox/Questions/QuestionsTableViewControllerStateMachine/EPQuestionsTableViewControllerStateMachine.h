@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "EPQuestionsTableViewControllerStateMachineDelegateProtocol.h"
 #import "EPQuestionsTableViewExpert.h"
 
 @class EPQuestionsTableViewController;

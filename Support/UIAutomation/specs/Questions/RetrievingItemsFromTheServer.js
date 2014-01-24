@@ -4,7 +4,7 @@
 #import "../../helpers/general_helpers.js"
 
 
-describe("Walking Skeleton", function() {
+describe("Questions", function() {
 
     var helpers = new EPHelpers();
     

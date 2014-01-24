@@ -3,7 +3,7 @@
 #import "../../jasmine-uiautomation-reporter.js"
 
 
-describe("Walking Skeleton", function() {
+describe("Questions", function() {
 
     var target = UIATarget.localTarget();
     var mainWindow = target.frontMostApp().mainWindow();

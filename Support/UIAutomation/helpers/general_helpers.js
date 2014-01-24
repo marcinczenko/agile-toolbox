@@ -37,8 +37,16 @@ var EPHelpers = (function() {
         expect(numberOfCells).toEqual(expectNumberOfRows);
     };
 
+    EPHelpers.prototype.getCellTextForTableViewAtIndex = function(tableView,cellIndex){
+        return this.mainWindow.tableViews()[tableView].cells()[cellIndex].name();
+    };
+
     EPHelpers.prototype.getLabel = function() {
         return this.mainWindow.staticTexts()[0].value();
+    };
+
+    EPHelpers.prototype.enterBackgroundForDuration = function(duration) {
+        this.target.deactivateAppForDuration(duration);
     };
 
     return EPHelpers;

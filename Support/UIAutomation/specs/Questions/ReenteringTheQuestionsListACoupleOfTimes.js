@@ -4,24 +4,26 @@
 #import "../../helpers/general_helpers.js"
 
 
-describe("Walking Skeleton", function() {
+describe("Questions", function() {
 
     var helpers = new EPHelpers();
-    var target = UIATarget.localTarget();
-    var mainWindow = target.frontMostApp().mainWindow();
-    
+
     afterEach(function() {
         helpers.goBack();
     });
 
-    it("fetches first page from the server", function() {
-    
-        helpers.enterQuestions();
-        
-        mainWindow.logElementTree();
-        UIALogger.logMessage(mainWindow.tableViews()["Questions"].checkIsValid().toString());
+    it("re-entering the questions list does not trigger fetch", function() {
 
-        // we expect to have 40 items per page + one more row for "Fetch More" operation.
+        helpers.enterQuestions();
+        // we have 40 questions on a page + one cell for "Fetch More".
+        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
+        helpers.goBack();
+
+        helpers.enterQuestions();
+        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
+        helpers.goBack();
+
+        helpers.enterQuestions();
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
     });
 });

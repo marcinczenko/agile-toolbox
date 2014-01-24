@@ -1,6 +1,6 @@
 
-Given /^Google App Engine Server Mock with (\d+) items is started$/ do |number_of_items|
-    @google_mock = Runners::GoogleAppEngineMockRunner.new({:virtualenv=>'GoogleAppEngineAppMock',:number_of_items=>number_of_items})
+Given /^Google App Engine Server Mock with (\d+) items (?:and (\d+) seconds delay )?is started$/ do |number_of_items,delay|
+    @google_mock = Runners::GoogleAppEngineMockRunner.new({:virtualenv=>'GoogleAppEngineAppMock',:number_of_items=>number_of_items, :delay=>delay})
     @google_mock.set_verbose(true)
     @google_mock.start()
 end
@@ -26,10 +26,14 @@ Then /^I should be able to add a new item using my iPhone App \(Feature: "(.*?)"
 end
 
 
-Then /^RUN: Feature: "(.*?)" Scenario:"(.*?)"$/ do |feature_name, scenario_name|
+Then /^RUN: Feature: "(.*?)" Scenario:"(.*?)"(?: \(timeout:(\d+)\))?$/ do |feature_name, scenario_name, timeout|
   FileUtils.cd "#{ENV['HOME']}/UIAutomation/AgileToolbox/log" do
+    if timeout
+      Runners::ComplexRunner.set_timeout(timeout.to_i)
+    end
     Runners::ComplexRunner.set_verbose(true)
     Runners::InstrumentsRunner.run({:scheme=>'AgileToolbox', :feature=>feature_name, :scenario=>scenario_name}).should == 0
     Runners::ComplexRunner.set_verbose(false)
+    Runners::ComplexRunner.reset_timeout
   end
 end

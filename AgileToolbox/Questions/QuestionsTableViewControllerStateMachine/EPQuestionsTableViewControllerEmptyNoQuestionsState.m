@@ -21,9 +21,4 @@
     return fetchMoreCell;
 }
 
-//- (NSInteger)numberOfRowsInSection:(NSInteger)section
-//{
-//    return 1;
-//}
-
 @end

@@ -11,7 +11,6 @@
 #import "OCMock/OCMock.h"
 
 #import "EPQuestionsTableViewControllerStateMachine.h"
-#import "EPQuestionsTableViewControllerStateMachineDelegateProtocol.h"
 
 #import "EPQuestionsTableViewControllerState.h"
 #import "EPQuestionsTableViewExpert.h"
