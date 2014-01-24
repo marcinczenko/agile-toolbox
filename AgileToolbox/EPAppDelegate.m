@@ -11,12 +11,16 @@
 #import "EPJSONPostURLRequest.h"
 #import "EPQuestionsTableViewController.h"
 
+#import "EPDependencyBox.h"
+
 @interface EPAppDelegate ()
 
 @property (strong, nonatomic) NSFetchedResultsController *questionsFetchedResultsController;
 @property (strong, nonatomic) EPQuestionsDataSource* questionsDataSource;
 @property (strong, nonatomic) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
 @property (strong, nonatomic) EPQuestionPostman* postman;
+
+@property (strong, nonatomic) EPDependencyBox* questionsTableViewControllerDependencyBox;
 
 @property (weak, nonatomic) id<NSFetchedResultsControllerDelegate> questionsFetchedResultsControllerDelegate;
 
@@ -36,30 +40,11 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 @synthesize questionsDataSource = _questionsDataSource;
 @synthesize postman = _postman;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (void)setUpQuestionsTableViewControllerDependencies
 {
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *responseData;
-    
-    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ready",hostURL]]]
-                                         returningResponse:&response
-                                                     error:&error];
-                                                                        
-    if ([responseData length] > 0)
-    {
-        NSLog(@"Upload response: %@",[NSString stringWithCString:[responseData bytes]
-                                                        encoding:NSUTF8StringEncoding]);
-    } else {
-        NSLog(@"Bad response (%@)", [error description]);
-    }
-    
-    
-    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
-    
     NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
     NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
-
+    
     questionsFetchRequest.sortDescriptors = @[timestampSort];
     
     self.questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
@@ -69,12 +54,18 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     
     self.questionsTableViewControllerStateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
     
+    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
     self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
-                                               andWithManagedObjectContext:self.managedObjectContext];
+                                                     andWithManagedObjectContext:self.managedObjectContext];
     
     EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/new_json_item",hostURL]]];
     EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
     self.postman = [[EPQuestionPostman alloc] initWithConnection:postConnection];
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self setUpQuestionsTableViewControllerDependencies];
     
     return YES;
 }
