@@ -68,6 +68,11 @@ BOOL valueNO = NO;
     [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewMock] tableView];
 }
 
+- (void)mockTableViewExpert
+{
+    [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewExpertMock] tableViewExpert];
+}
+
 - (void)setUp
 {
     self.vc = [[EPQuestionsTableViewController alloc] init];
@@ -204,7 +209,11 @@ BOOL valueNO = NO;
     id scrollViewMock = [OCMockObject mockForClass:[UIScrollView class]];
     [[self.stateMachineMock expect] scrollViewDidScroll:scrollViewMock];
     
+    [self mockTableViewExpert];
+    [[[self.tableViewExpertMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollViewMock];
+    
     self.vc.stateMachine = self.stateMachineMock;
+    [self.vc scrollViewWillBeginDragging:self.doesNotMatter];
     [self.vc scrollViewDidScroll:scrollViewMock];
     
     [self.stateMachineMock verify];
@@ -256,12 +265,56 @@ BOOL valueNO = NO;
 }
 
 #pragma StateMachine delegate
+- (void)testThatFetchReturnedNoDataInBackgroundDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] fetchReturnedNoDataInBackground];
+    
+    self.vc.stateMachine = self.stateMachineMock;
+    [self.vc fetchReturnedNoDataInBackground];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
 - (void)testThatControllerDidChangeContentDelegatesToTheStateMachine
 {
     [[self.stateMachineMock expect] controllerDidChangeContent];
     
     self.vc.stateMachine = self.stateMachineMock;
     [self.vc controllerDidChangeContent:self.doesNotMatter];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatDataChangedInBackgroundDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] dataChangedInBackground];
+    
+    self.vc.stateMachine = self.stateMachineMock;
+    [self.vc dataChangedInBackground];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatConnectionFailureInBackgroundDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] connectionFailureInBackground];
+    
+    self.vc.stateMachine = self.stateMachineMock;
+    [self.vc connectionFailureInBackground];
+    
+    [self.stateMachineMock verify];
+}
+
+#pragma StateMachine delegate
+- (void)testThatConnectionFailureDelegatesToTheStateMachine
+{
+    [[self.stateMachineMock expect] connectionFailure];
+    
+    self.vc.stateMachine = self.stateMachineMock;
+    [self.vc connectionFailure];
     
     [self.stateMachineMock verify];
 }

@@ -13,37 +13,55 @@
 #import "EPConnectionDelegateProtocol.h"
 #import "EPJSONPostURLRequest.h"
 
-typedef void(^CallbackBlock)(NSData*);
+typedef void(^DownloadCompletedCallbackBlock)(NSData*);
+typedef void(^DownloadFailedCallbackBlock)();
 
 // OCMock has problem with "weak" properties:
 // http://stackoverflow.com/questions/9104544/how-can-i-get-ocmock-under-arc-to-stop-nilling-an-nsproxy-subclass-set-using-a-w
 @interface EPConnectionDelegateStub : NSObject<EPConnectionDelegateProtocol>
 
-- (id)initWithBlock:(CallbackBlock)callback;
+- (id)initWithDownloadComletedBlock:(DownloadCompletedCallbackBlock)downloadCompletedCallback;
+- (id)initWithDownloadFailedBlock:(DownloadFailedCallbackBlock)downloadFailedCallback;
 - (void)downloadCompleted:(NSData *)data;
 
-@property (nonatomic,copy) CallbackBlock callback;
+@property (nonatomic,copy) DownloadCompletedCallbackBlock downloadCompletedCallback;
+@property (nonatomic,copy) DownloadFailedCallbackBlock downloadFailedCallback;
 
 @end
 
 @implementation EPConnectionDelegateStub
-@synthesize callback = _callbackBlock;
 
-- (id)initWithBlock:(CallbackBlock)callback
+- (id)initWithDownloadComletedBlock:(DownloadCompletedCallbackBlock)downloadCompletedCallback
 {
     self = [super init];
     if (self) {
-        _callbackBlock = callback;
+        _downloadCompletedCallback = downloadCompletedCallback;
     }
     return self;
 }
 
+- (id)initWithDownloadFailedBlock:(DownloadFailedCallbackBlock)downloadFailedCallback
+{
+    self = [super init];
+    if (self) {
+        _downloadFailedCallback = downloadFailedCallback;
+    }
+    return self;
+}
+
+
 - (void)downloadCompleted:(NSData *)data
 {
-    if (self.callback) {
-        self.callback(data);
+    if (self.downloadCompletedCallback) {
+        self.downloadCompletedCallback(data);
     }
-//    NSLog(@"Karwasz twarz!!!!");
+}
+
+- (void)downloadFailed
+{
+    if (self.downloadFailedCallback) {
+        self.downloadFailedCallback();
+    }
 }
 
 @end
@@ -432,12 +450,12 @@ typedef void(^CallbackBlock)(NSData*);
     XCTAssertEqual(50,numberOfTimesCalled,@"Pregress Block Should have been called after every data block!");
 }
 
-- (void)testSettingTheDelegate
+- (void)testThatTheDownloadCompletedDelegateIsCalled
 {
     NSData * test_data = [self generateTestData];
     __block BOOL delegateOK = NO;
     
-    EPConnectionDelegateStub* delegateStub = [[EPConnectionDelegateStub alloc] initWithBlock:^(NSData * data) {
+    EPConnectionDelegateStub* delegateStub = [[EPConnectionDelegateStub alloc] initWithDownloadComletedBlock:^(NSData * data) {
         if ([test_data isEqualToData:data]) {
             delegateOK = YES;
         } else {
@@ -454,5 +472,18 @@ typedef void(^CallbackBlock)(NSData*);
     
     XCTAssertTrue(delegateOK,@"Delgate was not called or with unexpected argument contents!");
 }
+
+- (void)testThatTheDownloadFailedDelegateIsCalled
+{
+    id connectionDelegateMock = [OCMockObject mockForProtocol:@protocol(EPConnectionDelegateProtocol)];
+    [[connectionDelegateMock expect] downloadFailed];
+    
+    [self.connection setDelegate:connectionDelegateMock];
+    
+    [self.connection connection:self.connectionDoesNotMatter didFailWithError:nil];
+    
+    [connectionDelegateMock verify];
+}
+
 
 @end

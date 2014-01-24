@@ -9,6 +9,7 @@
 #import "EPAppDelegate.h"
 #import "EPConnection.h"
 #import "EPJSONPostURLRequest.h"
+#import "EPQuestionsTableViewController.h"
 
 @interface EPAppDelegate ()
 
@@ -17,11 +18,14 @@
 @property (strong, nonatomic) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
 @property (strong, nonatomic) EPQuestionPostman* postman;
 
+@property (weak, nonatomic) id<NSFetchedResultsControllerDelegate> questionsFetchedResultsControllerDelegate;
+
 @end
 
 @implementation EPAppDelegate
 
 static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
+//static const NSString* hostURL = @"http://192.168.1.33:9001";
 
 // The following three @synthesize statements are for CoreData
 @synthesize managedObjectContext = _managedObjectContext;
@@ -93,18 +97,30 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     if (![NSThread isMainThread]) {
         NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
     }
+    
+    self.questionsFetchedResultsControllerDelegate = self.questionsFetchedResultsController.delegate;
+    self.questionsFetchedResultsController.delegate = nil;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     NSLog(@"applicationWillEnterForeground");
+    
+    self.questionsFetchedResultsController.delegate = self.questionsFetchedResultsControllerDelegate;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
+    
+    EPQuestionsTableViewController* vc = (EPQuestionsTableViewController*)self.questionsFetchedResultsController.delegate;
+    
+    NSError *fetchError = nil;
+    [self.questionsFetchedResultsController performFetch:&fetchError];
+    
+    [vc.tableView reloadData];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

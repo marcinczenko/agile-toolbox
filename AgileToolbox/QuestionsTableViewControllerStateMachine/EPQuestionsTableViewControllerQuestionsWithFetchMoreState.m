@@ -7,18 +7,16 @@
 //
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
+//#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
 #import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreState
 
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0==indexPath.section) {
-        if (indexPath.row == [self.tableViewExpert.tableView numberOfRowsInSection:0]-1) {
-            [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class]];
-        }
-        
         return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
                                                      forIndexPath:indexPath
                                                       andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:indexPath]];
@@ -27,6 +25,20 @@
                                                       forIndexPath:indexPath
                                                            loading:NO];
     }
+}
+
+- (void)fetchNextSetOfQuestions
+{
+    Question *question = (Question*)self.viewController.fetchedResultsController.fetchedObjects.lastObject;
+    [self.viewController.questionsDataSource fetchOlderThan:question.question_id.integerValue];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
+    [self fetchNextSetOfQuestions];
+    [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section

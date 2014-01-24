@@ -19,6 +19,11 @@
 @property (nonatomic,assign) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
+@property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundTaskId;
+@property (nonatomic,assign) BOOL applicationRunsInBackground;
+
+@property (nonatomic, strong) NSTimer *myTimer;
+
 @end
 
 @implementation EPQuestionsDataSource
@@ -44,17 +49,86 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
         [_connection setDelegate:self];
         _hasMoreQuestionsToFetch = YES;
         _managedObjectContext = managedObjectContext;
+        _applicationRunsInBackground = NO;
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        
+        [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+        [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
+        
+        
     }
     return self;
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
+{
+    NSLog(@"didEnterBackgroundNotification");
+    if (![NSThread isMainThread]) {
+        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+    }
+    
+    self.applicationRunsInBackground = YES;
+}
+
+- (void)willEnterForegroundNotification:(NSNotification*)paramNotification
+{
+    NSLog(@"willEnterForegroundNotification");
+    if (![NSThread isMainThread]) {
+        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+    }
+    
+    self.applicationRunsInBackground = NO;
+}
+
 
 - (void)setPostConnection:(id<EPConnectionProtocol>)connection
 {
     
 }
 
+- (void)endBackgroundTask
+{
+    NSLog(@"endBackgroundTask");
+    if (![NSThread isMainThread]) {
+        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+    }
+    
+    [self.myTimer invalidate];        
+    
+    [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
+    self.backgroundTaskId = UIBackgroundTaskInvalid;
+}
+
+- (void) timerMethod:(NSTimer *)paramSender
+{
+    NSTimeInterval backgroundTimeRemaining = [[UIApplication sharedApplication] backgroundTimeRemaining];
+    if (backgroundTimeRemaining == DBL_MAX) {
+        NSLog(@"Background Time Remaining = Undetermined");
+    }else{
+        NSLog(@"Background Time Remaining = %.02f Seconds",backgroundTimeRemaining);
+    }
+}
+
 - (void)fetchOlderThan:(NSInteger)questionId
 {
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                     target:self selector:@selector(timerMethod:) userInfo:nil
+                                    repeats:NO];
+    
+    UIApplication* app = [UIApplication sharedApplication];
+    
+    self.backgroundTaskId = [app beginBackgroundTaskWithExpirationHandler:^{
+        [self endBackgroundTask];
+    }];
+    
+    
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
                                                                                          (unsigned long)QUESTIONS_PER_PAGE]}];
     
@@ -107,12 +181,43 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
     }
 
     if (0==new_data.count) {
-        if ([self.delegate respondsToSelector:@selector(fetchReturnedNoData)]) {
-            [self.delegate fetchReturnedNoData];
+        if (self.applicationRunsInBackground) {
+            if ([self.delegate respondsToSelector:@selector(fetchReturnedNoDataInBackground)]) {
+                [self.delegate fetchReturnedNoDataInBackground];
+            }
+        } else {
+            if ([self.delegate respondsToSelector:@selector(fetchReturnedNoData)]) {
+                [self.delegate fetchReturnedNoData];
+            }
         }
     } else {
         [self saveToCoreData:new_data];
+        if (self.applicationRunsInBackground) {
+            if ([self.delegate respondsToSelector:@selector(dataChangedInBackground)]) {
+                [self.delegate dataChangedInBackground];
+            }
+        }
     }
+    
+    [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
+    self.backgroundTaskId = UIBackgroundTaskInvalid;
+}
+
+- (void) downloadFailed
+{
+    if (self.applicationRunsInBackground) {
+        if ([self.delegate respondsToSelector:@selector(connectionFailureInBackground)]) {
+            [self.delegate connectionFailureInBackground];
+        }
+    }
+    else {
+        if ([self.delegate respondsToSelector:@selector(connectionFailure)]) {
+            [self.delegate connectionFailure];
+        }
+    }
+    
+    [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
+    self.backgroundTaskId = UIBackgroundTaskInvalid;
 }
 
 @end

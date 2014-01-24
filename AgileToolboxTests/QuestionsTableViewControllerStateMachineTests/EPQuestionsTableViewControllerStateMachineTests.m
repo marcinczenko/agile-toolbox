@@ -20,10 +20,11 @@
 #import "EPQuestionsTableViewControllerInitialState.h"
 #import "EPQuestionsTableViewControllerEmptyLoadingState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
+#import "EPQuestionsTableViewControllerEmptyConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
 #import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
+#import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 
 @interface EPQuestionsTableViewControllerStateMachineTests : XCTestCase
 
@@ -49,10 +50,11 @@ static const BOOL valueYES = YES;
         stateClassesArray = [NSMutableArray arrayWithArray:@[[EPQuestionsTableViewControllerInitialState class],
                                                              [EPQuestionsTableViewControllerEmptyLoadingState class],
                                                              [EPQuestionsTableViewControllerEmptyNoQuestionsState class],
+                                                             [EPQuestionsTableViewControllerEmptyConnectionFailureState class],
                                                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                                                              [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
-                                                             [EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class],
-                                                             [EPQuestionsTableViewControllerQuestionsLoadingState class]]];
+                                                             [EPQuestionsTableViewControllerQuestionsLoadingState class],
+                                                             [EPQuestionsTableViewControllerQuestionsConnectionFailureState class]]];
     }
     return stateClassesArray;
 }

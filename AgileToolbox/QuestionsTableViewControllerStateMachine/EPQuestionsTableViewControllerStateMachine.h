@@ -30,6 +30,10 @@
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)fetchReturnedNoData;
+- (void)fetchReturnedNoDataInBackground;
+- (void)dataChangedInBackground;
+- (void)connectionFailure;
+- (void)connectionFailureInBackground;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (NSInteger)numberOfSections;
 

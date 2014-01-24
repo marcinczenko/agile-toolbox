@@ -10,7 +10,6 @@
 #import "OCMock/OCMock.h"
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
 
 #import "EPQuestionsDataSource.h"
 #import "EPQuestionTableViewCell.h"
@@ -83,23 +82,6 @@
     [self.state cellForRowAtIndexPath:indexPath];
     
     [questionCellClassMock verify];
-}
-
-- (void)testThatCellForRowAtIndexPathChangesStateWhenInSectionZeroAndLastAvailableCellHasBeenDisplayed
-{
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:EPQuestionsDataSource.pageSize-1 inSection:0];
-    
-    NSInteger value = EPQuestionsDataSource.pageSize;
-    [[[self.tableViewMock stub] andReturnValue:OCMOCK_VALUE(value)] numberOfRowsInSection:indexPath.section];
-    
-    [[self.stateMachineMock expect] changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class]];
-    
-    id questionCellClassMock = [OCMockObject niceMockForClass:[EPQuestionTableViewCell class]];
-    [[questionCellClassMock stub] cellDequeuedFromTableView:[OCMArg any] forIndexPath:[OCMArg any] andQuestion:[OCMArg any]];
-    
-    [self.state cellForRowAtIndexPath:indexPath];
-    
-    [self.stateMachineMock verify];
 }
 
 - (void)testThatCellForRowAtIndexPathReturnsFetchMoreCellWithoutLoadingIndicatorForSectionOne

@@ -50,9 +50,11 @@
 
 - (void)addTableFooterInOrderToHideEmptyCells
 {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.unusedContentHeight)];
-    [footerView setBackgroundColor:[UIColor whiteColor]];
-    [self.tableView setTableFooterView:footerView];
+    if (nil==self.tableView.tableFooterView) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.unusedContentHeight)];
+        [footerView setBackgroundColor:[UIColor whiteColor]];
+        [self.tableView setTableFooterView:footerView];
+    }
 }
 
 - (EPFetchMoreTableViewCell*)fetchMoreCell
@@ -61,9 +63,16 @@
 }
 
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
-{
+{    
     return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
 }
+
+- (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView
+{
+//    NSLog(@"contentOffset.y=%f",scrollView.contentOffset.y);
+    return (scrollView.contentOffset.y <= -100);
+}
+
 
 - (void)deleteFetchMoreCell
 {

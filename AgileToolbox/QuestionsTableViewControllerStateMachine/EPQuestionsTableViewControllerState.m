@@ -50,6 +50,27 @@
     
 }
 
+- (void)fetchReturnedNoDataInBackground
+{
+    
+}
+
+- (void)dataChangedInBackground
+{
+    
+}
+
+- (void)connectionFailure
+{
+    
+}
+
+- (void)connectionFailureInBackground
+{
+    
+}
+
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;

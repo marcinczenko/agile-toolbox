@@ -78,15 +78,19 @@
     [self.tableViewExpertMock verify];
 }
 
-- (void)testThatNumberOfRowsInSectionReturnsOneRegardlessOfTheSectionNumber
+- (void)testThatNumberOfRowsInSectionReturnZeroForSectionZero
 {
-    XCTAssertEqual((NSInteger)1, [self.state numberOfRowsInSection:0]);
+    XCTAssertEqual((NSInteger)0, [self.state numberOfRowsInSection:0]);
+}
+
+- (void)testThatNumberOfRowsInSectionReturnOneForSectionOne
+{
     XCTAssertEqual((NSInteger)1, [self.state numberOfRowsInSection:1]);
 }
 
-- (void)testThanNumberOfSectionsIsOne
+- (void)testThanNumberOfSectionsIsTwo
 {
-    XCTAssertEqual((NSInteger)1, [self.state numberOfSections]);
+    XCTAssertEqual((NSInteger)2, [self.state numberOfSections]);
 }
 
 

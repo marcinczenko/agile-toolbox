@@ -21,6 +21,8 @@
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
 
+@property (nonatomic,assign) BOOL isScrolling;
+
 @end
 
 @implementation EPQuestionsTableViewController
@@ -102,9 +104,24 @@
 
 #pragma mark - Scroll view delegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.isScrolling = YES;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    self.isScrolling = NO;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.stateMachine scrollViewDidScroll:scrollView];
+    if (!self.isScrolling) return;
+    
+    if ([self.tableViewExpert scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollView]) {
+        self.isScrolling = NO;
+        [self.stateMachine scrollViewDidScroll:scrollView];
+    }
 }
 
 
@@ -182,6 +199,26 @@
 - (void)fetchReturnedNoData
 {
     [self.stateMachine fetchReturnedNoData];
+}
+
+- (void)fetchReturnedNoDataInBackground
+{
+    [self.stateMachine fetchReturnedNoDataInBackground];
+}
+
+- (void)dataChangedInBackground
+{
+    [self.stateMachine dataChangedInBackground];
+}
+
+- (void)connectionFailure
+{
+    [self.stateMachine connectionFailure];
+}
+
+- (void)connectionFailureInBackground
+{
+    [self.stateMachine connectionFailureInBackground];
 }
 
 #pragma mark - EPAddQuestionDelegateProtocol

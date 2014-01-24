@@ -8,6 +8,7 @@
 
 #import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
+#import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 #import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsLoadingState
@@ -32,6 +33,27 @@
     [self.tableViewExpert.tableView beginUpdates];
     [self.tableViewExpert deleteFetchMoreCell];
     [self.tableViewExpert.tableView endUpdates];
+}
+
+- (void)fetchReturnedNoDataInBackground
+{
+    NSLog(@"fetchReturnedNoDataInBackground");
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
+}
+
+- (void)connectionFailure
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsConnectionFailureState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.tableViewExpert.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)connectionFailureInBackground
+{
+    NSLog(@"connectionFailureInBackground");
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsConnectionFailureState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section

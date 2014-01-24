@@ -18,6 +18,7 @@
 - (void)addTableFooterInOrderToHideEmptyCells;
 - (BOOL)totalContentHeightSmallerThanScreenSize;
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView;
+- (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView;
 - (void)deleteFetchMoreCell;
 - (void)removeTableFooter;
 

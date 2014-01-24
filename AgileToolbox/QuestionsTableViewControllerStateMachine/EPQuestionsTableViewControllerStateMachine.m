@@ -10,10 +10,11 @@
 #import "EPQuestionsTableViewControllerInitialState.h"
 #import "EPQuestionsTableViewControllerEmptyLoadingState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
+#import "EPQuestionsTableViewControllerEmptyConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
-#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState.h"
 #import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
+#import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 
 @interface EPQuestionsTableViewControllerStateMachine ()
 
@@ -54,10 +55,11 @@
     NSArray *stateClasses = @[[EPQuestionsTableViewControllerInitialState class],
                               [EPQuestionsTableViewControllerEmptyLoadingState class],
                               [EPQuestionsTableViewControllerEmptyNoQuestionsState class],
+                              [EPQuestionsTableViewControllerEmptyConnectionFailureState class],
                               [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
-                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRespondingToScrollState class],
-                              [EPQuestionsTableViewControllerQuestionsLoadingState class]];
+                              [EPQuestionsTableViewControllerQuestionsLoadingState class],
+                              [EPQuestionsTableViewControllerQuestionsConnectionFailureState class]];
     
     for (Class stateClass in stateClasses) {
         dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithStateMachine:stateMachine];
@@ -97,6 +99,26 @@
 - (void)fetchReturnedNoData
 {
     [self.currentState fetchReturnedNoData];
+}
+
+- (void)fetchReturnedNoDataInBackground
+{
+    [self.currentState fetchReturnedNoDataInBackground];
+}
+
+- (void)dataChangedInBackground
+{
+    [self.currentState dataChangedInBackground];
+}
+
+- (void)connectionFailure
+{
+    [self.currentState connectionFailure];
+}
+
+- (void)connectionFailureInBackground
+{
+    [self.currentState connectionFailureInBackground];
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section

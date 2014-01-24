@@ -11,5 +11,9 @@
 @protocol EPQuestionsDataSourceDelegateProtocol <NSObject>
 
 - (void)fetchReturnedNoData;
+- (void)fetchReturnedNoDataInBackground;
+- (void)dataChangedInBackground;
+- (void)connectionFailure;
+- (void)connectionFailureInBackground;
 
 @end
