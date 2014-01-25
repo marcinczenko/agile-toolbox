@@ -50,6 +50,8 @@
 		6DAB88541892EBD2003075D8 /* EPQuestionsTableViewControllerInitialStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB884D1892EBD2003075D8 /* EPQuestionsTableViewControllerInitialStateTests.m */; };
 		6DAB88551892EBD2003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB884E1892EBD2003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */; };
 		6DAB88561892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB884F1892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m */; };
+		6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */; };
+		6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */; };
 		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -242,6 +244,9 @@
 		6DAB884D1892EBD2003075D8 /* EPQuestionsTableViewControllerInitialStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerInitialStateTests.m; sourceTree = "<group>"; };
 		6DAB884E1892EBD2003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m; sourceTree = "<group>"; };
 		6DAB884F1892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerStateMachineTests.m; sourceTree = "<group>"; };
+		6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerDependencyBootstrapperTests.m; sourceTree = "<group>"; };
+		6DAB88591892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerDependencyBootstrapper.h; sourceTree = "<group>"; };
+		6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerDependencyBootstrapper.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
@@ -466,6 +471,8 @@
 				6DAB88111892D783003075D8 /* Model */,
 				6DAB88151892D783003075D8 /* QuestionsTableViewControllerStateMachine */,
 				6DAB882B1892D783003075D8 /* TableViewCells */,
+				6DAB88591892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.h */,
+				6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -534,6 +541,7 @@
 				6DAB88471892EBD2003075D8 /* EPQuestionsTableViewControllerAppTests.m */,
 				6DAB88481892EBD2003075D8 /* ModelTests */,
 				6DAB884A1892EBD2003075D8 /* QuestionsTableViewControllerStateMachineTests */,
+				6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */,
 			);
 			path = QuestionsTests;
 			sourceTree = "<group>";
@@ -1096,6 +1104,7 @@
 				6DAB88391892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m in Sources */,
 				6DAB88401892D783003075D8 /* EPQuestionTableViewCell.m in Sources */,
 				6DAB88381892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m in Sources */,
+				6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */,
 				6DAB883B1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m in Sources */,
 				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
 				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
@@ -1123,6 +1132,7 @@
 				6DAB88421892DBC2003075D8 /* EPDependencyBoxTests.m in Sources */,
 				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
 				6DAB88561892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m in Sources */,
+				6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */,
 				6DAB88501892EBD2003075D8 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
 				6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */,
 				6DAB88521892EBD2003075D8 /* EPQuestionsTableViewControllerEmptyLoadingStateTests.m in Sources */,

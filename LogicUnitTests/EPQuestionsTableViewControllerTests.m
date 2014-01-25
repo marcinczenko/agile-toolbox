@@ -34,6 +34,8 @@
 @property (nonatomic,strong) id addQuestionController;
 @property (nonatomic,strong) id segueMock;
 
+@property (nonatomic,strong) EPDependencyBox* dependencyBox;
+
 @property (nonatomic,readonly) id doesNotMatter;
 
 @end
@@ -73,10 +75,16 @@ BOOL valueNO = NO;
     [[[self.questionsTableViewControllePartialMock stub] andReturn:self.tableViewExpertMock] tableViewExpert];
 }
 
+- (void)setUpDependencyBox
+{
+    self.dependencyBox[@"DataSource"] = self.questionsDataSourceMock;
+    self.dependencyBox[@"FetchedResultsController"] = self.fetchedResultsControllerMock;
+    self.dependencyBox[@"StateMachine"] = self.stateMachineMock;
+    self.dependencyBox[@"Postman"] = self.postmanMock;
+}
+
 - (void)setUp
 {
-    self.vc = [[EPQuestionsTableViewController alloc] init];
-    self.questionsTableViewControllePartialMock = [OCMockObject partialMockForObject:self.vc];
     self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
     self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     
@@ -89,23 +97,27 @@ BOOL valueNO = NO;
     self.navigationControllerMock = [OCMockObject niceMockForClass:[UINavigationController class]];
     self.addQuestionController = [OCMockObject niceMockForClass:[EPAddQuestionViewController class]];
     self.segueMock = [OCMockObject niceMockForClass:[UIStoryboardSegue class]];
+    
+    self.dependencyBox = [[EPDependencyBox alloc] init];
+    [self setUpDependencyBox];
+    self.vc = [[EPQuestionsTableViewController alloc] init];
+    [self.vc injectDependenciesFrom:self.dependencyBox];
+    self.questionsTableViewControllePartialMock = [OCMockObject partialMockForObject:self.vc];
+    
 }
 
 - (void)testQATQuestionTableViewControllerHasPropertyForDataSource
 {
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
     XCTAssertEqualObjects(self.vc.questionsDataSource, self.questionsDataSourceMock);
 }
 
 - (void)testQATQuestionTableViewControllerHasPropertyForFetchedResultsController
 {
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
     XCTAssertEqualObjects(self.vc.fetchedResultsController, self.fetchedResultsControllerMock);
 }
 
 - (void)testQATQuestionTableViewControllerHasPropertyForStateMachine
 {
-    self.vc.stateMachine = self.stateMachineMock;
     XCTAssertEqualObjects(self.vc.stateMachine, self.stateMachineMock);
 }
 
@@ -138,7 +150,6 @@ BOOL valueNO = NO;
     
     [[self.stateMachineMock expect] assignViewController:self.vc andTableViewExpert:self.tableViewExpertMock];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc viewDidLoad];
     
     [self.stateMachineMock verify];
@@ -151,7 +162,6 @@ BOOL valueNO = NO;
 
     [[self.stateMachineMock expect] viewDidLoad];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc viewDidLoad];
     
     [self.stateMachineMock verify];
@@ -159,9 +169,7 @@ BOOL valueNO = NO;
 
 - (void)testQATQuestionTableViewControllerHasPropertyForPostmanService
 {
-    id postmanMock = [OCMockObject mockForProtocol:@protocol(EPPostmanProtocol)];
-    
-    self.vc.postman = postmanMock;
+    XCTAssertEqualObjects(self.vc.postman, self.postmanMock);
 }
 
 - (void)testThatViewRegistersItselfAsTheDelegateOfThePostman
@@ -169,8 +177,6 @@ BOOL valueNO = NO;
     [self disableViewPropertyForTheVC];
     
     [[self.postmanMock expect] setDelegate:self.vc];
-    
-    self.vc.postman = self.postmanMock;
     
     [self.vc viewDidLoad];
     
@@ -183,8 +189,6 @@ BOOL valueNO = NO;
     
     [[self.questionsDataSourceMock expect] setDelegate:self.vc];
     
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    
     [self.vc viewDidLoad];
     
     [self.questionsDataSourceMock verify];
@@ -195,8 +199,6 @@ BOOL valueNO = NO;
     [self disableViewPropertyForTheVC];
     
     [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
-    
-    self.vc.fetchedResultsController = self.fetchedResultsControllerMock;
     
     [self.vc viewDidLoad];
     
@@ -212,7 +214,6 @@ BOOL valueNO = NO;
     [self mockTableViewExpert];
     [[[self.tableViewExpertMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollViewMock];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc scrollViewWillBeginDragging:self.doesNotMatter];
     [self.vc scrollViewDidScroll:scrollViewMock];
     
@@ -224,7 +225,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] numberOfSections];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc numberOfSectionsInTableView:self.doesNotMatter];
     
     [self.stateMachineMock verify];
@@ -235,7 +235,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] numberOfRowsInSection:0];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc tableView:self.doesNotMatter numberOfRowsInSection:0];
     
     [self.stateMachineMock verify];
@@ -247,7 +246,6 @@ BOOL valueNO = NO;
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [[self.stateMachineMock expect] cellForRowAtIndexPath:indexPath];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc tableView:self.doesNotMatter cellForRowAtIndexPath:indexPath];
     
     [self.stateMachineMock verify];
@@ -258,7 +256,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] fetchReturnedNoData];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc fetchReturnedNoData];
     
     [self.stateMachineMock verify];
@@ -269,7 +266,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] fetchReturnedNoDataInBackground];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc fetchReturnedNoDataInBackground];
     
     [self.stateMachineMock verify];
@@ -280,7 +276,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] controllerDidChangeContent];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc controllerDidChangeContent:self.doesNotMatter];
     
     [self.stateMachineMock verify];
@@ -291,7 +286,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] dataChangedInBackground];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc dataChangedInBackground];
     
     [self.stateMachineMock verify];
@@ -302,7 +296,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] connectionFailureInBackground];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc connectionFailureInBackground];
     
     [self.stateMachineMock verify];
@@ -313,7 +306,6 @@ BOOL valueNO = NO;
 {
     [[self.stateMachineMock expect] connectionFailure];
     
-    self.vc.stateMachine = self.stateMachineMock;
     [self.vc connectionFailure];
     
     [self.stateMachineMock verify];
@@ -323,8 +315,6 @@ BOOL valueNO = NO;
 {
     [self disableViewPropertyForTheVC];
     
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
-    
     [self.vc didReceiveMemoryWarning];
     
     XCTAssertNil(self.vc.questionsDataSource);
@@ -333,8 +323,6 @@ BOOL valueNO = NO;
 - (void)testThatViewSetsTheReferenceToPostmanToNilWhenMemoryWarningReceived
 {
     [self disableViewPropertyForTheVC];
-    
-    self.vc.postman = self.postmanMock;
     
     [self.vc didReceiveMemoryWarning];
     
@@ -361,8 +349,6 @@ BOOL valueNO = NO;
     
     [[self.postmanMock expect] post:addedQuestion];
 
-    self.vc.postman = self.postmanMock;
-
     [self.vc questionAdded:addedQuestion];
 
     [self.postmanMock verify];
@@ -371,8 +357,6 @@ BOOL valueNO = NO;
 - (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
 {
     [[self.questionsDataSourceMock expect] fetchNew];
-    
-    self.vc.questionsDataSource = self.questionsDataSourceMock;
     
     [self.vc postDelivered];
     

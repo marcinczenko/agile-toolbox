@@ -22,19 +22,11 @@
     return nil;
 }
 
-- (void)testThatAppDelegateCreatesQuestionsDataSource
+- (void)testThatAppDelegateCreatesDependencyBoxForQuestionsTableViewController
 {
     EPAppDelegate* appDelegate = [[EPAppDelegate alloc]init];
     
-    XCTAssertNil(appDelegate.questionsDataSource);
-    
-    [appDelegate application:self.doesNotMatter didFinishLaunchingWithOptions:self.doesNotMatter];
-    
-    XCTAssertNotNil(appDelegate.questionsDataSource);
-    
-    XCTAssertEqualObjects(NSStringFromClass([appDelegate.questionsDataSource class]), NSStringFromClass([EPQuestionsDataSource class]));
-    
-    XCTAssertEqualObjects(@"http://everydayproductive-test.com:9001/items_json", appDelegate.questionsDataSource.connectionURL);
+    XCTAssertNil(appDelegate.questionsTableViewControllerDependencyBox);
 }
 
 @end

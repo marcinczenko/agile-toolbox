@@ -11,14 +11,9 @@
 #import "EPJSONPostURLRequest.h"
 #import "EPQuestionsTableViewController.h"
 
-#import "EPDependencyBox.h"
+#import "EPQuestionsTableViewControllerDependencyBootstrapper.h"
 
 @interface EPAppDelegate ()
-
-@property (strong, nonatomic) NSFetchedResultsController *questionsFetchedResultsController;
-@property (strong, nonatomic) EPQuestionsDataSource* questionsDataSource;
-@property (strong, nonatomic) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
-@property (strong, nonatomic) EPQuestionPostman* postman;
 
 @property (strong, nonatomic) EPDependencyBox* questionsTableViewControllerDependencyBox;
 
@@ -28,44 +23,15 @@
 
 @implementation EPAppDelegate
 
-static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
-//static const NSString* hostURL = @"http://192.168.1.33:9001";
-
-// The following three @synthesize statements are for CoreData
+// The following three @synthesize statements are for CoreData - lazy loading for readonly properties
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-@synthesize window = _window;
-@synthesize questionsDataSource = _questionsDataSource;
-@synthesize postman = _postman;
-
-- (void)setUpQuestionsTableViewControllerDependencies
-{
-    NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
-    
-    questionsFetchRequest.sortDescriptors = @[timestampSort];
-    
-    self.questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    
-    NSError *fetchError = nil;
-    [self.questionsFetchedResultsController performFetch:&fetchError];
-    
-    self.questionsTableViewControllerStateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
-    
-    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
-    self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
-                                                     andWithManagedObjectContext:self.managedObjectContext];
-    
-    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/new_json_item",hostURL]]];
-    EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
-    self.postman = [[EPQuestionPostman alloc] initWithConnection:postConnection];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self setUpQuestionsTableViewControllerDependencies];
+    self.questionsTableViewControllerDependencyBox = [[[EPQuestionsTableViewControllerDependencyBootstrapper alloc] initWithAppDelegate:self] bootstrap];
     
     return YES;
 }
@@ -89,7 +55,8 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
         NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
     }
     
-    self.questionsFetchedResultsControllerDelegate = self.questionsFetchedResultsController.delegate;
+    NSFetchedResultsController* fetchedResultsController = (NSFetchedResultsController*)self.questionsTableViewControllerDependencyBox[@"FetchedResultsController"];
+    self.questionsFetchedResultsControllerDelegate = fetchedResultsController.delegate;
     self.questionsFetchedResultsController.delegate = nil;
 }
 
@@ -98,7 +65,8 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     NSLog(@"applicationWillEnterForeground");
     
-    self.questionsFetchedResultsController.delegate = self.questionsFetchedResultsControllerDelegate;
+    NSFetchedResultsController* fetchedResultsController = (NSFetchedResultsController*)self.questionsTableViewControllerDependencyBox[@"FetchedResultsController"];
+    fetchedResultsController.delegate = self.questionsFetchedResultsControllerDelegate;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -106,10 +74,11 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
     
-    EPQuestionsTableViewController* vc = (EPQuestionsTableViewController*)self.questionsFetchedResultsController.delegate;
+    NSFetchedResultsController* fetchedResultsController = (NSFetchedResultsController*)self.questionsTableViewControllerDependencyBox[@"FetchedResultsController"];
+    EPQuestionsTableViewController* vc = (EPQuestionsTableViewController*)fetchedResultsController.delegate;
     
     NSError *fetchError = nil;
-    [self.questionsFetchedResultsController performFetch:&fetchError];
+    [fetchedResultsController performFetch:&fetchError];
     
     [vc.tableView reloadData];
 }

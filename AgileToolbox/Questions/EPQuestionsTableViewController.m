@@ -19,6 +19,12 @@
 @interface EPQuestionsTableViewController ()
 
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic,weak) id<EPQuestionsDataSourceProtocol> questionsDataSource;
+@property (nonatomic,weak) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic,weak) id<EPPostmanProtocol> postman;
+@property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
+
 @property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
 
 @property (nonatomic,assign) BOOL isScrolling;
@@ -43,6 +49,14 @@
     self.questionsDataSource.delegate = self;
     [self.postman setDelegate:self];
     self.tableView.delegate = self;
+}
+
+- (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
+{
+    self.fetchedResultsController = dependencyBox[@"FetchedResultsController"];
+    self.questionsDataSource = (id<EPQuestionsDataSourceProtocol>)dependencyBox[@"DataSource"];
+    self.stateMachine = (EPQuestionsTableViewControllerStateMachine*)dependencyBox[@"StateMachine"];
+    self.postman = (id<EPPostmanProtocol>)dependencyBox[@"Postman"];
 }
 
 - (void)viewDidLoad

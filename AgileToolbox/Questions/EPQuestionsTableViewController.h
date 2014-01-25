@@ -19,6 +19,7 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 #import "EPQuestionsTableViewExpert.h"
+#import "EPDependencyBox.h"
 
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
@@ -27,11 +28,14 @@
                                                                   EPAddQuestionDelegateProtocol,
                                                                   EPPostmanDelegateProtocol>
 
-@property (nonatomic,weak) id<EPQuestionsDataSourceProtocol> questionsDataSource;
-@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic,strong) id<EPPostmanProtocol> postman;
+- (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox;
 
-@property (nonatomic,strong) EPQuestionsTableViewControllerStateMachine *stateMachine;
+
+@property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
+@property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic,readonly) id<EPPostmanProtocol> postman;
+
+@property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
 @property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
 @end

@@ -37,7 +37,8 @@
     [super setUp];
     
     self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"QuestionsViewController"];
-    self.questionsTableViewController.stateMachine = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerStateMachine;
+    EPDependencyBox* dependencyBox = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerDependencyBox;
+    [self.questionsTableViewController injectDependenciesFrom:dependencyBox];
     self.fetchMoreTableViewCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
                                                                          forIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]
                                                                               loading:NO];
