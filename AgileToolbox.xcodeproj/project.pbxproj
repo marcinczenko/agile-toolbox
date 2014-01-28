@@ -269,7 +269,7 @@
 		D387EF221536EF0400635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D387EF241536EF0400635736 /* EPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPViewController.h; sourceTree = "<group>"; };
 		D387EF251536EF0400635736 /* EPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPViewController.m; sourceTree = "<group>"; };
-		D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = ApplicationUnitTests.xctest; path = AgileToolboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D387EF2C1536EF0400635736 /* AgileToolboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgileToolboxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D387EF351536EF0500635736 /* AgileToolboxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AgileToolboxTests-Info.plist"; sourceTree = "<group>"; };
 		D387EF371536EF0500635736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D387EF3A1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPMainMenuListViewControllerAppTests.m; sourceTree = "<group>"; };
@@ -594,7 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				D387EF0B1536EF0400635736 /* AgileToolbox.app */,
-				D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */,
+				D387EF2C1536EF0400635736 /* AgileToolboxTests.xctest */,
 				D3972B9C157D89C7000C1819 /* LogicUnitTests.xctest */,
 				D3C1F5E015A4544200F0900D /* libLibrary.a */,
 				D3C1F5ED15A4544200F0900D /* LibraryTests.xctest */,
@@ -900,7 +900,7 @@
 			);
 			name = AgileToolboxTests;
 			productName = AgileToolboxTests;
-			productReference = D387EF2C1536EF0400635736 /* ApplicationUnitTests.xctest */;
+			productReference = D387EF2C1536EF0400635736 /* AgileToolboxTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D3972B9B157D89C7000C1819 /* LogicUnitTests */ = {

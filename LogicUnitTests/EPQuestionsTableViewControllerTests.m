@@ -323,24 +323,6 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatViewSetsTheReferenceToDataSourceToNilWhenMemoryWarningReceived
-{
-    [self disableViewPropertyForTheVC];
-    
-    [self.vc didReceiveMemoryWarning];
-    
-    XCTAssertNil(self.vc.questionsDataSource);
-}
-
-- (void)testThatViewSetsTheReferenceToPostmanToNilWhenMemoryWarningReceived
-{
-    [self disableViewPropertyForTheVC];
-    
-    [self.vc didReceiveMemoryWarning];
-    
-    XCTAssertNil(self.vc.postman);
-}
-
 - (void)testThatCurrentViewControllerIsSetToBeDelegateOfTheDestinationControllerOnPerformingAddQuestionSegue
 {
     [[[self.navigationControllerMock stub] andReturn:self.addQuestionController] topViewController];
