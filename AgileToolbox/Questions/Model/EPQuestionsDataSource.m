@@ -68,21 +68,11 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
 
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
 {
-    NSLog(@"didEnterBackgroundNotification");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
-    
     self.applicationRunsInBackground = YES;
 }
 
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification
 {
-    NSLog(@"willEnterForegroundNotification");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
-    
     self.applicationRunsInBackground = NO;
 }
 

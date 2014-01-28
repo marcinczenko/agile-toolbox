@@ -19,6 +19,7 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 #import "EPQuestionsTableViewExpert.h"
+#import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 #import "EPDependencyBox.h"
 
 
@@ -37,5 +38,11 @@
 
 @property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
 @property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
+
+@property (nonatomic,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
+
+- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
+- (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
+- (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
 
 @end

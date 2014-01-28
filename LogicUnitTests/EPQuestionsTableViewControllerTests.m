@@ -15,6 +15,8 @@
 #import "EPQuestionsDataSourceProtocol.h"
 #import "EPPostmanProtocol.h"
 
+#import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
+
 #import "EPQuestionsTableViewControllerState.h"
 
 
@@ -30,6 +32,8 @@
 @property (nonatomic,strong) id tableViewExpertMock;
 
 @property (nonatomic,strong) id postmanMock;
+@property (nonatomic,strong) id statePreservationAssistantMock;
+
 @property (nonatomic,strong) id navigationControllerMock;
 @property (nonatomic,strong) id addQuestionController;
 @property (nonatomic,strong) id segueMock;
@@ -81,6 +85,7 @@ BOOL valueNO = NO;
     self.dependencyBox[@"FetchedResultsController"] = self.fetchedResultsControllerMock;
     self.dependencyBox[@"StateMachine"] = self.stateMachineMock;
     self.dependencyBox[@"Postman"] = self.postmanMock;
+    self.dependencyBox[@"StatePreservationAssistant"] = self.statePreservationAssistantMock;
 }
 
 - (void)setUp
@@ -94,6 +99,8 @@ BOOL valueNO = NO;
     [[[self.tableViewExpertMock stub] andReturn:self.tableViewMock] tableView];
     
     self.postmanMock = [OCMockObject niceMockForProtocol:@protocol(EPPostmanProtocol)];
+    self.statePreservationAssistantMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStatePreservationAssistant class]];
+    
     self.navigationControllerMock = [OCMockObject niceMockForClass:[UINavigationController class]];
     self.addQuestionController = [OCMockObject niceMockForClass:[EPAddQuestionViewController class]];
     self.segueMock = [OCMockObject niceMockForClass:[UIStoryboardSegue class]];
@@ -106,19 +113,24 @@ BOOL valueNO = NO;
     
 }
 
-- (void)testQATQuestionTableViewControllerHasPropertyForDataSource
+- (void)testQuestionTableViewControllerHasPropertyForDataSourceSet
 {
     XCTAssertEqualObjects(self.vc.questionsDataSource, self.questionsDataSourceMock);
 }
 
-- (void)testQATQuestionTableViewControllerHasPropertyForFetchedResultsController
+- (void)testQuestionTableViewControllerHasPropertyForFetchedResultsControllerSet
 {
     XCTAssertEqualObjects(self.vc.fetchedResultsController, self.fetchedResultsControllerMock);
 }
 
-- (void)testQATQuestionTableViewControllerHasPropertyForStateMachine
+- (void)testQuestionTableViewControllerHasPropertyForStateMachineSet
 {
     XCTAssertEqualObjects(self.vc.stateMachine, self.stateMachineMock);
+}
+
+- (void)testQuestionTableViewControllerHasPropertyForPreservationAssistantSet
+{
+    XCTAssertEqualObjects(self.vc.statePreservationAssistant, self.statePreservationAssistantMock);
 }
 
 - (void)testThatViewDidLoadInitializesTableViewExpert
@@ -362,5 +374,33 @@ BOOL valueNO = NO;
     
     [self.questionsDataSourceMock verify];
 }
+
+- (void)testThatDidEnterBackgroundNotificationDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewController:self.vc didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.vc didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatWillEnterForegroundNotificationDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewController:self.vc willEnterForegroundNotification:self.doesNotMatter];
+    
+    [self.vc willEnterForegroundNotification:self.doesNotMatter];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatDidBecomeActiveNotificationDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewController:self.vc didBecomeActiveNotification:self.doesNotMatter];
+    
+    [self.vc didBecomeActiveNotification:self.doesNotMatter];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
 
 @end

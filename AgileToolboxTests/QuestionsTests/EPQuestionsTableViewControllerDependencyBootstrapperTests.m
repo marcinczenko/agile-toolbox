@@ -42,6 +42,7 @@
     XCTAssertNotNil(dependencyBox[@"FetchedResultsController"]);
     XCTAssertNotNil(dependencyBox[@"StateMachine"]);
     XCTAssertNotNil(dependencyBox[@"Postman"]);
+    XCTAssertNotNil(dependencyBox[@"StatePreservationAssistant"]);
 }
 
 @end

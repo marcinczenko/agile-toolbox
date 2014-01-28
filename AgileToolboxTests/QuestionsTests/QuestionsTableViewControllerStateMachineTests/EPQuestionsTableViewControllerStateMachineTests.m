@@ -118,4 +118,19 @@ static const BOOL valueYES = YES;
     }
 }
 
+- (void)testThatStateMachineIsLoadingReturnsYESIfInEmptyLoadingState
+{
+    XCTAssertFalse([self.stateMachine isLoading]);
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
+    XCTAssertTrue([self.stateMachine isLoading]);
+}
+
+- (void)testThatStateMachineIsLoadingReturnsYESIfInQuestionsLoadingState
+{
+    XCTAssertFalse([self.stateMachine isLoading]);
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
+    XCTAssertTrue([self.stateMachine isLoading]);
+}
+
+
 @end

@@ -7,11 +7,17 @@
 //
 
 #import "EPQuestionsTableViewControllerDependencyBootstrapper.h"
+
 #import "EPQuestionsDataSource.h"
 #import "EPConnection.h"
+
 #import "EPQuestionsTableViewControllerStateMachine.h"
+
 #import "EPQuestionPostman.h"
 #import "EPJSONPostURLRequest.h"
+
+#import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
+
 
 #import "EPAppDelegate.h"
 
@@ -71,6 +77,11 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     return [[EPQuestionPostman alloc] initWithConnection:postConnection];
 }
 
+- (EPQuestionsTableViewControllerStatePreservationAssistant*)bootstrapPreservationAssistant
+{
+    return [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init];
+}
+
 - (EPDependencyBox*)bootstrap
 {
     EPDependencyBox* dependencyBox = [[EPDependencyBox alloc] init];
@@ -79,6 +90,7 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     dependencyBox[@"FetchedResultsController"] = [self bootstrapFetchedResultsController];
     dependencyBox[@"StateMachine"] = [self bootstrapStateMachine];
     dependencyBox[@"Postman"] = [self bootstrapPostman];
+    dependencyBox[@"StatePreservationAssistant"] = [self bootstrapPreservationAssistant];
     
     return dependencyBox;
 }

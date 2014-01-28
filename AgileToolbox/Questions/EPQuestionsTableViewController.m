@@ -26,8 +26,10 @@
 @property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
 
 @property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,weak) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
 @property (nonatomic,assign) BOOL isScrolling;
+@property (nonatomic,assign) BOOL viewNeedsRefreshing;
 
 @end
 
@@ -51,12 +53,22 @@
     self.tableView.delegate = self;
 }
 
+- (void)configureNotifications
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+    [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
+    [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+}
+
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
 {
     self.fetchedResultsController = dependencyBox[@"FetchedResultsController"];
     self.questionsDataSource = (id<EPQuestionsDataSourceProtocol>)dependencyBox[@"DataSource"];
     self.stateMachine = (EPQuestionsTableViewControllerStateMachine*)dependencyBox[@"StateMachine"];
     self.postman = (id<EPPostmanProtocol>)dependencyBox[@"Postman"];
+    self.statePreservationAssistant = (EPQuestionsTableViewControllerStatePreservationAssistant*)dependencyBox[@"StatePreservationAssistant"];
 }
 
 - (void)viewDidLoad
@@ -76,6 +88,8 @@
     
     [self.stateMachine viewDidLoad];
     
+    [self configureNotifications];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -83,9 +97,38 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
+{
+    [self.statePreservationAssistant viewController:self didEnterBackgroundNotification:paramNotification];
+}
+
+- (void)willEnterForegroundNotification:(NSNotification*)paramNotification
+{
+    [self.statePreservationAssistant viewController:self willEnterForegroundNotification:paramNotification];
+}
+
+- (void)didBecomeActiveNotification:(NSNotification*)paramNotification
+{
+    [self.statePreservationAssistant viewController:self didBecomeActiveNotification:paramNotification];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.statePreservationAssistant storeIndexPathOfFirstVisibleRowForViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -112,8 +155,7 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.questionsDataSource = nil;
-    self.postman = nil;
+    self.tableViewExpert = nil;
 }
 
 #pragma mark - Scroll view delegate
@@ -262,7 +304,7 @@
     [self.tableView beginUpdates];
 }
 
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     if (NSFetchedResultsChangeInsert == type) {
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]

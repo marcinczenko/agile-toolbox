@@ -52,6 +52,8 @@
 		6DAB88561892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB884F1892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m */; };
 		6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */; };
 		6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */; };
+		6DAB885D1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB885C1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m */; };
+		6DAB88601895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB885F1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m */; };
 		6DAFB6E818803F1900FC91C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAFB6E718803F1900FC91C9 /* CoreData.framework */; };
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -247,6 +249,9 @@
 		6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerDependencyBootstrapperTests.m; sourceTree = "<group>"; };
 		6DAB88591892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerDependencyBootstrapper.h; sourceTree = "<group>"; };
 		6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerDependencyBootstrapper.m; sourceTree = "<group>"; };
+		6DAB885C1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerStatePreservationAssistantTests.m; sourceTree = "<group>"; };
+		6DAB885E1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerStatePreservationAssistant.h; sourceTree = "<group>"; };
+		6DAB885F1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerStatePreservationAssistant.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
@@ -473,6 +478,8 @@
 				6DAB882B1892D783003075D8 /* TableViewCells */,
 				6DAB88591892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.h */,
 				6DAB885A1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m */,
+				6DAB885E1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.h */,
+				6DAB885F1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -542,6 +549,7 @@
 				6DAB88481892EBD2003075D8 /* ModelTests */,
 				6DAB884A1892EBD2003075D8 /* QuestionsTableViewControllerStateMachineTests */,
 				6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */,
+				6DAB885C1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m */,
 			);
 			path = QuestionsTests;
 			sourceTree = "<group>";
@@ -1112,6 +1120,7 @@
 				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
 				6DAB88311892D783003075D8 /* Question.m in Sources */,
 				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
+				6DAB88601895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m in Sources */,
 				6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */,
 				6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */,
 				6DAB883E1892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m in Sources */,
@@ -1131,6 +1140,7 @@
 				6DAB88531892EBD2003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m in Sources */,
 				6DAB88421892DBC2003075D8 /* EPDependencyBoxTests.m in Sources */,
 				D387EF3B1536EF0500635736 /* EPMainMenuListViewControllerAppTests.m in Sources */,
+				6DAB885D1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m in Sources */,
 				6DAB88561892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m in Sources */,
 				6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */,
 				6DAB88501892EBD2003075D8 /* EPQuestionsTableViewControllerAppTests.m in Sources */,

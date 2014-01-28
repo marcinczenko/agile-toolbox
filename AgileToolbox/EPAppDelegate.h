@@ -26,11 +26,6 @@
 
 @property (readonly, nonatomic) EPDependencyBox* questionsTableViewControllerDependencyBox;
 
-@property (nonatomic, readonly) NSFetchedResultsController *questionsFetchedResultsController;
-@property (nonatomic, readonly) EPQuestionsDataSource *questionsDataSource;
-@property (nonatomic, readonly) EPQuestionPostman *postman;
-@property (nonatomic, readonly) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
-
 // The following two methods are for CoreData
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
