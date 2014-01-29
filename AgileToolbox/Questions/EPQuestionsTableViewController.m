@@ -128,7 +128,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.statePreservationAssistant storeIndexPathOfFirstVisibleRowForViewController:self];
+    [self.statePreservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

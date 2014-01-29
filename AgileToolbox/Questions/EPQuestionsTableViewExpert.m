@@ -21,7 +21,7 @@
 
 - (id)initWithTableView:(UITableView*)tableView
 {
-    if ((self = [super self])) {
+    if ((self = [super init])) {
         _tableView = tableView;
     }
     return self;

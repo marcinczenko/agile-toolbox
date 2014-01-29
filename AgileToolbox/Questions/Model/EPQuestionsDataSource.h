@@ -30,8 +30,11 @@
 @property (nonatomic,readonly) id<EPConnectionProtocol> connection;
 
 + (NSUInteger)pageSize;
++ (NSString*)persistentStoreFileName;
 
 - (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+
+- (void)restoreFromPersistentStorage;
 
 
 #pragma mark - only for testing purposes - do not call these methods directly

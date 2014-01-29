@@ -12,6 +12,9 @@
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 
 #import "EPQuestionsTableViewController.h"
+#import "EPPersistentStoreHelper.h"
+#import "EPAppDelegate.h"
+#import "Question.h"
 
 @interface EPQuestionsTableViewControllerStatePreservationAssistantTests : XCTestCase
 
@@ -22,6 +25,7 @@
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 @property (nonatomic,strong) id stateMachineMock;
 @property (nonatomic,strong) id tableViewMock;
+@property (nonatomic,strong) id persistentStoreHelperMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -49,17 +53,25 @@ static const BOOL valueNO = NO;
     self.stateMachineMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStateMachine class]];
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
+    
+    self.persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here; it will be run once, after the last test case.
+    self.preservationAssistantPartialMock = nil;
+    
     [super tearDown];
 }
 
 - (void)mockFetchedResultsController
 {
     [[[self.questionsTableViewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
+}
+
+- (void)simulateFetchedResultsControllerHasNoData
+{
+   [[[self.fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
 }
 
 - (void)mockStateMachine
@@ -72,9 +84,9 @@ static const BOOL valueNO = NO;
     [[[self.questionsTableViewControllerMock stub] andReturn:self.tableViewMock] tableView];
 }
 
-- (void)expectStateMachineIsLoading
+- (void)expectStateMachineInQuestionsLoadingState:(BOOL)value
 {
-    [[[self.stateMachineMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] isLoading];
+    [[[self.stateMachineMock stub] andReturnValue:OCMOCK_VALUE(value)] inQuestionsLoadingState];
 }
 
 - (void)expectViewNeedsRefreshing
@@ -102,7 +114,7 @@ static const BOOL valueNO = NO;
 {
     [self mockStateMachine];
     
-    [self expectStateMachineIsLoading];
+    [self expectStateMachineInQuestionsLoadingState:YES];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
                 didEnterBackgroundNotification:self.doesNotMatter];
@@ -110,11 +122,26 @@ static const BOOL valueNO = NO;
     XCTAssertTrue(self.preservationAssistant.viewNeedsRefreshing);
 }
 
-- (void)expectStoredIndexPathToBe:(NSIndexPath*)indexPath
+- (id)questionWithId:(NSNumber*)questionId
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    Question *question = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
+    
+    question.question_id = questionId;
+    
+    return question;
+}
+
+- (void)simulateFirstVisibleIndexPathToBe:(NSIndexPath*)indexPath
 {
     // YES - indexForRowAtPoint: is expected to be call twice - the second call is for adjustment
     [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
     [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
+    
+    id question = [self questionWithId:[NSNumber numberWithInteger:indexPath.row]];
+    [[[self.fetchedResultsControllerMock stub] andReturn:question] objectAtIndexPath:indexPath];
+    [[[self.fetchedResultsControllerMock stub] andReturn:@[question]] fetchedObjects];
 }
 
 - (void)testThatDidEnterBackgroundNotificationSetsTheFetchedResultsControllerDelegateToNilDuringLoadingStates
@@ -122,7 +149,7 @@ static const BOOL valueNO = NO;
     [self mockFetchedResultsController];
     [self mockStateMachine];
     
-    [self expectStateMachineIsLoading];
+    [self expectStateMachineInQuestionsLoadingState:YES];
     
     [[self.fetchedResultsControllerMock expect] setDelegate:nil];
     
@@ -136,12 +163,43 @@ static const BOOL valueNO = NO;
 {
     [self mockStateMachine];
     
-    [self expectStateMachineIsLoading];
+    [self expectStateMachineInQuestionsLoadingState:YES];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
                 didEnterBackgroundNotification:self.doesNotMatter];
     
     XCTAssertTrue(self.preservationAssistant.viewNeedsRefreshing);
+}
+
+- (void)testThatDidEnterBackgroundNotificationStoresTheIdOfTheFirstVisibleQuestionToPersistentStorage
+{
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self mockFetchedResultsController];
+    [self mockTableView];
+    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
+    
+    [[self.persistentStoreHelperMock expect] storeDictionary:@{@"FirstVisibleQuestionId":[NSNumber numberWithInteger:indexPathFirstVisibleRow.row]}
+                                                      toFile:[EPQuestionsTableViewControllerStatePreservationAssistant persistentStoreFileName]];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock
+                didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.persistentStoreHelperMock verify];
+}
+
+- (void)testThatDidEnterBackgroundNotificationDoesNotStoreAnythingWhenThereAreNoQuestionsInFetchedResultsController
+{
+    [self mockFetchedResultsController];
+    [self simulateFetchedResultsControllerHasNoData];
+    
+    [[self.persistentStoreHelperMock reject] storeDictionary:[OCMArg any]
+                                                      toFile:[OCMArg any]];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock
+                didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.persistentStoreHelperMock verify];
 }
 
 - (void)testThatWillEnterForegroundNotificationRestoresTheFetchedResultsControllerDelegateWhenViewNeedsRefreshing
@@ -244,14 +302,15 @@ static const BOOL valueNO = NO;
 
 - (void)testStoringAndRestoringIndexPathOfTheFirstVisibleRow
 {
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
     
+    [self mockFetchedResultsController];
     [self mockTableView];
-    [self expectStoredIndexPathToBe:indexPathFirstVisibleRow];
+    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
     
     [[self.tableViewMock expect] scrollToRowAtIndexPath:indexPathFirstVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
-    [self.preservationAssistant storeIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
+    [self.preservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
     [self.preservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
     
     [self.tableViewMock verify];
@@ -269,15 +328,16 @@ static const BOOL valueNO = NO;
 
 - (void)testThatRestoringIndexPathClearsTheRestorationHistory
 {
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
     
+    [self mockFetchedResultsController];
     [self mockTableView];
-    [self expectStoredIndexPathToBe:indexPathFirstVisibleRow];
+    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
     
     [[self.tableViewMock expect] scrollToRowAtIndexPath:indexPathFirstVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     [[[self.tableViewMock reject] ignoringNonObjectArgs] scrollToRowAtIndexPath:[OCMArg any] atScrollPosition:0 animated:NO];
     
-    [self.preservationAssistant storeIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
+    [self.preservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
     [self.preservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
     [self.preservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
     
@@ -286,16 +346,17 @@ static const BOOL valueNO = NO;
 
 - (void)testThatRestoreIndexPathCallsReloadDataBeforePerformingScrolling
 {
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
     
+    [self mockFetchedResultsController];
     [self mockTableView];
-    [self expectStoredIndexPathToBe:indexPathFirstVisibleRow];
+    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
     
     [self.tableViewMock setExpectationOrderMatters:YES];
     [[self.tableViewMock expect] reloadData];
     [[self.tableViewMock expect] scrollToRowAtIndexPath:indexPathFirstVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
-    [self.preservationAssistant storeIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
+    [self.preservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
     [self.preservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
     
     [self.tableViewMock verify];

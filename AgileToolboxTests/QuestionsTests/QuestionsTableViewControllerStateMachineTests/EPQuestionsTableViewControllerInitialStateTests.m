@@ -52,6 +52,7 @@
 - (void)tearDown
 {
     // Put teardown code here; it will be run once, after the last test case.
+    self.applicationPartialMock = nil;
     [super tearDown];
 }
 

@@ -8,6 +8,7 @@
 
 #import "EPQuestionsDataSource.h"
 #import "EPQuestionsDataSourceProtocol.h"
+#import "EPPersistentStoreHelper.h"
 
 #import "Question.h"
 #import "EPAppDelegate.h"
@@ -28,11 +29,14 @@
 
 @implementation EPQuestionsDataSource
 
-const NSUInteger QUESTIONS_PER_PAGE = 40;
-
 + (NSUInteger)pageSize
 {
-    return QUESTIONS_PER_PAGE;
+    return 40;
+}
+
++ (NSString*)persistentStoreFileName
+{
+    return @"QuestionsDataSource.xml";
 }
 
 - (NSString*) connectionURL
@@ -69,6 +73,21 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
 {
     self.applicationRunsInBackground = YES;
+    
+    NSDictionary* dataDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:self.hasMoreQuestionsToFetch]};
+    [EPPersistentStoreHelper storeDictionary:dataDictionary toFile:[self.class persistentStoreFileName]];
+}
+
+- (void)restoreFromPersistentStorage
+{
+    NSDictionary* dataDictionary = [EPPersistentStoreHelper readDictionaryFromFile:[self.class persistentStoreFileName]];
+    
+    if (dataDictionary) {
+        if (dataDictionary[@"HasMoreQuestionsToFetch"]) {
+            NSNumber* boolNumber = dataDictionary[@"HasMoreQuestionsToFetch"];
+            self.hasMoreQuestionsToFetch = boolNumber.boolValue;
+        }
+    }
 }
 
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification
@@ -120,7 +139,7 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
     
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
-                                                                                         (unsigned long)QUESTIONS_PER_PAGE]}];
+                                                                                         (unsigned long)[self.class pageSize]]}];
     
     if (0 <= questionId) {
         [params addEntriesFromDictionary:@{@"id": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
@@ -162,31 +181,42 @@ const NSUInteger QUESTIONS_PER_PAGE = 40;
     }
 }
 
+- (void)callFetchReturnedNoDataDelegate
+{
+    if (self.applicationRunsInBackground) {
+        if ([self.delegate respondsToSelector:@selector(fetchReturnedNoDataInBackground)]) {
+            [self.delegate fetchReturnedNoDataInBackground];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(fetchReturnedNoData)]) {
+            [self.delegate fetchReturnedNoData];
+        }
+    }
+}
+
+- (void)callDataChangedInBackgroundWhenInBackground
+{
+    if (self.applicationRunsInBackground) {
+        if ([self.delegate respondsToSelector:@selector(dataChangedInBackground)]) {
+            [self.delegate dataChangedInBackground];
+        }
+    }
+}
+
 - (void)downloadCompleted:(NSData *)data
 {
     NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    if (QUESTIONS_PER_PAGE > new_data.count) {
+    if ([self.class pageSize] > new_data.count) {
         _hasMoreQuestionsToFetch = NO;
     }
 
     if (0==new_data.count) {
-        if (self.applicationRunsInBackground) {
-            if ([self.delegate respondsToSelector:@selector(fetchReturnedNoDataInBackground)]) {
-                [self.delegate fetchReturnedNoDataInBackground];
-            }
-        } else {
-            if ([self.delegate respondsToSelector:@selector(fetchReturnedNoData)]) {
-                [self.delegate fetchReturnedNoData];
-            }
-        }
+        [self callFetchReturnedNoDataDelegate];
     } else {
         [self saveToCoreData:new_data];
-        if (self.applicationRunsInBackground) {
-            if ([self.delegate respondsToSelector:@selector(dataChangedInBackground)]) {
-                [self.delegate dataChangedInBackground];
-            }
-        }
+        [self callDataChangedInBackgroundWhenInBackground];
+        
     }
     
     [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];

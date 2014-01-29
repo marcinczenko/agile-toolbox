@@ -118,18 +118,18 @@ static const BOOL valueYES = YES;
     }
 }
 
-- (void)testThatStateMachineIsLoadingReturnsYESIfInEmptyLoadingState
+- (void)testThatStateMachineInQuestionsLoadingStateReturnsNOIfInEmptyLoadingState
 {
-    XCTAssertFalse([self.stateMachine isLoading]);
+    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-    XCTAssertTrue([self.stateMachine isLoading]);
+    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
 }
 
-- (void)testThatStateMachineIsLoadingReturnsYESIfInQuestionsLoadingState
+- (void)testThatStateMachineInQuestionsLoadingStateReturnsYESIfInQuestionsLoadingState
 {
-    XCTAssertFalse([self.stateMachine isLoading]);
+    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
-    XCTAssertTrue([self.stateMachine isLoading]);
+    XCTAssertTrue([self.stateMachine inQuestionsLoadingState]);
 }
 
 

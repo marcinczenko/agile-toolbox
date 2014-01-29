@@ -34,7 +34,7 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 
 - (instancetype)initWithAppDelegate:(EPAppDelegate*)appDelegate
 {
-    if ((self=[super self])) {
+    if ((self=[super init])) {
         _appDelegate = appDelegate;
     }
     
@@ -44,8 +44,12 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 - (EPQuestionsDataSource*)bootstrapDataSource
 {
     EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
-    return [[EPQuestionsDataSource alloc] initWithConnection:connection
-                                 andWithManagedObjectContext:self.appDelegate.managedObjectContext];
+    EPQuestionsDataSource* dataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
+                                                              andWithManagedObjectContext:self.appDelegate.managedObjectContext];
+    
+    [dataSource restoreFromPersistentStorage];
+    
+    return dataSource;
 }
 
 - (NSFetchedResultsController*)bootstrapFetchedResultsController
@@ -79,7 +83,9 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 
 - (EPQuestionsTableViewControllerStatePreservationAssistant*)bootstrapPreservationAssistant
 {
-    return [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init];
+    EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init];
+    [statePreservationAssistant restoreFromPersistentStorage];
+    return statePreservationAssistant;
 }
 
 - (EPDependencyBox*)bootstrap

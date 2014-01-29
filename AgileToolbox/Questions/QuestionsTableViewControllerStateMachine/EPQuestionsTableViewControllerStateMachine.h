@@ -21,7 +21,7 @@
 
 
 - (void)assignViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
-- (BOOL)isLoading;
+- (BOOL)inQuestionsLoadingState;
 
 - (void)changeCurrentStateTo:(Class)stateClass;
 

@@ -8,6 +8,8 @@
 
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 #import "EPQuestionsTableViewController.h"
+#import "EPPersistentStoreHelper.h"
+#import "Question.h"
 
 @interface EPQuestionsTableViewControllerStatePreservationAssistant ()
 
@@ -16,11 +18,16 @@
 @property (nonatomic,copy) NotificationHandlerBlockType didBecomeActiveNotificationBlock;
 
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
-@property (nonatomic,strong) NSIndexPath* indexPathOfFirstVisibleRow;
+@property (nonatomic,strong) NSNumber* idOfTheFirstVisibleRow;
 
 @end
 
 @implementation EPQuestionsTableViewControllerStatePreservationAssistant
+
++ (NSString*)persistentStoreFileName
+{
+    return @"PreservationAssistant.xml";
+}
 
 - (instancetype)init
 {
@@ -38,10 +45,11 @@
 
 - (void)viewController:(EPQuestionsTableViewController*)viewController didEnterBackgroundNotification:(NSNotification*)notification
 {
-    if ([viewController.stateMachine isLoading]) {
+    if ([viewController.stateMachine inQuestionsLoadingState]) {
         viewController.fetchedResultsController.delegate = nil;
         self.viewNeedsRefreshing = YES;
     }
+    [self storeToPersistentStorageForViewController:viewController];
 }
 
 - (void)viewController:(EPQuestionsTableViewController*)viewController willEnterForegroundNotification:(NSNotification*)notification
@@ -74,25 +82,74 @@
     return [tableView indexPathForRowAtPoint:point];
 }
 
-- (void)storeIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController
+- (NSIndexPath*)getIndexPathOfFirstVisibleCellInViewController:(EPQuestionsTableViewController*)viewController
 {
     UINavigationBar *navbar = viewController.navigationController.navigationBar;
     CGRect localFrame = [viewController.tableView convertRect:navbar.bounds fromView:navbar];
     CGPoint point = CGPointMake(0, localFrame.origin.y + localFrame.size.height + 1);
     
-    self.indexPathOfFirstVisibleRow = [self adjustIndexPath:[viewController.tableView indexPathForRowAtPoint:point]
-                                               forTableView:viewController.tableView
-                                         withRespectToFrame:localFrame];
+    return [self adjustIndexPath:[viewController.tableView indexPathForRowAtPoint:point]
+                                                       forTableView:viewController.tableView
+                                                 withRespectToFrame:localFrame];
+}
+
+- (NSNumber*)getIdCorrespondingToIndexPath:(NSIndexPath*)indexPath inViewController:(EPQuestionsTableViewController*)viewController
+{
+    Question* question = [viewController.fetchedResultsController objectAtIndexPath:indexPath];
+    return question.question_id;
+}
+
+- (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController
+{
+    if (0<viewController.fetchedResultsController.fetchedObjects.count) {
+        
+        self.idOfTheFirstVisibleRow = [self getIdCorrespondingToIndexPath:[self getIndexPathOfFirstVisibleCellInViewController:viewController]
+                                                         inViewController:viewController];
+    }
+}
+
+- (NSIndexPath*)indexPathForQuestionId:(NSNumber*)id inViewController:(EPQuestionsTableViewController*)viewController
+{
+    __block NSIndexPath* indexPath = nil;
+    [viewController.fetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Question* question, NSUInteger idx, BOOL *stop) {
+        if (self.idOfTheFirstVisibleRow == question.question_id) {
+            indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+            *stop = YES;
+        }
+    }];
+    return indexPath;
 }
 
 - (void)restoreIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController
 {
-    if (self.indexPathOfFirstVisibleRow) {
-        NSLog(@"storedIndex:%@",self.indexPathOfFirstVisibleRow);
+    if (self.idOfTheFirstVisibleRow) {
         [viewController.tableView reloadData];
-        [viewController.tableView scrollToRowAtIndexPath:self.indexPathOfFirstVisibleRow
-                                        atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        self.indexPathOfFirstVisibleRow = nil;
+        NSIndexPath* indexPath = [self indexPathForQuestionId:self.idOfTheFirstVisibleRow inViewController:viewController];
+        if (indexPath) {
+            [viewController.tableView scrollToRowAtIndexPath:indexPath
+                                            atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
+        self.idOfTheFirstVisibleRow = nil;
+    }
+}
+
+- (void)storeToPersistentStorageForViewController:(EPQuestionsTableViewController*)viewController
+{
+    [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
+    if (self.idOfTheFirstVisibleRow) {
+        [EPPersistentStoreHelper storeDictionary:@{@"FirstVisibleQuestionId":self.idOfTheFirstVisibleRow}
+                                          toFile:[self.class persistentStoreFileName]];
+    }
+}
+
+- (void)restoreFromPersistentStorage
+{
+    NSDictionary* dataDictionary = [EPPersistentStoreHelper readDictionaryFromFile:[self.class persistentStoreFileName]];
+    
+    if (dataDictionary) {
+        if (dataDictionary[@"FirstVisibleQuestionId"]) {
+            self.idOfTheFirstVisibleRow = dataDictionary[@"FirstVisibleQuestionId"];
+        }
     }
 }
 

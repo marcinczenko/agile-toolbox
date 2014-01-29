@@ -49,16 +49,9 @@
     }];
 }
 
-- (BOOL)isLoading
+- (BOOL)inQuestionsLoadingState
 {
-    NSArray* loadingStates = @[self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerEmptyLoadingState class])],
-                               self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]];
-    
-    if ([loadingStates containsObject:self.currentState]) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return (self.currentState == self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]);
 }
 
 + (void)populateStatesDictionary:(NSMutableDictionary*)dictionary
