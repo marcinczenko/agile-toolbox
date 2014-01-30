@@ -37,14 +37,6 @@
 @synthesize questionsDataSource = _dataSource;
 @synthesize postman = _postman;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {        
-    }
-    return self;
-}
-
 - (void)setDelegates
 {
     self.fetchedResultsController.delegate = self;

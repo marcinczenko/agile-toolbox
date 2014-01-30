@@ -9,16 +9,13 @@
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 #import "EPQuestionsTableViewController.h"
 #import "EPPersistentStoreHelper.h"
+#import "EPAppDelegate.h"
 #import "Question.h"
 
 @interface EPQuestionsTableViewControllerStatePreservationAssistant ()
 
-@property (nonatomic,strong) NSNotificationCenter* notificationCenter;
-@property (nonatomic,copy) NotificationHandlerBlockType willEnterForegroundNotificationBlock;
-@property (nonatomic,copy) NotificationHandlerBlockType didBecomeActiveNotificationBlock;
-
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
-@property (nonatomic,strong) NSNumber* idOfTheFirstVisibleRow;
+@property (nonatomic,strong) NSURL* idOfTheFirstVisibleRow;
 
 @end
 
@@ -29,13 +26,17 @@
     return @"PreservationAssistant.xml";
 }
 
-- (instancetype)init
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super init])) {
-        
+        _idOfTheFirstVisibleRow = [[NSURL alloc] initWithCoder:aDecoder];
     }
-    
     return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [self.idOfTheFirstVisibleRow encodeWithCoder:aCoder];
 }
 
 - (BOOL)viewIsVisibleForViewController:(EPQuestionsTableViewController*)viewController
@@ -93,26 +94,28 @@
                                                  withRespectToFrame:localFrame];
 }
 
-- (NSNumber*)getIdCorrespondingToIndexPath:(NSIndexPath*)indexPath inViewController:(EPQuestionsTableViewController*)viewController
+- (NSURL*)getArchiveableRepresentationOfIdForIndexPath:(NSIndexPath*)indexPath inViewController:(EPQuestionsTableViewController*)viewController
 {
     Question* question = [viewController.fetchedResultsController objectAtIndexPath:indexPath];
-    return question.question_id;
+    return [question.objectID URIRepresentation];
 }
 
 - (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController
 {
     if (0<viewController.fetchedResultsController.fetchedObjects.count) {
         
-        self.idOfTheFirstVisibleRow = [self getIdCorrespondingToIndexPath:[self getIndexPathOfFirstVisibleCellInViewController:viewController]
-                                                         inViewController:viewController];
+        self.idOfTheFirstVisibleRow = [self getArchiveableRepresentationOfIdForIndexPath:[self getIndexPathOfFirstVisibleCellInViewController:viewController]
+                                                                        inViewController:viewController];
     }
 }
 
-- (NSIndexPath*)indexPathForQuestionId:(NSNumber*)id inViewController:(EPQuestionsTableViewController*)viewController
+- (NSIndexPath*)indexPathForQuestionURI:(NSURL*)uri inViewController:(EPQuestionsTableViewController*)viewController
 {
     __block NSIndexPath* indexPath = nil;
     [viewController.fetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Question* question, NSUInteger idx, BOOL *stop) {
-        if (self.idOfTheFirstVisibleRow == question.question_id) {
+        EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        NSManagedObjectID* firstVisibleQuestion = [appDelegate.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+        if ([firstVisibleQuestion isEqual:question.objectID]) {
             indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             *stop = YES;
         }
@@ -124,7 +127,7 @@
 {
     if (self.idOfTheFirstVisibleRow) {
         [viewController.tableView reloadData];
-        NSIndexPath* indexPath = [self indexPathForQuestionId:self.idOfTheFirstVisibleRow inViewController:viewController];
+        NSIndexPath* indexPath = [self indexPathForQuestionURI:self.idOfTheFirstVisibleRow inViewController:viewController];
         if (indexPath) {
             [viewController.tableView scrollToRowAtIndexPath:indexPath
                                             atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -137,20 +140,18 @@
 {
     [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
     if (self.idOfTheFirstVisibleRow) {
-        [EPPersistentStoreHelper storeDictionary:@{@"FirstVisibleQuestionId":self.idOfTheFirstVisibleRow}
-                                          toFile:[self.class persistentStoreFileName]];
+        [EPPersistentStoreHelper archiveObject:self toFile:[self.class persistentStoreFileName]];
     }
 }
 
-- (void)restoreFromPersistentStorage
++ (instancetype)restoreFromPersistentStorage
 {
-    NSDictionary* dataDictionary = [EPPersistentStoreHelper readDictionaryFromFile:[self.class persistentStoreFileName]];
+    id obj = [EPPersistentStoreHelper unarchiveObjectFromFile:[self persistentStoreFileName]];
     
-    if (dataDictionary) {
-        if (dataDictionary[@"FirstVisibleQuestionId"]) {
-            self.idOfTheFirstVisibleRow = dataDictionary[@"FirstVisibleQuestionId"];
-        }
+    if (!obj) {
+        obj = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init];
     }
+    return obj;
 }
 
 @end

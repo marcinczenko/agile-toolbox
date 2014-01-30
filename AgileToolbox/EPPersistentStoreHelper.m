@@ -16,7 +16,7 @@
     return [[fileManager URLForDirectory:NSApplicationSupportDirectory
                                 inDomain:NSUserDomainMask
                        appropriateForURL:nil
-                                  create:NO
+                                  create:YES
                                    error:nil] URLByAppendingPathComponent:fileName];
 }
 
@@ -31,6 +31,19 @@
 {
     NSURL* questionsDataSourceFileURL = [self persistentStateURLForFile:fileName];
     return [[NSDictionary alloc] initWithContentsOfURL:questionsDataSourceFileURL];
+}
+
++ (BOOL)archiveObject:(id)object toFile:(NSString*)fileName
+{
+    NSURL* fileURL = [self persistentStateURLForFile:fileName];
+    return [NSKeyedArchiver archiveRootObject:object toFile:[fileURL path]];
+}
+
++ (id)unarchiveObjectFromFile:(NSString*)fileName
+{
+    NSURL* fileURL = [self persistentStateURLForFile:fileName];
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:[fileURL path]];
 }
 
 @end

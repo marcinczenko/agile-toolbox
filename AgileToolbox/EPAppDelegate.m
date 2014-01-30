@@ -27,13 +27,48 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.questionsTableViewControllerDependencyBox = [[[EPQuestionsTableViewControllerDependencyBootstrapper alloc] initWithAppDelegate:self] bootstrap];
     
     return YES;
 }
-							
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return NO;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return NO;
+}
+
+- (UIViewController*)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+//    NSLog(@"%@",[(UINavigationController*)self.window.rootViewController viewControllers]);
+    
+    if ([[identifierComponents lastObject] isEqualToString:@"MenuItems"]) {
+        return self.window.rootViewController;
+    }
+    if ([[identifierComponents lastObject] isEqualToString:@"EPMainMenuListViewController"]) {
+        return [(UINavigationController*)self.window.rootViewController viewControllers][0];
+    }
+    
+    UIStoryboard* board = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    
+    if ([[identifierComponents lastObject] isEqualToString:@"EPQuestionsTableViewController"]) {
+        EPQuestionsTableViewController* questionsTableViewController = (EPQuestionsTableViewController*)[board instantiateViewControllerWithIdentifier:[identifierComponents lastObject]];
+        
+        [questionsTableViewController injectDependenciesFrom:self.questionsTableViewControllerDependencyBox];
+        
+        return questionsTableViewController;
+    }
+    
+    return nil;
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -63,7 +98,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    NSLog(@"applicationWillTerminate");
 }
 
 - (void)saveContext
@@ -118,13 +152,15 @@
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-    
-//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
-    
+
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+#ifdef TEST
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
-//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+#else
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+#endif
         /*
          Replace this implementation with code to handle the error appropriately.
          

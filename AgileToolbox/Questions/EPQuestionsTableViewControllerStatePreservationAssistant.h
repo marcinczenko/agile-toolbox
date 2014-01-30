@@ -9,19 +9,12 @@
 #import <Foundation/Foundation.h>
 @class EPQuestionsTableViewController;
 
-@interface EPQuestionsTableViewControllerStatePreservationAssistant : NSObject
+@interface EPQuestionsTableViewControllerStatePreservationAssistant : NSObject<NSCoding>
 
-typedef void (^NotificationHandlerBlockType)(NSNotification* note);
-
-@property (nonatomic,copy,readonly) NotificationHandlerBlockType willEnterForegroundNotificationBlock;
-@property (nonatomic,copy,readonly) NotificationHandlerBlockType didBecomeActiveNotificationBlock;
-
-@property (nonatomic,readonly) NSNotificationCenter* notificationCenter;
-@property (nonatomic,weak) EPQuestionsTableViewController* viewController;
 @property (nonatomic,readonly) BOOL viewNeedsRefreshing;
-@property (nonatomic,readonly) NSNumber* idOfTheFirstVisibleRow;
+@property (nonatomic,readonly) NSURL* idOfTheFirstVisibleRow;
 
-- (instancetype)init;
++ (instancetype)restoreFromPersistentStorage;
 
 - (void)viewController:(EPQuestionsTableViewController*)viewController didEnterBackgroundNotification:(NSNotification*)notification;
 - (void)viewController:(EPQuestionsTableViewController*)viewController willEnterForegroundNotification:(NSNotification*)notification;
@@ -29,8 +22,7 @@ typedef void (^NotificationHandlerBlockType)(NSNotification* note);
 - (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController;
 - (void)restoreIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController;
 - (void)storeToPersistentStorageForViewController:(EPQuestionsTableViewController*)viewController;
-- (NSIndexPath*)indexPathForQuestionId:(NSNumber*)id inViewController:(EPQuestionsTableViewController*)viewController;
-- (void)restoreFromPersistentStorage;
+- (NSIndexPath*)indexPathForQuestionURI:(NSURL*)uri inViewController:(EPQuestionsTableViewController*)viewController;
 
 + (NSString*)persistentStoreFileName;
 // do not call this method directly - it is here for the purpose of testing

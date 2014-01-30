@@ -83,13 +83,12 @@
 
 - (void)testThatStatePreservationAssistantIsRestoredFromPersistentStorage
 {
-    [self simulatePersistentStateForPreservationAssistant];
+    id statePreservationMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStatePreservationAssistant class]];
+    [[[statePreservationMock expect] andReturn:[[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init]] restoreFromPersistentStorage];
     
     self.dependencyBox = [self.bootstrapper bootstrap];
     
-    EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant = self.dependencyBox[@"StatePreservationAssistant"];
-    
-    XCTAssertEqualObjects(@42, statePreservationAssistant.idOfTheFirstVisibleRow);
+    [statePreservationMock verify];
 }
 
 

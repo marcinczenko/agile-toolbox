@@ -36,7 +36,7 @@
 {
     [super setUp];
     
-    self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"QuestionsViewController"];
+    self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"EPQuestionsTableViewController"];
     EPDependencyBox* dependencyBox = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerDependencyBox;
     [self.questionsTableViewController injectDependenciesFrom:dependencyBox];
     self.fetchMoreTableViewCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView

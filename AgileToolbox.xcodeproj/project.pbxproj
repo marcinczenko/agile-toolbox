@@ -204,6 +204,8 @@
 		6D60E32018983103001FCFE8 /* EPPersistentStoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPersistentStoreHelper.h; sourceTree = "<group>"; };
 		6D60E32118983103001FCFE8 /* EPPersistentStoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPersistentStoreHelper.m; sourceTree = "<group>"; };
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		6D8F050A189995DF000D0460 /* AgileToolbox copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AgileToolbox copy-Info.plist"; path = "/Users/mczenko/Projects/Quantum/AgileToolbox/AgileToolbox copy-Info.plist"; sourceTree = "<absolute>"; };
+		6D8F055318999738000D0460 /* AgileToolbox copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AgileToolbox copy2-Info.plist"; path = "/Users/mczenko/Projects/Quantum/AgileToolbox/AgileToolbox copy2-Info.plist"; sourceTree = "<absolute>"; };
 		6D92CA2A15AB4916002602C4 /* EPQuestionsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerTests.m; sourceTree = "<group>"; };
 		6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPFetchMoreTableViewCellTests.m; path = TableViewCellsTests/EPFetchMoreTableViewCellTests.m; sourceTree = "<group>"; };
 		6DAB88091892D783003075D8 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
@@ -592,6 +594,8 @@
 				D3A7B4A115AB011C00DD6772 /* IntegrationTests */,
 				D387EF0E1536EF0400635736 /* Frameworks */,
 				D387EF0C1536EF0400635736 /* Products */,
+				6D8F050A189995DF000D0460 /* AgileToolbox copy-Info.plist */,
+				6D8F055318999738000D0460 /* AgileToolbox copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1393,6 +1397,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = "-DTEST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=*]" = "";
@@ -1448,6 +1453,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
+				OTHER_CFLAGS = "-DTEST";
+				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",
@@ -1483,6 +1490,11 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-DTEST",
+				);
+				OTHER_CPLUSPLUSFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",

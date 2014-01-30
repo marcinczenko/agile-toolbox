@@ -83,9 +83,7 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 
 - (EPQuestionsTableViewControllerStatePreservationAssistant*)bootstrapPreservationAssistant
 {
-    EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] init];
-    [statePreservationAssistant restoreFromPersistentStorage];
-    return statePreservationAssistant;
+    return [EPQuestionsTableViewControllerStatePreservationAssistant restoreFromPersistentStorage];
 }
 
 - (EPDependencyBox*)bootstrap

@@ -12,5 +12,7 @@
 
 + (void)storeDictionary:(NSDictionary*)dictionary toFile:(NSString*)fileName;
 + (NSDictionary*)readDictionaryFromFile:(NSString*)fileName;
++ (BOOL)archiveObject:(id)object toFile:(NSString*)fileName;
++ (id)unarchiveObjectFromFile:(NSString*)fileName;
 
 @end

@@ -133,15 +133,32 @@ static const BOOL valueNO = NO;
     return question;
 }
 
+- (NSArray*)questionsWithQuestionIdUpToAndIncluding:(NSInteger)maxId
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSMutableArray* array = [NSMutableArray new];
+    
+    for (int i=0; i<maxId+1; i++) {
+        Question *question = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
+        
+        question.question_id = [NSNumber numberWithInt:i];
+        
+        [array addObject:question];
+    }
+    return array;
+}
+
 - (void)simulateFirstVisibleIndexPathToBe:(NSIndexPath*)indexPath
 {
     // YES - indexForRowAtPoint: is expected to be call twice - the second call is for adjustment
     [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
     [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
     
-    id question = [self questionWithId:[NSNumber numberWithInteger:indexPath.row]];
-    [[[self.fetchedResultsControllerMock stub] andReturn:question] objectAtIndexPath:indexPath];
-    [[[self.fetchedResultsControllerMock stub] andReturn:@[question]] fetchedObjects];
+    NSArray* questions = [self questionsWithQuestionIdUpToAndIncluding:indexPath.row];
+    
+    [[[self.fetchedResultsControllerMock stub] andReturn:questions[indexPath.row]] objectAtIndexPath:indexPath];
+    [[[self.fetchedResultsControllerMock stub] andReturn:questions] fetchedObjects];
 }
 
 - (void)testThatDidEnterBackgroundNotificationSetsTheFetchedResultsControllerDelegateToNilDuringLoadingStates
@@ -171,15 +188,30 @@ static const BOOL valueNO = NO;
     XCTAssertTrue(self.preservationAssistant.viewNeedsRefreshing);
 }
 
-- (void)testThatDidEnterBackgroundNotificationStoresTheIdOfTheFirstVisibleQuestionToPersistentStorage
+- (void)testThatEncodeWithCoderSavesTheClassToPersistentStorage
 {
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
+    id coder = [OCMockObject mockForClass:[NSCoder class]];
+    
+    id NSURLMock = [OCMockObject niceMockForClass:[NSURL class]];
+    [[NSURLMock expect] encodeWithCoder:coder];
+    
+    [[[self.preservationAssistantPartialMock stub] andReturn:NSURLMock] idOfTheFirstVisibleRow];
+    
+    [self.preservationAssistant encodeWithCoder:coder];
+    
+    [NSURLMock verify];
+}
+
+- (void)testThatDidEnterBackgroundNotificationStoresTheIdOfTheFirstVisibleQuestionToPersistentStorage
+{    
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
     
     [self mockFetchedResultsController];
     [self mockTableView];
     [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
     
-    [[self.persistentStoreHelperMock expect] storeDictionary:@{@"FirstVisibleQuestionId":[NSNumber numberWithInteger:indexPathFirstVisibleRow.row]}
+    
+    [[self.persistentStoreHelperMock expect] archiveObject:self.preservationAssistant
                                                       toFile:[EPQuestionsTableViewControllerStatePreservationAssistant persistentStoreFileName]];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
@@ -302,7 +334,7 @@ static const BOOL valueNO = NO;
 
 - (void)testStoringAndRestoringIndexPathOfTheFirstVisibleRow
 {
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
     
     [self mockFetchedResultsController];
     [self mockTableView];

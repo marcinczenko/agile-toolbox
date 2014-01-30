@@ -60,4 +60,16 @@
     XCTAssertEqualObjects(testDictionary,[EPPersistentStoreHelper readDictionaryFromFile:@"TestData.xml"]);
 }
 
+- (void)testThatPersistentStoreCanArchiveAndUnarchiveObjects
+{
+    [self removeStatePreservationFileIfExists];
+    
+    NSDictionary* testDictionary = @{@"Key1": @YES,
+                                     @"Key2": @123,
+                                     @"Key3": @"String"};
+    
+    [EPPersistentStoreHelper archiveObject:testDictionary toFile:@"TestData.xml"];
+    XCTAssertEqualObjects(testDictionary,[EPPersistentStoreHelper unarchiveObjectFromFile:@"TestData.xml"]);
+}
+
 @end
