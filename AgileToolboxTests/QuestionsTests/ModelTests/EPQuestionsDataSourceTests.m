@@ -28,9 +28,7 @@
 
 @property (nonatomic,strong) EPQuestionsDataSource *questionsWithConnectionMock;
 @property (nonatomic,strong) EPQuestionsDataSource *questionsWithNilConnection;
-@property (nonatomic,strong) id questionsPartialMock;
 @property (nonatomic,strong) id dataSourceDelegateMock;
-@property (nonatomic,strong) id persistentStoreHelperMock;
 
 @property (nonatomic,strong) id connectionMock;
 
@@ -105,20 +103,18 @@ static const BOOL valueYES = YES;
     return [self.managedObjectContext executeFetchRequest:fetchRequest error:&requestError];
 }
 
-- (void)simulateEnteringBackgroundMode
+- (void)simulateBackgroundModeFor:(id)questionsPartialMock
 {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+    [[[questionsPartialMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] applicationRunsInBackground];
 }
 
--(void)mockOutCallingCoreDataFor:(id)questions
+-(void)mockOutCallingCoreDataFor:(id)questionsPartialMock
 {
-    self.questionsPartialMock = [OCMockObject partialMockForObject:questions];
-    [[self.questionsPartialMock stub] saveToCoreData:[OCMArg any]];
+    [[questionsPartialMock stub] saveToCoreData:[OCMArg any]];
 }
 
 
--(EPQuestionsDataSource*)createQuestionsDataSourceWithConnectio:(id)connection
+-(EPQuestionsDataSource*)createQuestionsDataSourceWithConnection:(id)connection
 {
     return [[EPQuestionsDataSource alloc] initWithConnection:connection
                            andWithManagedObjectContext:self.managedObjectContext];
@@ -127,12 +123,12 @@ static const BOOL valueYES = YES;
 -(EPQuestionsDataSource*)setupQuestionsWithConnectionMock:(id)connectionMock
 {
     [[connectionMock expect] setDelegate:[OCMArg any]];
-    return [self createQuestionsDataSourceWithConnectio:connectionMock];
+    return [self createQuestionsDataSourceWithConnection:connectionMock];
 }
 
 -(EPQuestionsDataSource*)setupQuestionsWithNilConnection
 {
-    return [self createQuestionsDataSourceWithConnectio:nil];
+    return [self createQuestionsDataSourceWithConnection:nil];
 }
 
 -(void)setUp
@@ -145,13 +141,10 @@ static const BOOL valueYES = YES;
     self.questionsWithNilConnection = [self setupQuestionsWithNilConnection];
     
     self.dataSourceDelegateMock = [OCMockObject mockForProtocol:@protocol(EPQuestionsDataSourceDelegateProtocol)];
-    
-    self.persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
 }
 
 -(void)tearDown
 {
-    self.persistentStoreHelperMock = nil;
 }
 
 -(void)testFetching1stSetOfQuestions
@@ -209,33 +202,36 @@ static const BOOL valueYES = YES;
 {
     NSArray* jsonArray = [self generateTestJSONArrayWith:EPQuestionsDataSource.pageSize-1];
     
-    [self mockOutCallingCoreDataFor:self.questionsWithNilConnection];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsPartialMock downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
     
-    XCTAssertFalse(((EPQuestionsDataSource*)self.questionsPartialMock).hasMoreQuestionsToFetch);
+    XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
 
 - (void)testThatDataSourceSetsHasMoreQuestionsToFetchToNOWhenLastFetchReturnedExactlyOneQuestion
 {
     NSArray* jsonArray = [self generateTestJSONArrayWith:1];
     
-    [self mockOutCallingCoreDataFor:self.questionsWithNilConnection];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsPartialMock downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
     
-    XCTAssertFalse(((EPQuestionsDataSource*)self.questionsPartialMock).hasMoreQuestionsToFetch);
+    XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
 
 - (void)testThatDataSourceSetsHasMoreQuestionsToFetchToYESWhenLastFetchReturnedExactlyOnePageOfQuestions
 {
     NSArray* jsonArray = [self generateTestJSONArrayWith:EPQuestionsDataSource.pageSize];
     
-    [self mockOutCallingCoreDataFor:self.questionsWithNilConnection];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsPartialMock downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
     
-    XCTAssertTrue(((EPQuestionsDataSource*)self.questionsPartialMock).hasMoreQuestionsToFetch);
+    XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
 
 - (void)testThatDataSourceCallsFetchReturnedNoDataDelegateWhenNoDataHasBeenFetchedFromTheServer
@@ -252,7 +248,8 @@ static const BOOL valueYES = YES;
 {
     [[self.dataSourceDelegateMock expect] fetchReturnedNoDataInBackground];
     
-    [self simulateEnteringBackgroundMode];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self simulateBackgroundModeFor:questionsPartialMock];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
@@ -266,9 +263,9 @@ static const BOOL valueYES = YES;
     
     [[self.dataSourceDelegateMock expect] dataChangedInBackground];
     
-    [self mockOutCallingCoreDataFor:self.questionsWithNilConnection];
-    
-    [self simulateEnteringBackgroundMode];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self mockOutCallingCoreDataFor:questionsPartialMock];
+    [self simulateBackgroundModeFor:questionsPartialMock];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
@@ -278,25 +275,31 @@ static const BOOL valueYES = YES;
 
 - (void)testThatDataSourceDoesNotSaveDataToCoreDataWhenServerReturnsNoAnswers
 {
-    self.questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
-    [[self.questionsPartialMock reject] saveToCoreData:[OCMArg any]];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [[questionsPartialMock reject] saveToCoreData:[OCMArg any]];
     
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
 }
 
 - (void)testThatDataSourceStoresItsStateToAFileWhenEnteringBackgroundMode
 {
-    [[self.persistentStoreHelperMock expect] storeDictionary:@{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:YES]}
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[persistentStoreHelperMock expect] storeDictionary:@{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:YES]}
                                                       toFile:[EPQuestionsDataSource persistentStoreFileName]];
-    [self simulateEnteringBackgroundMode];
     
-    [self.persistentStoreHelperMock verify];
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [self simulateBackgroundModeFor:questionsPartialMock];
+    
+    [self.questionsWithNilConnection didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [persistentStoreHelperMock verify];
 }
 
 - (void)testThatDataSourceRestoresPreviouslyStoredContentWhenHasMoreQuestionsToFetchIsYES
 {
     NSDictionary* restoredDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:YES]};
-    [[[self.persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     
@@ -306,7 +309,8 @@ static const BOOL valueYES = YES;
 - (void)testThatDataSourceRestoresPreviouslyStoredContentWhenHasMoreQuestionsToFetchIsNO
 {
     NSDictionary* restoredDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:NO]};
-    [[[self.persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     
@@ -315,7 +319,8 @@ static const BOOL valueYES = YES;
 
 - (void)testThatRestoringDataFromPersistantStateIsHarmlessWhenDataDoesNoExist_ForNO
 {
-    [[[self.persistentStoreHelperMock stub] andReturn: nil] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: nil] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
@@ -325,7 +330,8 @@ static const BOOL valueYES = YES;
 
 - (void)testThatRestoringDataFromPersistantStateIsHarmlessWhenDataDoesNoExist_ForYES
 {
-    [[[self.persistentStoreHelperMock stub] andReturn: nil] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: nil] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
     [self.questionsWithNilConnection restoreFromPersistentStorage];
@@ -335,7 +341,8 @@ static const BOOL valueYES = YES;
 - (void)testThatRestoringDataFromPersistantStateIsHarmlessWhenKeyForHasMoreDataToFetchDoesNotExist_ForNO
 {
     NSDictionary* restoredDictionary = @{@"DummyKey":@123};
-    [[[self.persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
@@ -346,7 +353,8 @@ static const BOOL valueYES = YES;
 - (void)testThatRestoringDataFromPersistantStateIsHarmlessWhenKeyForHasMoreDataToFetchDoesNotExist_ForYES
 {
     NSDictionary* restoredDictionary = @{@"DummyKey":@123};
-    [[[self.persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
     [self.questionsWithNilConnection restoreFromPersistentStorage];

@@ -16,6 +16,17 @@
 
 @interface EPQuestionsDataSource : NSObject<EPQuestionsDataSourceProtocol,EPConnectionDelegateProtocol>
 
+@property (nonatomic,readonly) NSString* connectionURL;
+@property (nonatomic,readonly) id<EPConnectionProtocol> connection;
+@property (nonatomic,readonly) BOOL applicationRunsInBackground;
+
++ (NSUInteger)pageSize;
++ (NSString*)persistentStoreFileName;
+
+- (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+- (void)restoreFromPersistentStorage;
+
+
 #pragma mark EPQuestionsDataSourceProtocol
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
@@ -25,18 +36,7 @@
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;
 
-#pragma mark - EPQuestionsDataSource additional public interface
-@property (nonatomic,readonly) NSString* connectionURL;
-@property (nonatomic,readonly) id<EPConnectionProtocol> connection;
-
-+ (NSUInteger)pageSize;
-+ (NSString*)persistentStoreFileName;
-
-- (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
-
-- (void)restoreFromPersistentStorage;
-
-
 #pragma mark - only for testing purposes - do not call these methods directly
 - (void)saveToCoreData:(NSArray*)questionsArray;
+- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 @end
