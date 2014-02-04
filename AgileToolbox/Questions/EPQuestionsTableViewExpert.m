@@ -69,10 +69,28 @@
 
 - (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView
 {
-//    NSLog(@"contentOffset.y=%f",scrollView.contentOffset.y);
     return (scrollView.contentOffset.y <= -100);
 }
 
+- (UIImageView*)createSnapshotView
+{
+    CGRect frame = self.tableView.frame;
+    
+    frame.origin.y = self.tableView.contentInset.top;
+    frame.size.height = frame.size.height - frame.origin.y;
+    
+    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
+    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
+    UIImage* im = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
+    [im drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
+    UIImage* im2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return [[UIImageView alloc] initWithImage:im2];
+}
 
 - (void)deleteFetchMoreCell
 {

@@ -35,10 +35,13 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
-    [self fetchNextSetOfQuestions];
-    [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    if ([self.tableViewExpert scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollView]) {
+        self.viewController.isScrolling = NO;
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
+        [self fetchNextSetOfQuestions];
+        [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section

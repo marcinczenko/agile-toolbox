@@ -25,7 +25,8 @@
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 @property (nonatomic,strong) id stateMachineMock;
 @property (nonatomic,strong) id tableViewMock;
-@property (nonatomic,strong) id persistentStoreHelperMock;
+@property (nonatomic,strong) id tableViewExpertMock;
+@property (nonatomic,strong) id uiImageViewMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -53,8 +54,8 @@ static const BOOL valueNO = NO;
     self.stateMachineMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStateMachine class]];
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
-    
-    self.persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
+    self.uiImageViewMock = [OCMockObject niceMockForClass:[UIImageView class]];
 }
 
 - (void)tearDown
@@ -82,6 +83,17 @@ static const BOOL valueNO = NO;
 - (void)mockTableView
 {
     [[[self.questionsTableViewControllerMock stub] andReturn:self.tableViewMock] tableView];
+    [[[self.tableViewExpertMock stub] andReturn:self.tableViewMock] tableView];
+}
+
+- (void)mockPersistentStorage
+{
+    [[self.preservationAssistantPartialMock expect] storeToPersistentStorage];
+}
+
+- (void)mockTableViewExpert
+{
+    [[[self.questionsTableViewControllerMock stub] andReturn:self.tableViewExpertMock] tableViewExpert];
 }
 
 - (void)expectStateMachineInQuestionsLoadingState:(BOOL)value
@@ -89,37 +101,40 @@ static const BOOL valueNO = NO;
     [[[self.stateMachineMock stub] andReturnValue:OCMOCK_VALUE(value)] inQuestionsLoadingState];
 }
 
-- (void)expectViewNeedsRefreshing
+- (void)expectViewNeedsRefreshing:(BOOL)needsRefreshing
 {
-    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] viewNeedsRefreshing];
+    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(needsRefreshing)] viewNeedsRefreshing];
 }
 
-- (void)expectViewNeedsNoRefreshing
+- (void)expectViewIsVisible:(BOOL)isVisible
 {
-    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(valueNO)] viewNeedsRefreshing];
+    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(isVisible)] viewIsVisibleForViewController:self.questionsTableViewControllerMock];
 }
 
-
-- (void)expectViewIsVisible
-{
-    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] viewIsVisibleForViewController:self.questionsTableViewControllerMock];
-}
-
-- (void)expectViewIsNotVisible
-{
-    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(valueNO)] viewIsVisibleForViewController:self.questionsTableViewControllerMock];
-}
-
-- (void)makeViewNeedsRefreshingYES
+- (void)viewNeedsRefreshing:(BOOL)viewNeedsRefreshing
 {
     [self mockStateMachine];
     
-    [self expectStateMachineInQuestionsLoadingState:YES];
+    [self expectStateMachineInQuestionsLoadingState:viewNeedsRefreshing];
+    
+    // we do not want to archive any data because we are using a mock of a table view controller in the test
+    [self mockPersistentStorage];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
                 didEnterBackgroundNotification:self.doesNotMatter];
     
     XCTAssertTrue(self.preservationAssistant.viewNeedsRefreshing);
+}
+
+- (void)expectSnapshotViewExists
+{
+    [[[self.preservationAssistantPartialMock stub] andReturn:self.uiImageViewMock] snapshotView];
+}
+
+- (void)expectIdIsAlreadyStored
+{
+    id firstVisibleRowURLMock = [OCMockObject niceMockForClass:[NSURL class]];
+    [[[self.preservationAssistantPartialMock stub] andReturn:firstVisibleRowURLMock] idOfTheFirstVisibleRow];
 }
 
 - (id)questionWithId:(NSNumber*)questionId
@@ -163,6 +178,8 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidEnterBackgroundNotificationSetsTheFetchedResultsControllerDelegateToNilDuringLoadingStates
 {
+    [self mockPersistentStorage];
+    
     [self mockFetchedResultsController];
     [self mockStateMachine];
     
@@ -178,6 +195,8 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidEnterBackgroundNotificationSetsTheViewNeedsRefreshingFlagToYESWhenViewControllerIsLoadingData
 {
+    [self mockPersistentStorage];
+    
     [self mockStateMachine];
     
     [self expectStateMachineInQuestionsLoadingState:YES];
@@ -188,9 +207,33 @@ static const BOOL valueNO = NO;
     XCTAssertTrue(self.preservationAssistant.viewNeedsRefreshing);
 }
 
-- (void)testThatEncodeWithCoderSavesTheClassToPersistentStorage
+- (void)testThatDidEnterBackgroundNotificationSavesTheStateToPersistentStorage
 {
-    id coder = [OCMockObject mockForClass:[NSCoder class]];
+    // we should move all partial mocks into the body of the individual tests as this may be
+    // the reason the tests do not finish occasionally
+    id assistentPartialMock = [OCMockObject partialMockForObject:self.preservationAssistant];
+    [[assistentPartialMock expect] storeToPersistentStorage];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock
+                didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [assistentPartialMock verify];
+}
+
+- (void)testThatStoreToPersistentStorageDelegatesToPersistentStoreHelper
+{
+    id persistentStoreHelperMock = [OCMockObject mockForClass:[EPPersistentStoreHelper class]];
+    [[persistentStoreHelperMock expect] archiveObject:self.preservationAssistant
+                                                    toFile:[EPQuestionsTableViewControllerStatePreservationAssistant persistentStoreFileName]];
+    
+    [self.preservationAssistant storeToPersistentStorage];
+    
+    [persistentStoreHelperMock verify];
+}
+
+- (void)testThatEncodeWithCoderSavesTheIdOfTheFirstVisibleRowToPersistentStorage
+{
+    id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
     id NSURLMock = [OCMockObject niceMockForClass:[NSURL class]];
     [[NSURLMock expect] encodeWithCoder:coder];
@@ -202,41 +245,196 @@ static const BOOL valueNO = NO;
     [NSURLMock verify];
 }
 
-- (void)testThatDidEnterBackgroundNotificationStoresTheIdOfTheFirstVisibleQuestionToPersistentStorage
-{    
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:10 inSection:0];
+- (void)testThatEncodeWithCoderSavesTheSnapshotOfTheUIToPersistentStorage
+{
+    id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
-    [self mockFetchedResultsController];
-    [self mockTableView];
-    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
+    id snaphotViewMock = [OCMockObject niceMockForClass:[UIImageView class]];
+    [[snaphotViewMock expect] encodeWithCoder:coder];
     
+    [[[self.preservationAssistantPartialMock stub] andReturn:snaphotViewMock] snapshotView];
     
-    [[self.persistentStoreHelperMock expect] archiveObject:self.preservationAssistant
-                                                      toFile:[EPQuestionsTableViewControllerStatePreservationAssistant persistentStoreFileName]];
+    [self.preservationAssistant encodeWithCoder:coder];
     
-    [self.preservationAssistant viewController:self.questionsTableViewControllerMock
-                didEnterBackgroundNotification:self.doesNotMatter];
-    
-    [self.persistentStoreHelperMock verify];
+    [snaphotViewMock verify];
 }
 
-- (void)testThatDidEnterBackgroundNotificationDoesNotStoreAnythingWhenThereAreNoQuestionsInFetchedResultsController
+- (void)testThatEncodeWithCoderSavesTheContentOffsetToPersistentStorage
 {
-    [self mockFetchedResultsController];
-    [self simulateFetchedResultsControllerHasNoData];
+    id coder = [OCMockObject mockForClass:[NSCoder class]];
     
-    [[self.persistentStoreHelperMock reject] storeDictionary:[OCMArg any]
-                                                      toFile:[OCMArg any]];
+    [[coder expect] encodeCGPoint:self.preservationAssistant.contentOffset forKey:[EPQuestionsTableViewControllerStatePreservationAssistant contentOffsetKey]];
     
-    [self.preservationAssistant viewController:self.questionsTableViewControllerMock
-                didEnterBackgroundNotification:self.doesNotMatter];
+    [self.preservationAssistant encodeWithCoder:coder];
     
-    [self.persistentStoreHelperMock verify];
+    [coder verify];
+}
+
+- (void)testThatInitWithCoderRestoresTheContentOffsetFromPersistentStorage
+{
+    id coder = [OCMockObject niceMockForClass:[NSCoder class]];
+    
+    CGPoint expectedContentOffset = CGPointMake(0.0, -64.0);
+    
+    [[[coder expect] andReturnValue:OCMOCK_VALUE(expectedContentOffset)] decodeCGPointForKey:[EPQuestionsTableViewControllerStatePreservationAssistant contentOffsetKey]];
+    
+    EPQuestionsTableViewControllerStatePreservationAssistant* assistant = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] initWithCoder:coder];
+    
+    XCTAssertEqual(expectedContentOffset, assistant.contentOffset);
+    
+    [coder verify];
+}
+
+- (void)testThatWillResignActiveNotificationCreatesASnapshotIfNoneExisitsAndViewIsVisible
+{
+    [self expectViewIsVisible:YES];
+    
+    [[self.preservationAssistantPartialMock expect] createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+
+}
+
+- (void)testThatWillResignActiveNotificationDoesNotCreateAnySnapshotsIfOneAlreadyExisits
+{
+    [self expectSnapshotViewExists];
+    
+    [[self.preservationAssistantPartialMock reject] createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationDoesNotCreateAnySnapshotsIfViewIsNotVisible
+{
+    [self expectViewIsVisible:NO];
+    
+    [[self.preservationAssistantPartialMock reject] createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationStoresTheFirstVisibleRowURLIfNoneIsPresentAndViewIsVisible
+{
+    [self expectViewIsVisible:YES];
+    
+    [[self.preservationAssistantPartialMock expect] storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationDoesNotStoreTheFirstVisibleRowURLIfOneIsAlreadyStored
+{
+    [self expectViewIsVisible:YES];
+    [self expectIdIsAlreadyStored];
+    
+    [[self.preservationAssistantPartialMock reject] storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationDoesNotStoreTheFirstVisibleRowURLIfViewIsNotVisible
+{
+    [self expectViewIsVisible:NO];
+    
+    [[self.preservationAssistantPartialMock reject] storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationStoresContentOffsetWhenViewIsVisible
+{
+    [self expectViewIsVisible:YES];
+    
+    [[self.preservationAssistantPartialMock expect] storeContentOffsetForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatWillResignActiveNotificationDoesNotStoreContentOffsetIfViewIsNotVisible
+{
+    [self expectViewIsVisible:NO];
+    
+    [[self.preservationAssistantPartialMock reject] storeContentOffsetForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewController:self.questionsTableViewControllerMock willResignActiveNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatViewControllerWillDisappearCreatesTheSnapshot
+{
+    [[self.preservationAssistantPartialMock expect] createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewWillDisappearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatViewControllerWillDisappearStoresTheFirstVisibleRowURL
+{
+    [[self.preservationAssistantPartialMock expect] storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewWillDisappearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatViewControllerWillDisappearStoresTheContentOffset
+{
+    [[self.preservationAssistantPartialMock expect] storeContentOffsetForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewWillDisappearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatCreateSnapshotForViewControllerGetsTheSnapshotFromTableViewExpertAndSavesTheResultInMemberVariable
+{
+    XCTAssertNil(self.preservationAssistant.snapshotView);
+    
+    [self mockTableViewExpert];
+    
+    [[[self.tableViewExpertMock expect] andReturn:self.uiImageViewMock] createSnapshotView];
+    
+    [self.preservationAssistant createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    [self.tableViewExpertMock verify];
+    
+    XCTAssertEqualObjects(self.uiImageViewMock, self.preservationAssistant.snapshotView);
+}
+
+- (void)testThatStoreTableViewContentOffsetGetsTheContentOffsetFromTableViewExpertAndSavesTheResultInMemberVariable
+{
+    XCTAssertEqual(CGPointZero, self.preservationAssistant.contentOffset);
+    
+    CGPoint expectedContentOffset = CGPointMake(0.0, -64.0);
+    
+    [self mockTableViewExpert];
+    [[[self.tableViewExpertMock stub] andReturn:self.tableViewMock] tableView];
+    [[[self.tableViewMock stub] andReturnValue:OCMOCK_VALUE(expectedContentOffset)] contentOffset];
+    
+    [self.preservationAssistant storeContentOffsetForViewController:self.questionsTableViewControllerMock];
+    
+    XCTAssertEqual(expectedContentOffset, self.preservationAssistant.contentOffset);
 }
 
 - (void)testThatWillEnterForegroundNotificationRestoresTheFetchedResultsControllerDelegateWhenViewNeedsRefreshing
 {
-    [self expectViewNeedsRefreshing];
+    [self expectViewNeedsRefreshing:YES];
     
     [self mockFetchedResultsController];
     [[self.fetchedResultsControllerMock expect] setDelegate:self.questionsTableViewControllerMock];
@@ -249,7 +447,7 @@ static const BOOL valueNO = NO;
 
 - (void)testThatWillEnterForegroundNotificationPerformsFetchOnTheFetchedResultsControllerWhenViewNeedsRefreshing
 {
-    [self expectViewNeedsRefreshing];
+    [self expectViewNeedsRefreshing:YES];
     
     [self mockFetchedResultsController];
     [[self.fetchedResultsControllerMock expect] performFetch:(NSError* __autoreleasing*)[OCMArg anyPointer]];
@@ -262,7 +460,9 @@ static const BOOL valueNO = NO;
 
 - (void)testThatWillEnterForegroundNotificationDoesNotChangeTheViewNeedsRefreshingFlagWhenViewNeedsRefreshing
 {
-    [self makeViewNeedsRefreshingYES];
+    // we cannot use 'expectViewNeedsRefreshing' because we need to keep viewNeedsRefreshing not mocked
+    // otherwise the code wouldn't be able to modify it
+    [self viewNeedsRefreshing:YES];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
                willEnterForegroundNotification:self.doesNotMatter];
@@ -282,8 +482,8 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidBecomeActiveNotificationReloadsTableViewWhenViewNeedsRefreshingAndViewIsVisible
 {
-    [self expectViewNeedsRefreshing];
-    [self expectViewIsVisible];
+    [self expectViewNeedsRefreshing:YES];
+    [self expectViewIsVisible:YES];
     
     [self mockTableView];
     [[self.tableViewMock expect] reloadData];
@@ -296,8 +496,8 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidBecomeActiveNotificationDoesNotReloadTableViewWhenViewNeedsRefreshingButViewIsNotVisible
 {
-    [self expectViewNeedsRefreshing];
-    [self expectViewIsNotVisible];
+    [self expectViewNeedsRefreshing:YES];
+    [self expectViewIsVisible:NO];
     
     [self mockTableView];
     [[self.tableViewMock reject] reloadData];
@@ -311,7 +511,7 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidBecomeActiveNotificationDoesNotReloadTableViewWhenViewDoesNotNeedRefreshing
 {
-    [self expectViewNeedsNoRefreshing];
+    [self expectViewNeedsRefreshing:NO];
     
     [self mockTableView];
     [[self.tableViewMock reject] reloadData];
@@ -324,7 +524,7 @@ static const BOOL valueNO = NO;
 
 - (void)testThatDidBecomeActiveNotificationClearsViewNeedsRefreshingFlagWhenViewNeedsRefreshing
 {
-    [self makeViewNeedsRefreshingYES];
+    [self viewNeedsRefreshing:YES];
     
     [self.preservationAssistant viewController:self.questionsTableViewControllerMock
                    didBecomeActiveNotification:self.doesNotMatter];
@@ -393,5 +593,120 @@ static const BOOL valueNO = NO;
     
     [self.tableViewMock verify];
 }
+
+- (void)testThatViewWillAppearForViewControllerDisplaysSnapshotViewIfOneExists
+{
+    [self expectSnapshotViewExists];
+    
+    [self mockTableView];
+    [[self.tableViewMock expect] addSubview:self.uiImageViewMock];
+    
+    [self.preservationAssistant viewWillAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.tableViewMock verify];
+    
+}
+
+- (void)testThatViewWillAppearForViewControllerDoesNotDisplaySnapshotViewIfNoneExists
+{
+    [self mockTableView];
+    [[self.tableViewMock reject] addSubview:[OCMArg any]];
+    
+    [self.preservationAssistant viewWillAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.tableViewMock verify];
+}
+
+- (void)testThatViewWillAppearForViewControllerSetsTheBackgroundColorToWhiteWhenSnapshotExistsAndContentOffsetIsGreaterThanOrEqualToZero
+{
+    [self expectSnapshotViewExists];
+
+    CGPoint contentOffset = CGPointMake(0.0, 0.0);
+    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(contentOffset)] contentOffset];
+    
+    [self mockTableView];
+    [[self.tableViewMock expect] setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.preservationAssistant viewWillAppearForViewController:self.questionsTableViewControllerMock];
+
+    [self.tableViewMock verify];
+}
+
+- (void)testThatViewWillAppearForViewControllerSetsTheBackgroundColorQuantumWhenSnapshotExistsAndContentOffsetIsLessThanZero
+{
+    [self expectSnapshotViewExists];
+    
+    CGPoint contentOffset = CGPointMake(0.0, -1.0);
+    [[[self.preservationAssistantPartialMock stub] andReturnValue:OCMOCK_VALUE(contentOffset)] contentOffset];
+    
+    [self mockTableView];
+    [[self.tableViewMock expect] setBackgroundColor:[EPQuestionsTableViewControllerStatePreservationAssistant colorQuantum]];
+    
+    [self.preservationAssistant viewWillAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.tableViewMock verify];
+}
+
+- (void)testThatViewDidAppearForViewControllerSetsTheBackgroundColorQuantum
+{
+    [self mockTableView];
+    [[self.tableViewMock expect] setBackgroundColor:[EPQuestionsTableViewControllerStatePreservationAssistant colorQuantum]];
+    
+    [self.preservationAssistant viewDidAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.tableViewMock verify];
+}
+
+- (void)testThatViewDidAppearForViewControllerRestoresIndexPathIfSnapshotExists
+{
+    [self expectSnapshotViewExists];
+    
+    [[self.preservationAssistantPartialMock expect] restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistant viewDidAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatViewDidAppearForViewControllerDoesNotRestoreIndexPathIfSnapshotDoesNotExist
+{
+    [[self.preservationAssistantPartialMock reject] restoreIndexPathOfFirstVisibleRowForViewController:[OCMArg any]];
+    
+    [self.preservationAssistant viewDidAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.preservationAssistantPartialMock verify];
+}
+
+- (void)testThatViewDidAppearRemovesTheSnapshotFromViewHierarchyWhenSnapshotExists
+{
+    [self expectSnapshotViewExists];
+    
+    [self.uiImageViewMock setExpectationOrderMatters:YES];
+    [[self.uiImageViewMock expect] setHidden:YES];
+    [[self.uiImageViewMock expect] removeFromSuperview];
+    
+    [self.preservationAssistant viewDidAppearForViewController:self.questionsTableViewControllerMock];
+    
+    [self.uiImageViewMock verify];
+}
+
+- (void)testThatViewDidAppearClearsTheSnapshotViewPointerWhenSnapshotExisits
+{
+    XCTAssertNil(self.preservationAssistant.snapshotView);
+    
+    [self mockTableViewExpert];
+    [[[self.tableViewExpertMock stub] andReturn:self.uiImageViewMock] createSnapshotView];
+    
+    [self.preservationAssistant createSnapshotViewForViewController:self.questionsTableViewControllerMock];
+    
+    XCTAssertEqualObjects(self.uiImageViewMock, self.preservationAssistant.snapshotView);
+    
+    [self.preservationAssistant viewDidAppearForViewController:self.questionsTableViewControllerMock];
+    
+    XCTAssertNil(self.preservationAssistant.snapshotView);
+}
+
+
+
 
 @end

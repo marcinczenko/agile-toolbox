@@ -28,7 +28,8 @@
 @property (nonatomic,strong) EPQuestionsTableViewExpert *tableViewExpert;
 @property (nonatomic,weak) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
-@property (nonatomic,assign) BOOL isScrolling;
+@property (nonatomic,assign) UIEdgeInsets contentInset;
+@property (nonatomic,strong) UIImage* navBarSnapshot;
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
 
 @end
@@ -52,6 +53,7 @@
     [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [center addObserver:self selector:@selector(willResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:[UIApplication sharedApplication]];
 }
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
@@ -94,6 +96,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)willResignActiveNotification:(NSNotification*)paramNotification
+{
+    [self.statePreservationAssistant viewController:self willResignActiveNotification:paramNotification];
+}
+
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
 {
     [self.statePreservationAssistant viewController:self didEnterBackgroundNotification:paramNotification];
@@ -113,14 +120,41 @@
 {
     [super viewWillAppear:animated];
     
-    [self.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self];
+    [self.statePreservationAssistant viewWillAppearForViewController:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.statePreservationAssistant viewDidAppearForViewController:self];
+}
+
+- (void)createSnapshotView
+{
+    CGRect frame = self.tableView.frame;
+    
+    frame.origin.y = self.tableView.contentInset.top;
+    frame.size.height = frame.size.height - frame.origin.y;
+    
+    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
+    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
+    UIImage* im = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
+    [im drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
+    UIImage* im2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.statePreservationAssistant.snapshotView = [[UIImageView alloc] initWithImage:im2];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [self.statePreservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self];
+    [self.statePreservationAssistant viewWillDisappearForViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -166,10 +200,7 @@
 {
     if (!self.isScrolling) return;
     
-    if ([self.tableViewExpert scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollView]) {
-        self.isScrolling = NO;
-        [self.stateMachine scrollViewDidScroll:scrollView];
-    }
+    [self.stateMachine scrollViewDidScroll:scrollView];
 }
 
 

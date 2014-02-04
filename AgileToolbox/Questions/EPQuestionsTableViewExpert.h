@@ -21,5 +21,6 @@
 - (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView;
 - (void)deleteFetchMoreCell;
 - (void)removeTableFooter;
+- (UIImageView*)createSnapshotView;
 
 @end

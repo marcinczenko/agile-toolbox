@@ -23,13 +23,25 @@
 
 + (NSString*)persistentStoreFileName
 {
-    return @"PreservationAssistant.xml";
+    return @"PreservationAssistant.data";
+}
+
++ (NSString*)contentOffsetKey
+{
+    return @"ContentOffset";
+}
+
++ (UIColor*)colorQuantum
+{
+    return [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super init])) {
         _idOfTheFirstVisibleRow = [[NSURL alloc] initWithCoder:aDecoder];
+        _snapshotView = [[UIImageView alloc] initWithCoder:aDecoder];
+        _contentOffset = [aDecoder decodeCGPointForKey:[self.class contentOffsetKey]];
     }
     return self;
 }
@@ -37,11 +49,36 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [self.idOfTheFirstVisibleRow encodeWithCoder:aCoder];
+    [self.snapshotView encodeWithCoder:aCoder];
+    [aCoder encodeCGPoint:self.contentOffset forKey:[self.class contentOffsetKey]];
 }
 
 - (BOOL)viewIsVisibleForViewController:(EPQuestionsTableViewController*)viewController
 {
     return (viewController.isViewLoaded && viewController.view.window);
+}
+
+- (void)viewController:(EPQuestionsTableViewController*)viewController willResignActiveNotification:(NSNotification*)notification
+{
+    if ([self viewIsVisibleForViewController:viewController]) {
+        if (!self.idOfTheFirstVisibleRow) {
+            [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
+        }
+        if (!self.snapshotView) {
+            [self createSnapshotViewForViewController:viewController];
+        }
+        [self storeContentOffsetForViewController:viewController];
+    }
+}
+
+- (void)createSnapshotViewForViewController:(EPQuestionsTableViewController*)viewController
+{
+    self.snapshotView = [viewController.tableViewExpert createSnapshotView];
+}
+
+- (void)storeContentOffsetForViewController:(EPQuestionsTableViewController*)viewController
+{
+    self.contentOffset = viewController.tableViewExpert.tableView.contentOffset;
 }
 
 - (void)viewController:(EPQuestionsTableViewController*)viewController didEnterBackgroundNotification:(NSNotification*)notification
@@ -50,7 +87,12 @@
         viewController.fetchedResultsController.delegate = nil;
         self.viewNeedsRefreshing = YES;
     }
-    [self storeToPersistentStorageForViewController:viewController];
+    [self storeToPersistentStorage];
+}
+
+- (void)storeToPersistentStorage
+{
+    [EPPersistentStoreHelper archiveObject:self toFile:[self.class persistentStoreFileName]];
 }
 
 - (void)viewController:(EPQuestionsTableViewController*)viewController willEnterForegroundNotification:(NSNotification*)notification
@@ -73,6 +115,38 @@
             
             [viewController.tableView reloadData];
         }
+    }
+}
+
+- (void)viewWillDisappearForViewController:(EPQuestionsTableViewController*)viewController
+{
+    [self createSnapshotViewForViewController:viewController];
+    [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
+    [self storeContentOffsetForViewController:viewController];
+}
+
+- (void)viewWillAppearForViewController:(EPQuestionsTableViewController*)viewController
+{
+    if (self.snapshotView) {
+        if (0<=self.contentOffset.y) {
+            viewController.tableView.backgroundColor = [UIColor whiteColor];
+        } else {
+            viewController.tableView.backgroundColor = [self.class colorQuantum];
+        }
+        
+        [viewController.tableView addSubview:self.snapshotView];
+    }
+}
+
+- (void)viewDidAppearForViewController:(EPQuestionsTableViewController*)viewController
+{
+    viewController.tableView.backgroundColor = [self.class colorQuantum];
+    
+    if (self.snapshotView) {
+        [self restoreIndexPathOfFirstVisibleRowForViewController:viewController];
+        self.snapshotView.hidden = YES;
+        [self.snapshotView removeFromSuperview];
+        self.snapshotView = nil;
     }
 }
 
@@ -133,14 +207,6 @@
                                             atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
         self.idOfTheFirstVisibleRow = nil;
-    }
-}
-
-- (void)storeToPersistentStorageForViewController:(EPQuestionsTableViewController*)viewController
-{
-    [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
-    if (self.idOfTheFirstVisibleRow) {
-        [EPPersistentStoreHelper archiveObject:self toFile:[self.class persistentStoreFileName]];
     }
 }
 

@@ -10,9 +10,10 @@ var EPHelpers = (function() {
         this.target.frontMostApp().navigationBar().leftButton().tap();
     };
 
-    EPHelpers.prototype.enterQuestions = function() {
+    EPHelpers.prototype.enterQuestions = function(delay) {
+        delay = delay || 2;
         this.mainWindow.tableViews()["MenuList"].cells()["Q&A"].tap();
-        this.target.delay(2);
+        this.target.delay(delay);
     };
 
     // fetchMore works as follows: it first scroll far enough (but not to far) so that the following call to

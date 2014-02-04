@@ -3,7 +3,7 @@
 //  AgileToolbox
 //
 //  Created by AtrBea on 7/9/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Marcin Czenko. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
@@ -357,6 +357,15 @@ BOOL valueNO = NO;
     [self.questionsDataSourceMock verify];
 }
 
+- (void)testThatWillResignActiveNotificationDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewController:self.vc willResignActiveNotification:self.doesNotMatter];
+    
+    [self.vc willResignActiveNotification:self.doesNotMatter];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
 - (void)testThatDidEnterBackgroundNotificationDelegatesToStatePreservationAssistant
 {
     [[self.statePreservationAssistantMock expect] viewController:self.vc didEnterBackgroundNotification:self.doesNotMatter];
@@ -383,6 +392,34 @@ BOOL valueNO = NO;
     
     [self.statePreservationAssistantMock verify];
 }
+
+- (void)testThatViewWillDisappearDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewWillDisappearForViewController:self.vc];
+    
+    [self.vc viewWillDisappear:NO];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatViewWillAppearDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewWillAppearForViewController:self.vc];
+    
+    [self.vc viewWillAppear:NO];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatViewDidAppearDelegatesToStatePreservationAssistant
+{
+    [[self.statePreservationAssistantMock expect] viewDidAppearForViewController:self.vc];
+    
+    [self.vc viewDidAppear:NO];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
 
 
 @end

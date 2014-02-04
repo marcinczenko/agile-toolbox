@@ -31,6 +31,7 @@
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox;
 
+@property (nonatomic,assign) BOOL isScrolling;
 
 @property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
 @property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;
@@ -41,6 +42,7 @@
 
 @property (nonatomic,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
+- (void)willResignActiveNotification:(NSNotification*)paramNotification;
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;

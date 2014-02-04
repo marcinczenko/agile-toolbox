@@ -51,7 +51,11 @@
 
 - (BOOL)inQuestionsLoadingState
 {
-    return (self.currentState == self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]);
+    NSArray* loadingStates = @[self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerEmptyLoadingState class])],
+                               self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]];
+    
+    return [loadingStates containsObject:self.currentState];
+//    return (self.currentState == self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]);
 }
 
 + (void)populateStatesDictionary:(NSMutableDictionary*)dictionary

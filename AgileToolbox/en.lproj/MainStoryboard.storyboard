@@ -47,7 +47,7 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" restorationIdentifier="QuestionsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h8r-iv-cG4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92549026010000002" green="0.26274511220000002" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.89411771297454834" green="0.16862745583057404" blue="0.14901961386203766" alpha="1" colorSpace="deviceRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QATQuestionsAndAnswersCell" id="8k4-6d-Bmf" customClass="EPQuestionTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -76,9 +76,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.92549026010000002" green="0.26274511220000002" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.92549026010000002" green="0.26274511220000002" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="activityIndicator" destination="KoA-v7-hlV" id="H3U-wu-Kxu"/>
                                     <outlet property="label" destination="0it-gf-W7b" id="d8Q-Jt-YVL"/>

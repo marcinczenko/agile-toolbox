@@ -36,18 +36,29 @@
 
 - (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
 {
+#ifdef TEST
     return NO;
+#else
+    return YES;
+#endif
 }
 
 - (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
 {
+#ifdef TEST
     return NO;
+#else
+    return YES;
+#endif
+}
+
+- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    NSLog(@"didDecodeRestorableStateWithCoder");
 }
 
 - (UIViewController*)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-//    NSLog(@"%@",[(UINavigationController*)self.window.rootViewController viewControllers]);
-    
     if ([[identifierComponents lastObject] isEqualToString:@"MenuItems"]) {
         return self.window.rootViewController;
     }
