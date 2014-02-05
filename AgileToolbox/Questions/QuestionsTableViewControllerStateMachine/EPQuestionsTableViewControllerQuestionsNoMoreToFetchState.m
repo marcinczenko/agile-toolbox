@@ -23,7 +23,7 @@
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
-    return self.viewController.fetchedResultsController.fetchedObjects.count;
+    return self.viewController.numberOfQuestionsInPersistentStorage;
 }
 
 

@@ -32,6 +32,9 @@
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox;
 
 @property (nonatomic,assign) BOOL isScrolling;
+@property (nonatomic,readonly) BOOL viewIsVisible;
+@property (nonatomic,readonly) BOOL hasQuestionsInPersistentStorage;
+@property (nonatomic,readonly) NSUInteger numberOfQuestionsInPersistentStorage;
 
 @property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
 @property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;

@@ -3,7 +3,6 @@ Feature: Questions Backgrounding
   I would like to have questions fetched in the background
   So that I can take advantage of multitasking on my iOS device
 
-@current
 Scenario: Backgrounding: empty no questions
   Given Google App Engine Server Mock with 0 items and 4 seconds delay is started
   Then RUN: Feature: "QuestionsBackgrounding" Scenario:"Backgrounding_EmptyNoQuestions"
@@ -19,3 +18,7 @@ Scenario: Backgrounding: fetching exactly one page of questions
 Scenario: Backgrounding: more than one page of questions on the server
   Given Google App Engine Server Mock with 45 items and 5 seconds delay is started
   Then RUN: Feature: "QuestionsBackgrounding" Scenario:"Backgrounding_MoreThanOnePage" (timeout:35)
+
+Scenario: Backgrounding: more than one page and background when table view invisible
+  Given Google App Engine Server Mock with 45 items and 5 seconds delay is started
+  Then RUN: Feature: "QuestionsBackgrounding" Scenario:"Backgrounding_MoreThanOnePageViewNotVisible" (timeout:35)

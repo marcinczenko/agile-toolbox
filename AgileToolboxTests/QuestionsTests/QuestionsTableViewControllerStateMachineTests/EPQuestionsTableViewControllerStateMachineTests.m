@@ -118,20 +118,5 @@ static const BOOL valueYES = YES;
     }
 }
 
-// !!!!!!!! WHY DID I WANT THIS???????
-//- (void)testThatStateMachineInQuestionsLoadingStateReturnsNOIfInEmptyLoadingState
-//{
-//    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
-//    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-//    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
-//}
-
-- (void)testThatStateMachineInQuestionsLoadingStateReturnsYESIfInQuestionsLoadingState
-{
-    XCTAssertFalse([self.stateMachine inQuestionsLoadingState]);
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
-    XCTAssertTrue([self.stateMachine inQuestionsLoadingState]);
-}
-
 
 @end

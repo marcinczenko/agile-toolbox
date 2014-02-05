@@ -10,6 +10,16 @@
 
 @implementation EPQuestionsTableViewControllerEmptyNoQuestionsState
 
+- (void)viewWillDisappear
+{
+    
+}
+
+- (void)didEnterBackgroundNotification:(NSNotification*)notification
+{
+    
+}
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView forIndexPath:indexPath loading:NO];

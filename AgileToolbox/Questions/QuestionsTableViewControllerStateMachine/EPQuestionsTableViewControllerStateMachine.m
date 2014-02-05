@@ -49,15 +49,6 @@
     }];
 }
 
-- (BOOL)inQuestionsLoadingState
-{
-    NSArray* loadingStates = @[self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerEmptyLoadingState class])],
-                               self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]];
-    
-    return [loadingStates containsObject:self.currentState];
-//    return (self.currentState == self.stateObjects[NSStringFromClass([EPQuestionsTableViewControllerQuestionsLoadingState class])]);
-}
-
 + (void)populateStatesDictionary:(NSMutableDictionary*)dictionary
                 withStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
 {
@@ -88,6 +79,41 @@
 - (void)viewDidLoad
 {
     [self.currentState viewDidLoad];
+}
+
+- (void)viewWillAppear
+{
+    [self.currentState viewWillAppear];
+}
+
+- (void)viewDidAppear
+{
+    [self.currentState viewDidAppear];
+}
+
+- (void)viewWillDisappear
+{
+    [self.currentState viewWillDisappear];
+}
+
+- (void)willResignActiveNotification:(NSNotification*)notification
+{
+    [self.currentState willResignActiveNotification:notification];
+}
+
+- (void)didEnterBackgroundNotification:(NSNotification*)notification
+{
+    [self.currentState didEnterBackgroundNotification:notification];
+}
+
+- (void)willEnterForegroundNotification:(NSNotification*)notification
+{
+    [self.currentState willEnterForegroundNotification:notification];
+}
+
+- (void)didBecomeActiveNotification:(NSNotification*)notification
+{
+    [self.currentState didBecomeActiveNotification:notification];
 }
 
 - (void)controllerDidChangeContent

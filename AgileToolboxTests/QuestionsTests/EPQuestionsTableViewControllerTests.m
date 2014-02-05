@@ -357,69 +357,67 @@ BOOL valueNO = NO;
     [self.questionsDataSourceMock verify];
 }
 
-- (void)testThatWillResignActiveNotificationDelegatesToStatePreservationAssistant
+- (void)testThatWillResignActiveNotificationDelegatesToStateMachine
 {
-    [[self.statePreservationAssistantMock expect] viewController:self.vc willResignActiveNotification:self.doesNotMatter];
+    [[self.stateMachineMock expect] willResignActiveNotification:self.doesNotMatter];
     
     [self.vc willResignActiveNotification:self.doesNotMatter];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
-- (void)testThatDidEnterBackgroundNotificationDelegatesToStatePreservationAssistant
+- (void)testThatDidEnterBackgroundNotificationDelegatesToStateMachine
 {
-    [[self.statePreservationAssistantMock expect] viewController:self.vc didEnterBackgroundNotification:self.doesNotMatter];
+    [[self.stateMachineMock expect] didEnterBackgroundNotification:self.doesNotMatter];
     
     [self.vc didEnterBackgroundNotification:self.doesNotMatter];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
-- (void)testThatWillEnterForegroundNotificationDelegatesToStatePreservationAssistant
+- (void)testThatWillEnterForegroundNotificationDelegatesToStateMachine
 {
-    [[self.statePreservationAssistantMock expect] viewController:self.vc willEnterForegroundNotification:self.doesNotMatter];
+    [[self.stateMachineMock expect] willEnterForegroundNotification:self.doesNotMatter];
     
     [self.vc willEnterForegroundNotification:self.doesNotMatter];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
 - (void)testThatDidBecomeActiveNotificationDelegatesToStatePreservationAssistant
 {
-    [[self.statePreservationAssistantMock expect] viewController:self.vc didBecomeActiveNotification:self.doesNotMatter];
+    [[self.stateMachineMock expect] didBecomeActiveNotification:self.doesNotMatter];
     
     [self.vc didBecomeActiveNotification:self.doesNotMatter];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
 - (void)testThatViewWillDisappearDelegatesToStatePreservationAssistant
 {
-    [[self.statePreservationAssistantMock expect] viewWillDisappearForViewController:self.vc];
+    [[self.stateMachineMock expect] viewWillDisappear];
     
     [self.vc viewWillDisappear:NO];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
 - (void)testThatViewWillAppearDelegatesToStatePreservationAssistant
 {
-    [[self.statePreservationAssistantMock expect] viewWillAppearForViewController:self.vc];
+    [[self.stateMachineMock expect] viewWillAppear];
     
     [self.vc viewWillAppear:NO];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
 
 - (void)testThatViewDidAppearDelegatesToStatePreservationAssistant
 {
-    [[self.statePreservationAssistantMock expect] viewDidAppearForViewController:self.vc];
+    [[self.stateMachineMock expect] viewDidAppear];
     
     [self.vc viewDidAppear:NO];
     
-    [self.statePreservationAssistantMock verify];
+    [self.stateMachineMock verify];
 }
-
-
 
 @end

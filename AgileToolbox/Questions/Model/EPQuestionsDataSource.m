@@ -21,7 +21,6 @@
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
 @property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundTaskId;
-@property (nonatomic,assign) BOOL applicationRunsInBackground;
 
 @property (nonatomic, strong) NSTimer *myTimer;
 
@@ -39,6 +38,11 @@
     return @"QuestionsDataSource.xml";
 }
 
++ (NSString*)hasMoreQuestionsToFetchKey
+{
+    return @"HasMoreQuestionsToFetch";
+}
+
 - (NSString*) connectionURL
 {
     return [self.connection urlString];
@@ -53,14 +57,7 @@
         [_connection setDelegate:self];
         _hasMoreQuestionsToFetch = YES;
         _managedObjectContext = managedObjectContext;
-        _applicationRunsInBackground = NO;
-        
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        
-        [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
-        [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
-        
-        
+        _backgroundFetchMode = NO;
     }
     return self;
 }
@@ -70,11 +67,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
+- (void)storeToPersistentStorage
 {
-    self.applicationRunsInBackground = YES;
-    
-    NSDictionary* dataDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:self.hasMoreQuestionsToFetch]};
+    NSDictionary* dataDictionary = @{[self.class hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:self.hasMoreQuestionsToFetch]};
     [EPPersistentStoreHelper storeDictionary:dataDictionary toFile:[self.class persistentStoreFileName]];
 }
 
@@ -89,12 +84,6 @@
         }
     }
 }
-
-- (void)willEnterForegroundNotification:(NSNotification*)paramNotification
-{
-    self.applicationRunsInBackground = NO;
-}
-
 
 - (void)setPostConnection:(id<EPConnectionProtocol>)connection
 {
@@ -183,7 +172,7 @@
 
 - (void)callFetchReturnedNoDataDelegate
 {
-    if (self.applicationRunsInBackground) {
+    if (self.backgroundFetchMode) {
         if ([self.delegate respondsToSelector:@selector(fetchReturnedNoDataInBackground)]) {
             [self.delegate fetchReturnedNoDataInBackground];
         }
@@ -196,7 +185,7 @@
 
 - (void)callDataChangedInBackgroundWhenInBackground
 {
-    if (self.applicationRunsInBackground) {
+    if (self.backgroundFetchMode) {
         if ([self.delegate respondsToSelector:@selector(dataChangedInBackground)]) {
             [self.delegate dataChangedInBackground];
         }
@@ -225,7 +214,7 @@
 
 - (void) downloadFailed
 {
-    if (self.applicationRunsInBackground) {
+    if (self.backgroundFetchMode) {
         if ([self.delegate respondsToSelector:@selector(connectionFailureInBackground)]) {
             [self.delegate connectionFailureInBackground];
         }

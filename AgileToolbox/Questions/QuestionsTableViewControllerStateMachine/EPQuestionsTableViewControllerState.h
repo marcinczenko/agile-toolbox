@@ -24,15 +24,25 @@
 - (id)initWithStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine;
 
 - (void)viewDidLoad;
-- (void)controllerDidChangeContent;
+- (void)viewWillAppear;
+- (void)viewDidAppear;
+- (void)viewWillDisappear;
+
+- (void)willResignActiveNotification:(NSNotification*)notification;
+- (void)didEnterBackgroundNotification:(NSNotification*)notification;
+- (void)willEnterForegroundNotification:(NSNotification*)notification;
+- (void)didBecomeActiveNotification:(NSNotification*)notification;
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
+- (NSInteger)numberOfSections;
+
+- (void)controllerDidChangeContent;
 - (void)fetchReturnedNoData;
 - (void)fetchReturnedNoDataInBackground;
 - (void)dataChangedInBackground;
 - (void)connectionFailure;
 - (void)connectionFailureInBackground;
-- (NSInteger)numberOfRowsInSection:(NSInteger)section;
-- (NSInteger)numberOfSections;
 
 @end

@@ -105,7 +105,7 @@ static const BOOL valueYES = YES;
 
 - (void)simulateBackgroundModeFor:(id)questionsPartialMock
 {
-    [[[questionsPartialMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] applicationRunsInBackground];
+    [[[questionsPartialMock stub] andReturnValue:OCMOCK_VALUE(valueYES)] backgroundFetchMode];
 }
 
 -(void)mockOutCallingCoreDataFor:(id)questionsPartialMock
@@ -281,23 +281,23 @@ static const BOOL valueYES = YES;
     [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
 }
 
-- (void)testThatDataSourceStoresItsStateToAFileWhenEnteringBackgroundMode
+- (void)testThatStoreToPersistentStorageStoresHasMoreQuestionsToFetchStatus
 {
-    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
-    [[persistentStoreHelperMock expect] storeDictionary:@{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:YES]}
-                                                      toFile:[EPQuestionsDataSource persistentStoreFileName]];
-    
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
-    [self simulateBackgroundModeFor:questionsPartialMock];
+    [[[questionsPartialMock stub] andReturnValue:OCMOCK_VALUE(valueNO)] hasMoreQuestionsToFetch];
     
-    [self.questionsWithNilConnection didEnterBackgroundNotification:self.doesNotMatter];
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[persistentStoreHelperMock expect] storeDictionary:@{[EPQuestionsDataSource hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:valueNO]}
+                                                 toFile:[EPQuestionsDataSource persistentStoreFileName]];
+    
+    [self.questionsWithNilConnection storeToPersistentStorage];
     
     [persistentStoreHelperMock verify];
 }
 
 - (void)testThatDataSourceRestoresPreviouslyStoredContentWhenHasMoreQuestionsToFetchIsYES
 {
-    NSDictionary* restoredDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:YES]};
+    NSDictionary* restoredDictionary = @{[EPQuestionsDataSource hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:YES]};
     id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
     [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
@@ -308,7 +308,7 @@ static const BOOL valueYES = YES;
 
 - (void)testThatDataSourceRestoresPreviouslyStoredContentWhenHasMoreQuestionsToFetchIsNO
 {
-    NSDictionary* restoredDictionary = @{@"HasMoreQuestionsToFetch":[NSNumber numberWithBool:NO]};
+    NSDictionary* restoredDictionary = @{[EPQuestionsDataSource hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:NO]};
     id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
     [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
@@ -360,5 +360,6 @@ static const BOOL valueYES = YES;
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
+
 
 @end

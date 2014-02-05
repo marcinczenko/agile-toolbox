@@ -6,8 +6,10 @@ var EPHelpers = (function() {
         this.mainWindow = this.target.frontMostApp().mainWindow();
     }
 
-    EPHelpers.prototype.goBack = function() {
+    EPHelpers.prototype.goBack = function(delay) {
+        var delay = delay || 0;
         this.target.frontMostApp().navigationBar().leftButton().tap();
+        this.target.delay(delay);
     };
 
     EPHelpers.prototype.enterQuestions = function(delay) {
@@ -40,6 +42,14 @@ var EPHelpers = (function() {
 
     EPHelpers.prototype.getCellTextForTableViewAtIndex = function(tableView,cellIndex){
         return this.mainWindow.tableViews()[tableView].cells()[cellIndex].name();
+    };
+
+    EPHelpers.prototype.getVisibleCellTextForTableViewAtIndex = function(tableView,cellIndex){
+        return this.mainWindow.tableViews()[tableView].visibleCells()[cellIndex].name();
+    };
+
+    EPHelpers.prototype.scrollToCellWithName = function(tableView,cellName){
+        this.mainWindow.tableViews()[tableView].scrollToElementWithName(cellName);
     };
 
     EPHelpers.prototype.getLabel = function() {

@@ -56,29 +56,11 @@
     [super tearDown];
 }
 
-- (id) fetchedResultsControllerMockWithNoDataToFetch
-{
-    id fetchedResultsControllerMock = [OCMockObject mockForClass:[NSFetchedResultsController class]];
-    [[[fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
-    
-    return fetchedResultsControllerMock;
-}
-
-- (id) fetchedResultsControllerMockWithSomeMoreDataToFetch
-{
-    id fetchedResultsControllerMock = [OCMockObject mockForClass:[NSFetchedResultsController class]];
-    [[[fetchedResultsControllerMock stub] andReturn:@[@"something"]] fetchedObjects];
-    
-    return fetchedResultsControllerMock;
-}
-
 - (void)expectStateChangeTo:(Class)stateClass
-       whenNoQuestionsToShow:(BOOL)noQuestionsToShow
+       whenHasQuestionsInPersistentStorage:(BOOL)hasQuestionsInPersistentStorage
   andHasMoreQuestionsToFetch:(BOOL)hasMoreQuestionsToFetch
 {
-    id fetchedResultsControllerMock = noQuestionsToShow ? [self fetchedResultsControllerMockWithNoDataToFetch] : [self fetchedResultsControllerMockWithSomeMoreDataToFetch];
-    
-    [[[self.viewControllerMock stub] andReturn:fetchedResultsControllerMock] fetchedResultsController];
+    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(hasQuestionsInPersistentStorage)] hasQuestionsInPersistentStorage];
     [[[self.questionsDataSourceMock stub] andReturnValue:OCMOCK_VALUE(hasMoreQuestionsToFetch)] hasMoreQuestionsToFetch];
     
     [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
@@ -92,8 +74,8 @@
 - (void)testThatViewDidLoadChangingTheStateToEmptyLoading
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerEmptyLoadingState class]
-         whenNoQuestionsToShow:YES
-    andHasMoreQuestionsToFetch:YES];
+         whenHasQuestionsInPersistentStorage:NO
+                  andHasMoreQuestionsToFetch:YES];
     
     [self.state viewDidLoad];
     
@@ -103,8 +85,8 @@
 - (void)testThatViewDidLoadTriggersFetchWhenChangingStateToEmptyLoading
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerEmptyLoadingState class]
-        whenNoQuestionsToShow:YES
-   andHasMoreQuestionsToFetch:YES];
+        whenHasQuestionsInPersistentStorage:NO
+                 andHasMoreQuestionsToFetch:YES];
     
     [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
     
@@ -116,8 +98,8 @@
 - (void)testThatViewDidLoadActivatesNetworkActivityIndicatorWhenChangingStateToEmptyLoading
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerEmptyLoadingState class]
-        whenNoQuestionsToShow:YES
-   andHasMoreQuestionsToFetch:YES];
+        whenHasQuestionsInPersistentStorage:NO
+                 andHasMoreQuestionsToFetch:YES];
     
     [[self.applicationPartialMock expect] setNetworkActivityIndicatorVisible:YES];
     
@@ -130,8 +112,8 @@
 - (void)testThatViewDidLoadChangingTheStateToEmptyNoQuestions
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]
-        whenNoQuestionsToShow:YES
-   andHasMoreQuestionsToFetch:NO];
+        whenHasQuestionsInPersistentStorage:NO
+                 andHasMoreQuestionsToFetch:NO];
    
     [self.state viewDidLoad];
     
@@ -141,8 +123,8 @@
 - (void)testThatViewDidLoadChangingTheStateToQuestionsWithFetchMore
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]
-        whenNoQuestionsToShow:NO
-   andHasMoreQuestionsToFetch:YES];
+        whenHasQuestionsInPersistentStorage:YES
+                 andHasMoreQuestionsToFetch:YES];
     
     [self.state viewDidLoad];
     
@@ -152,8 +134,8 @@
 - (void)testThatViewDidLoadChangingTheStateToQuestionsNoMoreToFetch
 {
     [self expectStateChangeTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]
-        whenNoQuestionsToShow:NO
-   andHasMoreQuestionsToFetch:NO];
+        whenHasQuestionsInPersistentStorage:YES
+                 andHasMoreQuestionsToFetch:NO];
     
     [self.state viewDidLoad];
     

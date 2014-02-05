@@ -50,10 +50,10 @@
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
+    [center addObserver:self selector:@selector(willResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
-    [center addObserver:self selector:@selector(willResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:[UIApplication sharedApplication]];
 }
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
@@ -98,63 +98,58 @@
 
 - (void)willResignActiveNotification:(NSNotification*)paramNotification
 {
-    [self.statePreservationAssistant viewController:self willResignActiveNotification:paramNotification];
+    [self.stateMachine willResignActiveNotification:paramNotification];
 }
 
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification
 {
-    [self.statePreservationAssistant viewController:self didEnterBackgroundNotification:paramNotification];
+    [self.stateMachine didEnterBackgroundNotification:paramNotification];
 }
 
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification
 {
-    [self.statePreservationAssistant viewController:self willEnterForegroundNotification:paramNotification];
+    [self.stateMachine willEnterForegroundNotification:paramNotification];
 }
 
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification
 {
-    [self.statePreservationAssistant viewController:self didBecomeActiveNotification:paramNotification];
+    [self.stateMachine didBecomeActiveNotification:paramNotification];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.statePreservationAssistant viewWillAppearForViewController:self];
+    [self.stateMachine viewWillAppear];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self.statePreservationAssistant viewDidAppearForViewController:self];
-}
-
-- (void)createSnapshotView
-{
-    CGRect frame = self.tableView.frame;
-    
-    frame.origin.y = self.tableView.contentInset.top;
-    frame.size.height = frame.size.height - frame.origin.y;
-    
-    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
-    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
-    UIImage* im = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
-    [im drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
-    UIImage* im2 = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.statePreservationAssistant.snapshotView = [[UIImageView alloc] initWithImage:im2];
+    [self.stateMachine viewDidAppear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [self.statePreservationAssistant viewWillDisappearForViewController:self];
+    [self.stateMachine viewWillDisappear];
+}
+
+- (BOOL)viewIsVisible
+{
+    return (self.isViewLoaded && self.view.window);
+}
+
+- (BOOL)hasQuestionsInPersistentStorage
+{
+    return (0<self.fetchedResultsController.fetchedObjects.count);
+}
+
+- (NSUInteger)numberOfQuestionsInPersistentStorage
+{
+    return self.fetchedResultsController.fetchedObjects.count;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

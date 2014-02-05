@@ -23,7 +23,7 @@ module Runners
     end
 
     def self.command(options)
-        "xcodebuild -workspace #{xcode_workspace(options)} -scheme #{options[:scheme]} -configuration #{configuration} -sdk #{sdk} OBJROOT='#{obj_root(options)}' SYMROOT='#{sym_root(options)}' GCC_PREPROCESSOR_DEFINITIONS='NO_STATE_PRESERVATION TEST' build"
+        "xcodebuild -workspace #{xcode_workspace(options)} -scheme #{options[:scheme]} -configuration #{configuration} -sdk #{sdk} OBJROOT='#{obj_root(options)}' SYMROOT='#{sym_root(options)}' GCC_PREPROCESSOR_DEFINITIONS='#{options[:preprocessor]}' build"
     end
     
     def self.run(options)

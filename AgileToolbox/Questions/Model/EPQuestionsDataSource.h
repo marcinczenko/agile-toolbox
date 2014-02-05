@@ -18,12 +18,14 @@
 
 @property (nonatomic,readonly) NSString* connectionURL;
 @property (nonatomic,readonly) id<EPConnectionProtocol> connection;
-@property (nonatomic,readonly) BOOL applicationRunsInBackground;
+@property (nonatomic,assign) BOOL backgroundFetchMode;
 
 + (NSUInteger)pageSize;
 + (NSString*)persistentStoreFileName;
++ (NSString*)hasMoreQuestionsToFetchKey;
 
 - (id)initWithConnection:(id<EPConnectionProtocol>)connection andWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+- (void)storeToPersistentStorage;
 - (void)restoreFromPersistentStorage;
 
 
@@ -38,5 +40,4 @@
 
 #pragma mark - only for testing purposes - do not call these methods directly
 - (void)saveToCoreData:(NSArray*)questionsArray;
-- (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 @end

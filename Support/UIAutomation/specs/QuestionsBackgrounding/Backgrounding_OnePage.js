@@ -8,6 +8,8 @@ describe("Questions Backgrounding", function() {
 
     var helpers = new EPHelpers();
 
+    var expectedFirstVisibleCellName = 'Test Item12';
+
     afterEach(function() {
         helpers.goBack();
     });
@@ -30,6 +32,8 @@ describe("Questions Backgrounding", function() {
 
         expected_number_of_questions = 40;
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(expected_number_of_questions);
+
+        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
     });
 
     it("displays the same set of questions when re-entering questions section", function() {
@@ -37,6 +41,8 @@ describe("Questions Backgrounding", function() {
         helpers.enterQuestions();
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);
+
+        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
     });
 });
 

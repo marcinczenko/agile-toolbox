@@ -14,6 +14,8 @@
 @property (nonatomic,readonly) UITableView *tableView;
 @property (nonatomic,readonly) EPFetchMoreTableViewCell* fetchMoreCell;
 
++ (UIColor*)colorQuantum;
+
 - (id)initWithTableView:(UITableView*)tableView;
 - (void)addTableFooterInOrderToHideEmptyCells;
 - (BOOL)totalContentHeightSmallerThanScreenSize;

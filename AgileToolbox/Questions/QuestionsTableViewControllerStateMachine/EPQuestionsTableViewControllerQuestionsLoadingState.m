@@ -59,7 +59,7 @@
 - (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     if (0==section) {
-        return self.viewController.fetchedResultsController.fetchedObjects.count;
+        return self.viewController.numberOfQuestionsInPersistentStorage;
     } else {
         return 1 ;
     }

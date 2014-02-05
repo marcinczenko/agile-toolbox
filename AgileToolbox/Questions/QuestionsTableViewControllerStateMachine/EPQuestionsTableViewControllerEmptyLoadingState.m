@@ -11,9 +11,27 @@
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
 #import "EPQuestionsTableViewControllerEmptyConnectionFailureState.h"
+#import "EPQuestionsDataSourceProtocol.h"
 
 @implementation EPQuestionsTableViewControllerEmptyLoadingState
 
+- (void)viewWillDisappear
+{
+    self.viewController.fetchedResultsController.delegate = nil;
+    self.viewController.statePreservationAssistant.viewNeedsRefreshing = YES;
+    self.viewController.questionsDataSource.backgroundFetchMode = YES;
+    
+    [super viewWillDisappear];
+}
+
+- (void)didEnterBackgroundNotification:(NSNotification*)notification
+{
+    self.viewController.fetchedResultsController.delegate = nil;
+    self.viewController.statePreservationAssistant.viewNeedsRefreshing = YES;
+    self.viewController.questionsDataSource.backgroundFetchMode = YES;
+    
+    [super didEnterBackgroundNotification:notification];
+}
 
 - (void)controllerDidChangeContent
 {
@@ -43,13 +61,6 @@
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self.tableViewExpert.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
-//    [self.tableViewExpert removeTableFooter];
-//    
-//    [self.tableViewExpert.tableView beginUpdates];
-//    [self.tableViewExpert deleteFetchMoreCell];
-//    [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
-//                          withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableViewExpert.tableView endUpdates];
 }
 
 - (void)fetchReturnedNoDataInBackground
@@ -57,7 +68,6 @@
     NSLog(@"fetchReturnedNoDataInBackground");
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    //[self.tableViewExpert removeTableFooter];
 }
 
 - (void)dataChangedInBackground

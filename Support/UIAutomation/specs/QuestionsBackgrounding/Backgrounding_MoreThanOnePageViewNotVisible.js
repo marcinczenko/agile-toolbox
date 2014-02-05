@@ -17,8 +17,10 @@ describe("Questions Backgrounding", function() {
     it("performs background fetch operation when server has more than one page of questions available", function() {
 
         helpers.enterQuestions();
+        helpers.goBack();
 
         helpers.enterBackgroundForDuration(4);
+        helpers.enterQuestions();
 
         // we should have 40 questions cells and one fetch more cell after coming back from background mode
         var expected_number_of_questions = 41;
@@ -27,21 +29,14 @@ describe("Questions Backgrounding", function() {
         expect(helpers.getCellTextForTableViewAtIndex("Questions",expected_number_of_questions-1)).toEqual("Pull up to download more questions.");
 
         helpers.fetchMore(expected_number_of_questions);
+        helpers.goBack();
 
         helpers.enterBackgroundForDuration(4);
+        helpers.enterQuestions();
 
         // we should have 45 question cells and no "Fetch More" cells on the screen
         expected_number_of_questions = 45;
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(expected_number_of_questions);
-
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
-    });
-
-    it("displays the same set of questions when re-entering questions section", function() {
-
-        helpers.enterQuestions();
-
-        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(45);
 
         expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
     });

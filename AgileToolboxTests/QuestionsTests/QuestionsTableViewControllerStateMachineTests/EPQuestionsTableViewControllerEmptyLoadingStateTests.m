@@ -23,10 +23,15 @@
 @property (nonatomic,strong) id tableViewExpertMock;
 
 @property (nonatomic,strong) id stateMachineMock;
+@property (nonatomic,strong) id fetchedResultsControllerMock;
 
 @property (nonatomic,weak) id applicationPartialMock;
 
 @property (nonatomic,strong) EPQuestionsTableViewControllerEmptyLoadingState* state;
+
+@property (nonatomic,strong) id preservationAssistantMock;
+
+@property (nonatomic,readonly) id doesNotMatter;
 
 @end
 
@@ -34,6 +39,11 @@
 
 const static BOOL valueNO = NO;
 const static BOOL valueYES = YES;
+
+- (id)doesNotMatter
+{
+    return nil;
+}
 
 - (void)expectThatDataSourceHasNoMoreQuestionsToFetch
 {
@@ -45,6 +55,16 @@ const static BOOL valueYES = YES;
     [[[self.questionsDataSourceMock expect] andReturnValue:OCMOCK_VALUE(valueYES)] hasMoreQuestionsToFetch];
 }
 
+- (void)expectQuestionsInPersistentStorage:(BOOL)state
+{
+    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(state)] hasQuestionsInPersistentStorage];
+}
+
+- (void)mockFetchedResultsController
+{
+    [[[self.viewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
+}
+
 
 - (void)setUp
 {
@@ -52,9 +72,13 @@ const static BOOL valueYES = YES;
     
     self.applicationPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
     
+    self.preservationAssistantMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStatePreservationAssistant class]];
+    self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
     self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
-    self.viewControllerMock = [OCMockObject mockForClass:[EPQuestionsTableViewController class]];
+    
+    self.viewControllerMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewController class]];
     [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
+    [[[self.viewControllerMock stub] andReturn:self.preservationAssistantMock] statePreservationAssistant];
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
     self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
@@ -73,6 +97,83 @@ const static BOOL valueYES = YES;
     
     
     [super tearDown];
+}
+
+- (void)testThatViewWillDisappearSetsFetchedResultsControllerDelegateToNil
+{
+    [self mockFetchedResultsController];
+    [[self.fetchedResultsControllerMock expect] setDelegate:nil];
+    
+    [self.state viewWillDisappear];
+    
+    [self.fetchedResultsControllerMock verify];
+}
+
+- (void)testThatViewWillDisappearSetsTheViewNeedsRefreshingFlagToYES
+{
+    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:YES];
+    
+    [self.state viewWillDisappear];
+    
+    [self.preservationAssistantMock verify];
+}
+
+- (void)testThatViewWillDisappearSetsDataSourceBackgroundFetchingModeToYES
+{
+    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:YES];
+    
+    [self.state viewWillDisappear];
+    
+    [self.questionsDataSourceMock verify];
+}
+
+- (void)testThatViewWillDisappearRecordsTheCurrentStateWhenThereAreQuestionsInPersistentStorage
+{
+    [self expectQuestionsInPersistentStorage:YES];
+    
+    [[self.preservationAssistantMock expect] recordCurrentStateForViewController:self.viewControllerMock];
+    
+    [self.state viewWillDisappear];
+    
+    [self.preservationAssistantMock verify];
+}
+
+- (void)testThatDidEnterBackgroundNotificationSetsTheFetchedResultsControllerDelegateToNil
+{
+    [self mockFetchedResultsController];
+    [[self.fetchedResultsControllerMock expect] setDelegate:nil];
+    
+    [self.state didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.fetchedResultsControllerMock verify];
+}
+
+- (void)testThatDidEnterBackgroundNotificationSetsTheViewNeedsRefreshingFlagToYES
+{
+    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:YES];
+    
+    [self.state didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantMock verify];
+}
+
+- (void)testThatDidEnterBackgroundNotificationSetsDataSourceBackgroundFetchingModeToYES
+{
+    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:YES];
+    
+    [self.state didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.questionsDataSourceMock verify];
+}
+
+
+- (void)testThatDidEnterBackgroundNotificationSavesTheStateToPersistentStorage
+{
+    [[self.preservationAssistantMock expect] storeToPersistentStorage];
+    
+    [self.state didEnterBackgroundNotification:self.doesNotMatter];
+    
+    [self.preservationAssistantMock verify];
 }
 
 - (void)testThatControllerDidChangeContentsChangesTheStateToQuestionsWithFetchMoreStateWhenDataSourceHasMoreQuestionsToFetch

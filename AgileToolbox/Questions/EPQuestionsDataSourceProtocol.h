@@ -12,8 +12,11 @@
 @protocol EPQuestionsDataSourceProtocol <NSObject>
 
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
+@property (nonatomic,assign) BOOL backgroundFetchMode;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
 
+- (void)storeToPersistentStorage;
+- (void)restoreFromPersistentStorage;
 
 - (void)fetchOlderThan:(NSInteger)questionId;
 - (void)fetchNew;

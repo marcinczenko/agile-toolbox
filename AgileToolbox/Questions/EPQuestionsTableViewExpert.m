@@ -19,6 +19,11 @@
 
 @implementation EPQuestionsTableViewExpert
 
++ (UIColor*)colorQuantum
+{
+    return [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
+}
+
 - (id)initWithTableView:(UITableView*)tableView
 {
     if ((self = [super init])) {

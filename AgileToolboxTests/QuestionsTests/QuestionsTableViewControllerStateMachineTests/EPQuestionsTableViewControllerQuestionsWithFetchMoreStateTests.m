@@ -30,15 +30,9 @@
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests
 
--(void)expectThatFetchResultsControllerWithNItems:(NSUInteger)numberOfRows
+-(void)expectPersistentStorageWithNItems:(NSUInteger)numberOfRows
 {
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (int i=0; i<numberOfRows; i++) {
-        [array addObject:[NSNumber numberWithInt:i]];
-    }
-    
-    [[[self.fetchedResultsControllerMock stub] andReturn:array] fetchedObjects];
+    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(numberOfRows)] numberOfQuestionsInPersistentStorage];
 }
 
 - (void)setUp
@@ -99,7 +93,7 @@
 - (void)testThatNumberOfRowsInSectionNumberOfRowsInFetchedResultsControllerForSectionZero
 {
     NSInteger expectedNumberOfRows = 10;
-    [self expectThatFetchResultsControllerWithNItems:expectedNumberOfRows];
+    [self expectPersistentStorageWithNItems:expectedNumberOfRows];
     
     XCTAssertEqual(expectedNumberOfRows, [self.state numberOfRowsInSection:0]);
 }

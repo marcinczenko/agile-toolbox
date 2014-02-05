@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad
 {
-    if (0 == self.viewController.fetchedResultsController.fetchedObjects.count) {
+    if (!self.viewController.hasQuestionsInPersistentStorage) {
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
             [self.viewController.questionsDataSource fetchOlderThan:-1];
