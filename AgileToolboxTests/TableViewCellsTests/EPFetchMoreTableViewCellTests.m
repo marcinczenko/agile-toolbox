@@ -36,10 +36,11 @@
 {
     [super setUp];
     
-    self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"QuestionsViewController"];
-    self.questionsTableViewController.stateMachine = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerStateMachine;
+    self.questionsTableViewController = [[EPFetchMoreTableViewCellTests storyBoard] instantiateViewControllerWithIdentifier:@"EPQuestionsTableViewController"];
+    EPDependencyBox* dependencyBox = ((EPAppDelegate*)([UIApplication sharedApplication].delegate)).questionsTableViewControllerDependencyBox;
+    [self.questionsTableViewController injectDependenciesFrom:dependencyBox];
     self.fetchMoreTableViewCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
-                                                                         forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                                         forIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]
                                                                               loading:NO];
 }
 
@@ -52,7 +53,7 @@
 - (void)testCreatingTableViewCellByDequeueingFromTableView
 {
     EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.questionsTableViewController.tableView
-                                                                                     forIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                                                                     forIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]
                                                                                           loading:NO];
     XCTAssertNotNil(fetchMoreCell);
     XCTAssertEqualObjects(@"FetchMore", fetchMoreCell.reuseIdentifier);

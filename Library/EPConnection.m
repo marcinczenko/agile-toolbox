@@ -20,9 +20,6 @@
 @property (nonatomic, copy) EPConnectionProgressBlock progressBlock;
 @property (nonatomic, copy) EPConnectionCompletionBlock completionBlock;
 
-// OCMock has problem with "weak" properties:
-// http://stackoverflow.com/questions/9104544/how-can-i-get-ocmock-under-arc-to-stop-nilling-an-nsproxy-subclass-set-using-a-w
-// It should be fine to use assign for the remaining delegate properties.
 @property (nonatomic, weak) id<EPConnectionDelegateProtocol> connectionDelegate;
 
 @end
@@ -192,7 +189,10 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Connection failed");
+    if ([self.connectionDelegate respondsToSelector:@selector(downloadFailed)]) {
+        [self.connectionDelegate downloadFailed];
+    }
+    
     if (self.completionBlock) self.completionBlock(self, error);
     self.connection = nil;
 }

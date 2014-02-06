@@ -30,7 +30,8 @@ module Runners
         end
               
         def command
-            "#{Helpers::PathFinder.find(:Python)} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            delay = @options[:delay] ? @options[:delay] : 1
+            "#{Helpers::PathFinder.find(:Python)} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]} -d #{delay}"
             #"#{File.join(ENV['VIRTUAL_ENV'], '/bin/python')} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
         end
         

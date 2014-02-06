@@ -9,108 +9,106 @@
 #import "EPAppDelegate.h"
 #import "EPConnection.h"
 #import "EPJSONPostURLRequest.h"
+#import "EPQuestionsTableViewController.h"
+
+#import "EPQuestionsTableViewControllerDependencyBootstrapper.h"
 
 @interface EPAppDelegate ()
 
-@property (strong, nonatomic) NSFetchedResultsController *questionsFetchedResultsController;
-@property (strong, nonatomic) EPQuestionsDataSource* questionsDataSource;
-@property (strong, nonatomic) EPQuestionsTableViewControllerStateMachine* questionsTableViewControllerStateMachine;
-@property (strong, nonatomic) EPQuestionPostman* postman;
+@property (strong, nonatomic) EPDependencyBox* questionsTableViewControllerDependencyBox;
 
 @end
 
 @implementation EPAppDelegate
 
-static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
-
-// The following three @synthesize statements are for CoreData
+// The following three @synthesize statements are for CoreData - lazy loading for readonly properties
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-@synthesize window = _window;
-@synthesize questionsDataSource = _questionsDataSource;
-@synthesize postman = _postman;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *responseData;
-    
-    responseData = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ready",hostURL]]]
-                                         returningResponse:&response
-                                                     error:&error];
-                                                                        
-    if ([responseData length] > 0)
-    {
-        NSLog(@"Upload response: %@",[NSString stringWithCString:[responseData bytes]
-                                                        encoding:NSUTF8StringEncoding]);
-    } else {
-        NSLog(@"Bad response (%@)", [error description]);
-    }
-    
-    
-    EPConnection* connection = [EPConnection createWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/items_json",hostURL]]];
-    
-    NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
-
-    questionsFetchRequest.sortDescriptors = @[timestampSort];
-    
-    self.questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    
-    NSError *fetchError = nil;
-    [self.questionsFetchedResultsController performFetch:&fetchError];
-    
-    self.questionsTableViewControllerStateMachine = [[EPQuestionsTableViewControllerStateMachine alloc] init];
-    
-    self.questionsDataSource = [[EPQuestionsDataSource alloc] initWithConnection:connection
-                                               andWithManagedObjectContext:self.managedObjectContext];
-    
-    EPJSONPostURLRequest* postRequest = [[EPJSONPostURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/new_json_item",hostURL]]];
-    EPConnection* postConnection = [[EPConnection alloc] initWithURLRequest:postRequest];
-    self.postman = [[EPQuestionPostman alloc] initWithConnection:postConnection];
+    self.questionsTableViewControllerDependencyBox = [[[EPQuestionsTableViewControllerDependencyBootstrapper alloc] initWithAppDelegate:self] bootstrap];
     
     return YES;
 }
-							
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+#ifdef TEST
+    return NO;
+#else
+    return YES;
+#endif
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+#ifdef TEST
+    return NO;
+#else
+    return YES;
+#endif
+}
+
+- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    NSLog(@"didDecodeRestorableStateWithCoder");
+}
+
+- (UIViewController*)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    if ([[identifierComponents lastObject] isEqualToString:@"MenuItems"]) {
+        return self.window.rootViewController;
+    }
+    if ([[identifierComponents lastObject] isEqualToString:@"EPMainMenuListViewController"]) {
+        return [(UINavigationController*)self.window.rootViewController viewControllers][0];
+    }
+    
+    UIStoryboard* board = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    
+    if ([[identifierComponents lastObject] isEqualToString:@"EPQuestionsTableViewController"]) {
+        EPQuestionsTableViewController* questionsTableViewController = (EPQuestionsTableViewController*)[board instantiateViewControllerWithIdentifier:[identifierComponents lastObject]];
+        
+        [questionsTableViewController injectDependenciesFrom:self.questionsTableViewControllerDependencyBox];
+        
+        return questionsTableViewController;
+    }
+    
+    return nil;
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    NSLog(@"applicationWillResignActive");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
+//    NSLog(@"applicationWillResignActive");
+//    if (![NSThread isMainThread]) {
+//        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
+//    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    NSLog(@"applicationDidEnterBackground");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSLog(@"applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    NSLog(@"applicationDidBecomeActive");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    NSLog(@"applicationWillTerminate");
 }
 
 - (void)saveContext
@@ -165,13 +163,15 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-    
-//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
-    
+
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+#ifdef TEST
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
-//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+#else
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AgileToolbox.sqlite"];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+#endif
         /*
          Replace this implementation with code to handle the error appropriately.
          

@@ -1,7 +1,8 @@
 module Runners
     
   class ComplexRunner
-      @@timeout = 20
+      DEFAULT_TIMEOUT = 20
+      @@timeout = DEFAULT_TIMEOUT
       @@verbose = false
       def self.run(command,signal='INT')
           runner = SimpleRunner.new(command)
@@ -21,6 +22,14 @@ module Runners
       
       def self.set_verbose(value)
           @@verbose = value
+      end
+
+      def self.set_timeout(value)
+          @@timeout = value
+      end
+
+      def self.reset_timeout
+        @@timeout = DEFAULT_TIMEOUT
       end
   end
 end

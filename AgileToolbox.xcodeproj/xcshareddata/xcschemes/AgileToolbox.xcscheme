@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.xctest"
-               BlueprintName = "ApplicationUnitTests"
+               BuildableName = "AgileToolboxTests.xctest"
+               BlueprintName = "AgileToolboxTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>

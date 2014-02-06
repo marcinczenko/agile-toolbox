@@ -8,6 +8,13 @@ from models.questions import QuestionRepository
 
 
 class ItemsJSON(webapp2.RequestHandler):
+
+    __delay = 1
+
+    @classmethod
+    def setDelay(cls,delay):
+        cls.__delay = delay
+
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
 
@@ -17,7 +24,7 @@ class ItemsJSON(webapp2.RequestHandler):
         if not threshold_id:
             threshold_id = -1
 
-        time.sleep(1)
+        time.sleep(ItemsJSON.__delay)
 
         if not number_of_items_to_fetch:
             items = QuestionRepository.all()

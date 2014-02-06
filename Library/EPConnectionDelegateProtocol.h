@@ -11,5 +11,6 @@
 @protocol EPConnectionDelegateProtocol <NSObject>
 
 - (void) downloadCompleted:(NSData*)data;
+- (void) downloadFailed;
 
 @end
