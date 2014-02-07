@@ -32,7 +32,7 @@
 
 @property (nonatomic,strong) id connectionMock;
 
-- (NSData*) createJSONDataFromJSONArray:(id) json_object;
+- (NSData*) createJSONDataFromDictionary:(id) json_object;
 - (NSArray*) generateTestJSONArrayWith:(NSInteger)numberOfObjects;
 
 
@@ -73,7 +73,7 @@ static const BOOL valueYES = YES;
     return json_object;
 }
 
-- (NSData*) createJSONDataFromJSONArray:(id) json_object
+- (NSData*) createJSONDataFromDictionary:(id) json_object
 {
     return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:NULL];
 }
@@ -168,11 +168,23 @@ static const BOOL valueYES = YES;
     [self.connectionMock verify];
 }
 
+- (void)testFetchingNewAndUpdatedQuestions
+{
+    int anID = 123;
+    [self.connectionMock setExpectationOrderMatters:YES];
+    [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
+                                                              @"after": [NSString stringWithFormat:@"%d",anID]}];
+    
+    [self.questionsWithConnectionMock fetchNewerThan:anID];
+    
+    [self.connectionMock verify];
+}
+
 - (void)testThatQuestionsAreProperlySavedToCoreDataOnReception
 {
     NSArray* jsonArray = [self generateTestJSONArrayWith:5];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":jsonArray}]];
 
     int index = 0;
     for (Question *question in [self getQuestionsFromDataStoreDescending]) {
@@ -205,7 +217,7 @@ static const BOOL valueYES = YES;
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
     [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":jsonArray}]];
     
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
@@ -217,7 +229,7 @@ static const BOOL valueYES = YES;
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
     [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":jsonArray}]];
     
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
@@ -229,7 +241,7 @@ static const BOOL valueYES = YES;
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
     [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":jsonArray}]];
     
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
@@ -239,7 +251,7 @@ static const BOOL valueYES = YES;
     [[self.dataSourceDelegateMock expect] fetchReturnedNoData];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":@[]}]];
     
     [self.dataSourceDelegateMock verify];
 }
@@ -252,7 +264,7 @@ static const BOOL valueYES = YES;
     [self simulateBackgroundModeFor:questionsPartialMock];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":@[]}]];
     
     [self.dataSourceDelegateMock verify];
 }
@@ -268,7 +280,7 @@ static const BOOL valueYES = YES;
     [self simulateBackgroundModeFor:questionsPartialMock];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:jsonArray]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":jsonArray}]];
     
     [self.dataSourceDelegateMock verify];
 }
@@ -278,7 +290,7 @@ static const BOOL valueYES = YES;
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
     [[questionsPartialMock reject] saveToCoreData:[OCMArg any]];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":@[]}]];
 }
 
 - (void)testThatStoreToPersistentStorageStoresHasMoreQuestionsToFetchStatus
@@ -322,7 +334,7 @@ static const BOOL valueYES = YES;
     id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
     [[[persistentStoreHelperMock stub] andReturn: nil] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":@[]}]];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
@@ -344,7 +356,7 @@ static const BOOL valueYES = YES;
     id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
     [[[persistentStoreHelperMock stub] andReturn: restoredDictionary] readDictionaryFromFile:[EPQuestionsDataSource persistentStoreFileName]];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromJSONArray:@[]]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJSONDataFromDictionary:@{@"old":@[]}]];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     XCTAssertFalse(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
@@ -360,6 +372,5 @@ static const BOOL valueYES = YES;
     [self.questionsWithNilConnection restoreFromPersistentStorage];
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
-
 
 @end

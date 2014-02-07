@@ -33,7 +33,7 @@
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
 - (void)fetchOlderThan:(NSInteger)questionId;
-- (void)fetchNew;
+- (void)fetchNewerThan:(NSInteger)questionId;
 
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;

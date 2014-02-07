@@ -350,7 +350,7 @@ BOOL valueNO = NO;
 
 - (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
 {
-    [[self.questionsDataSourceMock expect] fetchNew];
+    [[self.questionsDataSourceMock expect] fetchNewerThan:-1];
     
     [self.vc postDelivered];
     

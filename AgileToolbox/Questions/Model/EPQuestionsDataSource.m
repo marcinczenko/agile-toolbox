@@ -22,8 +22,6 @@
 
 @property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundTaskId;
 
-@property (nonatomic, strong) NSTimer *myTimer;
-
 @end
 
 @implementation EPQuestionsDataSource
@@ -92,54 +90,37 @@
 
 - (void)endBackgroundTask
 {
-    NSLog(@"endBackgroundTask");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
-    
-    [self.myTimer invalidate];        
-    
     [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
     self.backgroundTaskId = UIBackgroundTaskInvalid;
 }
 
-- (void) timerMethod:(NSTimer *)paramSender
+- (void)fetchWithParams:(NSDictionary*)params
 {
-    NSTimeInterval backgroundTimeRemaining = [[UIApplication sharedApplication] backgroundTimeRemaining];
-    if (backgroundTimeRemaining == DBL_MAX) {
-        NSLog(@"Background Time Remaining = Undetermined");
-    }else{
-        NSLog(@"Background Time Remaining = %.02f Seconds",backgroundTimeRemaining);
-    }
-}
-
-- (void)fetchOlderThan:(NSInteger)questionId
-{
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                     target:self selector:@selector(timerMethod:) userInfo:nil
-                                    repeats:NO];
-    
     UIApplication* app = [UIApplication sharedApplication];
     
     self.backgroundTaskId = [app beginBackgroundTaskWithExpirationHandler:^{
         [self endBackgroundTask];
     }];
     
-    
-    
+    [self.connection getAsynchronousWithParams:params];
+}
+
+- (void)fetchOlderThan:(NSInteger)questionId
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
                                                                                          (unsigned long)[self.class pageSize]]}];
-    
     if (0 <= questionId) {
         [params addEntriesFromDictionary:@{@"id": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
     }
     
-    [self.connection getAsynchronousWithParams:params];
+    [self fetchWithParams:params];
 }
 
-- (void)fetchNew
+- (void)fetchNewerThan:(NSInteger)questionId
 {
-    
+    [self fetchWithParams:@{@"n": [NSString stringWithFormat:@"%lu",
+                                   (unsigned long)[self.class pageSize]],
+                            @"after": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
 }
 
 - (void)addToManagedObjectContextFromDictionary:(NSDictionary *)questionDictionaryObject
@@ -194,7 +175,7 @@
 
 - (void)downloadCompleted:(NSData *)data
 {
-    NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil][@"old"];
     
     if ([self.class pageSize] > new_data.count) {
         _hasMoreQuestionsToFetch = NO;

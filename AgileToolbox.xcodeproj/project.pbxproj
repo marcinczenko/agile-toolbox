@@ -176,13 +176,6 @@
 			remoteGlobalIDString = D387EF0A1536EF0400635736;
 			remoteInfo = AgileToolbox;
 		};
-		D3A7B4AE15AB01D700DD6772 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D387EF021536EF0400635736 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
-			remoteInfo = Library;
-		};
 		D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
@@ -944,7 +937,6 @@
 			);
 			dependencies = (
 				6D7FD6D118639AFF00988B44 /* PBXTargetDependency */,
-				D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */,
 			);
 			name = IntegrationTests;
 			productName = IntegrationTests;
@@ -1238,11 +1230,6 @@
 			isa = PBXTargetDependency;
 			target = D387EF0A1536EF0400635736 /* AgileToolbox */;
 			targetProxy = D387EF311536EF0500635736 /* PBXContainerItemProxy */;
-		};
-		D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D3C1F5DF15A4544200F0900D /* Library */;
-			targetProxy = D3A7B4AE15AB01D700DD6772 /* PBXContainerItemProxy */;
 		};
 		D3C986F615A79ECD007A41D8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1580,6 +1567,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1596,6 +1587,7 @@
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
@@ -1609,6 +1601,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1625,6 +1621,7 @@
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",

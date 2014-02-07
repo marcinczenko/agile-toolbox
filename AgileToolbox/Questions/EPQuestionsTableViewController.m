@@ -321,7 +321,7 @@
 #pragma mark - EPPostmanDelegateProtocol
 - (void)postDelivered
 {
-    [self.questionsDataSource fetchNew];
+    [self.questionsDataSource fetchNewerThan:-1];
 }
 
 // TODO: not yet supported
