@@ -166,4 +166,9 @@
     return [self.currentState numberOfSections];
 }
 
+- (void)refresh
+{
+    return [self.currentState refresh];
+}
+
 @end

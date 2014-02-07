@@ -384,7 +384,7 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatDidBecomeActiveNotificationDelegatesToStatePreservationAssistant
+- (void)testThatDidBecomeActiveNotificationDelegatesToStateMachine
 {
     [[self.stateMachineMock expect] didBecomeActiveNotification:self.doesNotMatter];
     
@@ -393,7 +393,7 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatViewWillDisappearDelegatesToStatePreservationAssistant
+- (void)testThatViewWillDisappearDelegatesToStateMachine
 {
     [[self.stateMachineMock expect] viewWillDisappear];
     
@@ -402,7 +402,7 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatViewWillAppearDelegatesToStatePreservationAssistant
+- (void)testThatViewWillAppearDelegatesToStateMachine
 {
     [[self.stateMachineMock expect] viewWillAppear];
     
@@ -411,11 +411,20 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatViewDidAppearDelegatesToStatePreservationAssistant
+- (void)testThatViewDidAppearDelegatesToStateMachine
 {
     [[self.stateMachineMock expect] viewDidAppear];
     
     [self.vc viewDidAppear:NO];
+    
+    [self.stateMachineMock verify];
+}
+ //------------------ Refresh Controller --------------
+- (void)testThatRefreshDelegatesToStateMachine
+{
+    [[self.stateMachineMock expect] refresh];
+    
+    [self.vc refresh:self.doesNotMatter];
     
     [self.stateMachineMock verify];
 }

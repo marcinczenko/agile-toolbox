@@ -56,6 +56,13 @@
     [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
 }
 
+- (void)setupRefreshControl
+{
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+}
+
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
 {
     self.fetchedResultsController = dependencyBox[@"FetchedResultsController"];
@@ -83,6 +90,8 @@
     [self.stateMachine viewDidLoad];
     
     [self configureNotifications];
+    
+    [self setupRefreshControl];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -196,6 +205,13 @@
     if (!self.isScrolling) return;
     
     [self.stateMachine scrollViewDidScroll:scrollView];
+}
+
+#pragma mark - Refresh Controll delegate
+- (void)refresh:(id)paramSender
+{
+    [self.refreshControl endRefreshing];
+    [self.stateMachine refresh];
 }
 
 

@@ -45,4 +45,6 @@
 - (void)connectionFailure;
 - (void)connectionFailureInBackground;
 
+- (void)refresh;
+
 @end

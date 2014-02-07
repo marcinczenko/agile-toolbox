@@ -50,4 +50,6 @@
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
 
+- (void)refresh:(id)paramSender;
+
 @end
