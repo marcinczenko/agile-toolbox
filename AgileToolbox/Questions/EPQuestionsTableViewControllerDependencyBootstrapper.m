@@ -55,9 +55,9 @@ static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
 - (NSFetchedResultsController*)bootstrapFetchedResultsController
 {
     NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
     
-    questionsFetchRequest.sortDescriptors = @[timestampSort];
+    questionsFetchRequest.sortDescriptors = @[createdSort];
     
     NSFetchedResultsController* questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest
                                                                                                         managedObjectContext:self.appDelegate.managedObjectContext

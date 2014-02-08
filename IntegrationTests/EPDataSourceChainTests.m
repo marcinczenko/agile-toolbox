@@ -38,9 +38,9 @@
 - (void)bootstrapFetchedResultsController
 {
     NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
     
-    questionsFetchRequest.sortDescriptors = @[timestampSort];
+    questionsFetchRequest.sortDescriptors = @[createdSort];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest
                                                                                                         managedObjectContext:self.appDelegate.managedObjectContext

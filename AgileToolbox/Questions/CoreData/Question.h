@@ -2,7 +2,7 @@
 //  Question.h
 //  AgileToolbox
 //
-//  Created by Marcin Czenko on 15/01/14.
+//  Created by Marcin Czenko on 08/02/14.
 //
 //
 
@@ -14,6 +14,9 @@
 
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSNumber * question_id;
-@property (nonatomic, retain) NSDate * timestamp;
+@property (nonatomic, retain) NSDate * created;
+@property (nonatomic, retain) NSDate * updated;
+@property (nonatomic, retain) NSString * header;
+@property (nonatomic, retain) NSString * answer;
 
 @end

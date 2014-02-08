@@ -110,7 +110,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
                                                                                          (unsigned long)[self.class pageSize]]}];
     if (0 <= questionId) {
-        [params addEntriesFromDictionary:@{@"id": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
+        [params addEntriesFromDictionary:@{@"before": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
     }
     
     [self fetchWithParams:params];
@@ -130,8 +130,8 @@
     if (nil != newQuestion) {
         newQuestion.question_id = [questionDictionaryObject objectForKey:@"id"];
         newQuestion.content = [questionDictionaryObject objectForKey:@"content"];
-        double ts = [[questionDictionaryObject objectForKey:@"timestamp"] doubleValue];
-        newQuestion.timestamp = [NSDate dateWithTimeIntervalSince1970:ts];
+        double ts = [[questionDictionaryObject objectForKey:@"created"] doubleValue];
+        newQuestion.created = [NSDate dateWithTimeIntervalSince1970:ts];
     } else {
         NSLog(@"Failed to create the new question core data object.");
     }

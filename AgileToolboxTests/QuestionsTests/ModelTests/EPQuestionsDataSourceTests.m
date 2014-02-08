@@ -66,7 +66,7 @@ static const BOOL valueYES = YES;
         
         
         NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"item%ld",(long)index],@"content",
-                               dateAsANumber,@"timestamp",[NSNumber numberWithInt:index], @"id", nil];
+                               dateAsANumber,@"created",[NSNumber numberWithInt:index], @"id", nil];
         [json_object addObject:dict];
     }
     
@@ -96,8 +96,8 @@ static const BOOL valueYES = YES;
 - (NSArray*)getQuestionsFromDataStoreDescending
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *timestampSort = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
-    fetchRequest.sortDescriptors = @[timestampSort];
+    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
+    fetchRequest.sortDescriptors = @[createdSort];
     
     NSError *requestError = nil;
     return [self.managedObjectContext executeFetchRequest:fetchRequest error:&requestError];
@@ -156,12 +156,12 @@ static const BOOL valueYES = YES;
     [self.connectionMock verify];
 }
 
--(void)testFetchingQuestionsOlderThanTimestampOfAnElementWithTheGivenId
+-(void)testFetchingQuestionsAddedBeforeElementWithGivenId
 {
     int anID = 123;
     [self.connectionMock setExpectationOrderMatters:YES];
     [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
-                                                              @"id": [NSString stringWithFormat:@"%d",anID]}];
+                                                              @"before": [NSString stringWithFormat:@"%d",anID]}];
     
     [self.questionsWithConnectionMock fetchOlderThan:anID];
     
@@ -189,7 +189,7 @@ static const BOOL valueYES = YES;
     int index = 0;
     for (Question *question in [self getQuestionsFromDataStoreDescending]) {
         XCTAssertEqualObjects(question.content, [jsonArray[index] objectForKey:@"content"]);
-        XCTAssertEqualWithAccuracy(question.timestamp.timeIntervalSince1970, [(NSNumber*)([jsonArray[index] objectForKey:@"timestamp"]) doubleValue], 0.001);
+        XCTAssertEqualWithAccuracy(question.created.timeIntervalSince1970, [(NSNumber*)([jsonArray[index] objectForKey:@"created"]) doubleValue], 0.001);
         index++;
     }
 }

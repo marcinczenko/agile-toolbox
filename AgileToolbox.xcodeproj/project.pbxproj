@@ -28,7 +28,6 @@
 		6D83807D175FA5B400B305A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D83807C175FA5B400B305A5 /* Default-568h@2x.png */; };
 		6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */; };
 		6DAB88301892D783003075D8 /* AgileToolbox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88081892D783003075D8 /* AgileToolbox.xcdatamodeld */; };
-		6DAB88311892D783003075D8 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB880B1892D783003075D8 /* Question.m */; };
 		6DAB88321892D783003075D8 /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB880E1892D783003075D8 /* EPQuestionsTableViewController.m */; };
 		6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88101892D783003075D8 /* EPQuestionsTableViewExpert.m */; };
 		6DAB88341892D783003075D8 /* EPQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88131892D783003075D8 /* EPQuestionsDataSource.m */; };
@@ -61,6 +60,7 @@
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		6DE464FF18A5DDC800EB4310 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE464FE18A5DDC800EB4310 /* Question.m */; };
 		D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
@@ -202,8 +202,6 @@
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPFetchMoreTableViewCellTests.m; path = TableViewCellsTests/EPFetchMoreTableViewCellTests.m; sourceTree = "<group>"; };
 		6DAB88091892D783003075D8 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
-		6DAB880A1892D783003075D8 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
-		6DAB880B1892D783003075D8 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
 		6DAB880C1892D783003075D8 /* EPQuestionsDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSourceProtocol.h; sourceTree = "<group>"; };
 		6DAB880D1892D783003075D8 /* EPQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewController.h; sourceTree = "<group>"; };
 		6DAB880E1892D783003075D8 /* EPQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewController.m; sourceTree = "<group>"; };
@@ -254,6 +252,8 @@
 		6DAB885F1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerStatePreservationAssistant.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6DE464FD18A5DDC800EB4310 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		6DE464FE18A5DDC800EB4310 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
 		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
 		D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPlanningPokerViewController.m; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,8 +488,8 @@
 			isa = PBXGroup;
 			children = (
 				6DAB88081892D783003075D8 /* AgileToolbox.xcdatamodeld */,
-				6DAB880A1892D783003075D8 /* Question.h */,
-				6DAB880B1892D783003075D8 /* Question.m */,
+				6DE464FD18A5DDC800EB4310 /* Question.h */,
+				6DE464FE18A5DDC800EB4310 /* Question.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1115,6 +1115,7 @@
 				6DAB88391892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m in Sources */,
 				6DAB88401892D783003075D8 /* EPQuestionTableViewCell.m in Sources */,
 				6DAB88381892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m in Sources */,
+				6DE464FF18A5DDC800EB4310 /* Question.m in Sources */,
 				6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */,
 				6DAB883B1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m in Sources */,
 				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
@@ -1122,7 +1123,6 @@
 				6D60E32218983103001FCFE8 /* EPPersistentStoreHelper.m in Sources */,
 				6DAB883D1892D783003075D8 /* EPQuestionsTableViewControllerState.m in Sources */,
 				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
-				6DAB88311892D783003075D8 /* Question.m in Sources */,
 				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
 				6DAB88601895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m in Sources */,
 				6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */,
