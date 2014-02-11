@@ -171,7 +171,7 @@
     return 1;
 }
 
-- (void)refresh
+- (void)refresh:(UIRefreshControl*)refreshControl
 {
     
 }

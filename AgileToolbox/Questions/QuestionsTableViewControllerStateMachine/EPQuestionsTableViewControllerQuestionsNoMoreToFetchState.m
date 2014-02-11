@@ -7,9 +7,16 @@
 //
 
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
+#import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h"
 #import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsNoMoreToFetchState
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.viewController setupRefreshControl];
+}
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -25,6 +32,20 @@
 {
     return self.viewController.numberOfQuestionsInPersistentStorage;
 }
+
+- (void)refresh:(UIRefreshControl*)refreshControl
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
+    refreshControl.attributedTitle = title;
+    
+    [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
+                                                                     andOldestQuestionId:self.viewController.oldestQuestionId];
+    
+}
+
 
 
 @end

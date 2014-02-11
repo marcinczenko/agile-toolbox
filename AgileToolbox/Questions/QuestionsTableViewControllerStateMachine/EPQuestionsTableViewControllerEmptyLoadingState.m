@@ -42,6 +42,7 @@
         [self.tableViewExpert deleteFetchMoreCell];
     }
     [self.tableViewExpert.tableView endUpdates];
+    [self.viewController setupRefreshControl];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
@@ -75,6 +76,7 @@
     NSLog(@"dataChangedInBackground");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self.tableViewExpert removeTableFooter];
+    
     if (self.viewController.questionsDataSource.hasMoreQuestionsToFetch) {
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
     } else {

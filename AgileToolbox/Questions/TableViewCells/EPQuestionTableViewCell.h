@@ -13,4 +13,6 @@
 
 + (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath andQuestion:(Question*)question;
 
+- (void)formatCellForQuestion:(Question*)question;
+
 @end

@@ -15,6 +15,8 @@
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
 #import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
 #import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
+#import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
 
 @interface EPQuestionsTableViewControllerStateMachine ()
 
@@ -59,7 +61,9 @@
                               [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
                               [EPQuestionsTableViewControllerQuestionsLoadingState class],
-                              [EPQuestionsTableViewControllerQuestionsConnectionFailureState class]];
+                              [EPQuestionsTableViewControllerQuestionsConnectionFailureState class],
+                              [EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class],
+                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
     
     for (Class stateClass in stateClasses) {
         dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithStateMachine:stateMachine];
@@ -166,9 +170,9 @@
     return [self.currentState numberOfSections];
 }
 
-- (void)refresh
+- (void)refresh:(UIRefreshControl*)refreshControl
 {
-    return [self.currentState refresh];
+    return [self.currentState refresh:refreshControl];
 }
 
 @end

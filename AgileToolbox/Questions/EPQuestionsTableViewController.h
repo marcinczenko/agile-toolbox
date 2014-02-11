@@ -35,6 +35,8 @@
 @property (nonatomic,readonly) BOOL viewIsVisible;
 @property (nonatomic,readonly) BOOL hasQuestionsInPersistentStorage;
 @property (nonatomic,readonly) NSUInteger numberOfQuestionsInPersistentStorage;
+@property (nonatomic,readonly) NSInteger mostRecentQuestionId;
+@property (nonatomic,readonly) NSInteger oldestQuestionId;
 
 @property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
 @property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;
@@ -50,6 +52,7 @@
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
 
-- (void)refresh:(id)paramSender;
+- (void)setupRefreshControl;
+- (void)refresh:(UIRefreshControl*)refreshControl;
 
 @end

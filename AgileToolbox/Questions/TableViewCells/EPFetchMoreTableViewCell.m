@@ -8,6 +8,10 @@
 
 #import "EPFetchMoreTableViewCell.h"
 
+NSString* const EPFetchMoreTableViewCellTextConnectionFailure = @"Connection Failure. Try again later.";
+NSString* const EPFetchMoreTableViewCellTextDefault = @"Pull up to download more questions.";
+NSString* const EPFetchMoreTableViewCellTextConnectionFailurePullUpToTryAgain = @"Connection failure. Pull up to try again.";
+
 @implementation EPFetchMoreTableViewCell
 
 static const NSString *cellId = @"FetchMore";
@@ -29,6 +33,7 @@ static const NSString *cellId = @"FetchMore";
     cell.backgroundColor = [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
     [cell hideSeparatorLine];
     [cell setLoadingStatus:status];
+    cell.label.text = EPFetchMoreTableViewCellTextDefault;
     
     return cell;
 }
@@ -54,6 +59,12 @@ static const NSString *cellId = @"FetchMore";
         [self.activityIndicator stopAnimating];
         self.label.hidden = NO;
     }
+}
+
+- (void)setCellText:(NSString*)text
+{
+    self.label.text = text;
+    [self setLoadingStatus:NO];
 }
 
 @end

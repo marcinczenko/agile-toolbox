@@ -45,6 +45,6 @@
 - (void)connectionFailure;
 - (void)connectionFailureInBackground;
 
-- (void)refresh;
+- (void)refresh:(UIRefreshControl*)refreshControl;
 
 @end

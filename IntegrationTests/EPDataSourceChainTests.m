@@ -23,12 +23,18 @@
 @property (nonatomic,strong) NSFetchedResultsController* fetchedResultsController;
 @property (nonatomic,weak) EPAppDelegate* appDelegate;
 
+@property (nonatomic,readonly) NSString* hostUrl;
+
 - (void)completionBlock:(EPConnection*)connection;
 
 @end
 
-
 @implementation EPDataSourceChainTests
+
+- (NSString*)hostUrl
+{
+    return @"http://192.168.1.33:9001";
+}
 
 - (NSData*) createJSONDataFromJSONObject:(id) json_object
 {
@@ -43,9 +49,9 @@
     questionsFetchRequest.sortDescriptors = @[createdSort];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest
-                                                                                                        managedObjectContext:self.appDelegate.managedObjectContext
-                                                                                                          sectionNameKeyPath:nil
-                                                                                                                   cacheName:nil];
+                                                                        managedObjectContext:self.appDelegate.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
     NSError *fetchError = nil;
     [self.fetchedResultsController performFetch:&fetchError];
     
@@ -105,7 +111,7 @@
                                              selector:@selector(timeOut:) name:@"timeOut" object:self];
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
-    [self bootstrapFetchedResultsController];
+    //[self bootstrapFetchedResultsController];
 }
 
 - (void)tearDown
@@ -124,6 +130,7 @@
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate
                                                   dateWithTimeIntervalSinceNow:timeoutInSeconds]];
     }
+    
 }
 
 - (void)fetchAllForConnection:(EPConnection*)connection
@@ -131,11 +138,12 @@
     [connection start];
 }
 
-- (void)fetchNewerThan:(NSUInteger)questionId forConnection:(EPConnection*)connection
+- (void)fetchNewAndUpdatedForNewest:(NSUInteger)newestQuestionId oldest:(NSInteger)oldestQuestionId forConnection:(EPConnection*)connection
 {
     [connection getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",
                                                    (unsigned long)[EPQuestionsDataSource pageSize]],
-                                            @"after": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
+                                            @"newest": [NSString stringWithFormat:@"%ld",(unsigned long)newestQuestionId],
+                                            @"oldest": [NSString stringWithFormat:@"%ld",(unsigned long)oldestQuestionId]}];
 }
 
 - (void)fetchOlderThan:(NSUInteger)questionId forConnection:(EPConnection*)connection
@@ -145,6 +153,44 @@
                                             @"id": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
 }
 
+- (NSData*)getSynchronousFromUrl:(NSString*)url withParams:(NSArray*)params
+{
+    __block NSString *url_with_params = [url stringByAppendingString:@"?"];
+    __block BOOL isFirstParam = YES;
+    
+    for (NSDictionary* param in params) {
+        
+        [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSString *format = (isFirstParam) ? @"%@=%@" : @"&%@=%@";
+            url_with_params = [url_with_params stringByAppendingFormat:format,key,obj];
+            isFirstParam = NO;
+        }];
+    }
+    
+    NSURLRequest* urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url_with_params]];
+
+    NSURLResponse* response;
+    NSError* error;
+    return [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+}
+
+
+- (void)updateQuestionsOnTheServerWithIds:(NSArray*)ids
+{
+    NSMutableArray* params = [NSMutableArray new];
+    for (NSString* question_id in ids) {
+        [params addObject:@{@"id": question_id}];
+    }
+    
+    
+    NSData* responseData = [self getSynchronousFromUrl:[NSString stringWithFormat:@"%@/update_ids",self.hostUrl]
+                                            withParams:params];
+    
+    if (0 < responseData.length) {
+        NSLog(@"Response: %@",[NSString stringWithCString:[responseData bytes]
+                                                        encoding:NSUTF8StringEncoding]);
+    }
+}
 
 - (void)testThatJSONDataIsCorrectlyLoadedFromTheServer
 {
@@ -162,14 +208,22 @@
 
 - (void)completionBlock:(EPConnection*)connection
 {
-    NSArray* receivedData = [NSJSONSerialization JSONObjectWithData:[connection receivedData] options:0 error:nil];
+    NSDictionary* receivedData = [NSJSONSerialization JSONObjectWithData:[connection receivedData] options:0 error:nil];
     
-    NSLog(@"receivedData(NSData):%@",receivedData);
+    NSLog(@"old:%@",receivedData[@"old"]);
+    NSLog(@"new:%@",receivedData[@"new"]);
+    NSLog(@"updated:%@",receivedData[@"updated"]);
+    
+    if (receivedData[@"new"]) {
+        NSLog(@"%ld",(long)((NSArray*)receivedData[@"new"]).count);
+    } else {
+        NSLog(@"New is null");
+    }
     
     self.isDone = YES;
 }
 
-- (void)testTheStructureOfDataReceivedFromTheServer
+- (void)testFetchingAllQuestionsFromServer
 {
     EPConnection * connection = [[EPConnection alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]
                                                     progressBlock:nil
@@ -183,6 +237,34 @@
     
     XCTAssertTrue(self.isDone);
 }
+
+- (void)testFetchingNewAndUpdatedQuestionsFromServer
+{
+    EPConnection * connection = [[EPConnection alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]
+                                                    progressBlock:nil
+                                                  completionBlock:^(EPConnection *connection, NSError *error) {
+                                                      [self completionBlock:connection];
+                                                  }];
+    
+    [self fetchAllForConnection:connection];
+    [self waitForAsynchronousRequest:2.0];
+    self.isDone = NO;
+    self.timeout = NO;
+    
+    [self updateQuestionsOnTheServerWithIds:@[@"5",@"3",@"1"]];
+    
+    connection = [[EPConnection alloc] initWithURL:[NSURL URLWithString:@"http://192.168.1.33:9001/items_json"]
+                                     progressBlock:nil
+                                   completionBlock:^(EPConnection *connection, NSError *error) {
+                                       [self completionBlock:connection];
+                                   }];
+    
+    [self fetchNewAndUpdatedForNewest:5 oldest:1 forConnection:connection];
+    [self waitForAsynchronousRequest:2.0];
+    
+    XCTAssertTrue(self.isDone);
+}
+
 
 - (void) timeOut:(NSNotification*)notification;
 {

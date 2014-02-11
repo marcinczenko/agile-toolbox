@@ -29,8 +29,8 @@
 
 @implementation EPQuestionsTableViewControllerDependencyBootstrapper
 
-static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
-//static const NSString* hostURL = @"http://192.168.1.33:9001";
+//static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
+static const NSString* hostURL = @"http://192.168.1.33:9001";
 
 - (instancetype)initWithAppDelegate:(EPAppDelegate*)appDelegate
 {

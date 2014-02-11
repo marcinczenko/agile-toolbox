@@ -46,7 +46,7 @@
 - (void)connectionFailure;
 - (void)connectionFailureInBackground;
 
-- (void)refresh;
+- (void)refresh:(UIRefreshControl*)refreshControl;
 
 
 - (void)setStateObject:(id)stateObject forStateName:(NSString*)name;

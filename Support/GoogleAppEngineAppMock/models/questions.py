@@ -72,7 +72,7 @@ class QuestionRepository(object):
 
     @classmethod
     def update_items(cls, list_of_items_id_to_update):
-        update_query = Question.update(updated=datetime.datetime.utcnow()).where(
+        update_query = Question.update(updated=datetime.datetime.utcnow(), content='*** UPDATED ***').where(
             Question.id << list_of_items_id_to_update)
         update_query.execute()
 

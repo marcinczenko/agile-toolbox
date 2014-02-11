@@ -142,4 +142,31 @@
     [self.stateMachineMock verify];
 }
 
+- (void)expectQuestionsInPersistentStorage:(BOOL)status
+{
+    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(status)] hasQuestionsInPersistentStorage];
+}
+
+- (void)testThatViewDidLoadEnablesRefreshControlWhenThereAreQuestionsInPersistentStorage
+{
+    [self expectQuestionsInPersistentStorage:YES];
+
+    [[self.viewControllerMock expect] setupRefreshControl];
+    
+    [self.state viewDidLoad];
+    
+    [self.viewControllerMock verify];
+}
+
+- (void)testThatViewDidLoadEnablesRefreshControlWhenThereAreNoQuestionsInPersistentStorage
+{
+    [self expectQuestionsInPersistentStorage:NO];
+    
+    [[self.viewControllerMock reject] setupRefreshControl];
+    
+    [self.state viewDidLoad];
+    
+    [self.viewControllerMock verify];
+}
+
 @end

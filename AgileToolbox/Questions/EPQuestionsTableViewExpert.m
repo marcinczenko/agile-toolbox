@@ -67,6 +67,12 @@
     return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 }
 
+- (EPFetchMoreTableViewCell*)refreshStatusCell
+{
+    return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+}
+
+
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
 {    
     return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
@@ -108,6 +114,24 @@
         
     } else {
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
+    }
+}
+
+- (void)deleteRefreshingStatusCell
+{
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+}
+
+- (void)removeRefreshStatusCellFromScreen
+{
+    if ([EPFetchMoreTableViewCell class] == self.refreshStatusCell.class) {
+        [self.tableView beginUpdates];
+        [self deleteRefreshingStatusCell];
+        [self removeTableFooter];
+        [self.tableView endUpdates];
+        if (self.totalContentHeightSmallerThanScreenSize) {
+            [self addTableFooterInOrderToHideEmptyCells];
+        }
     }
 }
 

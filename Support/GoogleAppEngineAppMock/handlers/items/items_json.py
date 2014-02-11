@@ -52,12 +52,14 @@ class ItemsJSON(webapp2.RequestHandler):
         return self.convert_to_json(items)
 
     def get(self):
-        time.sleep(ItemsJSON.__delay)
+
+        time.sleep(self.__delay)
+
         self.response.headers['Content-Type'] = 'application/json'
 
-        if self.request.get('after'):
-            items_new = self.get_questions_with_timestamp_after_id(self.request.get('after'), self.request.get('n'))
-            items_updated = self.get_updated_questions_in_range(self.request.get('after'), self.request.get('before'))
+        if self.request.get('newest'):
+            items_new = self.get_questions_with_timestamp_after_id(self.request.get('newest'), self.request.get('n'))
+            items_updated = self.get_updated_questions_in_range(self.request.get('newest'), self.request.get('oldest'))
             items_json = {'new': items_new,
                           'updated': items_updated}
 

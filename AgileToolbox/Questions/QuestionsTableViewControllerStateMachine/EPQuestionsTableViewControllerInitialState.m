@@ -26,6 +26,7 @@
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
         }
     } else {
+        [self.viewController setupRefreshControl];
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
         }

@@ -28,22 +28,23 @@ class ItemsTestCase(unittest.TestCase):
         self.assertIsNotNone(items)
         return items
 
-    def retrieve_first_n_items_posted_after_item_with_id(self, after_item_id, before_item_id, number_of_items):
-        response = self.testapp.get("/items_json?after=%d&before=%d&n=%d" % (after_item_id, before_item_id,
-                                                                             number_of_items))
+    def retrieve_first_n_items_posted_after_item_with_id(self, newest_item_id, oldest_item_id, number_of_items):
+        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d" % (newest_item_id, oldest_item_id,
+                                                                              number_of_items))
         self.assertEqual(response.status_int, 200)
         items = response.json['new']
         self.assertIsNotNone(items)
         return items
 
-    def retrieve_first_n_and_updated_items_posted_after_item_with_id(self, after_item_id, before_item_id,
+    def retrieve_first_n_and_updated_items_posted_after_item_with_id(self, newest_item_id, oldest_item_id,
                                                                      number_of_items):
-        response = self.testapp.get("/items_json?after=%d&before=%d&n=%d" % (after_item_id, before_item_id,
-                                                                             number_of_items))
+        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d" % (newest_item_id, oldest_item_id,
+                                                                              number_of_items))
         self.assertEqual(response.status_int, 200)
         new_items = response.json['new']
         self.assertIsNotNone(new_items)
         updated_items = response.json['updated']
+        self.assertIsNotNone(updated_items)
         return new_items, updated_items
 
     def retrieve_all_items(self):
@@ -52,6 +53,25 @@ class ItemsTestCase(unittest.TestCase):
         items = response.json['old']
         self.assertIsNotNone(items)
         return items
+
+    def add_more_items(self, number_of_items=None):
+        if not number_of_items:
+            response = self.testapp.get('/add_more')
+        else:
+            response = self.testapp.get('/add_more?n=%d' % number_of_items)
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(response.body, "OK")
+
+    def update_items(self, items_ids):
+        request_url = '/update_ids?'
+        param_separator = ''
+        for item_id in items_ids:
+            request_url += '%sid=%d' % (param_separator, item_id)
+            param_separator = '&'
+        response = self.testapp.get(request_url)
+        self.assertEqual(response.status_int, 200)
+        self.assertEqual(response.body, "OK")
+
 
     def setUp(self):
         QuestionRepository.create_table()
@@ -251,4 +271,48 @@ class ItemsTestCase(unittest.TestCase):
         self.assertIsNotNone(item[u'answer'])
         self.assertEqual("New Answer", item[u'answer'])
         self.assertGreater(item[u'updated'], item[u'created'])
+
+    def test_adding_more_items_to_the_database_using_add_more_get_request_with_default_number_of_items(self):
+        QuestionRepository.populate(10)
+
+        items = self.retrieve_all_items()
+
+        self.assertEqual(len(items), 10)
+        item = items[0]
+        self.assertEqual(10, item[u'id'])
+
+        self.add_more_items()
+
+        items = self.retrieve_all_items()
+        self.assertEqual(len(items), 20)
+        item = items[0]
+        self.assertEqual(20, item[u'id'])
+
+    def test_adding_more_items_to_the_database_using_add_more_get_request_with_explicit_number_of_items(self):
+        QuestionRepository.populate(10)
+
+        items = self.retrieve_all_items()
+
+        self.assertEqual(len(items), 10)
+        item = items[0]
+        self.assertEqual(10, item[u'id'])
+
+        self.add_more_items(50)
+
+        items = self.retrieve_all_items()
+        self.assertEqual(len(items), 60)
+        item = items[0]
+        self.assertEqual(60, item[u'id'])
+
+    def test_updating_selected_items_using_get_request(self):
+        QuestionRepository.populate(5)
+        self.update_items([5, 3, 1])
+
+        new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(5, 1, 5)
+        self.assertEqual(0, len(new_items))
+        self.assertEqual(3, len(updated_items))
+
+
+
+
 

@@ -25,7 +25,7 @@
 {
     EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView forIndexPath:indexPath loading:NO];
     
-    fetchMoreCell.label.text = @"Connection failure. Pull up to try again.";
+    [fetchMoreCell setCellText:EPFetchMoreTableViewCellTextConnectionFailurePullUpToTryAgain];
     
     [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     

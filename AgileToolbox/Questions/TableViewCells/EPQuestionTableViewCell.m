@@ -26,6 +26,8 @@
     // Configure the view for the selected state
 }
 
+
+// TODO: remove Question parameter from this method and use formatCellForQuestion: instead
 + (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath andQuestion:(Question*)question
 {
     EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
@@ -33,6 +35,11 @@
     questionCell.textLabel.text = question.content;
     
     return questionCell;
+}
+
+- (void)formatCellForQuestion:(Question*)question
+{
+    self.textLabel.text = question.content;
 }
 
 @end

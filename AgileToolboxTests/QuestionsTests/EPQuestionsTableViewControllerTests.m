@@ -18,6 +18,8 @@
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 
 #import "EPQuestionsTableViewControllerState.h"
+#import "Question.h"
+#import "EPAppDelegate.h"
 
 
 @interface EPQuestionsTableViewControllerTests : XCTestCase
@@ -350,7 +352,7 @@ BOOL valueNO = NO;
 
 - (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
 {
-    [[self.questionsDataSourceMock expect] fetchNewerThan:-1];
+    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:-1 andOldestQuestionId:-1];
     
     [self.vc postDelivered];
     
@@ -419,14 +421,39 @@ BOOL valueNO = NO;
     
     [self.stateMachineMock verify];
 }
- //------------------ Refresh Controller --------------
+
+//------------------ Refresh Controller --------------
 - (void)testThatRefreshDelegatesToStateMachine
 {
-    [[self.stateMachineMock expect] refresh];
+    [[self.stateMachineMock expect] refresh:self.doesNotMatter];
     
     [self.vc refresh:self.doesNotMatter];
     
     [self.stateMachineMock verify];
+}
+
+//------------------ View Controller --------------
+// Maybe will be moved to a separate type wrapping FetchedResultsController.
+- (void)testRetrievingMostRecentAndOldestQuestionIdsInPersistentStorage
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    Question *mostRecentQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
+    mostRecentQuestion.question_id = @2;
+    Question *oldestQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
+    oldestQuestion.question_id = @1;
+    
+    [[[self.fetchedResultsControllerMock stub] andReturn:@[mostRecentQuestion,oldestQuestion]] fetchedObjects];
+    
+    XCTAssertEqual((NSInteger)2, [self.vc mostRecentQuestionId]);
+    XCTAssertEqual((NSInteger)1, [self.vc oldestQuestionId]);
+}
+
+- (void)testThatRetrievingMostRecentAndOldestQuestionIdsWhenNoQuestionsInPersistentStorage
+{
+    [[[self.fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
+    
+    XCTAssertEqual((NSInteger)-1, [self.vc mostRecentQuestionId]);
+    XCTAssertEqual((NSInteger)-1, [self.vc oldestQuestionId]);
 }
 
 @end
