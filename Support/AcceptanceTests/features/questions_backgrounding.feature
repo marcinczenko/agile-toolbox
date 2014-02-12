@@ -21,4 +21,4 @@ Scenario: Backgrounding: more than one page of questions on the server
 
 Scenario: Backgrounding: more than one page and background when table view invisible
   Given Google App Engine Server Mock with 45 items and 5 seconds delay is started
-  Then RUN: Feature: "QuestionsBackgrounding" Scenario:"Backgrounding_MoreThanOnePageViewNotVisible" (timeout:35)
+  Then RUN: Feature: "QuestionsBackgrounding" Scenario:"Backgrounding_MoreThanOnePageViewNotVisible" (timeout:45)

@@ -93,7 +93,12 @@
     [self.viewController.refreshControl endRefreshing];
     if (self.viewController.viewIsVisible) {
         // the view might have dissapear in the meantime
-        [self.tableViewExpert removeRefreshStatusCellFromScreen];
+        if (!self.viewController.refreshControl) {
+            // A user could leave the questions view when refresh control was still active
+            // and return when it is not anymore. The action was triggered when native
+            // refresh control was active but has to be finished when it is not.
+            [self.tableViewExpert removeRefreshStatusCellFromScreen];
+        }
         [self.viewController setupRefreshControl];
         [self.tableViewExpert.fetchMoreCell setCellText:EPFetchMoreTableViewCellTextDefault];
     }

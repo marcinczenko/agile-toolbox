@@ -124,14 +124,12 @@
 
 - (void)removeRefreshStatusCellFromScreen
 {
-    if ([EPFetchMoreTableViewCell class] == self.refreshStatusCell.class) {
-        [self.tableView beginUpdates];
-        [self deleteRefreshingStatusCell];
-        [self removeTableFooter];
-        [self.tableView endUpdates];
-        if (self.totalContentHeightSmallerThanScreenSize) {
-            [self addTableFooterInOrderToHideEmptyCells];
-        }
+    [self.tableView beginUpdates];
+    [self deleteRefreshingStatusCell];
+    [self removeTableFooter];
+    [self.tableView endUpdates];
+    if (self.totalContentHeightSmallerThanScreenSize) {
+        [self addTableFooterInOrderToHideEmptyCells];
     }
 }
 

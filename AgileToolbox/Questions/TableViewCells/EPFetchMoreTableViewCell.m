@@ -29,6 +29,7 @@ static const NSString *cellId = @"FetchMore";
 {
     EPFetchMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FetchMore"
                                       forIndexPath:indexPath];
+    cell.activityIndicator.accessibilityLabel = @"FetchMoreActivityIndicator";
     cell.tableView = tableView;
     cell.backgroundColor = [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
     [cell hideSeparatorLine];

@@ -25,7 +25,7 @@ describe("Questions Backgrounding", function() {
 
         expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toEqual("No questions on the server");
 
-        helpers.mainWindow.logElementTree();
+        helpers.mainWindow().logElementTree();
     });
 
     it("displays the same set of questions when re-entering questions section", function() {

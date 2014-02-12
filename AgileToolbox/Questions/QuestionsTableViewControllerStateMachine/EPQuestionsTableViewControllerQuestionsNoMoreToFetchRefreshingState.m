@@ -17,6 +17,9 @@
 
 @implementation EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState
 
+#ifndef KEEP_VISIBLE_TIMEOUT
+#define KEEP_VISIBLE_TIMEOUT 2.0
+#endif
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -117,7 +120,12 @@
     [self.viewController.refreshControl endRefreshing];
     if (self.viewController.viewIsVisible) {
         // the view might have dissapear in the meantime
-        [self.tableViewExpert removeRefreshStatusCellFromScreen];
+        if (!self.viewController.refreshControl) {
+            // A user could leave the questions view when refresh control was still active
+            // and return when it is not anymore. The action was triggered when native
+            // refresh control was active but has to be finished when it is not.
+            [self.tableViewExpert removeRefreshStatusCellFromScreen];
+        }
         [self.viewController setupRefreshControl];
     }
 }
@@ -127,7 +135,7 @@
     NSAttributedString* title = [[NSAttributedString alloc] initWithString:EPFetchMoreTableViewCellTextConnectionFailure];
     self.viewController.refreshControl.attributedTitle = title;
     
-    [self keepVisibleFor:10.0 completionBlock:^{
+    [self keepVisibleFor:KEEP_VISIBLE_TIMEOUT completionBlock:^{
         [self handleConnectionFailureUsingNativeRefreshControlCompletion];
     }];
 }
@@ -147,7 +155,7 @@
 {
     [self.tableViewExpert.refreshStatusCell setCellText:EPFetchMoreTableViewCellTextConnectionFailure];
     
-    [self keepVisibleFor:10.0 completionBlock:^{
+    [self keepVisibleFor:KEEP_VISIBLE_TIMEOUT completionBlock:^{
         [self handleConnectionFailureUsingRefreshStatusCellCompletion];
     }];
 }

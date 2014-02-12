@@ -5,12 +5,12 @@ Feature: Questions State Preservation
 
 Scenario: Preservation: empty loading
   Given Google App Engine Server Mock with 50 items is started
-  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_EmptyLoading"
+  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_EmptyLoading" (timeout:30)
 
 Scenario: Preservation: questions loading
   Given Google App Engine Server Mock with 50 items is started
-  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_QuestionsLoading"
+  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_QuestionsLoading" (timeout:35)
 
 Scenario: Preservation: loading with background fetch
   Given Google App Engine Server Mock with 50 items and 5 seconds delay is started
-  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_LoadingWithBackgroundFetch" (timeout:35)
+  Then RUN: Feature: "QuestionsStatePreservation" Scenario:"Preservation_LoadingWithBackgroundFetch" (timeout:45)
