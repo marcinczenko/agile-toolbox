@@ -12,5 +12,5 @@ Feature: Questions Refreshing
     Then RUN: Feature: "QuestionsRefreshing" Scenario:"Refreshing_QuestionsWithNoMoreToFetch" (timeout:90)
 
   Scenario: Refreshing: Questions with No More to Fetch with just few items
-    Given Google App Engine Server Mock with 5 items and 7 seconds delay is started
+    Given Google App Engine Server Mock with 3 items and 7 seconds delay is started
     Then RUN: Feature: "QuestionsRefreshing" Scenario:"Refreshing_QuestionsWithNoMoreToFetchFewItems" (timeout:60)

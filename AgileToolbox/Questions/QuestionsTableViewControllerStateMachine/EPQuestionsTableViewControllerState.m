@@ -150,6 +150,10 @@
     
 }
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return [EPQuestionsTableViewExpert questionRowHeight];
+}
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

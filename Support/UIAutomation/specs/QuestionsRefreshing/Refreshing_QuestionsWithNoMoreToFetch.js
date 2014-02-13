@@ -20,29 +20,29 @@ describe("Questions Refreshing", function() {
         helpers.enterQuestions(8);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.refreshTableView('Questions',1);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
         helpers.scrollToLastCellInTableView('Questions');
 
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.target().delay(5);
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
     });
 
     it('uses a custom refresh indicator after re-entering the view', function() {
@@ -51,9 +51,9 @@ describe("Questions Refreshing", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
 
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.refreshTableView('Questions',1);
 
@@ -64,23 +64,23 @@ describe("Questions Refreshing", function() {
         // 39 cells + 1 for refresh indicator
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);
 
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual('In progress');
-        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain('In progress');
+        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.target().delay(4);
 
         // refresh indicator should disappear after refresh operation finished
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
 
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
     });
 });

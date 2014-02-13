@@ -12,6 +12,24 @@
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState
 
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (0==indexPath.section) {
+        if (self.viewController.refreshControl) {
+            return [EPQuestionsTableViewExpert questionRowHeight];
+        } else {
+            if (0==indexPath.row) {
+                return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+            } else {
+                return [EPQuestionsTableViewExpert questionRowHeight];
+            }
+        }
+    } else {
+        return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+    }
+}
+
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0==indexPath.section) {

@@ -24,6 +24,16 @@
     return [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
 }
 
++ (CGFloat)questionRowHeight
+{
+    return 105.0;
+}
+
++ (CGFloat)fetchMoreRowHeight
+{
+    return 44.0;
+}
+
 - (id)initWithTableView:(UITableView*)tableView
 {
     if ((self = [super init])) {

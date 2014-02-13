@@ -24,5 +24,6 @@ extern NSString* const EPFetchMoreTableViewCellTextConnectionFailurePullUpToTryA
 
 - (void)setLoadingStatus:(BOOL)status;
 - (void)setCellText:(NSString*)text;
+- (void)setAccessibilityLabelsForTesting;
 
 @end

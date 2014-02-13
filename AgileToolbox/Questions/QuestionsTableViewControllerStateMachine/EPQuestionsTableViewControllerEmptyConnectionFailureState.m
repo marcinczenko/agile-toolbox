@@ -32,15 +32,15 @@
     return fetchMoreCell;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([self.tableViewExpert scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:scrollView]) {
-        self.viewController.isScrolling = NO;
-        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-        [self.viewController.questionsDataSource fetchOlderThan:-1];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if ([self.tableViewExpert scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:scrollView]) {
+//        self.viewController.isScrolling = NO;
+//        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
+//        [self.viewController.questionsDataSource fetchOlderThan:-1];
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//        [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
+//    }
+//}
 
 @end

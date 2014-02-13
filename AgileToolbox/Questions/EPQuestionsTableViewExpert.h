@@ -16,6 +16,8 @@
 @property (nonatomic,readonly) EPFetchMoreTableViewCell* fetchMoreCell;
 @property (nonatomic,readonly) EPFetchMoreTableViewCell* refreshStatusCell;
 
++ (CGFloat)questionRowHeight;
++ (CGFloat)fetchMoreRowHeight;
 + (UIColor*)colorQuantum;
 
 - (id)initWithTableView:(UITableView*)tableView;

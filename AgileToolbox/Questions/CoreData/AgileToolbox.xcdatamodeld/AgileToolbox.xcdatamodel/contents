@@ -5,6 +5,7 @@
         <attribute name="content" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="header" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="newOrUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="question_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>

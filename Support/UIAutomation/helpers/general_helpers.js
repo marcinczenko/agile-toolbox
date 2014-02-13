@@ -29,14 +29,17 @@ var EPHelpers = (function() {
     // fetchMore works as follows: it first scroll far enough (but not to far) so that the following call to
     // scrollDown() pushes the tableview beyond the last row triggering the 'fetch more' operation.
     // I could not achieve the same effect any other way. The numbers chosen are purely experimental.
-    EPHelpers.prototype.fetchMore = function(numberOfCellsInTableView) {
-        this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14].scrollToVisible();
+    EPHelpers.prototype.fetchMoreInTableView = function(tableView) {
 
-        var cell = this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14];
+        this.scrollToCellInTableViewAtIndex(tableView,this.getNumberOfCellsInTableView(tableView)-7);
 
+//        this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14].scrollToVisible();
+//
+//        var cell = this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14];
+//
         this.target().delay(1);
 
-        this.mainWindow().tableViews()["Questions"].scrollDown();
+        this.mainWindow().tableViews()[tableView].scrollDown();
 
         this.target().delay(1.5);
     };
@@ -58,8 +61,21 @@ var EPHelpers = (function() {
         expect(numberOfCells).toEqual(expectNumberOfRows);
     };
 
+    EPHelpers.prototype.getNumberOfCellsInTableView = function(tableView){
+        return this.mainWindow().tableViews()[tableView].cells().length;
+    };
+
     EPHelpers.prototype.getCellTextForTableViewAtIndex = function(tableView,cellIndex){
         return this.mainWindow().tableViews()[tableView].cells()[cellIndex].name();
+    };
+
+    EPHelpers.prototype.getCellTextForFirstElementInTableView = function(tableView){
+        return this.mainWindow().tableViews()[tableView].cells()[0].name();
+    };
+
+    EPHelpers.prototype.getCellTextForLastElementInTableView = function(tableView){
+        number_of_cells = this.getNumberOfCellsInTableView(tableView);
+        return this.mainWindow().tableViews()[tableView].cells()[number_of_cells-1].name();
     };
 
     EPHelpers.prototype.getVisibleCellTextForTableViewAtIndex = function(tableView,cellIndex){
@@ -81,17 +97,26 @@ var EPHelpers = (function() {
         return visibleCells[0].name();
     };
 
+    // This one is dangerous - avoid using scrollToElementWithName - after using it once
+    // resolving cells by name does not work any more and scrolling is broken.
+    // Use saver version of this method that scrolls to the first, last, or to an item
+    // at specific index.
     EPHelpers.prototype.scrollToCellWithName = function(tableView,cellName){
         this.mainWindow().tableViews()[tableView].scrollToElementWithName(cellName);
     };
 
+    EPHelpers.prototype.scrollToCellInTableViewAtIndex = function(tableView,index){
+        var cells = this.mainWindow().tableViews()[tableView].cells();
+        cells[index].scrollToVisible();
+    };
+
     EPHelpers.prototype.scrollToFirstCellInTableView = function(tableView){
-        var cells = this.mainWindow().tableViews()["Questions"].cells();
+        var cells = this.mainWindow().tableViews()[tableView].cells();
         cells[0].scrollToVisible();
     };
 
     EPHelpers.prototype.scrollToLastCellInTableView = function(tableView){
-        var cells = this.mainWindow().tableViews()["Questions"].cells();
+        var cells = this.mainWindow().tableViews()[tableView].cells();
         cells[cells.length-1].scrollToVisible();
     };
 

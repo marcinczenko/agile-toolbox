@@ -21,9 +21,11 @@ describe("Questions Backgrounding", function() {
         // one cell with "No questions on the server" should be visible
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(1);
 
-        UIALogger.logMessage("CellText="+helpers.getCellTextForTableViewAtIndex("Questions",0));
+//        helpers.mainWindow().logElementTree();
 
-        expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toEqual("No questions on the server");
+//        UIALogger.logMessage("CellText="+helpers.getCellTextForTableViewAtIndex("Questions",0));
+
+        expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toContain("No questions on the server");
 
         helpers.mainWindow().logElementTree();
     });
@@ -34,7 +36,7 @@ describe("Questions Backgrounding", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(1);
 
-        expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toEqual("No questions on the server");
+        expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toContain("No questions on the server");
     });
 });
 

@@ -125,6 +125,11 @@
     [self.currentState controllerDidChangeContent];
 }
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return [self.currentState heightForRowAtIndexPath:indexPath];
+}
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.currentState cellForRowAtIndexPath:indexPath];

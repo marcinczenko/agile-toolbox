@@ -2,7 +2,7 @@
 //  Question.h
 //  AgileToolbox
 //
-//  Created by Marcin Czenko on 08/02/14.
+//  Created by Marcin Czenko on 12/02/14.
 //
 //
 
@@ -12,11 +12,12 @@
 
 @interface Question : NSManagedObject
 
-@property (nonatomic, retain) NSString * content;
-@property (nonatomic, retain) NSNumber * question_id;
-@property (nonatomic, retain) NSDate * created;
-@property (nonatomic, retain) NSDate * updated;
-@property (nonatomic, retain) NSString * header;
 @property (nonatomic, retain) NSString * answer;
+@property (nonatomic, retain) NSString * content;
+@property (nonatomic, retain) NSDate * created;
+@property (nonatomic, retain) NSString * header;
+@property (nonatomic, retain) NSNumber * question_id;
+@property (nonatomic, retain) NSDate * updated;
+@property (nonatomic, retain) NSNumber * newOrUpdated;
 
 @end

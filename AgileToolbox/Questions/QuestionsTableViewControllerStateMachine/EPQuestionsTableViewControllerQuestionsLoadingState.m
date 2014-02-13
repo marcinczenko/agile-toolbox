@@ -13,6 +13,15 @@
 
 @implementation EPQuestionsTableViewControllerQuestionsLoadingState
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (0==indexPath.section) {
+        return [EPQuestionsTableViewExpert questionRowHeight];
+    } else {
+        return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+    }
+}
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0==indexPath.section) {

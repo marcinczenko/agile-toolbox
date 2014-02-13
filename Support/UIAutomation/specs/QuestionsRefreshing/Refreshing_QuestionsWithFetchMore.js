@@ -20,13 +20,13 @@ describe("Questions Refreshing", function() {
         helpers.enterQuestions(8);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.refreshTableView('Questions',1);
 
@@ -36,7 +36,7 @@ describe("Questions Refreshing", function() {
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toBeNull();
 
         helpers.target().delay(5);
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
     });
 
     it('uses a custom refresh indicator after re-entering the view', function() {
@@ -45,9 +45,9 @@ describe("Questions Refreshing", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.refreshTableView('Questions',1);
 
@@ -58,23 +58,23 @@ describe("Questions Refreshing", function() {
         // 40 cells + 1 refresh indicator + 1 fetch more
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(42);
 
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual('In progress');
-        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain('In progress');
+        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual('In progress');
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain('In progress');
 
         helpers.target().delay(4);
 
         // refresh indicator should disappear by now, therefore we have 40 cells + 1 fetch more
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.scrollToFirstCellInTableView('Questions');
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
         helpers.scrollToLastCellInTableView('Questions');
-        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toEqual(expectedLastVisibleCellName);
+        expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
     });
 });

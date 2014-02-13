@@ -8,13 +8,11 @@ describe("Questions Preservation", function() {
 
     var helpers = new EPHelpers();
 
-    var scrollToCellName = 'Test Item29';
-
-    // Expected cell name is different then 'ScrollTo' cell name.
+    // Expected cell name is different then indicated by 'ScrollTo' cell index.
     // This is because on iOS7 table view is visible under the navigation,
-    // so even though the cell really visible to user is 'Test Item29'
-    // UIAutomation reports cell 'TestItem31' as the first visible cell.
-    var expectedFirstVisibleCellName = 'Test Item31';
+    // so even though the cell really visible to user is 'Test Item29' (index 20)
+    // UIAutomation reports cell 'TestItem30' as the first visible cell.
+    var expectedFirstVisibleCellName = 'Test Item30';
 
     afterEach(function() {
         helpers.goBack();
@@ -26,7 +24,7 @@ describe("Questions Preservation", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        helpers.scrollToCellWithName('Questions',scrollToCellName);
+        helpers.scrollToCellInTableViewAtIndex('Questions',20);
 
         helpers.goBack();
 
@@ -36,7 +34,7 @@ describe("Questions Preservation", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 
     it("displays the same set of questions when re-entering questions section", function() {
@@ -45,7 +43,7 @@ describe("Questions Preservation", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 });
 

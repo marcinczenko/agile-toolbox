@@ -35,6 +35,7 @@
 
 - (void)controllerDidChangeContent
 {
+    self.viewController.tableView.estimatedRowHeight = 105.0;
     if (self.viewController.questionsDataSource.hasMoreQuestionsToFetch) {
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
     } else {
@@ -45,6 +46,12 @@
     [self.viewController setupRefreshControl];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
+
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+}
+
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -73,6 +80,8 @@
 
 - (void)dataChangedInBackground
 {
+    [self.viewController setupRefreshControl];
+    self.viewController.tableView.estimatedRowHeight = 105.0;
     NSLog(@"dataChangedInBackground");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self.tableViewExpert removeTableFooter];

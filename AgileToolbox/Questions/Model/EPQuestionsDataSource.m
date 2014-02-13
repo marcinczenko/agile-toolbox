@@ -130,10 +130,9 @@
     
     if (nil != newQuestion) {
         newQuestion.question_id = [questionDictionaryObject objectForKey:@"id"];
-        newQuestion.header = [questionDictionaryObject objectForKey:@"header"];
-        newQuestion.content = [questionDictionaryObject objectForKey:@"content"];
-        newQuestion.created = [NSDate dateWithTimeIntervalSince1970:[[questionDictionaryObject objectForKey:@"created"] doubleValue]];
-        newQuestion.updated = [NSDate dateWithTimeIntervalSince1970:[[questionDictionaryObject objectForKey:@"updated"] doubleValue]];
+        
+        [self updateQuestion:newQuestion withJsonDictionary:questionDictionaryObject];
+        
     } else {
         NSLog(@"Failed to create the new question core data object.");
     }
@@ -212,6 +211,7 @@
     if ([NSNull null] != answer) {
         question.answer = answer;
     }
+    question.newOrUpdated = @YES;
 }
 
 - (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray

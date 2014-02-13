@@ -21,6 +21,19 @@
 #define KEEP_VISIBLE_TIMEOUT 2.0
 #endif
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (self.viewController.refreshControl) {
+        return [EPQuestionsTableViewExpert questionRowHeight];
+    } else {
+        if (0==indexPath.row) {
+            return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+        } else {
+            return [EPQuestionsTableViewExpert questionRowHeight];
+        }
+    }
+}
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.viewController.refreshControl) {
