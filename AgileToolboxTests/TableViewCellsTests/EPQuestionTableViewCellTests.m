@@ -66,7 +66,7 @@
     question.answer = isAnswered ? @"Question Answer" : nil;
     question.created = dateNow;
     question.updated = dateNow;
-    question.newOrUpdated = isNew ? @YES : @NO;
+    question.updatedOrNew = isNew ? @YES : @NO;
     
     return question;
 }
