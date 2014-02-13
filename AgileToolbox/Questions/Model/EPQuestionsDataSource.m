@@ -22,8 +22,6 @@
 
 @property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundTaskId;
 
-@property (nonatomic, strong) NSTimer *myTimer;
-
 @end
 
 @implementation EPQuestionsDataSource
@@ -92,54 +90,38 @@
 
 - (void)endBackgroundTask
 {
-    NSLog(@"endBackgroundTask");
-    if (![NSThread isMainThread]) {
-        NSLog(@"WE ARE NOT IN THE MAIN THREAD!!!!!!!!!!!!!");
-    }
-    
-    [self.myTimer invalidate];        
-    
     [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
     self.backgroundTaskId = UIBackgroundTaskInvalid;
 }
 
-- (void) timerMethod:(NSTimer *)paramSender
+- (void)fetchWithParams:(NSDictionary*)params
 {
-    NSTimeInterval backgroundTimeRemaining = [[UIApplication sharedApplication] backgroundTimeRemaining];
-    if (backgroundTimeRemaining == DBL_MAX) {
-        NSLog(@"Background Time Remaining = Undetermined");
-    }else{
-        NSLog(@"Background Time Remaining = %.02f Seconds",backgroundTimeRemaining);
-    }
-}
-
-- (void)fetchOlderThan:(NSInteger)questionId
-{
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                     target:self selector:@selector(timerMethod:) userInfo:nil
-                                    repeats:NO];
-    
     UIApplication* app = [UIApplication sharedApplication];
     
     self.backgroundTaskId = [app beginBackgroundTaskWithExpirationHandler:^{
         [self endBackgroundTask];
     }];
     
-    
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
-                                                                                         (unsigned long)[self.class pageSize]]}];
-    
-    if (0 <= questionId) {
-        [params addEntriesFromDictionary:@{@"id": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
-    }
-    
     [self.connection getAsynchronousWithParams:params];
 }
 
-- (void)fetchNew
+- (void)fetchOlderThan:(NSInteger)questionId
 {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
+                                                                                         (unsigned long)[self.class pageSize]]}];
+    if (0 <= questionId) {
+        [params addEntriesFromDictionary:@{@"before": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
+    }
     
+    [self fetchWithParams:params];
+}
+
+- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSInteger)mostRecentQuestionId andOldestQuestionId:(NSInteger)oldestQuestionId
+{
+    [self fetchWithParams:@{@"n": [NSString stringWithFormat:@"%lu",
+                                   (unsigned long)[self.class pageSize]],
+                            @"newest": [NSString stringWithFormat:@"%ld",(unsigned long)mostRecentQuestionId],
+                            @"oldest": [NSString stringWithFormat:@"%ld",(unsigned long)oldestQuestionId]}];
 }
 
 - (void)addToManagedObjectContextFromDictionary:(NSDictionary *)questionDictionaryObject
@@ -148,25 +130,31 @@
     
     if (nil != newQuestion) {
         newQuestion.question_id = [questionDictionaryObject objectForKey:@"id"];
-        newQuestion.content = [questionDictionaryObject objectForKey:@"content"];
-        double ts = [[questionDictionaryObject objectForKey:@"timestamp"] doubleValue];
-        newQuestion.timestamp = [NSDate dateWithTimeIntervalSince1970:ts];
+        
+        [self updateQuestion:newQuestion withJsonDictionary:questionDictionaryObject];
+        
     } else {
         NSLog(@"Failed to create the new question core data object.");
     }
 }
 
-- (void)saveToCoreData:(NSArray*)questionsArray
+- (void)addToCoreData:(NSArray*)questionsArray
 {
     for (NSDictionary *questionDictionaryObject in questionsArray) {
         [self addToManagedObjectContextFromDictionary:questionDictionaryObject];
     }
-    NSError *savingError = nil;
-    
-    if ([self.managedObjectContext save:&savingError]) {
-        NSLog(@"Successfully saved the context.");
-    } else {
-        NSLog(@"Failed to save the context. Error = %@", savingError);
+}
+
+- (void)saveToCoreData
+{
+    if (self.managedObjectContext.hasChanges) {
+        NSError *savingError = nil;
+        
+        if ([self.managedObjectContext save:&savingError]) {
+            NSLog(@"Successfully saved the context.");
+        } else {
+            NSLog(@"Failed to save the context. Error = %@", savingError);
+        }
     }
 }
 
@@ -192,21 +180,108 @@
     }
 }
 
+- (NSDictionary*)makeDictionaryKeyedByIdForJsonQuestions:(NSArray*)jsonQuestions
+{
+    NSMutableDictionary* wrapperDictionary = [NSMutableDictionary new];
+    for (NSDictionary* jsonDictionary in jsonQuestions) {
+        wrapperDictionary[jsonDictionary[@"id"]] = jsonDictionary;
+    }
+    return wrapperDictionary;
+}
+
+- (NSArray*)fetchQuestionsWithQuestionIdsIn:(NSArray*)questionIds
+{
+    NSPredicate *inPredicate = [NSPredicate predicateWithFormat: @"question_id IN %@", questionIds];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
+    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
+    fetchRequest.sortDescriptors = @[createdSort];
+    fetchRequest.predicate = inPredicate;
+    
+    NSError *requestError = nil;
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&requestError];
+}
+
+- (void)updateQuestion:(Question*)question withJsonDictionary:(NSDictionary*)dictionary
+{
+    question.header = [dictionary objectForKey:@"header"];
+    question.content = [dictionary objectForKey:@"content"];
+    question.created = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"created"] doubleValue]];
+    question.updated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"updated"] doubleValue]];
+    id answer = [dictionary objectForKey:@"answer"];
+    if ([NSNull null] != answer) {
+        question.answer = answer;
+    }
+    question.updatedOrNew = @YES;
+}
+
+- (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray
+{
+    NSDictionary* wrapperDictionary = [self makeDictionaryKeyedByIdForJsonQuestions:jsonArray];
+    for (Question* question in [self fetchQuestionsWithQuestionIdsIn:wrapperDictionary.allKeys]) {
+        [self updateQuestion:question withJsonDictionary:wrapperDictionary[question.question_id]];
+    }
+}
+
+- (void)handleNew:(NSArray*)newQuestions andUpdated:(NSArray*)updatedQuestions
+{
+    // if newQuestions is not null than updatedQuestions is not null by design
+    // receivedData[@"new"] should only be null during fetchOlderThan
+    // othrewise it may be of zero length but should not be null
+    if (newQuestions) {
+        if (0==newQuestions.count && 0==updatedQuestions.count) {
+            [self callFetchReturnedNoDataDelegate];
+        } else {
+            [self handleNewQuestions:newQuestions];
+            [self handleUpdatedQuestions:updatedQuestions];
+            [self callDataChangedInBackgroundWhenInBackground];
+        }
+    }
+}
+
+- (void) handleNewQuestions:(NSArray*)newQuestions
+{
+    if (0<newQuestions.count) {
+        [self addToCoreData:newQuestions];
+    }
+}
+
+- (void)handleUpdatedQuestions:(NSArray*)updatedQuestions
+{
+    if (0<updatedQuestions.count) {
+        
+        [self synchronizeCoreDataQuestionsWithJsonArray:updatedQuestions];
+    }
+}
+
+- (void) handleOldQuestions:(NSArray*)oldQuestions
+{
+    if (oldQuestions) {
+        if ([self.class pageSize] > oldQuestions.count) {
+            _hasMoreQuestionsToFetch = NO;
+        }
+        
+        if (0==oldQuestions.count) {
+            [self callFetchReturnedNoDataDelegate];
+        } else {
+            [self addToCoreData:oldQuestions];
+            [self callDataChangedInBackgroundWhenInBackground];
+        }
+    }
+}
+
 - (void)downloadCompleted:(NSData *)data
 {
-    NSArray *new_data = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSDictionary* receivedData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
-    if ([self.class pageSize] > new_data.count) {
-        _hasMoreQuestionsToFetch = NO;
+    if (!receivedData[@"old"] && !receivedData[@"new"]) {
+        [self downloadFailed];
+        return;
     }
-
-    if (0==new_data.count) {
-        [self callFetchReturnedNoDataDelegate];
-    } else {
-        [self saveToCoreData:new_data];
-        [self callDataChangedInBackgroundWhenInBackground];
-        
-    }
+    
+    [self handleOldQuestions:receivedData[@"old"]];
+    [self handleNew:receivedData[@"new"] andUpdated:receivedData[@"updated"]];
+    
+    [self saveToCoreData];
     
     [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskId];
     self.backgroundTaskId = UIBackgroundTaskInvalid;

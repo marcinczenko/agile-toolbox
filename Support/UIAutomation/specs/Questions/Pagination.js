@@ -19,12 +19,12 @@ describe("Questions", function() {
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        helpers.fetchMore(41);
+        helpers.fetchMoreInTableView('Questions');
 
         // After fetching next page we should have 80 questions in the TableView + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(81);
 
-        helpers.fetchMore(81);
+        helpers.fetchMoreInTableView('Questions');
 
         // This last 'fetchMore' brings back only one new question - this is less than a page which means that
         // all questions were fetched from the server - therefore the 'Fetch More' cell will no longer

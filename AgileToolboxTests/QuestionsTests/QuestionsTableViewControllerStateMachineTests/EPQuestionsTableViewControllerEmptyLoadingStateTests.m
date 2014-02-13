@@ -187,7 +187,7 @@ const static BOOL valueYES = YES;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatControllerDidChangeContentsChangesTheStateToQuestionsNoMoreToFetchStateWhenDataSourceDoesNotHaveAnyMoreQuestionsToFetch
+- (void)testThatControllerDidChangeContentChangesTheStateToQuestionsNoMoreToFetchStateWhenDataSourceDoesNotHaveAnyMoreQuestionsToFetch
 {
     [self expectThatDataSourceHasNoMoreQuestionsToFetch];
     
@@ -196,6 +196,15 @@ const static BOOL valueYES = YES;
     [self.state controllerDidChangeContent];
     
     [self.stateMachineMock verify];
+}
+
+- (void)testThatControllerDidChangeContentEnablesRefreshControl
+{
+    [[self.viewControllerMock expect] setupRefreshControl];
+    
+    [self.state controllerDidChangeContent];
+    
+    [self.viewControllerMock verify];
 }
 
 - (void)testThatControllerDidChangeContentsDeactivatesNetworkActivityIndicator

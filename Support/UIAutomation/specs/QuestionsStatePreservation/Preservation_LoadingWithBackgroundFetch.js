@@ -8,13 +8,13 @@ describe("Questions Preservation", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item21';
+    var expectedFirstVisibleCellName = 'Test Item14';
 
     afterEach(function() {
         helpers.goBack();
     });
 
-    it("correctly preserves the state when loading questions", function() {
+    it("correctly preserves the state when loading questions in background", function() {
 
         helpers.enterQuestions();
 
@@ -23,15 +23,15 @@ describe("Questions Preservation", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 
-        helpers.fetchMore(41);
+        helpers.fetchMoreInTableView('Questions');
 
         helpers.goBack(4);
         helpers.enterQuestions();
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(50);
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
-        helpers.scrollToCellWithName('Questions','Test Item0');
+        helpers.scrollToLastCellInTableView('Questions');
     });
 
     it("displays the same set of questions when re-entering questions section", function() {
@@ -41,8 +41,8 @@ describe("Questions Preservation", function() {
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(50);
 
         // after scrolling down the first visible items is different now
-        expectedFirstVisibleCellName = 'Test Item12';
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expectedFirstVisibleCellName = 'Test Item5';
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 });
 

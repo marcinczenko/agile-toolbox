@@ -23,12 +23,16 @@
 		6D5CC2DD185B84FF0017CDD1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D60E31F18982F98001FCFE8 /* EPPersistentStoreHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D60E31E18982F98001FCFE8 /* EPPersistentStoreHelperTests.m */; };
 		6D60E32218983103001FCFE8 /* EPPersistentStoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D60E32118983103001FCFE8 /* EPPersistentStoreHelper.m */; };
+		6D7BA50618ABCAA900EBAD9B /* AgileToolboxImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7BA50518ABCAA900EBAD9B /* AgileToolboxImages.xcassets */; };
+		6D7BA50918ABE15700EBAD9B /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7BA50818ABE15700EBAD9B /* Question.m */; };
+		6D7BA50B18ABE28000EBAD9B /* EPQuestionTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7BA50A18ABE28000EBAD9B /* EPQuestionTableViewCellTests.m */; };
+		6D7BA50D18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7BA50C18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m */; };
+		6D7BA51018AC33FE00EBAD9B /* EPTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7BA50F18AC33FE00EBAD9B /* EPTimeIntervalFormatter.m */; };
 		6D7FD6D218639B4400988B44 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D82D54E185BB3F200CC75D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6D83807D175FA5B400B305A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D83807C175FA5B400B305A5 /* Default-568h@2x.png */; };
 		6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */; };
 		6DAB88301892D783003075D8 /* AgileToolbox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88081892D783003075D8 /* AgileToolbox.xcdatamodeld */; };
-		6DAB88311892D783003075D8 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB880B1892D783003075D8 /* Question.m */; };
 		6DAB88321892D783003075D8 /* EPQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB880E1892D783003075D8 /* EPQuestionsTableViewController.m */; };
 		6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88101892D783003075D8 /* EPQuestionsTableViewExpert.m */; };
 		6DAB88341892D783003075D8 /* EPQuestionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88131892D783003075D8 /* EPQuestionsDataSource.m */; };
@@ -61,6 +65,9 @@
 		6DB92146185AA78D00440656 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB92145185AA78D00440656 /* XCTest.framework */; };
 		6DB92147185AA7DC00440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
+		6DE4650118A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650018A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m */; };
+		6DE4650418A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */; };
+		6DE4650718A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650618A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m */; };
 		D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */; };
 		D387EF101536EF0400635736 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF0F1536EF0400635736 /* UIKit.framework */; };
 		D387EF121536EF0400635736 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D387EF111536EF0400635736 /* Foundation.framework */; };
@@ -176,13 +183,6 @@
 			remoteGlobalIDString = D387EF0A1536EF0400635736;
 			remoteInfo = AgileToolbox;
 		};
-		D3A7B4AE15AB01D700DD6772 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D387EF021536EF0400635736 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D3C1F5DF15A4544200F0900D;
-			remoteInfo = Library;
-		};
 		D3C986F515A79ECD007A41D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D387EF021536EF0400635736 /* Project object */;
@@ -206,13 +206,16 @@
 		6D60E31E18982F98001FCFE8 /* EPPersistentStoreHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPersistentStoreHelperTests.m; sourceTree = "<group>"; };
 		6D60E32018983103001FCFE8 /* EPPersistentStoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPersistentStoreHelper.h; sourceTree = "<group>"; };
 		6D60E32118983103001FCFE8 /* EPPersistentStoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPersistentStoreHelper.m; sourceTree = "<group>"; };
+		6D7BA50518ABCAA900EBAD9B /* AgileToolboxImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AgileToolboxImages.xcassets; sourceTree = "<group>"; };
+		6D7BA50718ABE15700EBAD9B /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		6D7BA50818ABE15700EBAD9B /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
+		6D7BA50A18ABE28000EBAD9B /* EPQuestionTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPQuestionTableViewCellTests.m; path = TableViewCellsTests/EPQuestionTableViewCellTests.m; sourceTree = "<group>"; };
+		6D7BA50C18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPTimeIntervalFormatterTests.m; sourceTree = "<group>"; };
+		6D7BA50E18AC33FE00EBAD9B /* EPTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		6D7BA50F18AC33FE00EBAD9B /* EPTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		6D83807C175FA5B400B305A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		6D8F050A189995DF000D0460 /* AgileToolbox copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AgileToolbox copy-Info.plist"; path = "/Users/mczenko/Projects/Quantum/AgileToolbox/AgileToolbox copy-Info.plist"; sourceTree = "<absolute>"; };
-		6D8F055318999738000D0460 /* AgileToolbox copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AgileToolbox copy2-Info.plist"; path = "/Users/mczenko/Projects/Quantum/AgileToolbox/AgileToolbox copy2-Info.plist"; sourceTree = "<absolute>"; };
 		6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPFetchMoreTableViewCellTests.m; path = TableViewCellsTests/EPFetchMoreTableViewCellTests.m; sourceTree = "<group>"; };
 		6DAB88091892D783003075D8 /* AgileToolbox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgileToolbox.xcdatamodel; sourceTree = "<group>"; };
-		6DAB880A1892D783003075D8 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
-		6DAB880B1892D783003075D8 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
 		6DAB880C1892D783003075D8 /* EPQuestionsDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsDataSourceProtocol.h; sourceTree = "<group>"; };
 		6DAB880D1892D783003075D8 /* EPQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewController.h; sourceTree = "<group>"; };
 		6DAB880E1892D783003075D8 /* EPQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewController.m; sourceTree = "<group>"; };
@@ -263,6 +266,11 @@
 		6DAB885F1895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerStatePreservationAssistant.m; sourceTree = "<group>"; };
 		6DAFB6E718803F1900FC91C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6DB92145185AA78D00440656 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6DE4650018A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m; sourceTree = "<group>"; };
+		6DE4650218A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h; sourceTree = "<group>"; };
+		6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m; sourceTree = "<group>"; };
+		6DE4650518A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h; sourceTree = "<group>"; };
+		6DE4650618A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m; sourceTree = "<group>"; };
 		D338B77C153B0DE200611765 /* EPPlanningPokerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPPlanningPokerViewController.h; sourceTree = "<group>"; };
 		D338B77D153B0DE200611765 /* EPPlanningPokerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPlanningPokerViewController.m; sourceTree = "<group>"; };
 		D387EF0B1536EF0400635736 /* AgileToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgileToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -469,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				6DA6B56A18894E950025E06A /* EPFetchMoreTableViewCellTests.m */,
+				6D7BA50A18ABE28000EBAD9B /* EPQuestionTableViewCellTests.m */,
 			);
 			name = TableViewCellsTests;
 			sourceTree = "<group>";
@@ -497,8 +506,8 @@
 			isa = PBXGroup;
 			children = (
 				6DAB88081892D783003075D8 /* AgileToolbox.xcdatamodeld */,
-				6DAB880A1892D783003075D8 /* Question.h */,
-				6DAB880B1892D783003075D8 /* Question.m */,
+				6D7BA50718ABE15700EBAD9B /* Question.h */,
+				6D7BA50818ABE15700EBAD9B /* Question.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -536,6 +545,10 @@
 				6DAB88271892D783003075D8 /* EPQuestionsTableViewControllerState.m */,
 				6DAB88281892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.h */,
 				6DAB88291892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m */,
+				6DE4650218A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h */,
+				6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */,
+				6DE4650518A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h */,
+				6DE4650618A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m */,
 			);
 			path = QuestionsTableViewControllerStateMachine;
 			sourceTree = "<group>";
@@ -581,6 +594,7 @@
 				6DAB884E1892EBD2003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m */,
 				6DAB884F1892EBD2003075D8 /* EPQuestionsTableViewControllerStateMachineTests.m */,
 				6D35C74118A18E2500FD3BCA /* EPQuestionsTableViewControllerStateTests.m */,
+				6DE4650018A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m */,
 			);
 			path = QuestionsTableViewControllerStateMachineTests;
 			sourceTree = "<group>";
@@ -588,6 +602,7 @@
 		D387EF001536EF0400635736 = {
 			isa = PBXGroup;
 			children = (
+				6D7BA50518ABCAA900EBAD9B /* AgileToolboxImages.xcassets */,
 				6D83807C175FA5B400B305A5 /* Default-568h@2x.png */,
 				D387EF151536EF0400635736 /* AgileToolbox */,
 				D3972BD9157EBAB0000C1819 /* OCMock */,
@@ -598,8 +613,6 @@
 				D3A7B4A115AB011C00DD6772 /* IntegrationTests */,
 				D387EF0E1536EF0400635736 /* Frameworks */,
 				D387EF0C1536EF0400635736 /* Products */,
-				6D8F050A189995DF000D0460 /* AgileToolbox copy-Info.plist */,
-				6D8F055318999738000D0460 /* AgileToolbox copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -654,6 +667,8 @@
 				6DAB88441892DC2F003075D8 /* EPDependencyBox.m */,
 				6D60E32018983103001FCFE8 /* EPPersistentStoreHelper.h */,
 				6D60E32118983103001FCFE8 /* EPPersistentStoreHelper.m */,
+				6D7BA50E18AC33FE00EBAD9B /* EPTimeIntervalFormatter.h */,
+				6D7BA50F18AC33FE00EBAD9B /* EPTimeIntervalFormatter.m */,
 			);
 			path = AgileToolbox;
 			sourceTree = "<group>";
@@ -678,6 +693,7 @@
 				6DA6B56C18894E9F0025E06A /* TableViewCellsTests */,
 				6DAB88411892DBC2003075D8 /* EPDependencyBoxTests.m */,
 				6D60E31E18982F98001FCFE8 /* EPPersistentStoreHelperTests.m */,
+				6D7BA50C18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m */,
 			);
 			path = AgileToolboxTests;
 			sourceTree = "<group>";
@@ -948,7 +964,6 @@
 			);
 			dependencies = (
 				6D7FD6D118639AFF00988B44 /* PBXTargetDependency */,
-				D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */,
 			);
 			name = IntegrationTests;
 			productName = IntegrationTests;
@@ -1059,6 +1074,7 @@
 				D397284A157D07FC000C1819 /* PlanningPoker@2x.png in Resources */,
 				D397284B157D07FC000C1819 /* PlanningPokerCard.png in Resources */,
 				D397284C157D07FC000C1819 /* PlanninPokerCard.png in Resources */,
+				6D7BA50618ABCAA900EBAD9B /* AgileToolboxImages.xcassets in Resources */,
 				D397284D157D07FC000C1819 /* QATBackground.png in Resources */,
 				D397284E157D07FC000C1819 /* QATBackground@2x.png in Resources */,
 				D397284F157D07FC000C1819 /* QATBackgroundR.png in Resources */,
@@ -1114,6 +1130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7BA50918ABE15700EBAD9B /* Question.m in Sources */,
 				6DAB88301892D783003075D8 /* AgileToolbox.xcdatamodeld in Sources */,
 				6DAB88351892D783003075D8 /* EPQuestionsTableViewControllerEmptyConnectionFailureState.m in Sources */,
 				6DAB883F1892D783003075D8 /* EPFetchMoreTableViewCell.m in Sources */,
@@ -1123,21 +1140,23 @@
 				D387EF261536EF0400635736 /* EPViewController.m in Sources */,
 				6DAB883C1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreState.m in Sources */,
 				6DAB88321892D783003075D8 /* EPQuestionsTableViewController.m in Sources */,
+				6DE4650418A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m in Sources */,
 				6DAB88361892D783003075D8 /* EPQuestionsTableViewControllerEmptyLoadingState.m in Sources */,
 				6DAB88391892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m in Sources */,
 				6DAB88401892D783003075D8 /* EPQuestionTableViewCell.m in Sources */,
 				6DAB88381892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m in Sources */,
 				6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */,
 				6DAB883B1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m in Sources */,
+				6D7BA51018AC33FE00EBAD9B /* EPTimeIntervalFormatter.m in Sources */,
 				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
 				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
 				6D60E32218983103001FCFE8 /* EPPersistentStoreHelper.m in Sources */,
 				6DAB883D1892D783003075D8 /* EPQuestionsTableViewControllerState.m in Sources */,
 				D338B77E153B0DE200611765 /* EPPlanningPokerViewController.m in Sources */,
-				6DAB88311892D783003075D8 /* Question.m in Sources */,
 				D3972B88157D4F91000C1819 /* EPMainMenuListViewController.m in Sources */,
 				6DAB88601895E7F7003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistant.m in Sources */,
 				6DAB88331892D783003075D8 /* EPQuestionsTableViewExpert.m in Sources */,
+				6DE4650718A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m in Sources */,
 				6D3B883415B0C8FA008EF63B /* EPAddQuestionViewController.m in Sources */,
 				6DAB883E1892D783003075D8 /* EPQuestionsTableViewControllerStateMachine.m in Sources */,
 				6DAB88451892DC2F003075D8 /* EPDependencyBox.m in Sources */,
@@ -1152,6 +1171,7 @@
 			files = (
 				6D60E31F18982F98001FCFE8 /* EPPersistentStoreHelperTests.m in Sources */,
 				6DAB88551892EBD2003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests.m in Sources */,
+				6D7BA50B18ABE28000EBAD9B /* EPQuestionTableViewCellTests.m in Sources */,
 				6DAB88511892EBD2003075D8 /* EPQuestionsDataSourceTests.m in Sources */,
 				6DAB88541892EBD2003075D8 /* EPQuestionsTableViewControllerInitialStateTests.m in Sources */,
 				6DAB88531892EBD2003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsStateTests.m in Sources */,
@@ -1162,7 +1182,9 @@
 				6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */,
 				6DAB88501892EBD2003075D8 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
 				6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */,
+				6DE4650118A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m in Sources */,
 				6D35C74218A18E2500FD3BCA /* EPQuestionsTableViewControllerStateTests.m in Sources */,
+				6D7BA50D18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m in Sources */,
 				6D35C74018A150B100FD3BCA /* EPQuestionsTableViewControllerTests.m in Sources */,
 				6DAB88521892EBD2003075D8 /* EPQuestionsTableViewControllerEmptyLoadingStateTests.m in Sources */,
 			);
@@ -1242,11 +1264,6 @@
 			isa = PBXTargetDependency;
 			target = D387EF0A1536EF0400635736 /* AgileToolbox */;
 			targetProxy = D387EF311536EF0500635736 /* PBXContainerItemProxy */;
-		};
-		D3A7B4AF15AB01D700DD6772 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D3C1F5DF15A4544200F0900D /* Library */;
-			targetProxy = D3A7B4AE15AB01D700DD6772 /* PBXContainerItemProxy */;
 		};
 		D3C986F615A79ECD007A41D8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1584,6 +1601,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1600,6 +1621,7 @@
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",
@@ -1613,6 +1635,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AgileToolbox.app/AgileToolbox";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1629,6 +1655,7 @@
 					"\"$(SRCROOT)/OCMock/lib\"",
 				);
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-force_load",
 					"\"$(SRCROOT)/OCMock/lib/libOCMock.a\"",
 					"-ObjC",

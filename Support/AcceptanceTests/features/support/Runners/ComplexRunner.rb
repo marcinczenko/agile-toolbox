@@ -1,7 +1,7 @@
 module Runners
     
   class ComplexRunner
-      DEFAULT_TIMEOUT = 20
+      DEFAULT_TIMEOUT = 35
       @@timeout = DEFAULT_TIMEOUT
       @@verbose = false
       def self.run(command,signal='INT')

@@ -19,8 +19,8 @@ typedef void (^EPConnectionCompletionBlock)(EPConnection *connection, NSError *e
 
 @property (nonatomic, copy, readonly) NSURL *url;
 @property (nonatomic, copy) NSURLRequest *urlRequest;
-@property (nonatomic, assign, readonly) NSInteger contentLength;
-@property (nonatomic, strong, readonly) NSMutableData *downloadData;
+@property (nonatomic, readonly) NSInteger contentLength;
+@property (nonatomic, readonly) NSData *receivedData;
 @property (readonly) float percentComplete;
 @property (nonatomic, assign) NSUInteger progressThreshold;
 

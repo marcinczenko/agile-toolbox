@@ -26,18 +26,10 @@
 
 @implementation EPConnection
 
-@synthesize connection = _connection;
-@synthesize url = _url;
-@synthesize urlRequest = _urlRequest;
-@synthesize contentLength = _contentLength;
-@synthesize downloadData = _downloadData;
-@synthesize progressThreshold = _progressThreshold;
-
-@synthesize previousMilestone = _previousMilestone;
-@synthesize progressBlock = _progressBlock;
-@synthesize completionBlock = _completionBlock;
-
-@synthesize connectionDelegate = _connectionDelegate;
+- (NSData*)receivedData
+{
+    return self.downloadData;
+}
 
 + (id)createWithURL:(NSURL*)url
 {

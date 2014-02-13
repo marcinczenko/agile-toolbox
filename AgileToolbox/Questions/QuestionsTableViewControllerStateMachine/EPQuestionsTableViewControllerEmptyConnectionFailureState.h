@@ -6,8 +6,8 @@
 //
 //
 
-#import "EPQuestionsTableViewControllerEmptyLoadingState.h"
+#import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
 
-@interface EPQuestionsTableViewControllerEmptyConnectionFailureState : EPQuestionsTableViewControllerEmptyLoadingState
+@interface EPQuestionsTableViewControllerEmptyConnectionFailureState : EPQuestionsTableViewControllerEmptyNoQuestionsState
 
 @end

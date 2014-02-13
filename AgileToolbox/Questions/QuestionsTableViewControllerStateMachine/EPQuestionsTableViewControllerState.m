@@ -150,6 +150,10 @@
     
 }
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return [EPQuestionsTableViewExpert questionRowHeight];
+}
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -169,6 +173,11 @@
 - (NSInteger)numberOfSections
 {
     return 1;
+}
+
+- (void)refresh:(UIRefreshControl*)refreshControl
+{
+    
 }
 
 @end

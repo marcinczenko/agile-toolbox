@@ -8,7 +8,7 @@ describe("Questions Backgrounding", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item12';
+    var expectedFirstVisibleCellName = 'Test Item5';
 
     afterEach(function() {
         helpers.goBack();
@@ -24,16 +24,16 @@ describe("Questions Backgrounding", function() {
         var expected_number_of_questions = 41;
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(expected_number_of_questions);
 
-        expect(helpers.getCellTextForTableViewAtIndex("Questions",expected_number_of_questions-1)).toEqual("Pull up to download more questions.");
+        expect(helpers.getCellTextForLastElementInTableView('Questions')).toContain("Pull up to download more questions.");
 
-        helpers.fetchMore(expected_number_of_questions);
+        helpers.fetchMoreInTableView('Questions');
 
         helpers.enterBackgroundForDuration(4);
 
         expected_number_of_questions = 40;
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(expected_number_of_questions);
 
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 
     it("displays the same set of questions when re-entering questions section", function() {
@@ -42,7 +42,7 @@ describe("Questions Backgrounding", function() {
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);
 
-        expect(helpers.getVisibleCellTextForTableViewAtIndex("Questions",0)).toEqual(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 });
 

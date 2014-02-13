@@ -33,6 +33,7 @@
 - (void)willEnterForegroundNotification:(NSNotification*)notification;
 - (void)didBecomeActiveNotification:(NSNotification*)notification;
 
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath;
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
@@ -44,5 +45,7 @@
 - (void)dataChangedInBackground;
 - (void)connectionFailure;
 - (void)connectionFailureInBackground;
+
+- (void)refresh:(UIRefreshControl*)refreshControl;
 
 @end

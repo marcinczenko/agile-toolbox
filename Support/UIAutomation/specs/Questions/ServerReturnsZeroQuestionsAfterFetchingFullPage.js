@@ -17,7 +17,7 @@ describe("Questions", function() {
         helpers.enterQuestions();
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
-        helpers.fetchMore(41);
+        helpers.fetchMoreInTableView('Questions');
 
         // server returns 0 questions which means we should not see "Fetch More" cell anymore
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);

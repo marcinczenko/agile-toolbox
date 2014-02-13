@@ -17,6 +17,7 @@
 - (void)viewDidLoad
 {
     if (!self.viewController.hasQuestionsInPersistentStorage) {
+        self.viewController.tableView.estimatedRowHeight = 44.0;
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
             [self.viewController.questionsDataSource fetchOlderThan:-1];
@@ -26,6 +27,8 @@
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyNoQuestionsState class]];
         }
     } else {
+        self.viewController.tableView.estimatedRowHeight = 105.0;
+        [self.viewController setupRefreshControl];
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
         }

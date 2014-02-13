@@ -338,13 +338,13 @@ typedef void(^DownloadFailedCallbackBlock)();
 {
     NSInteger content_length = 100;
 
-    XCTAssertNil(self.connection.downloadData,@"Connection object should be nil at this point");
+    XCTAssertNil(self.connection.receivedData,@"Connection object should be nil at this point");
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:content_length]];
     
     XCTAssertEqual(self.connection.contentLength,content_length,@"The length in the response is not the same as the intended content length!");
-    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
-    XCTAssertEqual(self.connection.downloadData.length, (NSUInteger)0, @"The length of the downloaded data shuld be 0!");
+    XCTAssertNotNil(self.connection.receivedData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertEqual(self.connection.receivedData.length, (NSUInteger)0, @"The length of the downloaded data shuld be 0!");
 }
 
 - (void)testDelegateDidReceivedData
@@ -353,12 +353,12 @@ typedef void(^DownloadFailedCallbackBlock)();
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:test_data.length]];
     
-    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertNotNil(self.connection.receivedData,@"Downloaded data should be initiailized at this point!");
     
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data];
     
     XCTAssertEqual(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
-    XCTAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
+    XCTAssertEqualObjects(self.connection.receivedData,test_data,@"downloaded data and test data should have the same content!");
     
 }
 
@@ -371,14 +371,14 @@ typedef void(^DownloadFailedCallbackBlock)();
 
     [self.connection connection:self.connectionDoesNotMatter didReceiveResponse:[self createHTTPResponseWithContentLength:test_data.length]];
 
-    XCTAssertNotNil(self.connection.downloadData,@"Downloaded data should be initiailized at this point!");
+    XCTAssertNotNil(self.connection.receivedData,@"Downloaded data should be initiailized at this point!");
 
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_0];
     [self.connection connection:self.connectionDoesNotMatter didReceiveData:test_data_increment_1];
 
     
     XCTAssertEqual(self.connection.contentLength, (NSInteger)test_data.length,@"Content length should equal the length of the test_data!");
-    XCTAssertEqualObjects(self.connection.downloadData,test_data,@"downloaded data and test data should have the same content!");
+    XCTAssertEqualObjects(self.connection.receivedData,test_data,@"downloaded data and test data should have the same content!");
 }
 
 - (void)testIfCompletionBlockIsCalledAfterDataHasBeenReceived
@@ -446,7 +446,7 @@ typedef void(^DownloadFailedCallbackBlock)();
     [self sendDataIncrementally:content_length];
     
     XCTAssertEqual(self.connection.contentLength, content_length,@"Content length should equal the length of the test_data!");
-    XCTAssertEqual(self.connection.downloadData.length, (NSUInteger)content_length,@"The length of the dowloaded data should equal the length of the test_data!");
+    XCTAssertEqual(self.connection.receivedData.length, (NSUInteger)content_length,@"The length of the dowloaded data should equal the length of the test_data!");
     XCTAssertEqual(50,numberOfTimesCalled,@"Pregress Block Should have been called after every data block!");
 }
 

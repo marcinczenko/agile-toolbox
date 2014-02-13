@@ -8,10 +8,25 @@
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
 #import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreState
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.viewController setupRefreshControl];
+}
+
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (0==indexPath.section) {
+        return [EPQuestionsTableViewExpert questionRowHeight];
+    } else {
+        return [EPQuestionsTableViewExpert fetchMoreRowHeight];
+    }
+}
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -24,6 +39,19 @@
                                                       forIndexPath:indexPath
                                                            loading:NO];
     }
+}
+
+- (void)refresh:(UIRefreshControl*)refreshControl
+{
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
+    refreshControl.attributedTitle = title;
+    
+    [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
+                                                                     andOldestQuestionId:self.viewController.oldestQuestionId];
+    
 }
 
 - (void)fetchNextSetOfQuestions

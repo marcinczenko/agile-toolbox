@@ -70,7 +70,7 @@
     [super viewDidLoad];
     
     self.view.accessibilityLabel = @"Questions";
-    
+        
     EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     self.managedObjectContext = appDelegate.managedObjectContext;
     
@@ -142,6 +142,8 @@
     return (self.isViewLoaded && self.view.window);
 }
 
+//------------------------------------------------------------------
+// TODO: consider moving the following methods to new type
 - (BOOL)hasQuestionsInPersistentStorage
 {
     return (0<self.fetchedResultsController.fetchedObjects.count);
@@ -151,6 +153,27 @@
 {
     return self.fetchedResultsController.fetchedObjects.count;
 }
+
+- (NSInteger)mostRecentQuestionId
+{
+    if (self.hasQuestionsInPersistentStorage) {
+        Question* mostRecentQuestion = self.fetchedResultsController.fetchedObjects[0];
+        return mostRecentQuestion.question_id.integerValue;
+    } else {
+        return -1;
+    }
+}
+
+- (NSInteger)oldestQuestionId
+{
+    if (self.hasQuestionsInPersistentStorage) {
+        Question* mostRecentQuestion = self.fetchedResultsController.fetchedObjects[self.numberOfQuestionsInPersistentStorage-1];
+        return mostRecentQuestion.question_id.integerValue;
+    } else {
+        return -1;
+    }
+}
+//------------------------------------------------------------------
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -198,6 +221,51 @@
     [self.stateMachine scrollViewDidScroll:scrollView];
 }
 
+- (void)setupRefreshControl
+{
+    if (!self.refreshControl) {
+        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
+        refreshControl.attributedTitle = title;
+        
+        [refreshControl addTarget:self
+                           action:@selector(refresh:)
+                 forControlEvents:UIControlEventValueChanged];
+        
+        self.refreshControl = refreshControl;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl beginRefreshing];
+            [self.refreshControl endRefreshing];
+        });
+    } else {
+        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
+        self.refreshControl.attributedTitle = title;
+    }
+}
+
+#pragma mark - Refresh Controll delegate
+- (void)refresh:(UIRefreshControl*)refreshControl
+{
+//    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
+//    refreshControl.attributedTitle = title;
+//    
+//    double delayInSeconds = 2.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [self.refreshControl endRefreshing];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.refreshControl.hidden = YES;
+//        });
+//        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
+//        refreshControl.attributedTitle = title;
+//    });
+    
+    NSLog(@"refresh:");
+    
+    [self.stateMachine refresh:refreshControl];
+}
+
 
 #pragma mark - Table view data source
 
@@ -209,6 +277,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.stateMachine numberOfRowsInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.stateMachine heightForRowAtIndexPath:indexPath];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -305,7 +378,7 @@
 #pragma mark - EPPostmanDelegateProtocol
 - (void)postDelivered
 {
-    [self.questionsDataSource fetchNew];
+    [self.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:-1 andOldestQuestionId:-1];
 }
 
 // TODO: not yet supported
@@ -322,11 +395,30 @@
     [self.tableView beginUpdates];
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    if (NSFetchedResultsChangeInsert == type) {
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                         withRowAnimation:UITableViewRowAnimationNone];
+    EPQuestionTableViewCell* updatedCell;
+    NSIndexPath* adjustedIndexPath;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            if (!self.refreshControl) {
+                // we are in one of the refreshing state when the table structure has been altered
+                // to acomodate refreshing indicator in the first row
+                // we need to adjust the index path returned by fetched results controller
+                adjustedIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+            } else {
+                adjustedIndexPath = indexPath;
+            }
+            updatedCell = (EPQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:adjustedIndexPath];
+            [updatedCell formatCellForQuestion:question];
+            break;
+        default:
+            break;
     }
 }
 
