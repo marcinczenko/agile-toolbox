@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.xctest"
-               BlueprintName = "ApplicationUnitTests"
+               BuildableName = "AgileToolboxTests.xctest"
+               BlueprintName = "AgileToolboxTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,38 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.xctest"
-               BlueprintName = "ApplicationUnitTests"
+               BuildableName = "AgileToolboxTests.xctest"
+               BlueprintName = "AgileToolboxTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6D857961186E486300DCC000"
+               BuildableName = "EPServiceConnectionLibraryTests.xctest"
+               BlueprintName = "EPServiceConnectionLibraryTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6D857989186E536600DCC000"
+               BuildableName = "AgileToolboxDependenciesProtocolsTests.xctest"
+               BlueprintName = "AgileToolboxDependenciesProtocolsTests"
+               ReferencedContainer = "container:AgileToolbox.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6DD4DE9C188145990009C083"
+               BuildableName = "CoreDataModelTests.xctest"
+               BlueprintName = "CoreDataModelTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>

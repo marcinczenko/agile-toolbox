@@ -1,6 +1,11 @@
-Paste>=1.7.5.1
-WebOb>=1.2
-WebTest>=1.3.4
-pyOpenSSL>=0.13
-webapp2>=2.5.1
-wsgiref>=0.1.2
+Paste==1.7.5.1
+WebOb==1.3.1
+WebTest==2.0.11
+beautifulsoup4==4.3.2
+peewee==2.1.7
+pip-tools==0.3.4
+pyOpenSSL==0.13.1
+six==1.4.1
+waitress==0.8.8
+webapp2==2.5.2
+wsgiref==0.1.2

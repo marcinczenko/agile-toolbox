@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.xctest"
-               BlueprintName = "ApplicationUnitTests"
+               BuildableName = "AgileToolboxTests.xctest"
+               BlueprintName = "AgileToolboxTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3C1F5EC15A4544200F0900D"
-               BuildableName = "QATLibraryTests.xctest"
-               BlueprintName = "QATLibraryTests"
+               BuildableName = "LibraryTests.xctest"
+               BlueprintName = "LibraryTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -75,8 +75,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
-               BuildableName = "ApplicationUnitTests.xctest"
-               BlueprintName = "ApplicationUnitTests"
+               BuildableName = "AgileToolboxTests.xctest"
+               BlueprintName = "AgileToolboxTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -95,12 +95,21 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3C1F5EC15A4544200F0900D"
-               BuildableName = "QATLibraryTests.xctest"
-               BlueprintName = "QATLibraryTests"
+               BuildableName = "LibraryTests.xctest"
+               BlueprintName = "LibraryTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D387EF0A1536EF0400635736"
+            BuildableName = "AgileToolbox.app"
+            BlueprintName = "AgileToolbox"
+            ReferencedContainer = "container:AgileToolbox.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -129,6 +138,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D387EF0A1536EF0400635736"
+            BuildableName = "AgileToolbox.app"
+            BlueprintName = "AgileToolbox"
+            ReferencedContainer = "container:AgileToolbox.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

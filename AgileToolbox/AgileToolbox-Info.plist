@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>QATiPhoneIcon.png</string>
-				<string>QATiPhoneIcon@2x.png</string>
+				<string>EPiPhoneIcon.png</string>
+				<string>EPiPhoneIcon@2x.png</string>
 				<string>Default.png</string>
 				<string>Default@2x.png</string>
 			</array>

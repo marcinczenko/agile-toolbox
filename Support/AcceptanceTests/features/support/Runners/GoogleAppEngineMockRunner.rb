@@ -30,13 +30,15 @@ module Runners
         end
               
         def command
-            "#{File.join(ENV['VIRTUAL_ENV'], '/bin/python')} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
+            delay = @options[:delay] ? @options[:delay] : 1
+            "#{Helpers::PathFinder.find(:Python)} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]} -d #{delay}"
+            #"#{File.join(ENV['VIRTUAL_ENV'], '/bin/python')} #{Helpers::PathFinder.find(:GoogleAppEngineAppMock)} -n #{@options[:number_of_items]}"
         end
         
         def wait_for_being_operational
             begin
                 Capybara.default_wait_time = 7
-                wait_until { ready?('http://localhost:9001/ready')  }
+                wait_until { ready?('http://everydayproductive-test.com:9001/ready')  }
                 yield if block_given?
             rescue TimeoutError
                 raise 'GoogleAppEngine Mock does not appear to be operational.'

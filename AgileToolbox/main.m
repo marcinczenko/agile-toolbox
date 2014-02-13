@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "QATAppDelegate.h"
+#import "EPAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([QATAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([EPAppDelegate class]));
     }
 }
