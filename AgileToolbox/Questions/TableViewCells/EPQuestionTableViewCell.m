@@ -66,20 +66,10 @@
     self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:self.currentDate];
 }
 
-- (void)setAccessibilityLabelsForTesting
-{
-    self.accessibilityLabel = @"QuestionTableViewCell";
-    self.header.accessibilityLabel = @"Header";
-    self.content.accessibilityLabel = @"Content";
-    self.updated.accessibilityLabel = @"Updated";
-}
-
 + (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath andQuestion:(Question*)question
 {
     EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
                                                                             forIndexPath:indexPath];
-    
-//    [questionCell setAccessibilityLabelsForTesting];
     
     [questionCell setupUpdatedFieldUpdateTimer];
     
@@ -174,7 +164,7 @@
     self.content.text = question.content;
     self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:self.currentDate];
     
-    self.markedAsNew = question.newOrUpdated.boolValue;
+    self.markedAsNew = question.updatedOrNew.boolValue;
     
     if (0<question.answer.length) {
         self.markedAsAnswered = YES;

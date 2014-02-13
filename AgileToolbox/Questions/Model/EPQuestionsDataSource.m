@@ -211,7 +211,7 @@
     if ([NSNull null] != answer) {
         question.answer = answer;
     }
-    question.newOrUpdated = @YES;
+    question.updatedOrNew = @YES;
 }
 
 - (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray

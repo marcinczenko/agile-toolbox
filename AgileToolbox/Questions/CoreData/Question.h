@@ -18,6 +18,6 @@
 @property (nonatomic, retain) NSString * header;
 @property (nonatomic, retain) NSNumber * question_id;
 @property (nonatomic, retain) NSDate * updated;
-@property (nonatomic, retain) NSNumber * newOrUpdated;
+@property (nonatomic, retain) NSNumber * updatedOrNew;
 
 @end

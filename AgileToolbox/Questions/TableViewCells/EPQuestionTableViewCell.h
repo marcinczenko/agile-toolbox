@@ -29,6 +29,5 @@
 - (void)formatCellForQuestion:(Question*)question;
 
 - (void)setupUpdatedFieldUpdateTimer;
-- (void)setAccessibilityLabelsForTesting;
 
 @end

@@ -17,6 +17,6 @@
 @dynamic header;
 @dynamic question_id;
 @dynamic updated;
-@dynamic newOrUpdated;
+@dynamic updatedOrNew;
 
 @end
