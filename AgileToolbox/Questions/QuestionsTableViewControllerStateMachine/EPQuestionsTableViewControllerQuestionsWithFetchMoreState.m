@@ -19,6 +19,13 @@
     [self.viewController setupRefreshControl];
 }
 
+- (void)viewWillAppear
+{
+    [self.viewController setupRefreshControl];
+    [super viewWillAppear];
+}
+
+
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (0==indexPath.section) {

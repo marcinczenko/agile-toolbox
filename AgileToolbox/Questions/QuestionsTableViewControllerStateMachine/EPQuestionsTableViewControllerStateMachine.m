@@ -180,4 +180,9 @@
     return [self.currentState refresh:refreshControl];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+{
+    [self.currentState prepareForSegue:segue];
+}
+
 @end

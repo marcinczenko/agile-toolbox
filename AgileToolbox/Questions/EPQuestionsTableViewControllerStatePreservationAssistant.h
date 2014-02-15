@@ -17,7 +17,7 @@
 @property (nonatomic,strong) UIImageView* snapshotView;
 @property (nonatomic,assign) CGPoint contentOffset;
 
-@property (nonatomic,strong) UIRefreshControl* refreshControl;
+@property (nonatomic,assign) BOOL skipTableViewScrollPositionRestoration;
 
 + (NSString*)persistentStoreFileName;
 + (NSString*)contentOffsetKey;

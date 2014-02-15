@@ -11,6 +11,8 @@
 #import "EPQuestionsTableViewExpert.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 
+#import "Question.h"
+
 @interface EPQuestionsTableViewControllerState : NSObject
 
 @property (nonatomic,weak) EPQuestionsTableViewController *viewController;
@@ -47,5 +49,9 @@
 - (void)connectionFailureInBackground;
 
 - (void)refresh:(UIRefreshControl*)refreshControl;
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue;
+- (Question*) questionObjectForIndexPath:(NSIndexPath*)indexPath;
+- (void)skipRefreshing;
 
 @end

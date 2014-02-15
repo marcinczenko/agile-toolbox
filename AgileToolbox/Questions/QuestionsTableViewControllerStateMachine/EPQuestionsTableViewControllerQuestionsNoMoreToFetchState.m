@@ -18,6 +18,12 @@
     [self.viewController setupRefreshControl];
 }
 
+- (void)viewWillAppear
+{
+    [self.viewController setupRefreshControl];
+    [super viewWillAppear];
+}
+
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {

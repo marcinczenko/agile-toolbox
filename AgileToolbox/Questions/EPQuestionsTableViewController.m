@@ -124,7 +124,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{
+{    
     [super viewDidAppear:animated];
     
     [self.stateMachine viewDidAppear];
@@ -182,13 +182,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"AddQuestion"]) {
-        
-        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
-        
-        EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
-        destinationVC.delegate = self;
-    }
+    [self.stateMachine prepareForSegue:segue];
 }
 
 - (void)didReceiveMemoryWarning
@@ -247,22 +241,6 @@
 #pragma mark - Refresh Controll delegate
 - (void)refresh:(UIRefreshControl*)refreshControl
 {
-//    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
-//    refreshControl.attributedTitle = title;
-//    
-//    double delayInSeconds = 2.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [self.refreshControl endRefreshing];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.refreshControl.hidden = YES;
-//        });
-//        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
-//        refreshControl.attributedTitle = title;
-//    });
-    
-    NSLog(@"refresh:");
-    
     [self.stateMachine refresh:refreshControl];
 }
 

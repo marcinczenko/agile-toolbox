@@ -49,6 +49,8 @@
 
 - (void)refresh:(UIRefreshControl*)refreshControl;
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue;
+
 
 - (void)setStateObject:(id)stateObject forStateName:(NSString*)name;
 

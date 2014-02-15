@@ -21,6 +21,16 @@
 #define KEEP_VISIBLE_TIMEOUT 2.0
 #endif
 
+- (Question*) questionObjectForIndexPath:(NSIndexPath*)indexPath
+{
+    if (self.viewController.refreshControl) {
+        return [self.viewController.fetchedResultsController objectAtIndexPath:indexPath];
+    } else {
+        NSIndexPath* adjustedIndexPath = [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
+        return [self.viewController.fetchedResultsController objectAtIndexPath:adjustedIndexPath];
+    }
+}
+
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (self.viewController.refreshControl) {
@@ -187,6 +197,12 @@
 {
     [self handleEvent];
 }
+
+//- (void)skipRefreshing
+//{
+//    self.viewController.statePreservationAssistant.skipRefreshing = NO;
+//}
+
 
 
 @end

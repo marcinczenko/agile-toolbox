@@ -292,22 +292,4 @@ static const BOOL valueNO = NO;
     [self.tableViewMock verify];
 }
 
-- (void)testThatRestoreIndexPathCallsReloadDataBeforePerformingScrolling
-{
-    NSIndexPath* indexPathFirstVisibleRow = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    [self mockFetchedResultsController];
-    [self mockTableView];
-    [self simulateFirstVisibleIndexPathToBe:indexPathFirstVisibleRow];
-    
-    [self.tableViewMock setExpectationOrderMatters:YES];
-    [[self.tableViewMock expect] reloadData];
-    [[self.tableViewMock expect] scrollToRowAtIndexPath:indexPathFirstVisibleRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
-    [self.preservationAssistant storeQuestionIdOfFirstVisibleQuestionForViewController:self.questionsTableViewControllerMock];
-    [self.preservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.questionsTableViewControllerMock];
-    
-    [self.tableViewMock verify];
-}
-
 @end

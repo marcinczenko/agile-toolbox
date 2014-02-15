@@ -91,7 +91,7 @@
 - (void)restoreIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController
 {
     if (self.idOfTheFirstVisibleRow) {
-        [viewController.tableView reloadData];
+//        [viewController.tableView reloadData];
         NSIndexPath* indexPath = [self indexPathForQuestionURI:self.idOfTheFirstVisibleRow inViewController:viewController];
         if (indexPath) {
             [viewController.tableView scrollToRowAtIndexPath:indexPath

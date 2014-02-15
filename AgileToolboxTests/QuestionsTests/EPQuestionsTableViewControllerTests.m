@@ -325,20 +325,6 @@ BOOL valueNO = NO;
     [self.stateMachineMock verify];
 }
 
-- (void)testThatCurrentViewControllerIsSetToBeDelegateOfTheDestinationControllerOnPerformingAddQuestionSegue
-{
-    [[[self.navigationControllerMock stub] andReturn:self.addQuestionController] topViewController];
-    [[self.addQuestionController expect] setDelegate:self.vc];
-
-    [[[self.segueMock stub] andReturn:@"AddQuestion"] identifier];
-    [[[self.segueMock stub] andReturn:self.navigationControllerMock] destinationViewController];
-    
-    [self.vc prepareForSegue:self.segueMock sender:self.doesNotMatter];
-    
-    [self.addQuestionController verify];
-    [self.segueMock verify];
-}
-
 - (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded
 {
     NSString * addedQuestion = @"New Question";
@@ -454,6 +440,17 @@ BOOL valueNO = NO;
     
     XCTAssertEqual((NSInteger)-1, [self.vc mostRecentQuestionId]);
     XCTAssertEqual((NSInteger)-1, [self.vc oldestQuestionId]);
+}
+
+//------------------ Navigating to Question Details View Controller --------------
+- (void)testPrepareForSegueDelegatesToStateMachine
+{
+    id segueMock = [OCMockObject mockForClass:[UIStoryboardSegue class]];
+    [[self.stateMachineMock expect] prepareForSegue:segueMock];
+    
+    [self.vc prepareForSegue:segueMock sender:self.doesNotMatter];
+    
+    [self.stateMachineMock verify];
 }
 
 @end
