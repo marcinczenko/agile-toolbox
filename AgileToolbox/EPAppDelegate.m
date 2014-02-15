@@ -74,8 +74,10 @@
         [questionsTableViewController injectDependenciesFrom:self.questionsTableViewControllerDependencyBox];
         
         return questionsTableViewController;
+    } else if ([[identifierComponents lastObject] isEqualToString:@"EPQuestionDetailsTableViewController"]) {
+        return [board instantiateViewControllerWithIdentifier:[identifierComponents lastObject]];
     }
-    
+
     return nil;
     
 }

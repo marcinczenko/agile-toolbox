@@ -11,6 +11,50 @@
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState
 
+- (void)displayCustomRefreshControl
+{
+    CGRect rect = self.tableViewExpert.tableView.bounds;
+    rect.size.height = self.viewController.statePreservationAssistant.refreshControllHeight;
+    
+    UILabel* label = [[UILabel alloc] initWithFrame:rect];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"Helvetica-Light" size:12];
+    label.text = @"Mufi Mufasa";
+    
+    label.layer.borderWidth = 2.0f;
+    label.layer.borderColor = [[UIColor blackColor] CGColor];
+    
+    [self.tableViewExpert.tableView addSubview:label];
+}
+
+
+- (void)viewWillAppear
+{
+    
+    NSLog(@"BEFORE:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+    
+    UIEdgeInsets inset = self.tableViewExpert.tableView.contentInset;
+    inset.top += self.viewController.statePreservationAssistant.refreshControllHeight;
+    self.tableViewExpert.tableView.contentInset = inset;
+    
+    [self displayCustomRefreshControl];
+    
+    NSLog(@"AFTER:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+    
+    
+    
+    
+    
+    [super viewWillAppear];
+    
+    
+}
+
+- (void)viewDidAppear
+{
+    NSLog(@"AFTER:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+    [super viewDidAppear];
+}
 
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {

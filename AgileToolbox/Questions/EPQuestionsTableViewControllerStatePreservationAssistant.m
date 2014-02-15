@@ -114,9 +114,31 @@
     CGRect localFrame = [viewController.tableView convertRect:navbar.bounds fromView:navbar];
     CGPoint point = CGPointMake(0, localFrame.origin.y + localFrame.size.height + 1);
     
-    return [self adjustIndexPath:[viewController.tableView indexPathForRowAtPoint:point]
-                                                       forTableView:viewController.tableView
-                                                 withRespectToFrame:localFrame];
+    if (viewController.refreshControl) {
+        point.y += viewController.refreshControl.frame.size.height;
+        self.refreshControllHeight = viewController.refreshControl.frame.size.height;
+    }
+    
+    NSIndexPath* indexPath = [viewController.tableView indexPathForRowAtPoint:point];
+    
+    CGRect rect = [viewController.tableView rectForRowAtIndexPath:indexPath];
+    
+    NSLog(@"Rect of first visible row:%@",NSStringFromCGRect(rect));
+    NSLog(@"Current bounds:%@",NSStringFromCGRect(viewController.tableView.bounds));
+    
+    self.firstVisibleRowDistanceFromBoundsOrigin = rect.origin.y - viewController.tableView.bounds.origin.y;
+    
+    if (viewController.refreshControl) {
+        self.firstVisibleRowDistanceFromBoundsOrigin -= viewController.refreshControl.frame.size.height;
+    }
+    
+    NSLog(@"DELTA:%f",self.firstVisibleRowDistanceFromBoundsOrigin);
+    
+//    return [self adjustIndexPath:indexPath
+//                    forTableView:viewController.tableView
+//              withRespectToFrame:localFrame];
+    
+    return indexPath;    
 }
 
 - (NSURL*)getArchiveableRepresentationOfIdForIndexPath:(NSIndexPath*)indexPath inViewController:(EPQuestionsTableViewController*)viewController
@@ -127,10 +149,11 @@
 
 - (NSIndexPath*)indexPathForQuestionURI:(NSURL*)uri inViewController:(EPQuestionsTableViewController*)viewController
 {
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectID* firstVisibleQuestion = [appDelegate.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+    
     __block NSIndexPath* indexPath = nil;
     [viewController.fetchedResultsController.fetchedObjects enumerateObjectsUsingBlock:^(Question* question, NSUInteger idx, BOOL *stop) {
-        EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-        NSManagedObjectID* firstVisibleQuestion = [appDelegate.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
         if ([firstVisibleQuestion isEqual:question.objectID]) {
             indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
             *stop = YES;

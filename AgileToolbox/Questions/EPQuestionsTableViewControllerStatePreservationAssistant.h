@@ -16,6 +16,9 @@
 
 @property (nonatomic,strong) UIImageView* snapshotView;
 @property (nonatomic,assign) CGPoint contentOffset;
+@property (nonatomic,assign) CGRect bounds;
+@property (nonatomic,assign) CGFloat firstVisibleRowDistanceFromBoundsOrigin;
+@property (nonatomic,assign) CGFloat refreshControllHeight;
 
 @property (nonatomic,assign) BOOL skipTableViewScrollPositionRestoration;
 

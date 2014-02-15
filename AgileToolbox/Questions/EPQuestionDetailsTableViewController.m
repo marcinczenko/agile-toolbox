@@ -16,12 +16,24 @@
 
 #import "EPOverlayNotifierView.h"
 
+#import "EPPersistentStoreHelper.h"
+
+static NSString* const kQuestionHeader = @"Header";
+static NSString* const kQuestionContent = @"Content";
+static NSString* const kQuestionAnswer = @"Answer";
+static NSString* const kQuestionUpdated = @"Updated";
+
 @interface EPQuestionDetailsTableViewController ()
 
 @property (nonatomic,strong) EPQuestionHeaderTextView* headerTextView;
 @property (nonatomic,strong) EPQuestionContentAndAnswerTextView* contentTextView;
 @property (nonatomic,strong) EPQuestionContentAndAnswerTextView* answerTextView;
 @property (nonatomic,strong) EPOverlayNotifierView* updatedDateView;
+
+@property (nonatomic,copy) NSString* questionHeader;
+@property (nonatomic,copy) NSString* questionContent;
+@property (nonatomic,copy) NSString* questionAnswer;
+@property (nonatomic,copy) NSDate* questionUpdated;
 
 @end
 
@@ -36,14 +48,88 @@
     return self;
 }
 
+//- (id)initWithCoder:(NSCoder *)aDecoder
+//{
+//    if ((self = [super initWithCoder:aDecoder])) {
+//        [self decodeObjectWithCoder:aDecoder];
+//    }
+//    return self;
+//}
+//
+//- (void)encodeWithCoder:(NSCoder *)aCoder
+//{
+//    [super encodeWithCoder:aCoder];
+//    [self encodeObjectWithCoder:aCoder];
+//}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [self encodeObjectWithCoder:coder];
+    
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [self decodeObjectWithCoder:coder];
+    
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (void)applicationFinishedRestoringState
+{
+    if (!self.contentTextView) {
+        [self configureView];
+    }
+}
+
+- (void)decodeObjectWithCoder:(NSCoder *)aDecoder
+{
+    self.questionHeader = [aDecoder decodeObjectForKey:kQuestionHeader];
+    self.questionContent = [aDecoder decodeObjectForKey:kQuestionContent];
+    self.questionAnswer = [aDecoder decodeObjectForKey:kQuestionAnswer];
+    self.questionUpdated = [aDecoder decodeObjectForKey:kQuestionUpdated];
+}
+
+- (void)encodeObjectWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.questionHeader forKey:kQuestionHeader];
+    [aCoder encodeObject:self.questionContent forKey:kQuestionContent];
+    [aCoder encodeObject:self.questionAnswer forKey:kQuestionAnswer];
+    [aCoder encodeObject:self.questionUpdated forKey:kQuestionUpdated];
+}
+
+
+- (void)copyQuestion:(Question*)question
+{
+    self.questionHeader = question.header;
+    self.questionContent = question.content;
+    self.questionAnswer = question.answer;
+    self.questionUpdated = question.updated;
+}
+
+- (void)setQuestion:(Question *)question
+{
+    _question = question;
+    [self copyQuestion:question];
+}
+
+- (void)configureView
+{
+    if (self.questionContent) {
+        [self setUpHeaderTextView];
+        [self setUpContentTextView];
+        [self setUpAnswerTextView];
+        [self setUpUpdatedOverlayView];
+        [self.tableView reloadData];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setUpHeaderTextView];
-    [self setUpContentTextView];
-    [self setUpAnswerTextView];
-    [self setUpUpdatedOverlayView];
+    [self configureView];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,7 +145,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.updatedDateView addToView:self.view for:3.0];
+    [super viewDidAppear:animated];
+    if (self.questionUpdated) {
+        [self.updatedDateView addToView:self.view for:3.0];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,13 +198,13 @@
 
 - (void)setUpHeaderTextView
 {
-    self.headerTextView = [[EPQuestionHeaderTextView alloc] initWithText:self.question.header];
+    self.headerTextView = [[EPQuestionHeaderTextView alloc] initWithText:self.questionHeader];
 }
 
 
 - (void)setUpContentTextView
 {
-    self.contentTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.question.content];
+    self.contentTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.questionContent];
 }
 
 - (void)setUpAnswerTextView
@@ -123,7 +212,7 @@
     if (!self.question.answer || 0==self.question.answer.length) {
         self.answerTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:@"Awaiting answer..."];
     } else {
-        self.answerTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.question.answer];
+        self.answerTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.questionAnswer];
     }
 }
 
@@ -139,7 +228,7 @@
 - (void)setUpUpdatedOverlayView
 {
     self.updatedDateView = [[EPOverlayNotifierView alloc] initWithTableViewFrame:self.view.frame];
-    self.updatedDateView.text = [NSString stringWithFormat:@"Last updated on %@",[self stringFromDate:self.question.updated]];
+    self.updatedDateView.text = [NSString stringWithFormat:@"Last updated on %@",[self stringFromDate:self.questionUpdated]];
 }
 
 

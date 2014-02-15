@@ -24,6 +24,7 @@
 		6D44F3DB18ADB27900188692 /* EPQuestionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3DA18ADB27900188692 /* EPQuestionTextView.m */; };
 		6D44F3E018AED8D700188692 /* EPOverlayNotifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3DF18AED8D700188692 /* EPOverlayNotifierView.m */; };
 		6D44F3E218AF084F00188692 /* EPOverlayNotifierViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3E118AF084F00188692 /* EPOverlayNotifierViewTests.m */; };
+		6D44F3E418AF0C9100188692 /* EPQuestionDetailsTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3E318AF0C9100188692 /* EPQuestionDetailsTableViewControllerTests.m */; };
 		6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */; };
 		6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */; };
 		6D5CC2DB185B84C70017CDD1 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -223,6 +224,7 @@
 		6D44F3DE18AED8D700188692 /* EPOverlayNotifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPOverlayNotifierView.h; sourceTree = "<group>"; };
 		6D44F3DF18AED8D700188692 /* EPOverlayNotifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPOverlayNotifierView.m; sourceTree = "<group>"; };
 		6D44F3E118AF084F00188692 /* EPOverlayNotifierViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPOverlayNotifierViewTests.m; sourceTree = "<group>"; };
+		6D44F3E318AF0C9100188692 /* EPQuestionDetailsTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionDetailsTableViewControllerTests.m; sourceTree = "<group>"; };
 		6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
 		6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
 		6D60E31E18982F98001FCFE8 /* EPPersistentStoreHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPersistentStoreHelperTests.m; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 				6DAB884A1892EBD2003075D8 /* QuestionsTableViewControllerStateMachineTests */,
 				6DAB88571892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m */,
 				6DAB885C1893F161003075D8 /* EPQuestionsTableViewControllerStatePreservationAssistantTests.m */,
+				6D44F3E318AF0C9100188692 /* EPQuestionDetailsTableViewControllerTests.m */,
 			);
 			path = QuestionsTests;
 			sourceTree = "<group>";
@@ -1226,6 +1229,7 @@
 				6DAB88581892ED71003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapperTests.m in Sources */,
 				6DAB88501892EBD2003075D8 /* EPQuestionsTableViewControllerAppTests.m in Sources */,
 				6DA6B56B18894E950025E06A /* EPFetchMoreTableViewCellTests.m in Sources */,
+				6D44F3E418AF0C9100188692 /* EPQuestionDetailsTableViewControllerTests.m in Sources */,
 				6DE4650118A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m in Sources */,
 				6D35C74218A18E2500FD3BCA /* EPQuestionsTableViewControllerStateTests.m in Sources */,
 				6D7BA50D18AC33D600EBAD9B /* EPTimeIntervalFormatterTests.m in Sources */,

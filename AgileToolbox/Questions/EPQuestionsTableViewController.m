@@ -16,6 +16,9 @@
 
 #import "Question.h"
 
+
+#import "EPOverlayNotifierView.h"
+
 @interface EPQuestionsTableViewController ()
 
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
@@ -31,6 +34,8 @@
 @property (nonatomic,assign) UIEdgeInsets contentInset;
 @property (nonatomic,strong) UIImage* navBarSnapshot;
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
+
+@property (nonatomic,strong) EPOverlayNotifierView* updatedDateView;
 
 @end
 
@@ -121,6 +126,8 @@
     [super viewWillAppear:animated];
     
     [self.stateMachine viewWillAppear];
+    
+    [self.updatedDateView addToView:self.view for:3.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -128,6 +135,7 @@
     [super viewDidAppear:animated];
     
     [self.stateMachine viewDidAppear];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -135,6 +143,24 @@
     [super viewWillDisappear:animated];
     
     [self.stateMachine viewWillDisappear];
+    
+//    CGRect r = self.view.frame;
+//    CGRect r2 = [self.navigationController.view convertRect:CGRectMake(0, 0, 320, 568) toView:self.tableView];
+    
+//    NSLog(@"r:%@",NSStringFromCGRect(r));
+//    NSLog(@"r2:%@",NSStringFromCGRect(r2));
+//    NSLog(@"f:%@",NSStringFromCGRect(self.tableView.frame));
+//    NSLog(@"b:%@",NSStringFromCGRect(self.tableView.bounds));
+//    NSLog(@"co:%@",NSStringFromCGPoint(self.tableView.contentOffset));
+//    NSLog(@"l:%@",NSStringFromCGRect(self.tableView.layer.bounds));
+//    NSLog(@"s:%@",NSStringFromCGSize(self.tableView.contentSize));
+    
+//    CGRect r3 = CGRectMake(0, self.tableView.bounds.origin.y+self.tableView.bounds.size.height,
+//                           self.tableView.bounds.size.width, 40.0);
+//    
+//    self.updatedDateView = [[EPOverlayNotifierView alloc] initWithFrame:r3];
+//    self.updatedDateView.text = @"Dupa";
+    
 }
 
 - (BOOL)viewIsVisible

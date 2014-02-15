@@ -13,6 +13,8 @@
 #import "EPQuestionDetailsTableViewController.h"
 #import "EPAddQuestionViewController.h"
 
+#import "EPPersistentStoreHelper.h"
+
 @interface EPQuestionsTableViewControllerState ()
 
 @property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
@@ -59,15 +61,28 @@
     
 }
 
+- (UIImage*)drawCircle:(UIColor*) color
+{
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(15,15), NO, 0);
+    UIBezierPath* circle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0,0,15,15)];
+    [color setFill];
+    [circle fill];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+
 - (void)viewWillAppear
 {
     if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
         [self enterForeground];
     }
     
-    if (self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration) {
-        return;
-    }
+//    if (self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration) {
+//        return;
+//    }
     
     if (self.viewController.statePreservationAssistant.snapshotView) {
         if (0<=self.viewController.statePreservationAssistant.contentOffset.y) {
@@ -75,6 +90,26 @@
         } else {
             self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
         }
+        
+        NSLog(@"TURBO-BEFORE:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.snapshotView.frame));
+        
+//        self.viewController.statePreservationAssistant.snapshotView.frame = CGRectMake(0,self.viewController.tableView.bounds.origin.y+64.0, self.viewController.statePreservationAssistant.snapshotView.frame.size.width, self.viewController.statePreservationAssistant.snapshotView.frame.size.height);
+        
+        
+        if (0==self.tableViewExpert.tableView.contentSize.height) {
+            // view dimensions are not yet calculated - we operate in a simplified frame
+            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
+            frame.origin = CGPointMake(0, 0);
+            self.viewController.statePreservationAssistant.snapshotView.frame = frame;
+        } else {
+            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
+            frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top);
+            self.viewController.statePreservationAssistant.snapshotView.frame = frame;
+        }
+        
+        NSLog(@"TURBO:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.snapshotView.frame));
+        NSLog(@"Size:%@",NSStringFromCGSize(self.viewController.tableView.contentSize));
+        NSLog(@"Inset:%@",NSStringFromUIEdgeInsets(self.tableViewExpert.tableView.contentInset));
         
         [self.tableViewExpert.tableView addSubview:self.viewController.statePreservationAssistant.snapshotView];
     }
@@ -84,14 +119,22 @@
 {
     self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
     
-    if (self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration) {
-        self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration = NO;
-        self.viewController.statePreservationAssistant.snapshotView = nil;
-        return;
-    }
+//    if (self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration) {
+//        self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration = NO;
+//        self.viewController.statePreservationAssistant.snapshotView = nil;
+//        return;
+//    }
     
     if (self.viewController.statePreservationAssistant.snapshotView) {
         [self.viewController.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.viewController];
+        NSLog(@"bounds-after-scroll:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+//        CGFloat currentBoundsOriginY = self.tableViewExpert.tableView.bounds.origin.y;
+        CGFloat adjustedDelta = 64.0 - self.viewController.statePreservationAssistant.firstVisibleRowDistanceFromBoundsOrigin;
+        CGRect correctedBounds = self.viewController.tableView.bounds;
+        correctedBounds.origin.y += adjustedDelta;
+//        self.tableViewExpert.tableView.bounds = self.viewController.statePreservationAssistant.bounds;
+        self.tableViewExpert.tableView.bounds = correctedBounds;
+        NSLog(@"bounds-adjusted-scroll:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
         self.viewController.statePreservationAssistant.snapshotView.hidden = YES;
         [self.viewController.statePreservationAssistant.snapshotView removeFromSuperview];
         self.viewController.statePreservationAssistant.snapshotView = nil;
@@ -100,8 +143,20 @@
 
 - (void)viewWillDisappear
 {
+    self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
+    NSLog(@"viewWillDissapper-bounds:%@",NSStringFromCGRect(self.viewController.tableView.bounds));
+    CGRect ceiledBounds = self.viewController.tableView.bounds;
+    ceiledBounds.origin.y = ceil(ceiledBounds.origin.y);
+    self.viewController.statePreservationAssistant.bounds = ceiledBounds;
+    NSLog(@"viewWillDissapper-bounds-adjusted:%@",NSStringFromCGRect(ceiledBounds));
+    
     if (self.viewController.hasQuestionsInPersistentStorage) {
         [self.viewController.statePreservationAssistant recordCurrentStateForViewController:self.viewController];
+        NSData* imageData = UIImageJPEGRepresentation(self.viewController.statePreservationAssistant.snapshotView.image, 1.0);
+        
+        NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"image-willDisspaper.jpg"];
+        
+        [imageData writeToFile:path.path atomically:NO];
     }
 }
 

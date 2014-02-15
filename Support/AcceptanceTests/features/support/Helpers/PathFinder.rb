@@ -15,7 +15,7 @@ module Helpers
                :WORKSPACE => WORKSPACE_DIRECTORY_PATH,
                :UIAutomation_scripts => File.expand_path("#{SUPPORT_DIRECTORY_PATH}/UIAutomation"),
                :UIAutomation_build => "#{ENV['HOME']}/UIAutomation",
-               :Application_Sandbox => "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/7.0.3-64/Applications/5E11ABEC-339D-4A4B-B2CD-CE9F64F6AD62"}
+               :Application_Sandbox => "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/7.0.3-64/Applications/A82759AA-ED62-46E0-9DB1-4E4D2A76156F"}
 
     
     def self.find(key)
