@@ -74,6 +74,8 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"ViewDidLoad");
+    
     self.view.accessibilityLabel = @"Questions";
         
     EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -90,9 +92,9 @@
     
     [self configureNotifications];
     
-//    self.questionsRefreshControl = [[EPQuestionsRefreshControl alloc] initWithTableViewController:self refreshBlock:^(id refreshControl) {
-//        [self.stateMachine refresh:refreshControl];
-//    }];
+    self.questionsRefreshControl = [[EPQuestionsRefreshControl alloc] initWithTableViewController:self refreshBlock:^(id refreshControl) {
+        [self.stateMachine refresh:refreshControl];
+    }];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -148,24 +150,6 @@
     [super viewWillDisappear:animated];
     
     [self.stateMachine viewWillDisappear];
-    
-//    CGRect r = self.view.frame;
-//    CGRect r2 = [self.navigationController.view convertRect:CGRectMake(0, 0, 320, 568) toView:self.tableView];
-    
-//    NSLog(@"r:%@",NSStringFromCGRect(r));
-//    NSLog(@"r2:%@",NSStringFromCGRect(r2));
-//    NSLog(@"f:%@",NSStringFromCGRect(self.tableView.frame));
-//    NSLog(@"b:%@",NSStringFromCGRect(self.tableView.bounds));
-//    NSLog(@"co:%@",NSStringFromCGPoint(self.tableView.contentOffset));
-//    NSLog(@"l:%@",NSStringFromCGRect(self.tableView.layer.bounds));
-//    NSLog(@"s:%@",NSStringFromCGSize(self.tableView.contentSize));
-    
-//    CGRect r3 = CGRectMake(0, self.tableView.bounds.origin.y+self.tableView.bounds.size.height,
-//                           self.tableView.bounds.size.width, 40.0);
-//    
-//    self.updatedDateView = [[EPOverlayNotifierView alloc] initWithFrame:r3];
-//    self.updatedDateView.text = @"Dupa";
-    
 }
 
 - (BOOL)viewIsVisible
@@ -245,65 +229,6 @@
     
     [self.stateMachine scrollViewDidScroll:scrollView];
 }
-
-- (UIRefreshControl*)autoInitRefreshControl
-{
-    if (!self.refreshControl) {
-        [self setupRefreshControl];
-    }
-    
-    return self.refreshControl;
-}
-
-- (void)setRefreshControlText:(NSString*)text
-{
-    UIFont* font = [UIFont fontWithName:@"Helvetica-Light" size:10];
-    
-    NSAttributedString* title =  [[NSAttributedString alloc] initWithString:text
-                                                                 attributes: @{ NSFontAttributeName: font,
-                                                                                NSForegroundColorAttributeName: [UIColor blackColor]}];
-    self.autoInitRefreshControl.attributedTitle = title;
-}
-
-- (void)endRefreshing
-{
-    [self.autoInitRefreshControl endRefreshing];
-    
-    [self setRefreshControlText:@"Pull to Refresh!"];
-}
-
-- (void)setupRefreshControl
-{
-    if (!self.refreshControl) {
-        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-//        UIRefreshControl* refreshControl = self.questionsRefreshControl;
-        UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Light" size:10];
-        
-        NSAttributedString* title =  [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"
-                                                                               attributes: @{ NSFontAttributeName: headerFont,
-                                                                                              NSForegroundColorAttributeName: [UIColor blackColor]}];
-        
-        refreshControl.attributedTitle = title;
-        
-        [refreshControl addTarget:self
-                           action:@selector(refresh:)
-                 forControlEvents:UIControlEventValueChanged];
-        
-        self.refreshControl = refreshControl;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl beginRefreshing];
-            [self.refreshControl endRefreshing];
-        });
-    }
-}
-
-#pragma mark - Refresh Controll delegate
-- (void)refresh:(UIRefreshControl*)refreshControl
-{
-    [self.stateMachine refresh:refreshControl];
-}
-
 
 #pragma mark - Table view data source
 

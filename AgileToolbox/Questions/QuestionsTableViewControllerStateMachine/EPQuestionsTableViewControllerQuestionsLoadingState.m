@@ -11,6 +11,8 @@
 #import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 #import "EPQuestionTableViewCell.h"
 
+#import "EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h"
+
 @implementation EPQuestionsTableViewControllerQuestionsLoadingState
 
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -73,11 +75,5 @@
         return 1 ;
     }
 }
-
-//- (void)skipRefreshing
-//{
-//    self.viewController.statePreservationAssistant.skipRefreshing = NO;
-//}
-
 
 @end

@@ -54,6 +54,5 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue;
 - (Question*) questionObjectForIndexPath:(NSIndexPath*)indexPath;
-- (void)skipRefreshing;
 
 @end

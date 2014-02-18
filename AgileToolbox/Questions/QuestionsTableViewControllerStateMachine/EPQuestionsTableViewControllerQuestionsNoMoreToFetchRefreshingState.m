@@ -11,8 +11,8 @@
 
 @interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState ()
 
-//@property (nonatomic,assign) BOOL renderRefreshLoading;
 @property (nonatomic,assign) CGPoint contentOffset;
+
 
 @end
 
@@ -31,99 +31,19 @@
 
 - (void)viewWillDisappear
 {
-    self.viewController.statePreservationAssistant.bounds = self.tableViewExpert.tableView.bounds;
+    if (self.connectionFailureFlag) {
+        [self handleEvent];
+        self.connectionFailureFlag = NO;
+    }
     
     [super viewWillDisappear];
 }
 
-//- (void) viewDidAppear
-//{
-//    if (!self.viewController.refreshControl) {
-//        [self.viewController.questionsRefreshControl beginRefreshingWithBeforeBlock:^{
-//            self.tableViewExpert.tableView.userInteractionEnabled = NO;
-//            
-//            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-//            frame.origin = CGPointMake(0, 64.0);
-//            
-//            UIImageView* snapshotCopy = [[UIImageView alloc] initWithImage:self.viewController.statePreservationAssistant.snapshotView.image];
-//            
-//            snapshotCopy.frame = frame;
-//            snapshotCopy.tag = 1945;
-//            
-//            [self.viewController.navigationController.view addSubview:snapshotCopy];
-//            
-//            NSLog(@"CCcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-//            NSLog(@"CCcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-//            
-//            //                    if (self.viewController.tableView.contentOffset.y == -64) {
-//            self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
-//            //                    }
-//            
-//            NSLog(@"DDcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-//            NSLog(@"DDcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-//        } afterBlock:^{
-//            NSLog(@"EEcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-//            NSLog(@"EEcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-//            
-//            NSLog(@"INITIAL_BOUNDS:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.bounds));
-//            
-//            [super viewDidAppear];
-//            
-//            if (self.viewController.tableView.bounds.origin.y == -64.0 && self.viewController.autoInitRefreshControl.isRefreshing) {
-//                CGRect r = self.viewController.tableView.bounds;
-//                r.origin.y -= self.viewController.refreshControl.frame.size.height;
-//                //                            self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
-//                self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
-//            }
-//            
-//            UIView* view = [self.viewController.navigationController.view viewWithTag:1945];
-//            
-//            view.hidden = YES;
-//            [view removeFromSuperview];
-//            self.tableViewExpert.tableView.userInteractionEnabled = YES;
-//        }];
-//    }
-//}
-
-
 - (void) viewDidAppear
 {
-    NSLog(@"AAcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-    NSLog(@"AAcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-    
     if (!self.viewController.refreshControl) {
-        
-        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-        //        UIRefreshControl* refreshControl = self.viewController.questionsRefreshControl;
-        
-        UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Light" size:10];
-        
-        NSAttributedString* attributedTitle =  [[NSAttributedString alloc] initWithString:@"Refreshing...!"
-                                                                               attributes: @{ NSFontAttributeName: headerFont,
-                                                                                              NSForegroundColorAttributeName: [UIColor blackColor]}];
-        
-        refreshControl.attributedTitle = attributedTitle;
-        
-        
-        [refreshControl addTarget:self.viewController
-                           action:@selector(refresh:)
-                 forControlEvents:UIControlEventValueChanged];
-        
-        
-        self.viewController.refreshControl = refreshControl;
-        
-        NSLog(@"BBcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-        NSLog(@"BBcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-        
-        self.tableViewExpert.tableView.userInteractionEnabled = NO;
-        
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        //            [self.viewController.refreshControl beginRefreshing];
-        
-        //            dispatch_async(dispatch_get_main_queue(), ^{
-        //                [self.viewController.refreshControl endRefreshing];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [self.viewController.questionsRefreshControl beginRefreshingWithBeforeBlock:^{
+            self.tableViewExpert.tableView.userInteractionEnabled = NO;
             
             CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
             frame.origin = CGPointMake(0, 64.0);
@@ -135,70 +55,26 @@
             
             [self.viewController.navigationController.view addSubview:snapshotCopy];
             
-            NSLog(@"CCcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-            NSLog(@"CCcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-            
-            //                    if (self.viewController.tableView.contentOffset.y == -64) {
             self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
-            //                    }
             
-            NSLog(@"DDcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-            NSLog(@"DDcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
+        } afterBlock:^{
             
-            [self.viewController.refreshControl beginRefreshing];
+            [super viewDidAppear];
             
-            //                    double delayInSeconds = 5.0;
-            //                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            //                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            //                        NSLog(@"EEcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-            //                        NSLog(@"EEcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-            //
-            //                        NSLog(@"INITIAL_BOUNDS:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.bounds));
-            //
-            //                        [super viewDidAppear];
-            //
-            //                        if (self.viewController.tableView.bounds.origin.y == -64.0 && self.viewController.refreshControl.isRefreshing) {
-            //                            CGRect r = self.viewController.tableView.bounds;
-            //                            r.origin.y -= self.viewController.refreshControl.frame.size.height;
-            //                            //                            self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
-            //                            self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
-            //                        }
-            //
-            //                        UIView* view = [self.viewController.navigationController.view viewWithTag:1945];
-            //
-            //                        view.hidden = YES;
-            //                        [view removeFromSuperview];
-            //                    });
+            if (self.viewController.tableView.bounds.origin.y == -64.0 && self.viewController.questionsRefreshControl.isRefreshing) {
+//                CGRect r = self.viewController.tableView.bounds;
+//                r.origin.y -= self.viewController.refreshControl.frame.size.height;
+                self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
+            }
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"EEcontentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
-                NSLog(@"EEcontentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
-                
-                NSLog(@"INITIAL_BOUNDS:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.bounds));
-                
-                [super viewDidAppear];
-                
-                if (self.viewController.tableView.bounds.origin.y == -64.0 && self.viewController.autoInitRefreshControl.isRefreshing) {
-                    CGRect r = self.viewController.tableView.bounds;
-                    r.origin.y -= self.viewController.refreshControl.frame.size.height;
-                    //                            self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
-                    self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
-                }
-                
-                UIView* view = [self.viewController.navigationController.view viewWithTag:1945];
-                
-                view.hidden = YES;
-                [view removeFromSuperview];
-                self.tableViewExpert.tableView.userInteractionEnabled = YES;
-                
-            });
-        });
-        //            });
-        
-        //        });
+            UIView* view = [self.viewController.navigationController.view viewWithTag:1945];
+            
+            view.hidden = YES;
+            [view removeFromSuperview];
+            self.tableViewExpert.tableView.userInteractionEnabled = YES;
+        }];
     }
 }
-
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -225,7 +101,7 @@
 {
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [self.viewController endRefreshing];
+    [self.viewController.questionsRefreshControl endRefreshing];
 }
 
 - (void)controllerWillChangeContent
@@ -280,12 +156,14 @@
 {
     if (-64.0>=self.viewController.statePreservationAssistant.bounds.origin.y) {
         // cancel restoring scrol position
-        self.viewController.statePreservationAssistant.snapshotView = nil;        
+        self.viewController.statePreservationAssistant.snapshotView = nil;
+        [self.viewController.statePreservationAssistant invalidatePersistentStorage];
     }
 }
 
 - (void)fetchReturnedNoDataInBackground
 {
+    NSLog(@"fetchReturnedNoDataInBackground");
     [self handleEvent];
     [self checkAndCancelRestoringScrollPosition];
 }
@@ -299,14 +177,16 @@
 
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
 {
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
-    
-    [self.viewController endRefreshing];
+    if (self.connectionFailureFlag) {
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
+        
+        [self.viewController.questionsRefreshControl endRefreshing];
+    }    
 }
 
 - (void)handleConnectionFailureUsingNativeRefreshControl
 {
-    [self.viewController setRefreshControlText:EPFetchMoreTableViewCellTextConnectionFailure];
+    self.viewController.questionsRefreshControl.title = EPFetchMoreTableViewCellTextConnectionFailure;
     
     [self keepVisibleFor:KEEP_VISIBLE_TIMEOUT completionBlock:^{
         [self handleConnectionFailureUsingNativeRefreshControlCompletionHandler];
@@ -315,13 +195,16 @@
 
 - (void)connectionFailure
 {
+    self.connectionFailureFlag = YES;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self handleConnectionFailureUsingNativeRefreshControl];
 }
 
 - (void)connectionFailureInBackground
 {
+    NSLog(@"connectionFailureInBackground");
     [self handleEvent];
+    [self checkAndCancelRestoringScrollPosition];
 }
 
 

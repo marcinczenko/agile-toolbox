@@ -10,9 +10,11 @@
 
 @interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState : EPQuestionsTableViewControllerQuestionsLoadingState
 
-@property (nonatomic,strong) UILabel* label;
+@property (nonatomic,assign) BOOL connectionFailureFlag;
 
 - (void)handleEvent;
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler;
+- (void)keepVisibleFor:(double)seconds completionBlock:(void (^)())block;
+- (void)checkAndCancelRestoringScrollPosition;
 
 @end

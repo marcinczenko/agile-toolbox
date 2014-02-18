@@ -17,6 +17,7 @@
 #import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h"
 
 @interface EPQuestionsTableViewControllerStateMachine ()
 
@@ -63,7 +64,8 @@
                               [EPQuestionsTableViewControllerQuestionsLoadingState class],
                               [EPQuestionsTableViewControllerQuestionsConnectionFailureState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class],
-                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
+                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class],
+                              [EPQuestionsTableViewControllerQuestionsLoadingRefreshingState class]];
     
     for (Class stateClass in stateClasses) {
         dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithStateMachine:stateMachine];

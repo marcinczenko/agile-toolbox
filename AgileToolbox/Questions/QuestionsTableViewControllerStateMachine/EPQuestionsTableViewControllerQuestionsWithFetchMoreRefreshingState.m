@@ -51,7 +51,7 @@
 - (void)handleEvent
 {
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-    [self.viewController endRefreshing];
+    [self.viewController.questionsRefreshControl endRefreshing];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
@@ -70,7 +70,7 @@
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
 {
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-    [self.viewController endRefreshing];
+    [self.viewController.questionsRefreshControl endRefreshing];
     
     if (self.viewController.viewIsVisible) {
         // the view might have dissapear in the meantime

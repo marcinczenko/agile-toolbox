@@ -10,7 +10,7 @@
 
 @interface EPTableViewRefreshControl ()
 
-@property (nonatomic,weak) UIRefreshControl* uiRefreshControl;
+//@property (nonatomic,weak) UIRefreshControl* uiRefreshControl;
 @property (nonatomic,weak) UITableViewController* tableViewController;
 @property (nonatomic,strong) NSDictionary* titleAttributes;
 
@@ -24,12 +24,12 @@
 
 - (NSAttributedString*)attributedTitle
 {
-    return self.uiRefreshControl.attributedTitle;
+    return self.tableViewController.refreshControl.attributedTitle;
 }
 
 - (void)setAttributedTitle:(NSAttributedString *)attributedTitle
 {
-    self.uiRefreshControl.attributedTitle = attributedTitle;
+    [self initRefreshControlWithText:attributedTitle];
     _titleAttributes = [attributedTitle attributesAtIndex:0 effectiveRange:nil];
 }
 
@@ -37,12 +37,32 @@
 {
     _title = title;
     
-    self.uiRefreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:_title attributes:_titleAttributes];
+    [self initRefreshControlWithText:[[NSAttributedString alloc] initWithString:_title attributes:_titleAttributes]];
 }
 
 - (NSString*)title
 {
-    return self.uiRefreshControl.attributedTitle.string;
+    return self.tableViewController.refreshControl.attributedTitle.string;
+}
+
+- (void)initRefreshControlWithText:(NSAttributedString*)attributedString
+{
+    if (!self.tableViewController.refreshControl) {
+        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.attributedTitle = attributedString;
+        [refreshControl addTarget:self
+                           action:@selector(refresh:)
+                 forControlEvents:UIControlEventValueChanged];
+        self.tableViewController.refreshControl = refreshControl;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableViewController.refreshControl beginRefreshing];
+            [self.tableViewController.refreshControl endRefreshing];
+        });
+    } else {
+        self.tableViewController.refreshControl.attributedTitle = attributedString;
+    }
+    
 }
 
 //- (UIRefreshControl*)uiRefreshControl
@@ -78,23 +98,23 @@
 //    return _uiRefreshControl;
 //}
 
-- (UIRefreshControl*)uiRefreshControl
-{
-    if (!_tableViewController.refreshControl) {
-        _uiRefreshControl = [[UIRefreshControl alloc] init];
-        _uiRefreshControl.attributedTitle = [[NSAttributedString alloc] init];
-        [_uiRefreshControl addTarget:self
-                              action:@selector(refresh:)
-                    forControlEvents:UIControlEventValueChanged];
-        _tableViewController.refreshControl = _uiRefreshControl;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_tableViewController.refreshControl beginRefreshing];
-            [_tableViewController.refreshControl endRefreshing];
-        });
-    }
-    return _uiRefreshControl;
-}
+//- (UIRefreshControl*)uiRefreshControl
+//{
+//    if (!_tableViewController.refreshControl) {
+//        _uiRefreshControl = [[UIRefreshControl alloc] init];
+//        _uiRefreshControl.attributedTitle = [[NSAttributedString alloc] init];
+//        [_uiRefreshControl addTarget:self
+//                              action:@selector(refresh:)
+//                    forControlEvents:UIControlEventValueChanged];
+////        _tableViewController.refreshControl = _uiRefreshControl;
+////        
+////        dispatch_async(dispatch_get_main_queue(), ^{
+////            [_tableViewController.refreshControl beginRefreshing];
+////            [_tableViewController.refreshControl endRefreshing];
+////        });
+//    }
+//    return _uiRefreshControl;
+//}
 
 - (instancetype)initWithTableViewController:(UITableViewController*)tableViewController
 {
@@ -115,7 +135,7 @@
 
 - (BOOL)isRefreshing
 {
-    return self.uiRefreshControl.isRefreshing;
+    return self.tableViewController.refreshControl.isRefreshing;
 }
 
 - (void)beginRefreshingWithTitle:(NSString*)title
@@ -139,7 +159,7 @@
             beforeBlock();
         }
         
-        [self.uiRefreshControl beginRefreshing];
+        [self.tableViewController.refreshControl beginRefreshing];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (afterBlock) {
@@ -153,16 +173,16 @@
 - (void)beginRefreshing
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.uiRefreshControl beginRefreshing];
+        [self.tableViewController.refreshControl beginRefreshing];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.uiRefreshControl endRefreshing];
+            [self.tableViewController.refreshControl endRefreshing];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self beforeBeginRefreshing];
                 
-                [self.uiRefreshControl beginRefreshing];
+                [self.tableViewController.refreshControl beginRefreshing];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self afterBeginRefreshing];
@@ -175,7 +195,7 @@
 
 - (void)endRefreshing
 {
-    [self.uiRefreshControl endRefreshing];
+    [self.tableViewController.refreshControl endRefreshing];
 }
 
 - (void)beforeBeginRefreshing
@@ -191,10 +211,10 @@
 - (void)refresh:(UIRefreshControl*)refreshControl
 {
     if (self.refreshBlock) {
-        self.refreshBlock(self);
+        self.refreshBlock(self.tableViewController.refreshControl);
     }    
     if ([self.delegate respondsToSelector:@selector(refresh:)]) {
-        [self.delegate refresh:self];
+        [self.delegate refresh:self.tableViewController.refreshControl];
     }
 }
 

@@ -25,9 +25,14 @@
     return @"PreservationAssistant.data";
 }
 
-+ (NSString*)contentOffsetKey
++ (NSString*)kBounds
 {
-    return @"ContentOffset";
+    return @"Bounds";
+}
+
++ (NSString*)kScrollDelta
+{
+    return @"ScrollData";
 }
 
 + (instancetype)restoreFromPersistentStorage
@@ -45,7 +50,8 @@
     if ((self = [super init])) {
         _idOfTheFirstVisibleRow = [[NSURL alloc] initWithCoder:aDecoder];
         _snapshotView = [[UIImageView alloc] initWithCoder:aDecoder];
-        _contentOffset = [aDecoder decodeCGPointForKey:[self.class contentOffsetKey]];
+        _bounds = [aDecoder decodeCGRectForKey:[self.class kBounds]];
+        _scrollDelta = [aDecoder decodeFloatForKey:[self.class kScrollDelta]];
     }
     return self;
 }
@@ -54,14 +60,14 @@
 {
     [self.idOfTheFirstVisibleRow encodeWithCoder:aCoder];
     [self.snapshotView encodeWithCoder:aCoder];
-    [aCoder encodeCGPoint:self.contentOffset forKey:[self.class contentOffsetKey]];
+    [aCoder encodeCGRect:self.bounds forKey:[self.class kBounds]];
+    [aCoder encodeFloat:self.scrollDelta forKey:[self.class kScrollDelta]];
 }
 
 - (void)recordCurrentStateForViewController:(EPQuestionsTableViewController*)viewController
 {
     [self createSnapshotViewForViewController:viewController];
     [self storeQuestionIdOfFirstVisibleQuestionForViewController:viewController];
-    [self storeContentOffsetForViewController:viewController];
 }
 
 - (void)storeToPersistentStorage
@@ -69,14 +75,14 @@
     [EPPersistentStoreHelper archiveObject:self toFile:[self.class persistentStoreFileName]];
 }
 
+- (void)invalidatePersistentStorage
+{
+    [EPPersistentStoreHelper deleteFile:[self.class persistentStoreFileName]];
+}
+
 - (void)createSnapshotViewForViewController:(EPQuestionsTableViewController*)viewController
 {
     self.snapshotView = [viewController.tableViewExpert createSnapshotView];
-}
-
-- (void)storeContentOffsetForViewController:(EPQuestionsTableViewController*)viewController
-{
-    self.contentOffset = viewController.tableViewExpert.tableView.contentOffset;
 }
 
 - (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController
@@ -91,7 +97,6 @@
 - (void)restoreIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController
 {
     if (self.idOfTheFirstVisibleRow) {
-//        [viewController.tableView reloadData];
         NSIndexPath* indexPath = [self indexPathForQuestionURI:self.idOfTheFirstVisibleRow inViewController:viewController];
         if (indexPath) {
             [viewController.tableView scrollToRowAtIndexPath:indexPath
@@ -110,34 +115,11 @@
 
 - (NSIndexPath*)getIndexPathOfFirstVisibleCellInViewController:(EPQuestionsTableViewController*)viewController
 {
-    
-    
-    
-    
-//    if (viewController.refreshControl.isRefreshing || viewController.tableViewExpert.refreshControl) {
-//        self.refreshControllHeight = 82.0;
-//        
-//        CGFloat boundsY = viewController.tableView.bounds.origin.y;
-//        
-//        CGFloat refreshControlCorrection =  boundsY < -64.0 ? -boundsY-64.0 : 0.0;
-//        
-//        point.y += refreshControlCorrection;
-//    }
-//    
-//    NSIndexPath* indexPath = [viewController.tableView indexPathForRowAtPoint:point];
-//    
-//    CGRect rect = [viewController.tableView rectForRowAtIndexPath:indexPath];
-    
-//    NSLog(@"Rect of first visible row:%@",NSStringFromCGRect(rect));
-//    NSLog(@"Current bounds:%@",NSStringFromCGRect(viewController.tableView.bounds));
-    
     NSIndexPath* indexPath ;
     
     if (-64>viewController.tableView.bounds.origin.y) {
-//        self.firstVisibleRowDistanceFromBoundsOrigin = (-1.0)*viewController.tableView.bounds.origin.y;
         self.scrollDelta = 0.0;
         indexPath = [viewController.tableView indexPathForRowAtPoint:CGPointMake(0, 1)];
-//        self.snapshotView = nil;
     } else {
         UINavigationBar *navbar = viewController.navigationController.navigationBar;
         CGRect localFrame = [viewController.tableView convertRect:navbar.bounds fromView:navbar];
@@ -145,28 +127,14 @@
         
         indexPath = [viewController.tableView indexPathForRowAtPoint:point];
         
-        Question* q = [viewController.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        NSLog(@"KURWASZ:%@",q.content);
-        
         CGRect rect = [viewController.tableView rectForRowAtIndexPath:indexPath];
         
-        self.firstVisibleRowDistanceFromBoundsOrigin = rect.origin.y - viewController.tableView.bounds.origin.y;
+        CGFloat firstVisibleRowDistanceFromBoundsOrigin = rect.origin.y - viewController.tableView.bounds.origin.y;
         
-        self.scrollDelta = 64.0 - self.firstVisibleRowDistanceFromBoundsOrigin;
+        CGFloat navBarAndStatusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height + localFrame.size.height;
+        
+        self.scrollDelta = navBarAndStatusBarHeight - firstVisibleRowDistanceFromBoundsOrigin;
     }
-    
-    
-    
-//    if (viewController.refreshControl.isRefreshing || viewController.tableViewExpert.refreshControl) {
-//        self.firstVisibleRowDistanceFromBoundsOrigin -= self.refreshControllHeight;
-//    }
-    
-    NSLog(@"DELTA:%f",self.firstVisibleRowDistanceFromBoundsOrigin);
-    
-//    return [self adjustIndexPath:indexPath
-//                    forTableView:viewController.tableView
-//              withRespectToFrame:localFrame];
     
     return indexPath;    
 }

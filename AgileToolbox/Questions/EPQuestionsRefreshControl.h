@@ -8,7 +8,7 @@
 
 #import "EPTableViewRefreshControl.h"
 
-extern NSString* const EPQuestionsRefreshControlTextBeginRefreshing;
+extern NSString* const EPQuestionsRefreshControlTextRefreshing;
 extern NSString* const EPQuestionsRefreshControlTextEnabled;
 extern NSString* const EPQuestionsRefreshControlTextConnectionFailure;
 

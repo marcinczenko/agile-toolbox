@@ -43,7 +43,7 @@
         [self.tableViewExpert deleteFetchMoreCell];
     }
     [self.tableViewExpert.tableView endUpdates];
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
@@ -80,7 +80,7 @@
 
 - (void)dataChangedInBackground
 {
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
     self.viewController.tableView.estimatedRowHeight = 105.0;
     NSLog(@"dataChangedInBackground");
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

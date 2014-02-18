@@ -80,12 +80,6 @@
     return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 }
 
-- (EPFetchMoreTableViewCell*)refreshStatusCell
-{
-    return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-}
-
-
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
 {    
     return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
@@ -98,34 +92,6 @@
 
 - (UIImageView*)createSnapshotView
 {
-//    CGSize cropSize = self.tableView.bounds.size;
-//    cropSize.height -= self.tableView.contentInset.top;
-//    
-//    CGPoint origin = CGPointMake(0, 0);
-//    
-//    if (self.viewController.refreshControl.isRefreshing || self.refreshControl) {
-//        cropSize.height += 82.0;
-//        origin.y = -82.0;
-//    }
-//    
-//    CGRect rect;
-//    
-//    rect.size = cropSize;
-//    rect.origin = origin;
-//    
-//    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
-//    [self.tableView drawViewHierarchyInRect: rect afterScreenUpdates:NO];
-//    UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    NSData* imageData = UIImageJPEGRepresentation(snapshot, 1.0);
-//    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"snapshot.jpg"];
-//    [imageData writeToFile:path.path atomically:NO];
-//
-//    
-//    return [[UIImageView alloc] initWithImage:snapshot];
-
-    
     CGRect frame = self.tableView.frame;
     
     if (self.viewController.refreshControl.isRefreshing) {
@@ -141,11 +107,6 @@
     UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSData* imageData = UIImageJPEGRepresentation(snapshot, 1.0);
-    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"snapshot.jpg"];
-    [imageData writeToFile:path.path atomically:NO];
-    
-    
     UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
     if (self.viewController.refreshControl.isRefreshing) {
         [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top+self.viewController.refreshControl.frame.size.height)];
@@ -153,95 +114,11 @@
         [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
     }
     
-    
     UIImage* croppedSnapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    imageData = UIImageJPEGRepresentation(croppedSnapshot, 1.0);
-    path = [EPPersistentStoreHelper persistentStateURLForFile:@"croppedSnapshot.jpg"];
-    [imageData writeToFile:path.path atomically:NO];
-    
-    
-    // we take the snapshot in local coordinates
-    // but we position it using external frame:
-    // if bounds = {0,100,320,568}
-    // than top left visible corner will be {0,0} using local coordinates but
-    // {0,100} in external coordinates.
-//    CGRect imageRect = frame;
-//    imageRect.origin.y += self.tableView.bounds.origin.y;
-//    UIImageView* imageView = [[UIImageView alloc] initWithFrame:imageRect];
-//    imageView.image = croppedSnapshot;
-//    
-//    return imageView;
     return [[UIImageView alloc] initWithImage:croppedSnapshot];
 }
-
-//- (UIImageView*)createSnapshotView
-//{
-//    CGRect frame = self.tableView.frame;
-//    CGRect bounds = self.tableView.bounds;
-//    
-//    NSLog(@"createSnapshotView[frame]:%@",NSStringFromCGRect(frame));
-//    NSLog(@"createSnapshotView[frame]:%@",NSStringFromCGRect(bounds));
-//    
-//    frame.origin.y = self.tableView.contentInset.top;
-//    frame.size.height = frame.size.height - frame.origin.y;
-//    bounds.size.height = bounds.size.height - self.tableView.contentInset.top;
-//    NSLog(@"createSnapshotView[frame]-A:%@",NSStringFromCGRect(frame));
-//    NSLog(@"createSnapshotView[frame]-A:%@",NSStringFromCGRect(bounds));
-//    
-////    2014-02-15 16:36:54.237 AgileToolbox[929:70b] createSnapshotView[frame]:{{0, 0}, {320, 568}}
-////    2014-02-15 16:36:54.237 AgileToolbox[929:70b] createSnapshotView[frame]:{{0, 3676}, {320, 568}}
-////    2014-02-15 16:36:54.238 AgileToolbox[929:70b] createSnapshotView[frame]-A:{{0, 64}, {320, 504}}
-////    2014-02-15 16:36:54.238 AgileToolbox[929:70b] createSnapshotView[frame]-A:{{0, 3676}, {320, 504}}
-//    
-//    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
-//    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
-//    UIImage* im = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    UIGraphicsBeginImageContextWithOptions(self.tableView.bounds.size, YES, 0);
-//    [self.tableView drawViewHierarchyInRect: self.tableView.bounds afterScreenUpdates:NO];
-//    UIImage* imb = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
-//    [im drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
-//    UIImage* im2 = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    UIGraphicsBeginImageContextWithOptions(bounds.size, YES, 0);
-//    [imb drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
-//    UIImage* imb2 = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    NSData* imageData = UIImageJPEGRepresentation(im, 1.0);
-//    
-//    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"im.jpg"];
-//    
-//    [imageData writeToFile:path.path atomically:NO];
-//    
-//    imageData = UIImageJPEGRepresentation(imb, 1.0);
-//    
-//    path = [EPPersistentStoreHelper persistentStateURLForFile:@"imb.jpg"];
-//    
-//    [imageData writeToFile:path.path atomically:NO];
-//    
-//    imageData = UIImageJPEGRepresentation(im2, 1.0);
-//    
-//    path = [EPPersistentStoreHelper persistentStateURLForFile:@"im2.jpg"];
-//    
-//    [imageData writeToFile:path.path atomically:NO];
-//    
-//    imageData = UIImageJPEGRepresentation(imb2, 1.0);
-//    
-//    path = [EPPersistentStoreHelper persistentStateURLForFile:@"imb2.jpg"];
-//    
-//    [imageData writeToFile:path.path atomically:NO];
-//    
-//    return [[UIImageView alloc] initWithImage:im2];
-//}
-
 
 - (void)deleteFetchMoreCell
 {

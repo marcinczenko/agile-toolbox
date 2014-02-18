@@ -15,12 +15,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
 }
 
 - (void)viewWillAppear
 {
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
     [super viewWillAppear];
 }
 
@@ -44,13 +44,7 @@
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Light" size:10];
-    
-    NSAttributedString* attributedTitle =  [[NSAttributedString alloc] initWithString:@"Refreshing...!"
-                                                                           attributes: @{ NSFontAttributeName: headerFont,
-                                                                                          NSForegroundColorAttributeName: [UIColor blackColor]}];
-    
-    refreshControl.attributedTitle = attributedTitle;
+    self.viewController.questionsRefreshControl.title = EPQuestionsRefreshControlTextRefreshing;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
                                                                      andOldestQuestionId:self.viewController.oldestQuestionId];

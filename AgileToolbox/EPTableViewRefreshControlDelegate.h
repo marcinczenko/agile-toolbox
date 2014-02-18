@@ -11,6 +11,6 @@
 
 @protocol EPTableViewRefreshControlDelegate <NSObject>
 
-- (void)refresh:(EPTableViewRefreshControl*)refreshControl;
+- (void)refresh:(UIRefreshControl*)refreshControl;
 
 @end

@@ -29,6 +29,7 @@
 		6D44F3E918B24A2B00188692 /* EPTableViewRefreshControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3E818B24A2B00188692 /* EPTableViewRefreshControlTests.m */; };
 		6D44F3EC18B27CEB00188692 /* EPQuestionsRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3EB18B27CEB00188692 /* EPQuestionsRefreshControl.m */; };
 		6D44F3EF18B2CDD900188692 /* EPQuestionsRefreshControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3EE18B2CDD900188692 /* EPQuestionsRefreshControlTests.m */; };
+		6D44F3F218B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3F118B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m */; };
 		6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */; };
 		6D5C238215AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */; };
 		6D5CC2DB185B84C70017CDD1 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
@@ -236,6 +237,8 @@
 		6D44F3EB18B27CEB00188692 /* EPQuestionsRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsRefreshControl.m; sourceTree = "<group>"; };
 		6D44F3ED18B29BF700188692 /* EPTableViewRefreshControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPTableViewRefreshControlDelegate.h; sourceTree = "<group>"; };
 		6D44F3EE18B2CDD900188692 /* EPQuestionsRefreshControlTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsRefreshControlTests.m; sourceTree = "<group>"; };
+		6D44F3F018B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h; sourceTree = "<group>"; };
+		6D44F3F118B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m; sourceTree = "<group>"; };
 		6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsSmartTableViewCell.h; sourceTree = "<group>"; };
 		6D5C238015AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsSmartTableViewCell.m; sourceTree = "<group>"; };
 		6D60E31E18982F98001FCFE8 /* EPPersistentStoreHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPPersistentStoreHelperTests.m; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */,
 				6DE4650518A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h */,
 				6DE4650618A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m */,
+				6D44F3F018B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h */,
+				6D44F3F118B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m */,
 			);
 			path = QuestionsTableViewControllerStateMachine;
 			sourceTree = "<group>";
@@ -1210,6 +1215,7 @@
 				6D7BA51018AC33FE00EBAD9B /* EPTimeIntervalFormatter.m in Sources */,
 				D387EF461536FADF00635736 /* EPTopicsListViewController.m in Sources */,
 				6D44F3E018AED8D700188692 /* EPOverlayNotifierView.m in Sources */,
+				6D44F3F218B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m in Sources */,
 				D387EF491537192600635736 /* EPTopicDetailsViewController.m in Sources */,
 				6D60E32218983103001FCFE8 /* EPPersistentStoreHelper.m in Sources */,
 				6DAB883D1892D783003075D8 /* EPQuestionsTableViewControllerState.m in Sources */,
@@ -1488,7 +1494,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = "-DTEST";
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=*]" = "";

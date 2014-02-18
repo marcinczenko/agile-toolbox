@@ -11,7 +11,7 @@
 
 @implementation EPQuestionsRefreshControl
 
-NSString* const EPQuestionsRefreshControlTextBeginRefreshing = @"Refreshing...";
+NSString* const EPQuestionsRefreshControlTextRefreshing = @"Refreshing...";
 NSString* const EPQuestionsRefreshControlTextEnabled = @"Pull to Refresh...";
 NSString* const EPQuestionsRefreshControlTextConnectionFailure = @"Connection Failure. Try again later.";
 
@@ -30,13 +30,20 @@ NSString* const EPQuestionsRefreshControlTextConnectionFailure = @"Connection Fa
 
 - (void)beginRefreshingWithBeforeBlock:(void(^)())beforeBlock afterBlock:(void(^)())afterBlock
 {
-    self.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextBeginRefreshing];
+//    UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+//    refreshControl.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextRefreshing];
+//    [refreshControl addTarget:self
+//                       action:@selector(refresh:)
+//             forControlEvents:UIControlEventValueChanged];
+//    self.tableViewController.refreshControl = refreshControl;
+    
+    self.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextRefreshing];
     [super beginRefreshingWithBeforeBlock:beforeBlock afterBlock:afterBlock];
 }
 
 - (void)beginRefreshing
 {
-    self.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextBeginRefreshing];
+    self.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextRefreshing];
     
     [super beginRefreshing];
 }
