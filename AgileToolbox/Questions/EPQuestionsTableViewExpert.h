@@ -10,11 +10,16 @@
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionTableViewCell.h"
 
+@class EPQuestionsTableViewController;
+
 @interface EPQuestionsTableViewExpert : NSObject
 
+@property (nonatomic,weak) EPQuestionsTableViewController* viewController;
 @property (nonatomic,readonly) UITableView *tableView;
 @property (nonatomic,readonly) EPFetchMoreTableViewCell* fetchMoreCell;
 @property (nonatomic,readonly) EPFetchMoreTableViewCell* refreshStatusCell;
+
+@property (nonatomic,strong) UIView* refreshControl;
 
 + (CGFloat)questionRowHeight;
 + (CGFloat)fetchMoreRowHeight;
@@ -26,8 +31,6 @@
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView;
 - (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView;
 - (void)deleteFetchMoreCell;
-- (void)deleteRefreshingStatusCell;
-- (void)removeRefreshStatusCellFromScreen;
 - (void)removeTableFooter;
 - (UIImageView*)createSnapshotView;
 

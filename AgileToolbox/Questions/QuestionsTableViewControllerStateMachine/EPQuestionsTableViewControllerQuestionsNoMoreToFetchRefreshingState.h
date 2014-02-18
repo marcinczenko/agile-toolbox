@@ -10,10 +10,9 @@
 
 @interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState : EPQuestionsTableViewControllerQuestionsLoadingState
 
+@property (nonatomic,strong) UILabel* label;
+
 - (void)handleEvent;
-- (void)handleConnectionFailureUsingRefreshStatusCell;
-- (void)handleConnectionFailureUsingNativeRefreshControl;
-- (void)handleConnectionFailureUsingNativeRefreshControlCompletion;
-- (void)handleConnectionFailureUsingRefreshStatusCellCompletion;
+- (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler;
 
 @end

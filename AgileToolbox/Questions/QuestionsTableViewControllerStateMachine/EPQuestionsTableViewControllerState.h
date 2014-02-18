@@ -41,6 +41,8 @@
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (NSInteger)numberOfSections;
 
+- (void)controllerWillChangeContent;
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 - (void)controllerDidChangeContent;
 - (void)fetchReturnedNoData;
 - (void)fetchReturnedNoDataInBackground;

@@ -10,6 +10,8 @@
 //#import "EPQuestionTableViewCell.h"
 #import "EPPersistentStoreHelper.h"
 
+#import "EPQuestionsTableViewController.h"
+
 @interface EPQuestionsTableViewExpert ()
 
 @property (nonatomic,weak) UITableView *tableView;
@@ -96,9 +98,42 @@
 
 - (UIImageView*)createSnapshotView
 {
+//    CGSize cropSize = self.tableView.bounds.size;
+//    cropSize.height -= self.tableView.contentInset.top;
+//    
+//    CGPoint origin = CGPointMake(0, 0);
+//    
+//    if (self.viewController.refreshControl.isRefreshing || self.refreshControl) {
+//        cropSize.height += 82.0;
+//        origin.y = -82.0;
+//    }
+//    
+//    CGRect rect;
+//    
+//    rect.size = cropSize;
+//    rect.origin = origin;
+//    
+//    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
+//    [self.tableView drawViewHierarchyInRect: rect afterScreenUpdates:NO];
+//    UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    NSData* imageData = UIImageJPEGRepresentation(snapshot, 1.0);
+//    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"snapshot.jpg"];
+//    [imageData writeToFile:path.path atomically:NO];
+//
+//    
+//    return [[UIImageView alloc] initWithImage:snapshot];
+
+    
     CGRect frame = self.tableView.frame;
     
-    frame.origin.y = self.tableView.contentInset.top;
+    if (self.viewController.refreshControl.isRefreshing) {
+        frame.origin.y = self.tableView.contentInset.top-self.viewController.refreshControl.frame.size.height;
+    } else {
+        frame.origin.y = self.tableView.contentInset.top;
+    }
+
     frame.size.height = frame.size.height - frame.origin.y;
     
     UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
@@ -106,10 +141,25 @@
     UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    NSData* imageData = UIImageJPEGRepresentation(snapshot, 1.0);
+    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:@"snapshot.jpg"];
+    [imageData writeToFile:path.path atomically:NO];
+    
+    
     UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
-    [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
+    if (self.viewController.refreshControl.isRefreshing) {
+        [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top+self.viewController.refreshControl.frame.size.height)];
+    } else {
+        [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
+    }
+    
+    
     UIImage* croppedSnapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    imageData = UIImageJPEGRepresentation(croppedSnapshot, 1.0);
+    path = [EPPersistentStoreHelper persistentStateURLForFile:@"croppedSnapshot.jpg"];
+    [imageData writeToFile:path.path atomically:NO];
     
     
     // we take the snapshot in local coordinates
@@ -204,22 +254,6 @@
         
     } else {
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
-    }
-}
-
-- (void)deleteRefreshingStatusCell
-{
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-}
-
-- (void)removeRefreshStatusCellFromScreen
-{
-    [self.tableView beginUpdates];
-    [self deleteRefreshingStatusCell];
-    [self removeTableFooter];
-    [self.tableView endUpdates];
-    if (self.totalContentHeightSmallerThanScreenSize) {
-        [self addTableFooterInOrderToHideEmptyCells];
     }
 }
 

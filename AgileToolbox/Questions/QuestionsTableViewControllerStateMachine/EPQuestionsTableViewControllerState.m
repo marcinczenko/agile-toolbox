@@ -84,6 +84,10 @@
 //        return;
 //    }
     
+//    if (self.viewController) {
+//        <#statements#>
+//    }
+    
     if (self.viewController.statePreservationAssistant.snapshotView) {
         if (0<=self.viewController.statePreservationAssistant.contentOffset.y) {
             self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
@@ -93,31 +97,63 @@
         
         NSLog(@"TURBO-BEFORE:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.snapshotView.frame));
         
+        NSLog(@"Size[BEFORE]:%@",NSStringFromCGSize(self.viewController.tableView.contentSize));
+        NSLog(@"XXcontentOffset[BEFORE]:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+        NSLog(@"XXcontentInset[BEFORE]:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
+        NSLog(@"XXbounds-before:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+        
 //        self.viewController.statePreservationAssistant.snapshotView.frame = CGRectMake(0,self.viewController.tableView.bounds.origin.y+64.0, self.viewController.statePreservationAssistant.snapshotView.frame.size.width, self.viewController.statePreservationAssistant.snapshotView.frame.size.height);
         
-        
+        NSLog(@"iViewLoaded? %d",self.viewController.isViewLoaded);
+        NSLog(@"isViewIsVisible? %d",self.viewController.viewIsVisible);
+        // Q: contentSize or better contentInset?
+        // A: contentSize is set when bounds are set even though contentInset is still not set
+        //    when bounds are non-zero it is save to position the contents
+        // Notice: isViewLoaded is set to 1 regardless, so it is useless in this case
+        //         view.window is nill in both cases.
         if (0==self.tableViewExpert.tableView.contentSize.height) {
             // view dimensions are not yet calculated - we operate in a simplified frame
             CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-            frame.origin = CGPointMake(0, 0);
+            if (self.viewController.refreshControl.isRefreshing) {
+                frame.origin = CGPointMake(0, -self.viewController.refreshControl.frame.size.height);
+            } else {
+                frame.origin = CGPointMake(0, 0);
+            }
+            
             self.viewController.statePreservationAssistant.snapshotView.frame = frame;
         } else {
             CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-            frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top);
+            if (self.viewController.refreshControl.isRefreshing) {
+                frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top-self.viewController.refreshControl.frame.size.height);
+            } else {
+                frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top);
+            }
+            
             self.viewController.statePreservationAssistant.snapshotView.frame = frame;
         }
         
         NSLog(@"TURBO:%@",NSStringFromCGRect(self.viewController.statePreservationAssistant.snapshotView.frame));
-        NSLog(@"Size:%@",NSStringFromCGSize(self.viewController.tableView.contentSize));
-        NSLog(@"Inset:%@",NSStringFromUIEdgeInsets(self.tableViewExpert.tableView.contentInset));
+        NSLog(@"Size[AFTER]:%@",NSStringFromCGSize(self.viewController.tableView.contentSize));
+        NSLog(@"XXcontentOffset[AFTER]:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+        NSLog(@"XXcontentInset[AFTER]:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
+        NSLog(@"XXbounds-after:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
+        
+//        self.viewController.statePreservationAssistant.snapshotView.alpha = 0.7;
         
         [self.tableViewExpert.tableView addSubview:self.viewController.statePreservationAssistant.snapshotView];
+    } else {
+        NSLog(@"contentOffset[STR]=%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+        self.tableViewExpert.tableView.contentOffset = CGPointMake(0, 0);
     }
 }
 
 - (void)viewDidAppear
 {
-    self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+    if (!self.tableViewExpert.refreshControl) {
+        self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+    }
+
+    
     
 //    if (self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration) {
 //        self.viewController.statePreservationAssistant.skipTableViewScrollPositionRestoration = NO;
@@ -126,12 +162,25 @@
 //    }
     
     if (self.viewController.statePreservationAssistant.snapshotView) {
+        NSLog(@"EEcontentOffset[BEFORE]:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+        NSLog(@"EEcontentInset[BEFORE]:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
+        NSLog(@"bounds-before-scroll:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
         [self.viewController.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.viewController];
+        NSLog(@"EEcontentOffset[AFTER]:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+        NSLog(@"EEcontentInset[AFTER]:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
         NSLog(@"bounds-after-scroll:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
 //        CGFloat currentBoundsOriginY = self.tableViewExpert.tableView.bounds.origin.y;
-        CGFloat adjustedDelta = 64.0 - self.viewController.statePreservationAssistant.firstVisibleRowDistanceFromBoundsOrigin;
+        
+//        CGFloat adjustedDelta = 64.0 - self.viewController.statePreservationAssistant.firstVisibleRowDistanceFromBoundsOrigin;
+//        CGRect correctedBounds = self.viewController.tableView.bounds;
+//        correctedBounds.origin.y += adjustedDelta;
+        
         CGRect correctedBounds = self.viewController.tableView.bounds;
-        correctedBounds.origin.y += adjustedDelta;
+        correctedBounds.origin.y += self.viewController.statePreservationAssistant.scrollDelta;
+
+        
+        
+        
 //        self.tableViewExpert.tableView.bounds = self.viewController.statePreservationAssistant.bounds;
         self.tableViewExpert.tableView.bounds = correctedBounds;
         NSLog(@"bounds-adjusted-scroll:%@",NSStringFromCGRect(self.tableViewExpert.tableView.bounds));
@@ -143,6 +192,14 @@
 
 - (void)viewWillDisappear
 {
+    if (-64.0>self.tableViewExpert.tableView.bounds.origin.y && !self.viewController.refreshControl.isRefreshing) {
+        return ;
+    }
+    
+    NSLog(@"contentOffset:%@",NSStringFromCGPoint(self.viewController.tableView.contentOffset));
+    NSLog(@"contentInset:%@",NSStringFromUIEdgeInsets(self.viewController.tableView.contentInset));
+//    self.viewController.refreshControl = nil;
+    
     self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
     NSLog(@"viewWillDissapper-bounds:%@",NSStringFromCGRect(self.viewController.tableView.bounds));
     CGRect ceiledBounds = self.viewController.tableView.bounds;
@@ -190,6 +247,20 @@
 {
     
 }
+
+- (void)controllerWillChangeContent
+{
+    [self.tableViewExpert removeTableFooter];
+    [self.tableViewExpert.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    
+    [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                          withRowAnimation:UITableViewRowAnimationNone];
+}
+
 
 - (void)controllerDidChangeContent
 {

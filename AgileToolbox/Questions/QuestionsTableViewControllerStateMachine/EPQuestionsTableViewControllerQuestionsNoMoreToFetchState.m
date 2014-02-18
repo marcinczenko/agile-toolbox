@@ -44,8 +44,13 @@
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
-    refreshControl.attributedTitle = title;
+    UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Light" size:10];
+    
+    NSAttributedString* attributedTitle =  [[NSAttributedString alloc] initWithString:@"Refreshing...!"
+                                                                           attributes: @{ NSFontAttributeName: headerFont,
+                                                                                          NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    refreshControl.attributedTitle = attributedTitle;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
                                                                      andOldestQuestionId:self.viewController.oldestQuestionId];

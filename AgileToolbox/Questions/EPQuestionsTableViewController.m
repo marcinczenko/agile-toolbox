@@ -82,12 +82,17 @@
     [self setDelegates];
     
     self.tableViewExpert = [[EPQuestionsTableViewExpert alloc] initWithTableView:self.tableView];
+    self.tableViewExpert.viewController = self;
     
     [self.stateMachine assignViewController:self andTableViewExpert:self.tableViewExpert];
     
     [self.stateMachine viewDidLoad];
     
     [self configureNotifications];
+    
+//    self.questionsRefreshControl = [[EPQuestionsRefreshControl alloc] initWithTableViewController:self refreshBlock:^(id refreshControl) {
+//        [self.stateMachine refresh:refreshControl];
+//    }];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -241,11 +246,43 @@
     [self.stateMachine scrollViewDidScroll:scrollView];
 }
 
+- (UIRefreshControl*)autoInitRefreshControl
+{
+    if (!self.refreshControl) {
+        [self setupRefreshControl];
+    }
+    
+    return self.refreshControl;
+}
+
+- (void)setRefreshControlText:(NSString*)text
+{
+    UIFont* font = [UIFont fontWithName:@"Helvetica-Light" size:10];
+    
+    NSAttributedString* title =  [[NSAttributedString alloc] initWithString:text
+                                                                 attributes: @{ NSFontAttributeName: font,
+                                                                                NSForegroundColorAttributeName: [UIColor blackColor]}];
+    self.autoInitRefreshControl.attributedTitle = title;
+}
+
+- (void)endRefreshing
+{
+    [self.autoInitRefreshControl endRefreshing];
+    
+    [self setRefreshControlText:@"Pull to Refresh!"];
+}
+
 - (void)setupRefreshControl
 {
     if (!self.refreshControl) {
         UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
+//        UIRefreshControl* refreshControl = self.questionsRefreshControl;
+        UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Light" size:10];
+        
+        NSAttributedString* title =  [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"
+                                                                               attributes: @{ NSFontAttributeName: headerFont,
+                                                                                              NSForegroundColorAttributeName: [UIColor blackColor]}];
+        
         refreshControl.attributedTitle = title;
         
         [refreshControl addTarget:self
@@ -258,9 +295,6 @@
             [self.refreshControl beginRefreshing];
             [self.refreshControl endRefreshing];
         });
-    } else {
-        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
-        self.refreshControl.attributedTitle = title;
     }
 }
 
@@ -395,35 +429,12 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableViewExpert removeTableFooter];
-    [self.tableView beginUpdates];
+    [self.stateMachine controllerWillChangeContent];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    EPQuestionTableViewCell* updatedCell;
-    NSIndexPath* adjustedIndexPath;
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            if (!self.refreshControl) {
-                // we are in one of the refreshing state when the table structure has been altered
-                // to acomodate refreshing indicator in the first row
-                // we need to adjust the index path returned by fetched results controller
-                adjustedIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-            } else {
-                adjustedIndexPath = indexPath;
-            }
-            updatedCell = (EPQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:adjustedIndexPath];
-            [updatedCell formatCellForQuestion:question];
-            break;
-        default:
-            break;
-    }
+    [self.stateMachine controllerDidChangeQuestion:question atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
 }
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller

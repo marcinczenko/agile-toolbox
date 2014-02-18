@@ -120,6 +120,16 @@
     [self.currentState didBecomeActiveNotification:notification];
 }
 
+- (void)controllerWillChangeContent
+{
+    [self.currentState controllerWillChangeContent];
+}
+
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    [self.currentState controllerDidChangeQuestion:question atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
+}
+
 - (void)controllerDidChangeContent
 {
     [self.currentState controllerDidChangeContent];

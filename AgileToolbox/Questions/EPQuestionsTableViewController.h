@@ -21,6 +21,7 @@
 #import "EPQuestionsTableViewExpert.h"
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 #import "EPDependencyBox.h"
+#import "EPQuestionsRefreshControl.h"
 
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
@@ -47,12 +48,18 @@
 
 @property (nonatomic,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
+@property (nonatomic,readonly) UIRefreshControl* autoInitRefreshControl;
+
+@property (nonatomic,strong) EPQuestionsRefreshControl* questionsRefreshControl;
+
 - (void)willResignActiveNotification:(NSNotification*)paramNotification;
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
 
 - (void)setupRefreshControl;
+- (void)endRefreshing;
+- (void)setRefreshControlText:(NSString*)text;
 - (void)refresh:(UIRefreshControl*)refreshControl;
 
 @end
