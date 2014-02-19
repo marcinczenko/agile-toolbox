@@ -46,67 +46,39 @@
     
 }
 
-- (void)relinkToFetchedResultsController
+- (void)setTableViewBackgroundColor
 {
-    self.viewController.statePreservationAssistant.viewNeedsRefreshing = NO;
-    self.viewController.questionsDataSource.backgroundFetchMode = NO;
-    self.viewController.fetchedResultsController.delegate = self.viewController;
-    [self refetchFromCoreData];
-    [self.tableViewExpert.tableView reloadData];
-}
-
-- (void)refetchFromCoreData
-{
-    NSError *fetchError = nil;
-    [self.viewController.fetchedResultsController performFetch:&fetchError];
+    if (0<=self.viewController.statePreservationAssistant.bounds.origin.y) {
+        self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+    }
 }
 
 - (void)viewWillAppear
 {
     if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
-        [self relinkToFetchedResultsController];
+        [self.viewController relinkToFetchedResultsController];
     }
     
-    if (self.viewController.statePreservationAssistant.snapshotView) {
-        if (0<=self.viewController.statePreservationAssistant.bounds.origin.y) {
-            self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
-        } else {
-            self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
-        }
+    if (self.viewController.statePreservationAssistant.snapshot.isImageFresh) {
         
-        // Q: contentSize or better contentInset?
-        // A: contentSize is set when bounds are set even though contentInset is still not set
-        //    when bounds are non-zero it is save to position the contents
-        // Notice: isViewLoaded is set to 1 regardless, so it is useless in this case
-        //         view.window is nill in both cases.
-        if (0==self.tableViewExpert.tableView.contentSize.height) {
-            NSLog(@"AAAAAAAAA");
-            // view dimensions are not yet calculated - we operate in a simplified frame
-            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-            if (self.viewController.refreshControl.isRefreshing) {
-                NSLog(@"BBBBBBBB");
-                frame.origin = CGPointMake(0, -self.viewController.refreshControl.frame.size.height);
-            } else {
-                NSLog(@"CCCCCCCCC");
-                frame.origin = CGPointMake(0, 0);
-            }
-            
-            self.viewController.statePreservationAssistant.snapshotView.frame = frame;
-        } else {
-            NSLog(@"DDDDDDDDDD");
-            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-            if (self.viewController.refreshControl.isRefreshing) {
-                NSLog(@"EEEEEEEEEE");
-                frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top-self.viewController.refreshControl.frame.size.height);
-            } else {
-                NSLog(@"FFFFFFFFFF");
-                frame.origin = CGPointMake(0, self.viewController.tableView.bounds.origin.y+self.viewController.tableView.contentInset.top);
-            }
-            
-            self.viewController.statePreservationAssistant.snapshotView.frame = frame;
-        }
+        [self setTableViewBackgroundColor];
         
-        [self.tableViewExpert.tableView addSubview:self.viewController.statePreservationAssistant.snapshotView];
+        [self.viewController.statePreservationAssistant.snapshot displayInView:self.tableViewExpert.tableView withTag:1900 originComputationBlock:^CGPoint{
+            // Q: contentSize or better contentInset?
+            // A: contentSize is set when bounds are set even though contentInset is still not set
+            //    when bounds are non-zero it is save to position the contents
+            // Notice: isViewLoaded is set to 1 regardless, so it is useless in this case
+            //         view.window is nill in both cases.
+            // Notice: if viewDidLoad has been called then self.tableView.contentSize.height
+            //         is not ready yet == table view is freshly loaded and its bounds will still change
+            if (0==self.tableViewExpert.tableView.contentSize.height) {
+                return CGPointMake(0, 0);
+            } else {
+                return CGPointMake(0, self.tableViewExpert.tableView.bounds.origin.y + self.tableViewExpert.tableView.contentInset.top);
+            }
+        }];
     }
 }
 
@@ -116,7 +88,7 @@
         self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
     }
     
-    if (self.viewController.statePreservationAssistant.snapshotView) {
+    if (self.viewController.statePreservationAssistant.snapshot.isImageFresh) {
         
         [self.viewController.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.viewController];
         
@@ -125,9 +97,8 @@
 
         self.tableViewExpert.tableView.bounds = correctedBounds;
         
-        self.viewController.statePreservationAssistant.snapshotView.hidden = YES;
-        [self.viewController.statePreservationAssistant.snapshotView removeFromSuperview];
-        self.viewController.statePreservationAssistant.snapshotView = nil;
+        [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:1900 fromSuperview:self.tableViewExpert.tableView];
+        self.tableViewExpert.tableView.userInteractionEnabled = YES;
     }
 }
 
@@ -166,9 +137,8 @@
 {
     if ([self.viewController viewIsVisible]) {
         if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
-            NSLog(@"questionsTableViewController:BLOCK: UIApplicationWillEnterForegroundNotification");
             
-            [self relinkToFetchedResultsController];
+            [self.viewController relinkToFetchedResultsController];
         }
     }
 }

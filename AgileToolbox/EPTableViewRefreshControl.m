@@ -10,7 +10,6 @@
 
 @interface EPTableViewRefreshControl ()
 
-//@property (nonatomic,weak) UIRefreshControl* uiRefreshControl;
 @property (nonatomic,weak) UITableViewController* tableViewController;
 @property (nonatomic,strong) NSDictionary* titleAttributes;
 
@@ -65,57 +64,6 @@
     
 }
 
-//- (UIRefreshControl*)uiRefreshControl
-//{
-//    if (!_uiRefreshControl) {
-//        _uiRefreshControl = [[UIRefreshControl alloc] init];
-//        _uiRefreshControl.attributedTitle = [[NSAttributedString alloc] init];
-//        [_uiRefreshControl addTarget:self
-//                              action:@selector(refresh:)
-//                    forControlEvents:UIControlEventValueChanged];
-//        _tableViewController.refreshControl = _uiRefreshControl;
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [_tableViewController.refreshControl beginRefreshing];
-//            [_tableViewController.refreshControl endRefreshing];
-//        });
-//    } else {
-//        if (!_tableViewController.refreshControl) {
-//            _uiRefreshControl = [[UIRefreshControl alloc] init];
-//            _uiRefreshControl.attributedTitle = [[NSAttributedString alloc] init];
-//            [_uiRefreshControl addTarget:self
-//                                  action:@selector(refresh:)
-//                        forControlEvents:UIControlEventValueChanged];
-//            _tableViewController.refreshControl = _uiRefreshControl;
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [_tableViewController.refreshControl beginRefreshing];
-//                [_tableViewController.refreshControl endRefreshing];
-//            });
-//        }
-//    }
-//    
-//    return _uiRefreshControl;
-//}
-
-//- (UIRefreshControl*)uiRefreshControl
-//{
-//    if (!_tableViewController.refreshControl) {
-//        _uiRefreshControl = [[UIRefreshControl alloc] init];
-//        _uiRefreshControl.attributedTitle = [[NSAttributedString alloc] init];
-//        [_uiRefreshControl addTarget:self
-//                              action:@selector(refresh:)
-//                    forControlEvents:UIControlEventValueChanged];
-////        _tableViewController.refreshControl = _uiRefreshControl;
-////        
-////        dispatch_async(dispatch_get_main_queue(), ^{
-////            [_tableViewController.refreshControl beginRefreshing];
-////            [_tableViewController.refreshControl endRefreshing];
-////        });
-//    }
-//    return _uiRefreshControl;
-//}
-
 - (instancetype)initWithTableViewController:(UITableViewController*)tableViewController
 {
     return [self initWithTableViewController:tableViewController refreshBlock:nil];
@@ -151,6 +99,14 @@
     self.title = title;
 }
 
+- (void)adjustContentOffsetToRevealRefreshControl
+{
+    // This is - again - hack. We should not need doing it,
+    // but if we don't, the refresh control will be enabled
+    // but the text below will remain invisible.
+    self.tableViewController.tableView.contentOffset = CGPointMake(0, -self.tableViewController.tableView.contentInset.top-self.tableViewController.refreshControl.frame.size.height);
+}
+
 - (void)beginRefreshingWithBeforeBlock:(void(^)())beforeBlock afterBlock:(void(^)())afterBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -158,6 +114,8 @@
         if (beforeBlock) {
             beforeBlock();
         }
+        
+        [self adjustContentOffsetToRevealRefreshControl];
         
         [self.tableViewController.refreshControl beginRefreshing];
         

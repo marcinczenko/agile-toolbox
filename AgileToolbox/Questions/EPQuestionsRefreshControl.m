@@ -30,13 +30,6 @@ NSString* const EPQuestionsRefreshControlTextConnectionFailure = @"Connection Fa
 
 - (void)beginRefreshingWithBeforeBlock:(void(^)())beforeBlock afterBlock:(void(^)())afterBlock
 {
-//    UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-//    refreshControl.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextRefreshing];
-//    [refreshControl addTarget:self
-//                       action:@selector(refresh:)
-//             forControlEvents:UIControlEventValueChanged];
-//    self.tableViewController.refreshControl = refreshControl;
-    
     self.attributedTitle = [self attributedTextWithString:EPQuestionsRefreshControlTextRefreshing];
     [super beginRefreshingWithBeforeBlock:beforeBlock afterBlock:afterBlock];
 }

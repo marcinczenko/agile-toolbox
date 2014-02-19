@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EPSnapshot.h"
 @class EPQuestionsTableViewController;
 
 @interface EPQuestionsTableViewControllerStatePreservationAssistant : NSObject<NSCoding>
@@ -15,7 +16,7 @@
 
 // properties that need to be persisted
 @property (nonatomic,readonly) NSURL* idOfTheFirstVisibleRow;
-@property (nonatomic,strong) UIImageView* snapshotView;
+@property (nonatomic,readonly) EPSnapshot* snapshot;
 @property (nonatomic,assign) CGRect bounds;
 @property (nonatomic,assign) CGFloat scrollDelta;
 

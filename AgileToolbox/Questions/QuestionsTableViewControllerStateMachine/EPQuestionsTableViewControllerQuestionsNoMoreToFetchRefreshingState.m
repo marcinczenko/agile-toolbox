@@ -13,6 +13,7 @@
 
 @property (nonatomic,assign) CGPoint contentOffset;
 
+@property (nonatomic,readonly) BOOL isReturningFromQuestionDetailsView;
 
 @end
 
@@ -22,9 +23,22 @@
 #define KEEP_VISIBLE_TIMEOUT 2.0
 #endif
 
+- (BOOL)isReturningFromQuestionDetailsView
+{
+    return (nil != self.viewController.refreshControl);
+}
+
 - (void)viewWillAppear
 {
-    if (!self.viewController.refreshControl) {
+    if (self.isReturningFromQuestionDetailsView) {
+        // when refresh control was visible before leaving the view
+        // it may happen that content is slightly misaligned
+        // when refresh opration finished in question detail vier
+        // so in background
+        if (!self.viewController.refreshControl.isRefreshing) {
+            self.tableViewExpert.tableView.contentOffset = CGPointMake(0, 0);
+        }
+    } else {
         [super viewWillAppear];
     }
 }
@@ -39,38 +53,33 @@
     [super viewWillDisappear];
 }
 
+- (void)adjustContentOffsetWhenPositionAtFirstRowAndRefreshingToRevealRefreshControl
+{
+    if (self.viewController.tableView.bounds.origin.y == -[self.viewController heightOfNavigationBarAndStatusBar] && self.viewController.questionsRefreshControl.isRefreshing) {
+        self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
+    }
+}
+
 - (void) viewDidAppear
 {
     if (!self.viewController.refreshControl) {
         [self.viewController.questionsRefreshControl beginRefreshingWithBeforeBlock:^{
             self.tableViewExpert.tableView.userInteractionEnabled = NO;
             
-            CGRect frame = self.viewController.statePreservationAssistant.snapshotView.frame;
-            frame.origin = CGPointMake(0, 64.0);
-            
-            UIImageView* snapshotCopy = [[UIImageView alloc] initWithImage:self.viewController.statePreservationAssistant.snapshotView.image];
-            
-            snapshotCopy.frame = frame;
-            snapshotCopy.tag = 1945;
-            
-            [self.viewController.navigationController.view addSubview:snapshotCopy];
-            
-            self.viewController.tableView.contentOffset = CGPointMake(0, -64-self.viewController.refreshControl.frame.size.height);
+            [self.viewController.statePreservationAssistant.snapshot displayInView:self.viewController.navigationController.view
+                                                                           withTag:1945
+                                                            originComputationBlock:^CGPoint{
+                return CGPointMake(0, [self.viewController heightOfNavigationBarAndStatusBar]);
+            }];
             
         } afterBlock:^{
             
             [super viewDidAppear];
             
-            if (self.viewController.tableView.bounds.origin.y == -64.0 && self.viewController.questionsRefreshControl.isRefreshing) {
-//                CGRect r = self.viewController.tableView.bounds;
-//                r.origin.y -= self.viewController.refreshControl.frame.size.height;
-                self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
-            }
+            [self adjustContentOffsetWhenPositionAtFirstRowAndRefreshingToRevealRefreshControl];
             
-            UIView* view = [self.viewController.navigationController.view viewWithTag:1945];
+            [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:1945 fromSuperview:self.viewController.navigationController.view];
             
-            view.hidden = YES;
-            [view removeFromSuperview];
             self.tableViewExpert.tableView.userInteractionEnabled = YES;
         }];
     }
@@ -156,7 +165,7 @@
 {
     if (-64.0>=self.viewController.statePreservationAssistant.bounds.origin.y) {
         // cancel restoring scrol position
-        self.viewController.statePreservationAssistant.snapshotView = nil;
+        [self.viewController.statePreservationAssistant.snapshot clear];
         [self.viewController.statePreservationAssistant invalidatePersistentStorage];
     }
 }

@@ -7,7 +7,6 @@
 //
 
 #import "EPQuestionsTableViewExpert.h"
-//#import "EPQuestionTableViewCell.h"
 #import "EPPersistentStoreHelper.h"
 
 #import "EPQuestionsTableViewController.h"
@@ -88,36 +87,6 @@
 - (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView
 {
     return (scrollView.contentOffset.y <= -100);
-}
-
-- (UIImageView*)createSnapshotView
-{
-    CGRect frame = self.tableView.frame;
-    
-    if (self.viewController.refreshControl.isRefreshing) {
-        frame.origin.y = self.tableView.contentInset.top-self.viewController.refreshControl.frame.size.height;
-    } else {
-        frame.origin.y = self.tableView.contentInset.top;
-    }
-
-    frame.size.height = frame.size.height - frame.origin.y;
-    
-    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
-    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
-    UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
-    if (self.viewController.refreshControl.isRefreshing) {
-        [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top+self.viewController.refreshControl.frame.size.height)];
-    } else {
-        [snapshot drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
-    }
-    
-    UIImage* croppedSnapshot = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return [[UIImageView alloc] initWithImage:croppedSnapshot];
 }
 
 - (void)deleteFetchMoreCell

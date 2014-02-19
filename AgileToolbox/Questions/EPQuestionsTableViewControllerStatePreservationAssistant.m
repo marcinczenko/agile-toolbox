@@ -15,6 +15,7 @@
 @interface EPQuestionsTableViewControllerStatePreservationAssistant ()
 
 @property (nonatomic,strong) NSURL* idOfTheFirstVisibleRow;
+@property (nonatomic,strong) EPSnapshot* snapshot;
 
 @end
 
@@ -49,7 +50,7 @@
 {
     if ((self = [super init])) {
         _idOfTheFirstVisibleRow = [[NSURL alloc] initWithCoder:aDecoder];
-        _snapshotView = [[UIImageView alloc] initWithCoder:aDecoder];
+        _snapshot = [[EPSnapshot alloc] initWithCoder:aDecoder];
         _bounds = [aDecoder decodeCGRectForKey:[self.class kBounds]];
         _scrollDelta = [aDecoder decodeFloatForKey:[self.class kScrollDelta]];
     }
@@ -59,7 +60,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [self.idOfTheFirstVisibleRow encodeWithCoder:aCoder];
-    [self.snapshotView encodeWithCoder:aCoder];
+    [self.snapshot encodeWithCoder:aCoder];
     [aCoder encodeCGRect:self.bounds forKey:[self.class kBounds]];
     [aCoder encodeFloat:self.scrollDelta forKey:[self.class kScrollDelta]];
 }
@@ -82,7 +83,7 @@
 
 - (void)createSnapshotViewForViewController:(EPQuestionsTableViewController*)viewController
 {
-    self.snapshotView = [viewController.tableViewExpert createSnapshotView];
+    self.snapshot = [[EPSnapshot alloc] initWithImage:[EPSnapshot createSnapshotForTableViewFrom:viewController]];
 }
 
 - (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController

@@ -17,18 +17,14 @@
 
 - (void)viewWillDisappear
 {
-    self.viewController.fetchedResultsController.delegate = nil;
-    self.viewController.statePreservationAssistant.viewNeedsRefreshing = YES;
-    self.viewController.questionsDataSource.backgroundFetchMode = YES;
+    [self.viewController disconnectFromFetchedResultsController];
     
     [super viewWillDisappear];
 }
 
 - (void)didEnterBackgroundNotification:(NSNotification*)notification
 {
-    self.viewController.fetchedResultsController.delegate = nil;
-    self.viewController.statePreservationAssistant.viewNeedsRefreshing = YES;
-    self.viewController.questionsDataSource.backgroundFetchMode = YES;
+    [self.viewController disconnectFromFetchedResultsController];
     
     [super didEnterBackgroundNotification:notification];
 }

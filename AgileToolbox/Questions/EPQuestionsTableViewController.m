@@ -157,8 +157,15 @@
     return (self.isViewLoaded && self.view.window);
 }
 
+- (CGFloat)heightOfNavigationBarAndStatusBar
+{
+    return [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
+}
+
+
 //------------------------------------------------------------------
 // TODO: consider moving the following methods to new type
+// It looks like some NSFetchControllerBridge or wrapper.
 - (BOOL)hasQuestionsInPersistentStorage
 {
     return (0<self.fetchedResultsController.fetchedObjects.count);
@@ -187,6 +194,28 @@
     } else {
         return -1;
     }
+}
+
+- (void)disconnectFromFetchedResultsController
+{
+    self.fetchedResultsController.delegate = nil;
+    self.statePreservationAssistant.viewNeedsRefreshing = YES;
+    self.questionsDataSource.backgroundFetchMode = YES;
+}
+
+- (void)relinkToFetchedResultsController
+{
+    self.statePreservationAssistant.viewNeedsRefreshing = NO;
+    self.questionsDataSource.backgroundFetchMode = NO;
+    self.fetchedResultsController.delegate = self;
+    [self refetchFromCoreData];
+    [self.tableView reloadData];
+}
+
+- (void)refetchFromCoreData
+{
+    NSError *fetchError = nil;
+    [self.fetchedResultsController performFetch:&fetchError];
 }
 //------------------------------------------------------------------
 

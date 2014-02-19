@@ -50,9 +50,17 @@
 
 @property (nonatomic,strong) EPQuestionsRefreshControl* questionsRefreshControl;
 
+
+- (void)relinkToFetchedResultsController;
+- (void)disconnectFromFetchedResultsController;
+- (CGFloat)heightOfNavigationBarAndStatusBar;
+
+
 - (void)willResignActiveNotification:(NSNotification*)paramNotification;
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
+
+
 
 @end
