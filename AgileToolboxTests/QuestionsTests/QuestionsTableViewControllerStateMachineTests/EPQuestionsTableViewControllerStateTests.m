@@ -29,7 +29,7 @@
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 
 @property (nonatomic,strong) id preservationAssistantMock;
-@property (nonatomic,strong) id snapshotViewMock;
+@property (nonatomic,strong) id snapshotMock;
 
 @property (nonatomic,strong) id segueMock;
 @property (nonatomic,strong) id questionDetailsTableViewControllerMock;
@@ -56,14 +56,10 @@
     [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(needsRefreshing)] viewNeedsRefreshing];
 }
 
-- (void)expectSnapshotViewExists
+- (void)expectSnapshotHasFreshImage:(BOOL)value
 {
-    [[[self.preservationAssistantMock stub] andReturn:self.snapshotViewMock] snapshotView];
-}
-
-- (void)expectScrollPositionRestorationShouldBeSkipped:(BOOL)status
-{
-    [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(status)] skipTableViewScrollPositionRestoration];
+    [[[self.snapshotMock stub] andReturnValue:OCMOCK_VALUE(value)] isImageFresh];
+    [[[self.preservationAssistantMock stub] andReturn:self.snapshotMock] snapshot];
 }
 
 - (void)mockFetchedResultsController
@@ -86,7 +82,7 @@
     self.addQuestionViewControllerMock = [OCMockObject niceMockForClass:[EPAddQuestionViewController class]];
     
     self.preservationAssistantMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStatePreservationAssistant class]];
-    self.snapshotViewMock = [OCMockObject niceMockForClass:[UIImageView class]];
+    self.snapshotMock = [OCMockObject niceMockForClass:[EPSnapshot class]];
     self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
     
@@ -173,134 +169,40 @@
 
 //---------------------------- willEnterForegroundNotification ----------------------------
 
-- (void)testThatWillEnterForegroundNotificationRestoresFetchedResultsControllerDelegateWhenViewIsVisisbleAndNeedsRefreshing
+- (void)testThatWillEnterForegroundNotificationReconnectsToFetchedResultsControllerWhenViewIsVisibleAndNeedsRefreshing
 {
     [self expectViewIsVisible:YES];
     [self expectViewNeedsRefreshing:YES];
     
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.viewControllerMock];
+    [[self.viewControllerMock expect] relinkToFetchedResultsController];
     
     [self.state willEnterForegroundNotification:self.doesNotMatter];
     
-    [self.fetchedResultsControllerMock verify];
+    [self.viewControllerMock verify];
 }
 
-- (void)testThatWillEnterForegroundNotificationDoesNotRestoreFetchedResultsControllerDelegateWhenViewIsNotVisisble
+- (void)testThatWillEnterForegroundNotificationDoesNotReconnectToFetchedResultsControllerWhenViewIsVisibleButDoesNotRequireRefreshing
+{
+    [self expectViewIsVisible:YES];
+    [self expectViewNeedsRefreshing:NO];
+    
+    [[self.viewControllerMock reject] relinkToFetchedResultsController];
+    
+    [self.state willEnterForegroundNotification:self.doesNotMatter];
+    
+    [self.viewControllerMock verify];
+}
+
+- (void)testThatWillEnterForegroundNotificationDoesNotReconnectToFetchedResultsControllerWhenViewRequiresRefreshingButIsNotVisible
 {
     [self expectViewIsVisible:NO];
     [self expectViewNeedsRefreshing:YES];
     
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock reject] setDelegate:self.viewControllerMock];
+    [[self.viewControllerMock reject] relinkToFetchedResultsController];
     
     [self.state willEnterForegroundNotification:self.doesNotMatter];
     
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationDoesNotRestoreFetchedResultsControllerDelegateWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewIsVisible:YES];
-    [self expectViewNeedsRefreshing:NO];
-    
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock reject] setDelegate:self.viewControllerMock];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationPerformsFetchOnFetchedResultsControllerWhenViewIsVisibleAndNeedsRefreshing
-{
-    [self expectViewIsVisible:YES];
-    [self expectViewNeedsRefreshing:YES];
-    
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] performFetch:(NSError* __autoreleasing*)[OCMArg anyPointer]];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationDoesNotChangeTheViewNeedsRefreshingFlagWhenViewNeedsRefreshing
-{
-    [self expectViewNeedsRefreshing:YES];
-    [[[self.preservationAssistantMock reject] ignoringNonObjectArgs] setViewNeedsRefreshing:NO];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationDoesNotChangeTheViewNeedsRefreshingFlagWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewNeedsRefreshing:NO];
-    [[[self.preservationAssistantMock reject] ignoringNonObjectArgs] setViewNeedsRefreshing:NO];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationReloadsTableViewWhenViewIsVisibleAndNeedsRefreshing
-{
-    [self expectViewIsVisible:YES];
-    [self expectViewNeedsRefreshing:YES];
-    
-    [[self.tableViewMock expect] reloadData];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.tableViewMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationDoesNotReloadTableViewWhenViewNeedsRefreshingButViewIsNotVisible
-{
-    [self expectViewNeedsRefreshing:YES];
-    [self expectViewIsVisible:NO];
-    
-    [[self.tableViewMock reject] reloadData];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.tableViewMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationDoesNotReloadTableViewWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewNeedsRefreshing:NO];
-    [self expectViewIsVisible:YES];
-    
-    [[self.tableViewMock reject] reloadData];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.tableViewMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationClearsViewNeedsRefreshingFlagWhenViewIsVisibleAndNeedsRefreshing
-{
-    [self expectViewIsVisible:YES];
-    [self expectViewNeedsRefreshing:YES];
-    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:NO];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatWillEnterForegroundNotificationClearsDataSourceBackgroundFetchingModeWhenViewIsVisibleAndNeedsRefreshing
-{
-    [self expectViewIsVisible:YES];
-    [self expectViewNeedsRefreshing:YES];
-    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:NO];
-    
-    [self.state willEnterForegroundNotification:self.doesNotMatter];
-    
-    [self.questionsDataSourceMock verify];
+    [self.viewControllerMock verify];
 }
 
 //---------------------------- wiewWillDisappear ----------------------------
@@ -330,116 +232,37 @@
 
 //---------------------------- wiewWillAppear ----------------------------
 
-- (void)testThatViewWillAppearRestoresFetchedResultsControllerDelegateWhenViewNeedsRefreshing
+- (void)testThatViewWillAppearReconnectsToFetchedResultsControllerWhenViewNeedsRefreshing
 {
     [self expectViewNeedsRefreshing:YES];
     
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.viewControllerMock];
+    [[self.viewControllerMock expect] relinkToFetchedResultsController];
     
     [self.state viewWillAppear];
     
-    [self.fetchedResultsControllerMock verify];
+    [self.viewControllerMock verify];
 }
 
-- (void)testThatViewWillAppearDoesNotRestoreFetchedResultsControllerDelegateWhenViewDoesNotNeedRefreshing
+- (void)testThatViewWillAppearDoesNotReconnectToFetchedResultsControllerWhenViewDoesNotNeedRefreshing
 {
     [self expectViewNeedsRefreshing:NO];
     
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock reject] setDelegate:self.viewControllerMock];
+    [[self.viewControllerMock reject] relinkToFetchedResultsController];
     
     [self.state viewWillAppear];
     
-    [self.fetchedResultsControllerMock verify];
+    [self.viewControllerMock verify];
 }
 
-- (void)testThatViewWillAppearPerformsFetchOnFetchedResultsControllerWhenViewNeedsRefreshing
+- (void)testThatViewWillAppearDisplaysSnapshotViewIfOneHasFreshImageAvailable
 {
-    [self expectViewNeedsRefreshing:YES];
+    [self expectSnapshotHasFreshImage:YES];
     
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] performFetch:(NSError* __autoreleasing*)[OCMArg anyPointer]];
+    [[self.snapshotMock expect] displayInView:self.tableViewMock withTag:[EPQuestionsTableViewControllerState tagSnapshot] originComputationBlock:[OCMArg any]];
     
     [self.state viewWillAppear];
     
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatViewWillAppearDoesNotPerformFetchOnFetchedResultsControllerWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewNeedsRefreshing:NO];
-    
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock reject] performFetch:(NSError* __autoreleasing*)[OCMArg anyPointer]];
-    
-    [self.state viewWillAppear];
-    
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatViewWillAppearClearsViewNeedsRefreshingFlagWhenViewNeedsRefreshing
-{
-    [self expectViewNeedsRefreshing:YES];
-    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:NO];
-    
-    [self.state viewWillAppear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewWillAppearDoesNotChangeTheViewNeedsRefreshingFlagWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewNeedsRefreshing:NO];
-    [[[self.preservationAssistantMock reject] ignoringNonObjectArgs] setViewNeedsRefreshing:NO];
-    
-    [self.state viewWillAppear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewWillAppearClearsDataSourceBackgroundFetchingModeWhenViewNeedsRefreshing
-{
-    [self expectViewNeedsRefreshing:YES];
-    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:NO];
-    
-    [self.state viewWillAppear];
-    
-    [self.questionsDataSourceMock verify];
-}
-
-- (void)testThatWillAppearDoesNotClearDataSourceBackgroundFetchingModeWhenViewDoesNotNeedRefreshing
-{
-    [self expectViewNeedsRefreshing:NO];
-    [[[self.questionsDataSourceMock reject] ignoringNonObjectArgs] setBackgroundFetchMode:NO];
-    
-    [self.state viewWillAppear];
-    
-    [self.questionsDataSourceMock verify];
-}
-
-
-- (void)testThatViewWillAppearDisplaysSnapshotViewIfOneExists
-{
-    [self expectSnapshotViewExists];
-    
-    [[self.tableViewMock expect] addSubview:self.snapshotViewMock];
-    
-    [self.state viewWillAppear];
-    
-    [self.tableViewMock verify];
-}
-
-- (void)testThatViewWillAppearDoesNotDisplaySnaphotViewIfRestoringTableViewScrollPositionShouldBeSkiped
-{
-    [self expectScrollPositionRestorationShouldBeSkipped:YES];
-    [self expectSnapshotViewExists];
-    
-    [[self.tableViewMock reject] addSubview:self.snapshotViewMock];
-    
-    [self.state viewWillAppear];
-    
-    [self.tableViewMock verify];
+    [self.snapshotMock verify];
 }
 
 - (void)testThatViewWillAppearDoesNotDisplaySnapshotViewIfNoneExists
@@ -451,12 +274,12 @@
     [self.tableViewMock verify];
 }
 
-- (void)testThatViewWillAppearSetsTheBackgroundColorToWhiteWhenSnapshotExistsAndContentOffsetIsGreaterThanOrEqualToZero
+- (void)testThatViewWillAppearSetsTheBackgroundColorToWhiteWhenSnapshotExistsAndBoundsOriginYIsGreaterThanOrEqualToZero
 {
-    [self expectSnapshotViewExists];
+    [self expectSnapshotHasFreshImage:YES];
     
-    CGPoint contentOffset = CGPointMake(0.0, 0.0);
-    [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(contentOffset)] contentOffset];
+    CGRect bounds = CGRectMake(0, 0, 320, 560);
+    [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(bounds)] bounds];
     
     [[self.tableViewMock expect] setBackgroundColor:[UIColor whiteColor]];
     
@@ -465,12 +288,12 @@
     [self.tableViewMock verify];
 }
 
-- (void)testThatViewWillAppearSetsTheBackgroundColorQuantumWhenSnapshotExistsAndContentOffsetIsLessThanZero
+- (void)testThatViewWillAppearSetsTheBackgroundColorQuantumWhenSnapshotExistsAndBoundsOriginYIsLessThanZero
 {
-    [self expectSnapshotViewExists];
+    [self expectSnapshotHasFreshImage:YES];
     
-    CGPoint contentOffset = CGPointMake(0.0, -1.0);
-    [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(contentOffset)] contentOffset];
+    CGRect bounds = CGRectMake(0, -1.0, 320, 560);
+    [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(bounds)] bounds];
     
     [[self.tableViewMock expect] setBackgroundColor:[EPQuestionsTableViewExpert colorQuantum]];
     
@@ -493,7 +316,7 @@
 
 - (void)testThatViewDidAppearRestoresIndexPathIfSnapshotExists
 {
-    [self expectSnapshotViewExists];
+    [self expectSnapshotHasFreshImage:YES];
     
     [[self.preservationAssistantMock expect] restoreIndexPathOfFirstVisibleRowForViewController:self.viewControllerMock];
     
@@ -502,42 +325,9 @@
     [self.preservationAssistantMock verify];
 }
 
-- (void)testThatViewDidAppearDoesNotRestoresIndexPathIfTableViewScrollPositionRestorationShouldBeSkipped
+- (void)testThatViewDidAppearDoesNotRestoreIndexPathIfSnapshotDoesNotHaveFreshImage
 {
-    [self expectScrollPositionRestorationShouldBeSkipped:YES];
-    [self expectSnapshotViewExists];
-    
-    [[self.preservationAssistantMock reject] restoreIndexPathOfFirstVisibleRowForViewController:self.viewControllerMock];
-    
-    [self.state viewDidAppear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewDidAppearResetsTheScrollRestorationRequiredFlag
-{
-    [self expectScrollPositionRestorationShouldBeSkipped:YES];
-    
-    [[self.preservationAssistantMock expect] setSkipTableViewScrollPositionRestoration:NO];
-    
-    [self.state viewDidAppear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewDidSetsTheSnapshotToNilWhenScrollPositionRestorationShouldBeSkipped
-{
-    [self expectScrollPositionRestorationShouldBeSkipped:YES];
-    
-    [[self.preservationAssistantMock expect] setSnapshotView:nil];
-    
-    [self.state viewDidAppear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewDidAppearDoesNotRestoreIndexPathIfSnapshotDoesNotExist
-{
+    [self expectSnapshotHasFreshImage:NO];
     [[self.preservationAssistantMock reject] restoreIndexPathOfFirstVisibleRowForViewController:[OCMArg any]];
     
     [self.state viewDidAppear];
@@ -547,26 +337,14 @@
 
 - (void)testThatViewDidAppearRemovesTheSnapshotFromViewHierarchyWhenSnapshotExists
 {
-    [self expectSnapshotViewExists];
+    [self expectSnapshotHasFreshImage:YES];
     
-    [self.snapshotViewMock setExpectationOrderMatters:YES];
-    [[self.snapshotViewMock expect] setHidden:YES];
-    [[self.snapshotViewMock expect] removeFromSuperview];
+    [self.snapshotMock setExpectationOrderMatters:YES];
+    [[self.snapshotMock expect] removeViewWithTag:[EPQuestionsTableViewControllerState tagSnapshot] fromSuperview:self.tableViewMock];
     
     [self.state viewDidAppear];
     
-    [self.snapshotViewMock verify];
-}
-
-- (void)testThatViewDidAppearClearsTheSnapshotViewPointerWhenSnapshotExists
-{
-    [self expectSnapshotViewExists];
-    
-    [[self.preservationAssistantMock expect] setSnapshotView:nil];
-
-    [self.state viewDidAppear];
-    
-    [self.preservationAssistantMock verify];
+    [self.snapshotMock verify];
 }
 
 //---------------------------- prepareForSegue ----------------------------

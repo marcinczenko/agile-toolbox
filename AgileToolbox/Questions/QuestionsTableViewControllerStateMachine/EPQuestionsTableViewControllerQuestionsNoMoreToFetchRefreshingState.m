@@ -45,9 +45,9 @@
 
 - (void)viewWillDisappear
 {
-    if (self.connectionFailureFlag) {
+    if (self.connectionFailurePending) {
         [self handleEvent];
-        self.connectionFailureFlag = NO;
+        self.connectionFailurePending = NO;
     }
     
     [super viewWillDisappear];
@@ -82,6 +82,15 @@
             
             self.tableViewExpert.tableView.userInteractionEnabled = YES;
         }];
+    }
+}
+
+- (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (0==indexPath.section) {
+        return [EPQuestionsTableViewExpert questionRowHeight];
+    } else {
+        return [EPQuestionsTableViewExpert fetchMoreRowHeight];
     }
 }
 
@@ -142,6 +151,7 @@
 - (void)controllerDidChangeContent
 {
     [self handleEvent];
+    
     [self.tableViewExpert.tableView reloadData];
     self.tableViewExpert.tableView.contentOffset = self.contentOffset;
     
@@ -186,7 +196,12 @@
 
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
 {
-    if (self.connectionFailureFlag) {
+    if (self.connectionFailurePending) {
+        // It may have happened that on waiting for connection failure completion event
+        // we left the screen which means viewWillDisappear happened where we
+        // reset all failure indicators and move to appropriate state.
+        // In such a case, we should execte the methods below.
+        // See also viewWillDisappear.
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
         
         [self.viewController.questionsRefreshControl endRefreshing];
@@ -204,7 +219,7 @@
 
 - (void)connectionFailure
 {
-    self.connectionFailureFlag = YES;
+    self.connectionFailurePending = YES;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self handleConnectionFailureUsingNativeRefreshControl];
 }

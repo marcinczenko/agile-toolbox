@@ -48,19 +48,19 @@ static NSString* const kQuestionUpdated = @"Updated";
     return self;
 }
 
-//- (id)initWithCoder:(NSCoder *)aDecoder
-//{
-//    if ((self = [super initWithCoder:aDecoder])) {
-//        [self decodeObjectWithCoder:aDecoder];
-//    }
-//    return self;
-//}
-//
-//- (void)encodeWithCoder:(NSCoder *)aCoder
-//{
-//    [super encodeWithCoder:aCoder];
-//    [self encodeObjectWithCoder:aCoder];
-//}
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder])) {
+        [self decodeObjectWithCoder:aDecoder];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [super encodeWithCoder:aCoder];
+    [self encodeObjectWithCoder:aCoder];
+}
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {

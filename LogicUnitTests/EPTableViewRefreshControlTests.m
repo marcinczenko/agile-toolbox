@@ -20,6 +20,13 @@
 
 @implementation EPTestRefreshControl
 
+- (void)initializationHackHook
+{
+    [super initializationHackHook];
+    
+    self.isDone = YES;
+}
+
 - (void)beforeBeginRefreshing
 {
     
@@ -41,6 +48,7 @@
 @interface EPTableViewRefreshControlTests : XCTestCase
 
 @property (nonatomic,strong) EPTableViewRefreshControl* tableViewRefreshControl;
+@property (nonatomic,strong) UIRefreshControl* testRefreshControl;
 @property (nonatomic,strong) id refreshControlMock;
 @property (nonatomic,strong) id tableViewControllerMock;
 
@@ -79,6 +87,16 @@
     self.isTimeOut = YES;
 }
 
+- (void)expectUIRefreshControlIsNil
+{
+    [[[self.tableViewControllerMock stub] andReturn:nil] refreshControl];
+}
+
+- (void)expectUIRefreshControlToBe:(id)refreshControl
+{
+    [[[self.tableViewControllerMock stub] andReturn:refreshControl] refreshControl];
+}
+
 
 - (void)setUp
 {
@@ -86,6 +104,8 @@
     
     self.refreshControlMock = [OCMockObject niceMockForClass:[UIRefreshControl class]];
     self.tableViewControllerMock = [OCMockObject niceMockForClass:[UITableViewController class]];
+    
+    self.testRefreshControl = [[UIRefreshControl alloc] init];
     
     self.testAttributedTitle = [self attributedTextWithString:@"Example Title"];
     
@@ -99,28 +119,63 @@
     [super tearDown];
 }
 
-- (void)testInitializingWithUIRefreshControl
+- (void)testThatAccessingAnyAttributeForTheFirstTimeSetsTheRefreshControlPropertyOfTableViewControler
 {
-    XCTAssertNotNil(self.tableViewRefreshControl);
-    XCTAssertEqualObjects([NSAttributedString new],self.tableViewRefreshControl.attributedTitle);
-    XCTAssertEqualObjects([NSString new],self.tableViewRefreshControl.title);
+    [self expectUIRefreshControlIsNil];
+    
+    [[self.tableViewControllerMock expect] setRefreshControl:[OCMArg isNotNil]];
+    
+    EPTestRefreshControl* tableViewRefreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
+    
+    tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
+    
+    // it has dispatch_async block with initialization hack - let's make sure it was called
+    [self wait:0.5 forDelegate:tableViewRefreshControl];
+    
+    XCTAssertTrue(tableViewRefreshControl.isDone);
 }
 
-- (void)testInitializingWithAttributedTitle
+- (void)testSettingAttributedTitleWhenUIRefreshControlDoesNotExist
 {
+    [self expectUIRefreshControlIsNil];
+    
+    UITableViewController* tableViewController = [UITableViewController new];
+    
+    EPTestRefreshControl* tableViewRefreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:tableViewController];
+    
+    tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
+    
+    // it has dispatch_async block with initialization hack - let's make sure it was called
+    [self wait:0.5 forDelegate:tableViewRefreshControl];
+    
+    XCTAssertTrue(tableViewRefreshControl.isDone);
+    
+    XCTAssertEqualObjects(self.testAttributedTitle, tableViewRefreshControl.attributedTitle);
+}
+
+- (void)testSettingAttributedTitleWhenUIRefreshControlAlreadyExists
+{
+    [self expectUIRefreshControlToBe:self.testRefreshControl];
+    
     self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
     
-    XCTAssertEqualObjects(self.testAttributedTitle, self.tableViewRefreshControl.attributedTitle);
+    XCTAssertEqualObjects(self.testAttributedTitle, self.testRefreshControl.attributedTitle);
 }
 
-- (void)testThatTextPropertyReflectsTextFromAttributedTitleProperty
+- (void)testThatTitlePropertyReflectsTextFromAttributedTitlePropertyAndActualRefreshControl
 {
+    [self expectUIRefreshControlToBe:self.testRefreshControl];
+    
     self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    XCTAssertEqualObjects(self.tableViewRefreshControl.attributedTitle.string, self.tableViewRefreshControl.title);
+    XCTAssertEqualObjects(self.testAttributedTitle.string, self.tableViewRefreshControl.title);
+    XCTAssertEqualObjects(self.tableViewRefreshControl.title, self.tableViewRefreshControl.attributedTitle.string);
+    XCTAssertEqualObjects(self.testRefreshControl.attributedTitle.string, self.tableViewRefreshControl.title);
 }
 
 - (void)testSettingTitlePreservesAttributedTitleAttributes
 {
+    [self expectUIRefreshControlToBe:self.testRefreshControl];
+    
     self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
     self.tableViewRefreshControl.title = @"New Title";
     
@@ -128,19 +183,13 @@
     XCTAssertEqualObjects(self.tableViewRefreshControl.title, self.tableViewRefreshControl.attributedTitle.string);
     XCTAssertEqualObjects([self.testAttributedTitle attributesAtIndex:0 effectiveRange:nil],
                           [self.tableViewRefreshControl.attributedTitle attributesAtIndex:0 effectiveRange:nil]);
+    XCTAssertEqualObjects(self.testRefreshControl.attributedTitle.string, self.tableViewRefreshControl.title);
 }
 
-- (void)testSettingTheAttributedTitleUpdatesTheTitle
+- (void)testThatBeginRefresingPerformesBeginRefreshingSequenceWithHooksOnActualUIRefreshControl
 {
-    NSAttributedString* attributedString = [self attributedTextWithString:@"New Attributed Title"];
-    self.tableViewRefreshControl.attributedTitle = attributedString;
+    [self expectUIRefreshControlToBe:self.refreshControlMock];
     
-    XCTAssertEqualObjects(attributedString, self.tableViewRefreshControl.attributedTitle);
-    XCTAssertEqualObjects(self.tableViewRefreshControl.title, self.tableViewRefreshControl.attributedTitle.string);
-}
-
-- (void)testThatBeginRefresingPerformesBeginRefresginSequenceWithHooks
-{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(timeOut:) name:@"timeOut" object:self];
     
@@ -150,8 +199,6 @@
     [[self.refreshControlMock expect] beginRefreshing];
     
     EPTestRefreshControl* refreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    id refreshControlPartialMock = [OCMockObject partialMockForObject:refreshControl];
-    [[[refreshControlPartialMock stub] andReturn:self.refreshControlMock] uiRefreshControl];
     
     [refreshControl beginRefreshing];
     
@@ -162,79 +209,86 @@
     [self.refreshControlMock verify];
 }
 
-- (void)testThatEndRefreshingCallsEndRefreshingOnRefreshControl
+- (void)testThatBeginRefreshingWithBlocksCallsTheBeginEndRefreshingSequenceAndTheBlocks
 {
-    [[self.refreshControlMock expect] endRefreshing];
+    [self expectUIRefreshControlToBe:self.refreshControlMock];
     
-    id refreshControlPartialMock = [OCMockObject partialMockForObject:self.tableViewRefreshControl];
-    [[[refreshControlPartialMock stub] andReturn:self.refreshControlMock] uiRefreshControl];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(timeOut:) name:@"timeOut" object:self];
+    
+    __block BOOL beforeWasCalled = NO;
+    __block BOOL afterWasCalled = NO;
+    
+    void (^beforeBlock)() = ^() {
+        beforeWasCalled = YES;
+    };
+    
+    void (^afterBlock)() = ^() {
+        afterWasCalled = YES;
+    };
+    
+    // calling only beginRefreshing and only once seems to be sufficient after control was properly
+    // initialized with the hack (beginRefreshing, endRefreshing in dispatch_async)
+    [self.refreshControlMock setExpectationOrderMatters:YES];
+    [[self.refreshControlMock expect] beginRefreshing];
+    [[self.refreshControlMock reject] endRefreshing];
+    [[self.refreshControlMock reject] beginRefreshing];
+    
+    EPTestRefreshControl* refreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
+    
+    [refreshControl beginRefreshingWithBeforeBlock:beforeBlock afterBlock:afterBlock];
+    
+    [self wait:1.0 forDelegate:refreshControl];
+    
+    XCTAssertTrue(beforeWasCalled);
+    XCTAssertTrue(afterWasCalled);
+    
+    [self.refreshControlMock verify];
+    
+}
+
+- (void)testThatEndRefreshingCallsEndRefreshingOnActualUIRefreshControl
+{
+    [self expectUIRefreshControlToBe:self.refreshControlMock];
+    [[self.refreshControlMock expect] endRefreshing];
     
     [self.tableViewRefreshControl endRefreshing];
     
     [self.refreshControlMock verify];
 }
 
-- (void)testThatBeginRefreshingWithTitleCallsBeginRefreshingOnUIRefreshControl
+- (void)testThatBeginRefreshingWithTitleSetsTheTitleAndCallsBeginRefreshing
 {
-    [[[self.refreshControlMock stub] andReturn:self.testAttributedTitle] attributedTitle];
-    
+    [self expectUIRefreshControlToBe:self.testRefreshControl];
     
     id refreshControlPartialMock = [OCMockObject partialMockForObject:self.tableViewRefreshControl];
-    [[[refreshControlPartialMock stub] andReturn:self.refreshControlMock] uiRefreshControl];
     [[refreshControlPartialMock expect] beginRefreshing];
     
-    [self.tableViewRefreshControl beginRefreshingWithTitle:@"Some Title"];
+    [self.tableViewRefreshControl beginRefreshingWithTitle:self.testAttributedTitle.string];
     
+    XCTAssertEqualObjects(self.testAttributedTitle.string, self.testRefreshControl.attributedTitle.string);
     [refreshControlPartialMock verify];
 }
 
-- (void)testThatBeginRefreshingWithTitleUpdatesTheTiltle
+- (void)testThatEndRefreshingWithTitleSetsTheTiltleAndCallsEndRefreshing
 {
-    NSString* someTitle = @"SomeTitle";
-    NSAttributedString* someAttributedTitle = [self attributedTextWithString:someTitle];
-    
-    self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    [self.tableViewRefreshControl beginRefreshingWithTitle:someTitle];
-    
-    XCTAssertEqualObjects(someAttributedTitle, self.tableViewRefreshControl.attributedTitle);
-    XCTAssertEqualObjects(someAttributedTitle, self.tableViewRefreshControl.uiRefreshControl.attributedTitle);
-    
-    XCTAssertEqualObjects(someTitle, self.tableViewRefreshControl.title);
-}
-
-- (void)testThatEndRefreshingWithTitleUpdatesTheTiltle
-{
-    NSString* someTitle = @"SomeTitle";
-    NSAttributedString* someAttributedTitle = [self attributedTextWithString:someTitle];
-    
-    self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    [self.tableViewRefreshControl endRefreshingWithTitle:someTitle];
-    
-    XCTAssertEqualObjects(someAttributedTitle, self.tableViewRefreshControl.attributedTitle);
-    XCTAssertEqualObjects(someAttributedTitle, self.tableViewRefreshControl.uiRefreshControl.attributedTitle);
-    
-    XCTAssertEqualObjects(someTitle, self.tableViewRefreshControl.title);
-}
-
-
-- (void)testThatEndRefreshingWithTitleCallsEndRefreshingOnUIRefreshControl
-
-{
-    [[[self.refreshControlMock stub] andReturn:self.testAttributedTitle] attributedTitle];
+    [self expectUIRefreshControlToBe:self.testRefreshControl];
     
     id refreshControlPartialMock = [OCMockObject partialMockForObject:self.tableViewRefreshControl];
-    [[[refreshControlPartialMock stub] andReturn:self.refreshControlMock] uiRefreshControl];
     [[refreshControlPartialMock expect] endRefreshing];
     
-    [self.tableViewRefreshControl endRefreshingWithTitle:@"Some Title"];
+    [self.tableViewRefreshControl endRefreshingWithTitle:self.testAttributedTitle.string];
     
+    XCTAssertEqualObjects(self.testAttributedTitle.string, self.testRefreshControl.attributedTitle.string);
     [refreshControlPartialMock verify];
 }
 
 - (void)testCallingTheDelegate
 {
+    [self expectUIRefreshControlToBe:self.refreshControlMock];
+    
     id refreshControlDelegate = [OCMockObject mockForProtocol:@protocol(EPTableViewRefreshControlDelegate)];
-    [[refreshControlDelegate expect] refresh:self.tableViewRefreshControl];
+    [[refreshControlDelegate expect] refresh:self.refreshControlMock];
     
     self.tableViewRefreshControl.delegate = refreshControlDelegate;
     [self.tableViewRefreshControl refresh:self.refreshControlMock];
@@ -255,29 +309,6 @@
     
     XCTAssertTrue(blockCalled);
 }
-
-- (void)testThatRefreshControlSetsAttributedTitleOnUIRefreshControl
-{
-    self.tableViewRefreshControl = [[EPTableViewRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    
-    self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    
-    XCTAssertEqualObjects(self.testAttributedTitle, self.tableViewRefreshControl.uiRefreshControl.attributedTitle);
-}
-
-- (void)testThatRefreshControlUsesPreviousTextAttributesWhenSettingTitleWithNonAttributedString
-{
-    self.tableViewRefreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    self.tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    
-    NSString* title = @"New Title";
-    NSAttributedString* attributedTitle = [self attributedTextWithString:title];
-    
-    self.tableViewRefreshControl.title = title;
-    
-    XCTAssertEqualObjects(attributedTitle, self.tableViewRefreshControl.uiRefreshControl.attributedTitle);
-}
-
 
 
 

@@ -44,6 +44,12 @@
     return self.tableViewController.refreshControl.attributedTitle.string;
 }
 
+- (void)initializationHackHook
+{
+    [self.tableViewController.refreshControl beginRefreshing];
+    [self.tableViewController.refreshControl endRefreshing];
+}
+
 - (void)initRefreshControlWithText:(NSAttributedString*)attributedString
 {
     if (!self.tableViewController.refreshControl) {
@@ -55,8 +61,7 @@
         self.tableViewController.refreshControl = refreshControl;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableViewController.refreshControl beginRefreshing];
-            [self.tableViewController.refreshControl endRefreshing];
+            [self initializationHackHook];
         });
     } else {
         self.tableViewController.refreshControl.attributedTitle = attributedString;

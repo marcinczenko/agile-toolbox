@@ -28,7 +28,6 @@
 		6D44F3E718B249EC00188692 /* EPTableViewRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3E618B249EC00188692 /* EPTableViewRefreshControl.m */; };
 		6D44F3E918B24A2B00188692 /* EPTableViewRefreshControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3E818B24A2B00188692 /* EPTableViewRefreshControlTests.m */; };
 		6D44F3EC18B27CEB00188692 /* EPQuestionsRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3EB18B27CEB00188692 /* EPQuestionsRefreshControl.m */; };
-		6D44F3EF18B2CDD900188692 /* EPQuestionsRefreshControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3EE18B2CDD900188692 /* EPQuestionsRefreshControlTests.m */; };
 		6D44F3F218B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3F118B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m */; };
 		6D44F3F518B40D6600188692 /* EPSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44F3F418B40D6600188692 /* EPSnapshot.m */; };
 		6D5C238115AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C237F15AB94EA005EAEBB /* EPQuestionsSmartTableViewCell.h */; };
@@ -55,8 +54,6 @@
 		6DAB88361892D783003075D8 /* EPQuestionsTableViewControllerEmptyLoadingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88191892D783003075D8 /* EPQuestionsTableViewControllerEmptyLoadingState.m */; };
 		6DAB88371892D783003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB881B1892D783003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsState.m */; };
 		6DAB88381892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB881D1892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m */; };
-		6DAB88391892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB881F1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m */; };
-		6DAB883A1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88211892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.m */; };
 		6DAB883B1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88231892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m */; };
 		6DAB883C1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88251892D783003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreState.m */; };
 		6DAB883D1892D783003075D8 /* EPQuestionsTableViewControllerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB88271892D783003075D8 /* EPQuestionsTableViewControllerState.m */; };
@@ -237,7 +234,6 @@
 		6D44F3EA18B27CEB00188692 /* EPQuestionsRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsRefreshControl.h; sourceTree = "<group>"; };
 		6D44F3EB18B27CEB00188692 /* EPQuestionsRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsRefreshControl.m; sourceTree = "<group>"; };
 		6D44F3ED18B29BF700188692 /* EPTableViewRefreshControlDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPTableViewRefreshControlDelegate.h; sourceTree = "<group>"; };
-		6D44F3EE18B2CDD900188692 /* EPQuestionsRefreshControlTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsRefreshControlTests.m; sourceTree = "<group>"; };
 		6D44F3F018B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h; sourceTree = "<group>"; };
 		6D44F3F118B31F0800188692 /* EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.m; sourceTree = "<group>"; };
 		6D44F3F318B40D6600188692 /* EPSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPSnapshot.h; sourceTree = "<group>"; };
@@ -273,10 +269,6 @@
 		6DAB881B1892D783003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerEmptyNoQuestionsState.m; sourceTree = "<group>"; };
 		6DAB881C1892D783003075D8 /* EPQuestionsTableViewControllerInitialState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerInitialState.h; sourceTree = "<group>"; };
 		6DAB881D1892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerInitialState.m; sourceTree = "<group>"; };
-		6DAB881E1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsConnectionFailureState.h; sourceTree = "<group>"; };
-		6DAB881F1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsConnectionFailureState.m; sourceTree = "<group>"; };
-		6DAB88201892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsLoadingState.h; sourceTree = "<group>"; };
-		6DAB88211892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsLoadingState.m; sourceTree = "<group>"; };
 		6DAB88221892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h; sourceTree = "<group>"; };
 		6DAB88231892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m; sourceTree = "<group>"; };
 		6DAB88241892D783003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h; sourceTree = "<group>"; };
@@ -584,10 +576,6 @@
 				6DAB881B1892D783003075D8 /* EPQuestionsTableViewControllerEmptyNoQuestionsState.m */,
 				6DAB881C1892D783003075D8 /* EPQuestionsTableViewControllerInitialState.h */,
 				6DAB881D1892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m */,
-				6DAB881E1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.h */,
-				6DAB881F1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m */,
-				6DAB88201892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.h */,
-				6DAB88211892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.m */,
 				6DAB88221892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h */,
 				6DAB88231892D783003075D8 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.m */,
 				6DAB88241892D783003075D8 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h */,
@@ -827,7 +815,6 @@
 				6D3B883915B0D12E008EF63B /* EPAddQuestionViewControllerTests.m */,
 				D3972BA1157D89C7000C1819 /* Supporting Files */,
 				6D44F3E818B24A2B00188692 /* EPTableViewRefreshControlTests.m */,
-				6D44F3EE18B2CDD900188692 /* EPQuestionsRefreshControlTests.m */,
 			);
 			path = LogicUnitTests;
 			sourceTree = "<group>";
@@ -1202,7 +1189,6 @@
 				6DAB88301892D783003075D8 /* AgileToolbox.xcdatamodeld in Sources */,
 				6DAB88351892D783003075D8 /* EPQuestionsTableViewControllerEmptyConnectionFailureState.m in Sources */,
 				6DAB883F1892D783003075D8 /* EPFetchMoreTableViewCell.m in Sources */,
-				6DAB883A1892D783003075D8 /* EPQuestionsTableViewControllerQuestionsLoadingState.m in Sources */,
 				D387EF1C1536EF0400635736 /* main.m in Sources */,
 				D387EF201536EF0400635736 /* EPAppDelegate.m in Sources */,
 				D387EF261536EF0400635736 /* EPViewController.m in Sources */,
@@ -1212,7 +1198,6 @@
 				6D44F3CF18AD624400188692 /* EPQuestionDetailsTableViewController.m in Sources */,
 				6DE4650418A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m in Sources */,
 				6DAB88361892D783003075D8 /* EPQuestionsTableViewControllerEmptyLoadingState.m in Sources */,
-				6DAB88391892D783003075D8 /* EPQuestionsTableViewControllerQuestionsConnectionFailureState.m in Sources */,
 				6DAB88401892D783003075D8 /* EPQuestionTableViewCell.m in Sources */,
 				6DAB88381892D783003075D8 /* EPQuestionsTableViewControllerInitialState.m in Sources */,
 				6DAB885B1892EE9C003075D8 /* EPQuestionsTableViewControllerDependencyBootstrapper.m in Sources */,
@@ -1278,7 +1263,6 @@
 				D3C986E115A7543B007A41D8 /* EPMainMenuListViewController.m in Sources */,
 				6D268D2815B0448400946FE5 /* EPAppDelegateTests.m in Sources */,
 				6D268D2915B0497B00946FE5 /* EPAppDelegate.m in Sources */,
-				6D44F3EF18B2CDD900188692 /* EPQuestionsRefreshControlTests.m in Sources */,
 				6D3B883A15B0D12E008EF63B /* EPAddQuestionViewControllerTests.m in Sources */,
 				6D44F3E918B24A2B00188692 /* EPTableViewRefreshControlTests.m in Sources */,
 				6D3B883B15B0D9BB008EF63B /* EPAddQuestionViewController.m in Sources */,
@@ -1500,7 +1484,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "AgileToolbox/AgileToolbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = "-DTEST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=*]" = "";

@@ -115,6 +115,12 @@ BOOL valueNO = NO;
     
 }
 
+- (void)tearDown
+{
+    self.questionsTableViewControllePartialMock = nil;
+    [super tearDown];
+}
+
 - (void)testQuestionTableViewControllerHasPropertyForDataSourceSet
 {
     XCTAssertEqualObjects(self.vc.questionsDataSource, self.questionsDataSourceMock);
@@ -411,9 +417,13 @@ BOOL valueNO = NO;
 //------------------ Refresh Controller --------------
 - (void)testThatRefreshDelegatesToStateMachine
 {
+    [self disableViewPropertyForTheVC];
+    
     [[self.stateMachineMock expect] refresh:self.doesNotMatter];
     
-    [self.vc refresh:self.doesNotMatter];
+    [self.vc viewDidLoad];
+    
+    [self.vc.questionsRefreshControl refresh:self.doesNotMatter];
     
     [self.stateMachineMock verify];
 }
@@ -442,7 +452,80 @@ BOOL valueNO = NO;
     XCTAssertEqual((NSInteger)-1, [self.vc oldestQuestionId]);
 }
 
-//------------------ Navigating to Question Details View Controller --------------
+- (void)testThatRelinkToFetchedResultsControllerRestoresFetchedResultsControllerDelegate
+{
+    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+    
+    [self.vc relinkToFetchedResultsController];
+    
+    [self.fetchedResultsControllerMock verify];
+}
+
+- (void)testThatRelinkToFetchedResultsControllerPerformsFetchOnFetchedResultsController
+{
+    [[self.fetchedResultsControllerMock expect] performFetch:(NSError* __autoreleasing*)[OCMArg anyPointer]];
+    
+    [self.vc relinkToFetchedResultsController];
+    
+    [self.fetchedResultsControllerMock verify];
+}
+
+- (void)testThatRelinkToFetchedResultsControllerReloadsTableView
+{
+    [self mockTableView];
+    [[self.tableViewMock expect] reloadData];
+    
+    [self.vc relinkToFetchedResultsController];
+    
+    [self.tableViewMock verify];
+}
+
+- (void)testThatRelinkToFetchedResultsControllerClearsViewNeedsRefreshingFlag
+{
+    [[self.statePreservationAssistantMock expect] setViewNeedsRefreshing:NO];
+    
+    [self.vc relinkToFetchedResultsController];
+    
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatRelinkToFetchedResultsControllerClearsDataSourceBackgroundFetchingMode
+{
+    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:NO];
+    
+    [self.vc relinkToFetchedResultsController];
+    
+    [self.questionsDataSourceMock verify];
+}
+
+- (void)testThatDisconnectFromFetchedResultsControllerSetsTheViewNeedsRefreshingFlagToYES
+{
+    [[self.statePreservationAssistantMock expect] setViewNeedsRefreshing:YES];
+
+    [self.vc disconnectFromFetchedResultsController];
+
+    [self.statePreservationAssistantMock verify];
+}
+
+- (void)testThatDisconnectFromFetchedResultsControllerSetsDataSourceBackgroundFetchingModeToYES
+{
+    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:YES];
+
+    [self.vc disconnectFromFetchedResultsController];
+
+    [self.questionsDataSourceMock verify];
+}
+
+- (void)testThatDisconnectFromFetchedResultsControllerSetsTheFetchedResultsControllerDelegateToNil
+{
+    [[self.fetchedResultsControllerMock expect] setDelegate:nil];
+
+    [self.vc disconnectFromFetchedResultsController];
+
+    [self.fetchedResultsControllerMock verify];
+}
+
+//------------------ Navigating to Child View Controllers --------------
 - (void)testPrepareForSegueDelegatesToStateMachine
 {
     id segueMock = [OCMockObject mockForClass:[UIStoryboardSegue class]];

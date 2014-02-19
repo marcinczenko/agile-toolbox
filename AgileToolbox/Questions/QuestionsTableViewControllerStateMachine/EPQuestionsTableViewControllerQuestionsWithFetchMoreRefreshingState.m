@@ -69,13 +69,21 @@
 
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
 {
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-    [self.viewController.questionsRefreshControl endRefreshing];
-    
-    if (self.viewController.viewIsVisible) {
-        // the view might have dissapear in the meantime
-        [self.tableViewExpert.fetchMoreCell setCellText:EPFetchMoreTableViewCellTextDefault];
-    }
+    if (self.connectionFailurePending) {
+        // It may have happened that on waiting for connection failure completion event
+        // we left the screen which means viewWillDisappear happened where we
+        // reset all failure indicators and move to appropriate state.
+        // In such a case, we should execte the methods below.
+        // See also viewWillDisappear.
+        
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
+        [self.viewController.questionsRefreshControl endRefreshing];
+        
+        if (self.viewController.viewIsVisible) {
+            // the view might have dissapear in the meantime
+            [self.tableViewExpert.fetchMoreCell setCellText:EPFetchMoreTableViewCellTextDefault];
+        }
+    }    
 }
 
 - (void)connectionFailure

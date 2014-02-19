@@ -6,13 +6,14 @@
 //
 //
 
-#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
+#import "EPQuestionsTableViewControllerEmptyLoadingState.h"
 
-@interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState : EPQuestionsTableViewControllerQuestionsLoadingState
+@interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState : EPQuestionsTableViewControllerEmptyLoadingState
 
-@property (nonatomic,assign) BOOL connectionFailureFlag;
+@property (nonatomic,assign) BOOL connectionFailurePending;
 
 - (void)handleEvent;
+- (void)handleConnectionFailureUsingNativeRefreshControl;
 - (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler;
 - (void)keepVisibleFor:(double)seconds completionBlock:(void (^)())block;
 - (void)checkAndCancelRestoringScrollPosition;

@@ -17,7 +17,6 @@ typedef void (^EPTableViewRefreshControlRefreshBlockType)(id refreshControl);
 @property (nonatomic,copy) NSString* title;
 @property (nonatomic,readonly) BOOL isRefreshing;
 @property (nonatomic,weak) id<EPTableViewRefreshControlDelegate> delegate;
-//@property (nonatomic,readonly) UIRefreshControl* uiRefreshControl;
 @property (nonatomic,readonly) UITableViewController* tableViewController;
 
 - (instancetype)initWithTableViewController:(UITableViewController*)tableViewController;
@@ -34,7 +33,8 @@ typedef void (^EPTableViewRefreshControlRefreshBlockType)(id refreshControl);
 - (void)beforeBeginRefreshing;
 - (void)afterBeginRefreshing;
 
-// do not call - only for testing
+// you should not need to call these - only for testing
 - (void)refresh:(UIRefreshControl*)refreshControl;
+- (void)initializationHackHook;
 
 @end

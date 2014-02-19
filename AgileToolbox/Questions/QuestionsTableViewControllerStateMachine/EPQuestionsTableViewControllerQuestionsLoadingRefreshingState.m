@@ -70,37 +70,5 @@
     [self checkAndCancelRestoringScrollPosition];
 }
 
-- (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
-{
-    if (self.connectionFailureFlag) {
-        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-        [self.viewController.questionsRefreshControl endRefreshing];
-    }
-}
-
-- (void)handleConnectionFailureUsingNativeRefreshControl
-{
-    self.viewController.questionsRefreshControl.title = EPFetchMoreTableViewCellTextConnectionFailure;
-    
-    [self keepVisibleFor:2.0 completionBlock:^{
-        [self handleConnectionFailureUsingNativeRefreshControlCompletionHandler];
-    }];
-}
-
-- (void)connectionFailure
-{
-    [self.tableViewExpert.fetchMoreCell setCellText:EPFetchMoreTableViewCellTextConnectionFailure];
-    self.connectionFailureFlag = YES;    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [self handleConnectionFailureUsingNativeRefreshControl];
-}
-
-- (void)connectionFailureInBackground
-{
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [self.viewController.questionsRefreshControl endRefreshing];
-    [self checkAndCancelRestoringScrollPosition];
-}
 
 @end

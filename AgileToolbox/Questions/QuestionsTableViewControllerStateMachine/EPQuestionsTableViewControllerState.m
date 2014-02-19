@@ -23,6 +23,11 @@
 
 @implementation EPQuestionsTableViewControllerState
 
++ (NSInteger)tagSnapshot
+{
+    return 1900;
+}
+
 - (id)initWithViewController:(EPQuestionsTableViewController*)viewController
              tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
              andStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine
@@ -65,7 +70,7 @@
         
         [self setTableViewBackgroundColor];
         
-        [self.viewController.statePreservationAssistant.snapshot displayInView:self.tableViewExpert.tableView withTag:1900 originComputationBlock:^CGPoint{
+        [self.viewController.statePreservationAssistant.snapshot displayInView:self.tableViewExpert.tableView withTag:[self.class tagSnapshot] originComputationBlock:^CGPoint{
             // Q: contentSize or better contentInset?
             // A: contentSize is set when bounds are set even though contentInset is still not set
             //    when bounds are non-zero it is save to position the contents
@@ -97,7 +102,7 @@
 
         self.tableViewExpert.tableView.bounds = correctedBounds;
         
-        [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:1900 fromSuperview:self.tableViewExpert.tableView];
+        [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:[self.class tagSnapshot] fromSuperview:self.tableViewExpert.tableView];
         self.tableViewExpert.tableView.userInteractionEnabled = YES;
     }
 }
@@ -106,7 +111,7 @@
 {
     self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
     
-    if (-64.0>=self.tableViewExpert.tableView.bounds.origin.y && !self.viewController.refreshControl.isRefreshing) {
+    if (-[self.viewController heightOfNavigationBarAndStatusBar]>=self.tableViewExpert.tableView.bounds.origin.y && !self.viewController.refreshControl.isRefreshing) {
         return ;
     }
     

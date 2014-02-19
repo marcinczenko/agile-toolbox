@@ -54,11 +54,6 @@
     [[[self.preservationAssistantMock stub] andReturnValue:OCMOCK_VALUE(needsRefreshing)] viewNeedsRefreshing];
 }
 
-- (void)expectSnapshotViewExists
-{
-    [[[self.preservationAssistantMock stub] andReturn:self.snapshotViewMock] snapshotView];
-}
-
 - (void)mockFetchedResultsController
 {
     [[[self.viewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
@@ -125,7 +120,7 @@
     [[[self.fetchedResultsControllerMock stub] andReturn:question] objectAtIndexPath:indexPath];
 }
 
-- (void)testThatPrepareForSequeProvidesQuestionsDetailsViewControllerWithValidQuestionObjectWhenNativeRefreshControlIsActive
+- (void)testThatPrepareForSequeProvidesQuestionsDetailsViewControllerWithValidQuestionObject
 {
     [[[self.viewControllerMock stub] andReturn:[NSObject new]] refreshControl];
     
@@ -136,27 +131,6 @@
     
     id questionMock = [OCMockObject mockForClass:[Question class]];
     [self setQuestionObject:questionMock inFetchedResultsControllerAtIndexPath:selectedRowIndexPath];
-    
-    [[self.questionDetailsTableViewControllerMock expect] setQuestion:questionMock];
-    
-    [self.state prepareForSegue:self.segueMock];
-    
-    [self.questionDetailsTableViewControllerMock verify];
-}
-
-- (void)testThatPrepareForSequeProvidesQuestionsDetailsViewControllerWithValidQuestionObjectWhenNativeRefreshControlIsNotActive
-{
-    [[[self.viewControllerMock stub] andReturn:nil] refreshControl];
-    
-    [self setupSegueForSegueName:@"QuestionDetails"];
-    
-    NSIndexPath* selectedRowIndexPath = [NSIndexPath indexPathForRow:10 inSection:0];
-    [self setSelectedRowIndexPath:selectedRowIndexPath];
-    
-    NSIndexPath* adjustedIndexPath = [NSIndexPath indexPathForRow:selectedRowIndexPath.row-1 inSection:selectedRowIndexPath.section];
-    
-    id questionMock = [OCMockObject mockForClass:[Question class]];
-    [self setQuestionObject:questionMock inFetchedResultsControllerAtIndexPath:adjustedIndexPath];
     
     [[self.questionDetailsTableViewControllerMock expect] setQuestion:questionMock];
     

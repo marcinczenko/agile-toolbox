@@ -19,6 +19,8 @@
 @property (nonatomic,weak) EPQuestionsTableViewExpert *tableViewExpert;
 @property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
 
++ (NSInteger)tagSnapshot;
+
 - (id)initWithViewController:(EPQuestionsTableViewController*)viewController
           tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
              andStateMachine:(EPQuestionsTableViewControllerStateMachine*)stateMachine;

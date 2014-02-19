@@ -10,6 +10,7 @@
 #import "OCMock/OCMock.h"
 
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
+#import "EPSnapshot.h"
 
 #import "EPQuestionsTableViewController.h"
 #import "EPPersistentStoreHelper.h"
@@ -24,7 +25,8 @@
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 @property (nonatomic,strong) id tableViewMock;
 @property (nonatomic,strong) id tableViewExpertMock;
-@property (nonatomic,strong) id uiImageViewMock;
+@property (nonatomic,strong) id uiImageMock;
+@property (nonatomic,strong) id snapshotMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -51,7 +53,8 @@ static const BOOL valueNO = NO;
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
     self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
-    self.uiImageViewMock = [OCMockObject niceMockForClass:[UIImageView class]];
+    self.uiImageMock = [OCMockObject niceMockForClass:[UIImage class]];
+    self.snapshotMock = [OCMockObject niceMockForClass:[EPSnapshot class]];
 }
 
 - (void)tearDown
@@ -109,8 +112,6 @@ static const BOOL valueNO = NO;
 
 - (void)simulateFirstVisibleIndexPathToBe:(NSIndexPath*)indexPath
 {
-    // YES - indexForRowAtPoint: is expected to be call twice - the second call is for adjustment
-    [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
     [[[[self.tableViewMock expect] ignoringNonObjectArgs] andReturn:indexPath] indexPathForRowAtPoint:CGPointMake(0, 0)];
     
     NSArray* questions = [self questionsWithQuestionIdUpToAndIncluding:indexPath.row];
@@ -151,38 +152,40 @@ static const BOOL valueNO = NO;
 {
     id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
-    [[self.uiImageViewMock expect] encodeWithCoder:coder];
+    [[self.snapshotMock expect] encodeWithCoder:coder];
     
     id preservationAssistantPartialMock = [OCMockObject partialMockForObject:self.preservationAssistant];
-    [[[preservationAssistantPartialMock stub] andReturn:self.uiImageViewMock] snapshotView];
+    [[[preservationAssistantPartialMock stub] andReturn:self.snapshotMock] snapshot];
     
     [self.preservationAssistant encodeWithCoder:coder];
     
-    [self.uiImageViewMock verify];
+    [self.snapshotMock verify];
 }
 
-- (void)testThatEncodeWithCoderSavesTheContentOffsetToPersistentStorage
+- (void)testThatEncodeWithCoderSavesTheBoundsToPersistentStorage
 {
-    id coder = [OCMockObject mockForClass:[NSCoder class]];
+    id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
-    [[coder expect] encodeCGPoint:self.preservationAssistant.contentOffset forKey:[EPQuestionsTableViewControllerStatePreservationAssistant contentOffsetKey]];
+    self.preservationAssistant.bounds = CGRectMake(0, -64, 320, 568);
+    
+    [[coder expect] encodeCGRect:self.preservationAssistant.bounds forKey:[EPQuestionsTableViewControllerStatePreservationAssistant kBounds]];
     
     [self.preservationAssistant encodeWithCoder:coder];
     
     [coder verify];
 }
 
-- (void)testThatInitWithCoderRestoresTheContentOffsetFromPersistentStorage
+- (void)testThatInitWithCoderRestoresTheBoundsFromPersistentStorage
 {
     id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
-    CGPoint expectedContentOffset = CGPointMake(0.0, -64.0);
+    CGRect expectedBounds = CGRectMake(0, -64, 320, 568);
     
-    [[[coder expect] andReturnValue:OCMOCK_VALUE(expectedContentOffset)] decodeCGPointForKey:[EPQuestionsTableViewControllerStatePreservationAssistant contentOffsetKey]];
+    [[[coder expect] andReturnValue:OCMOCK_VALUE(expectedBounds)] decodeCGRectForKey:[EPQuestionsTableViewControllerStatePreservationAssistant kBounds]];
     
     EPQuestionsTableViewControllerStatePreservationAssistant* assistant = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] initWithCoder:coder];
     
-    XCTAssertEqual(expectedContentOffset, assistant.contentOffset);
+    XCTAssertEqual(expectedBounds, assistant.bounds);
     
     [coder verify];
 }
@@ -205,47 +208,6 @@ static const BOOL valueNO = NO;
     [self.preservationAssistant recordCurrentStateForViewController:self.questionsTableViewControllerMock];
     
     [preservationAssistantPartialMock verify];
-}
-
-- (void)testThatRecordCurrentStateForViewControllerStoresTheContentOffset
-{
-    id preservationAssistantPartialMock = [OCMockObject partialMockForObject:self.preservationAssistant];
-    [[preservationAssistantPartialMock expect] storeContentOffsetForViewController:self.questionsTableViewControllerMock];
-    
-    [self.preservationAssistant recordCurrentStateForViewController:self.questionsTableViewControllerMock];
-    
-    [preservationAssistantPartialMock verify];
-}
-
-
-- (void)testThatCreateSnapshotForViewControllerGetsTheSnapshotFromTableViewExpertAndSavesTheResultInMemberVariable
-{
-    XCTAssertNil(self.preservationAssistant.snapshotView);
-    
-    [self mockTableViewExpert];
-    
-    [[[self.tableViewExpertMock expect] andReturn:self.uiImageViewMock] createSnapshotView];
-    
-    [self.preservationAssistant createSnapshotViewForViewController:self.questionsTableViewControllerMock];
-    
-    [self.tableViewExpertMock verify];
-    
-    XCTAssertEqualObjects(self.uiImageViewMock, self.preservationAssistant.snapshotView);
-}
-
-- (void)testThatStoreTableViewContentOffsetGetsTheContentOffsetFromTableViewExpertAndSavesTheResultInMemberVariable
-{
-    XCTAssertEqual(CGPointZero, self.preservationAssistant.contentOffset);
-    
-    CGPoint expectedContentOffset = CGPointMake(0.0, -64.0);
-    
-    [self mockTableViewExpert];
-    [[[self.tableViewExpertMock stub] andReturn:self.tableViewMock] tableView];
-    [[[self.tableViewMock stub] andReturnValue:OCMOCK_VALUE(expectedContentOffset)] contentOffset];
-    
-    [self.preservationAssistant storeContentOffsetForViewController:self.questionsTableViewControllerMock];
-    
-    XCTAssertEqual(expectedContentOffset, self.preservationAssistant.contentOffset);
 }
 
 - (void)testStoringAndRestoringIndexPathOfTheFirstVisibleRow
