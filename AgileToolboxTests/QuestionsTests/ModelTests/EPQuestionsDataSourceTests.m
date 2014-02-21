@@ -477,6 +477,23 @@ static const BOOL valueYES = YES;
     [persistentStoreHelperMock verify];
 }
 
+- (void)testThatStoreToPersistentStorageSaveToCoreData
+{
+    id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
+    [[[questionsPartialMock stub] andReturnValue:OCMOCK_VALUE(valueNO)] hasMoreQuestionsToFetch];
+    [[questionsPartialMock expect] saveToCoreData];
+    
+    id persistentStoreHelperMock = [OCMockObject niceMockForClass:[EPPersistentStoreHelper class]];
+    [[persistentStoreHelperMock expect] storeDictionary:@{[EPQuestionsDataSource hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:valueNO]}
+                                                 toFile:[EPQuestionsDataSource persistentStoreFileName]];
+    
+    [self.questionsWithNilConnection storeToPersistentStorage];
+    
+    [questionsPartialMock verify];
+    [persistentStoreHelperMock verify];
+}
+
+
 - (void)testThatDataSourceRestoresPreviouslyStoredContentWhenHasMoreQuestionsToFetchIsYES
 {
     NSDictionary* restoredDictionary = @{[EPQuestionsDataSource hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:YES]};

@@ -13,10 +13,13 @@
 
 #import "EPQuestionHeaderTextView.h"
 #import "EPQuestionContentAndAnswerTextView.h"
+#import "EPQuestionUpdatedTextView.h"
 
 #import "EPOverlayNotifierView.h"
 
 #import "EPPersistentStoreHelper.h"
+
+#import "EPAppDelegate.h"
 
 static NSString* const kQuestionHeader = @"Header";
 static NSString* const kQuestionContent = @"Content";
@@ -29,6 +32,9 @@ static NSString* const kQuestionUpdated = @"Updated";
 @property (nonatomic,strong) EPQuestionContentAndAnswerTextView* contentTextView;
 @property (nonatomic,strong) EPQuestionContentAndAnswerTextView* answerTextView;
 @property (nonatomic,strong) EPOverlayNotifierView* updatedDateView;
+@property (nonatomic,strong) EPQuestionUpdatedTextView* updatedTextView;
+
+@property (nonatomic,strong) NSMutableArray* textViews;
 
 @property (nonatomic,copy) NSString* questionHeader;
 @property (nonatomic,copy) NSString* questionContent;
@@ -38,6 +44,16 @@ static NSString* const kQuestionUpdated = @"Updated";
 @end
 
 @implementation EPQuestionDetailsTableViewController
+
++ (UIColor*)colorYellow
+{
+    return [UIColor colorWithRed:255/255.0f green:204/255.0f blue:0/255.0f alpha:1.0];
+}
+
++ (UIColor*)colorGreen
+{
+    return [UIColor colorWithRed:60/255.0f green:152/255.0f blue:4/255.0f alpha:1.0f];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -112,15 +128,24 @@ static NSString* const kQuestionUpdated = @"Updated";
 {
     _question = question;
     [self copyQuestion:question];
+    
+    
+}
+
+- (void)setupTextViews
+{
+    self.textViews = [NSMutableArray arrayWithArray:@[@{@"color": [UIColor grayColor], @"view":[self setUpHeaderTextView]},
+                                                      @{@"color": [self.class colorYellow], @"view":[self setUpContentTextView]},
+                                                      @{@"color": [self.class colorGreen], @"view":[self setUpAnswerTextView]}]];
+    
+
+//    [self setUpUpdatedOverlayView];
 }
 
 - (void)configureView
 {
     if (self.questionContent) {
-        [self setUpHeaderTextView];
-        [self setUpContentTextView];
-        [self setUpAnswerTextView];
-        [self setUpUpdatedOverlayView];
+        [self setupTextViews];
         [self.tableView reloadData];
     }
 }
@@ -143,12 +168,39 @@ static NSString* const kQuestionUpdated = @"Updated";
     
 }
 
+- (void)addUpdatedCellAnimated
+{
+    UITextView* textView = [self setupUpdatedTextView];
+    
+    [self.textViews insertObject:@{@"color": [self.class colorYellow], @"view":textView}
+                         atIndex:0];
+    
+    CGPoint contentOffset = self.tableView.contentOffset;
+    
+    [self.tableView reloadData];
+    self.tableView.contentOffset = CGPointMake(contentOffset.x, contentOffset.y+textView.contentSize.height);
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.tableView.contentOffset = contentOffset;
+    }];
+}
+
+- (void)updateQuestionStatusInCoreData
+{
+    if (self.question.updatedOrNew) {
+        self.question.updatedOrNew = NO;        
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if (self.questionUpdated) {
-        [self.updatedDateView addToView:self.view for:3.0];
+        [self addUpdatedCellAnimated];
+//        [self.updatedDateView addToView:self.view for:3.0];
     }
+    [self updateQuestionStatusInCoreData];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -166,54 +218,65 @@ static NSString* const kQuestionUpdated = @"Updated";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 3;
+    return self.textViews.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return ((UITextView*)self.textViews[indexPath.row][@"view"]).contentSize.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-            return [EPAttributedTextTableViewCell cellDequeuedFromTableView:tableView
-                                                               forIndexPath:indexPath
-                                                              usingTextView:self.headerTextView];
-        case 1:
-            return [EPAttributedTextTableViewCell cellDequeuedFromTableView:tableView
-                                                               forIndexPath:indexPath
-                                                              usingTextView:self.contentTextView];
-        case 2:
-            return [EPAttributedTextTableViewCell cellDequeuedFromTableView:tableView
-                                                               forIndexPath:indexPath
-                                                              usingTextView:self.answerTextView];
-        default:
-            return nil;
-    }
+    
+    EPAttributedTextTableViewCell* cell = [EPAttributedTextTableViewCell cellDequeuedFromTableView:tableView
+                                                                                      forIndexPath:indexPath
+                                                                                     usingTextView:self.textViews[indexPath.row][@"view"]];
+    
+    cell.backgroundColor = self.textViews[indexPath.row][@"color"];
+    
+    return cell;
+    
 }
 
-- (void)setUpHeaderTextView
+- (UITextView*)setUpHeaderTextView
 {
     self.headerTextView = [[EPQuestionHeaderTextView alloc] initWithText:self.questionHeader];
+    
+    return self.headerTextView;
 }
 
 
-- (void)setUpContentTextView
+- (UITextView*)setUpContentTextView
 {
     self.contentTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.questionContent];
+    
+    return self.contentTextView;
 }
 
-- (void)setUpAnswerTextView
+- (UITextView*)setUpAnswerTextView
 {
     if (!self.question.answer || 0==self.question.answer.length) {
         self.answerTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:@"Awaiting answer..."];
     } else {
         self.answerTextView = [[EPQuestionContentAndAnswerTextView alloc] initWithText:self.questionAnswer];
     }
+    
+    return self.answerTextView;
+}
+
+- (UITextView*)setupUpdatedTextView
+{
+    self.updatedTextView = [[EPQuestionUpdatedTextView alloc] initWithText:[NSString stringWithFormat:@"Last updated on %@",[self stringFromDate:self.questionUpdated]]];
+    self.updatedTextView.backgroundColor = [self.class colorYellow];
+    self.updatedTextView.textAlignment = NSTextAlignmentCenter;
+    
+    return self.updatedTextView;
 }
 
 - (NSString*)stringFromDate:(NSDate*)date
@@ -229,21 +292,6 @@ static NSString* const kQuestionUpdated = @"Updated";
 {
     self.updatedDateView = [[EPOverlayNotifierView alloc] initWithTableViewFrame:self.view.frame];
     self.updatedDateView.text = [NSString stringWithFormat:@"Last updated on %@",[self stringFromDate:self.questionUpdated]];
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (indexPath.row) {
-        case 0:
-            return self.headerTextView.textContainer.size.height;
-        case 1:
-            return self.contentTextView.textContainer.size.height;
-        case 2:
-            return self.answerTextView.textContainer.size.height;
-        default:
-            return 0;
-    }
 }
 
 /*

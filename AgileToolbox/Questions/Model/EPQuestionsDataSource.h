@@ -40,4 +40,5 @@
 
 #pragma mark - only for testing purposes - do not call these methods directly
 - (void)addToCoreData:(NSArray*)questionsArray;
+- (void)saveToCoreData;
 @end

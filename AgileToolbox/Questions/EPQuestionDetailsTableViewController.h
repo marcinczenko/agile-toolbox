@@ -12,6 +12,7 @@
 @interface EPQuestionDetailsTableViewController : UITableViewController
 
 @property (nonatomic,weak) Question* question;
+//@property
 
 @property (nonatomic,copy,readonly) NSString* questionHeader;
 @property (nonatomic,copy,readonly) NSString* questionContent;

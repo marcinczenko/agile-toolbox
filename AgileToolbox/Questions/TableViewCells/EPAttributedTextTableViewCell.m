@@ -51,8 +51,6 @@
 {
     EPAttributedTextTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"AttributedTextTableViewCell"
                                                                           forIndexPath:indexPath];
-//    cell.myTextView = textView;
-//    cell.backgroundColor = [UIColor clearColor];
     
     cell.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
     

@@ -11,7 +11,8 @@
 #import "EPQuestionsTableViewControllerStateMachine.h"
 
 #import "EPQuestionDetailsTableViewController.h"
-#import "EPAddQuestionViewController.h"
+#import "EPAddQuestionTableViewController.h"
+
 
 #import "EPPersistentStoreHelper.h"
 
@@ -162,14 +163,24 @@
 - (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     
-    [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                          withRowAnimation:UITableViewRowAnimationNone];
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self.tableViewExpert.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        default:
+            break;
+    }
 }
 
 
 - (void)controllerDidChangeContent
 {
-    
+    [self.tableViewExpert.tableView endUpdates];
 }
 
 - (void)fetchReturnedNoData
@@ -235,11 +246,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
 {
     if ([segue.identifier isEqualToString:@"AddQuestion"]) {
+        EPAddQuestionTableViewController* addQuestionViewController = (EPAddQuestionTableViewController*)segue.destinationViewController;
         
-        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
+        addQuestionViewController.statePreservationAssistant = self.viewController.statePreservationAssistant;
+        addQuestionViewController.questionsDataSource = self.viewController.questionsDataSource;
         
-        EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
-        destinationVC.delegate = self.viewController;
+//        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
+//        
+//        EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
+//        destinationVC.delegate = self.viewController;
     } else if ([segue.identifier isEqualToString:@"QuestionDetails"]) {
         EPQuestionDetailsTableViewController* questionDetailsViewController = (EPQuestionDetailsTableViewController*)segue.destinationViewController;
         

@@ -69,6 +69,7 @@
 {
     NSDictionary* dataDictionary = @{[self.class hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:self.hasMoreQuestionsToFetch]};
     [EPPersistentStoreHelper storeDictionary:dataDictionary toFile:[self.class persistentStoreFileName]];
+    [self saveToCoreData];
 }
 
 - (void)restoreFromPersistentStorage
