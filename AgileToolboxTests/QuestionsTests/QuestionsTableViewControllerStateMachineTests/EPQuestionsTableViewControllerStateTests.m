@@ -13,7 +13,8 @@
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 
 #import "EPQuestionDetailsTableViewController.h"
-#import "EPAddQuestionViewController.h"
+#import "EPAddQuestionTableViewController.h"
+#import "EPPostmanProtocol.h"
 
 @interface EPQuestionsTableViewControllerStateTests : XCTestCase
 
@@ -33,7 +34,7 @@
 
 @property (nonatomic,strong) id segueMock;
 @property (nonatomic,strong) id questionDetailsTableViewControllerMock;
-@property (nonatomic,strong) id addQuestionViewControllerMock;
+@property (nonatomic,strong) id addQuestionTableViewControllerMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -79,7 +80,7 @@
     
     self.segueMock = [OCMockObject niceMockForClass:[UIStoryboardSegue class]];
     self.questionDetailsTableViewControllerMock = [OCMockObject niceMockForClass:[EPQuestionDetailsTableViewController class]];
-    self.addQuestionViewControllerMock = [OCMockObject niceMockForClass:[EPAddQuestionViewController class]];
+    self.addQuestionTableViewControllerMock = [OCMockObject niceMockForClass:[EPAddQuestionTableViewController class]];
     
     self.preservationAssistantMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStatePreservationAssistant class]];
     self.snapshotMock = [OCMockObject niceMockForClass:[EPSnapshot class]];
@@ -356,9 +357,7 @@
     if ([@"QuestionDetails" isEqualToString:name]) {
         [[[self.segueMock stub] andReturn:self.questionDetailsTableViewControllerMock] destinationViewController];
     } else {
-        id navigationControllerMock = [OCMockObject niceMockForClass:[UINavigationController class]];
-        [[[navigationControllerMock stub] andReturn:self.addQuestionViewControllerMock] topViewController];
-        [[[self.segueMock stub] andReturn:navigationControllerMock] destinationViewController];
+        [[[self.segueMock stub] andReturn:self.addQuestionTableViewControllerMock] destinationViewController];
     }
     
 }
@@ -398,11 +397,16 @@
 {
     [self setupSegueForSegueName:@"AddQuestion"];
     
-    [[self.addQuestionViewControllerMock expect] setDelegate:self.viewControllerMock];
+    id postmanMock = [OCMockObject mockForProtocol:@protocol(EPPostmanProtocol)];
+    [[[self.viewControllerMock stub] andReturn:postmanMock] postman];
+    
+    [[self.addQuestionTableViewControllerMock expect] setStatePreservationAssistant:self.preservationAssistantMock];
+    [[self.addQuestionTableViewControllerMock expect] setQuestionsDataSource:self.questionsDataSourceMock];
+    [[self.addQuestionTableViewControllerMock expect] setPostman:postmanMock];
     
     [self.state prepareForSegue:self.segueMock];
     
-    [self.addQuestionViewControllerMock verify];
+    [self.addQuestionTableViewControllerMock verify];
 }
 
 

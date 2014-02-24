@@ -250,11 +250,8 @@
         
         addQuestionViewController.statePreservationAssistant = self.viewController.statePreservationAssistant;
         addQuestionViewController.questionsDataSource = self.viewController.questionsDataSource;
+        addQuestionViewController.postman = self.viewController.postman;
         
-//        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
-//        
-//        EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
-//        destinationVC.delegate = self.viewController;
     } else if ([segue.identifier isEqualToString:@"QuestionDetails"]) {
         EPQuestionDetailsTableViewController* questionDetailsViewController = (EPQuestionDetailsTableViewController*)segue.destinationViewController;
         

@@ -192,17 +192,6 @@ BOOL valueNO = NO;
     XCTAssertEqualObjects(self.vc.postman, self.postmanMock);
 }
 
-- (void)testThatViewRegistersItselfAsTheDelegateOfThePostman
-{
-    [self disableViewPropertyForTheVC];
-    
-    [[self.postmanMock expect] setDelegate:self.vc];
-    
-    [self.vc viewDidLoad];
-    
-    [self.postmanMock verify];
-}
-
 - (void)testThatViewRegistersItselfAsTheDelegateOfTheDataSource
 {
     [self disableViewPropertyForTheVC];
@@ -329,26 +318,6 @@ BOOL valueNO = NO;
     [self.vc connectionFailure];
     
     [self.stateMachineMock verify];
-}
-
-- (void)testThatAppropriatePostmanMethodIsCalledWhenNewQuestionIsAdded
-{
-    NSString * addedQuestion = @"New Question";
-    
-    [[self.postmanMock expect] post:addedQuestion];
-
-    [self.vc questionAdded:addedQuestion];
-
-    [self.postmanMock verify];
-}
-
-- (void)testThatDataSourceDownloadIsForcedWhenPostmanConfirmesThatANewQuestionHasBeenAddedSuccessfully
-{
-    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:-1 andOldestQuestionId:-1];
-    
-    [self.vc postDelivered];
-    
-    [self.questionsDataSourceMock verify];
 }
 
 - (void)testThatWillResignActiveNotificationDelegatesToStateMachine

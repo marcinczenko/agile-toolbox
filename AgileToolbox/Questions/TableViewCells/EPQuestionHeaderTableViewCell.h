@@ -10,8 +10,6 @@
 
 @interface EPQuestionHeaderTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextField *questionHeader;
-
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath withTextField:(UITextField*)textField;
+- (id)initWithTextField:(UITextField*)textField;
 
 @end

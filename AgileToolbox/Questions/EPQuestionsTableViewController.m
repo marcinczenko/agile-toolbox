@@ -47,7 +47,6 @@
 {
     self.fetchedResultsController.delegate = self;
     self.questionsDataSource.delegate = self;
-    [self.postman setDelegate:self];
     self.tableView.delegate = self;
 }
 
@@ -59,6 +58,7 @@
     [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [center addObserver:self selector:@selector(preferredFontChanged:) name:UIContentSizeCategoryDidChangeNotification object:[UIApplication sharedApplication]];
 }
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
@@ -106,6 +106,11 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)preferredFontChanged: (NSNotification*)notification
+{
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)willResignActiveNotification:(NSNotification*)paramNotification
@@ -362,19 +367,6 @@
 
 #pragma mark - EPAddQuestionDelegateProtocol
 - (void)questionAdded:(NSString *)question
-{
-    [self.postman post:question];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-}
-
-#pragma mark - EPPostmanDelegateProtocol
-- (void)postDelivered
-{
-    [self.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:-1 andOldestQuestionId:-1];
-}
-
-// TODO: not yet supported
-- (void)postDeliveryFailed
 {
     
 }

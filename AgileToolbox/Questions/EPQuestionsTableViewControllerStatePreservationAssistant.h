@@ -20,18 +20,24 @@
 @property (nonatomic,readonly) EPSnapshot* snapshot;
 @property (nonatomic,assign) CGRect bounds;
 @property (nonatomic,assign) CGFloat scrollDelta;
-// // EPAddQuestionTableViewController
+// EPAddQuestionTableViewController
 @property (nonatomic,assign) NSRange selectedRange;
 @property (nonatomic,assign) BOOL isContentViewFirstResponder;
 @property (nonatomic,strong) NSString* addQuestionViewHeaderText;
 @property (nonatomic,strong) NSString* addQuestionViewContentText;
 @property (nonatomic,assign) CGFloat addQuestionContentCellHeight;
 @property (nonatomic,assign) CGPoint addQuestionTableViewContentOffset;
+@property (nonatomic,strong) EPSnapshot* addQuestionViewWillDisappearSnapshot;
 
 
 + (NSString*)persistentStoreFileName;
++ (NSString*)kIdOfTheFirstVisibleRow;
++ (NSString*)kSnapshot;
 + (NSString*)kBounds;
 + (NSString*)kScrollDelta;
+
++ (NSString*)kAddQuestionViewHeaderText;
++ (NSString*)kAddQuestionViewContentText;
 
 + (instancetype)restoreFromPersistentStorage;
 

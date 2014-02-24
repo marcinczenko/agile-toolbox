@@ -135,31 +135,31 @@ static const BOOL valueNO = NO;
 
 - (void)testThatEncodeWithCoderSavesTheIdOfTheFirstVisibleRowToPersistentStorage
 {
+    id NSURLMock = [OCMockObject niceMockForClass:[NSURL class]];
+    
     id coder = [OCMockObject niceMockForClass:[NSCoder class]];
     
-    id NSURLMock = [OCMockObject niceMockForClass:[NSURL class]];
-    [[NSURLMock expect] encodeWithCoder:coder];
+    [[coder expect] encodeObject:NSURLMock forKey:[EPQuestionsTableViewControllerStatePreservationAssistant kIdOfTheFirstVisibleRow]];
     
     id preservationAssistantPartialMock = [OCMockObject partialMockForObject:self.preservationAssistant];
     [[[preservationAssistantPartialMock stub] andReturn:NSURLMock] idOfTheFirstVisibleRow];
     
     [self.preservationAssistant encodeWithCoder:coder];
     
-    [NSURLMock verify];
+    [coder verify];
 }
 
 - (void)testThatEncodeWithCoderSavesTheSnapshotOfTheUIToPersistentStorage
 {
     id coder = [OCMockObject niceMockForClass:[NSCoder class]];
-    
-    [[self.snapshotMock expect] encodeWithCoder:coder];
+    [[coder expect] encodeObject:self.snapshotMock forKey:[EPQuestionsTableViewControllerStatePreservationAssistant kSnapshot]];
     
     id preservationAssistantPartialMock = [OCMockObject partialMockForObject:self.preservationAssistant];
     [[[preservationAssistantPartialMock stub] andReturn:self.snapshotMock] snapshot];
     
     [self.preservationAssistant encodeWithCoder:coder];
     
-    [self.snapshotMock verify];
+    [coder verify];
 }
 
 - (void)testThatEncodeWithCoderSavesTheBoundsToPersistentStorage

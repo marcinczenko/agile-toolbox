@@ -12,7 +12,6 @@
 @interface EPQuestionTableViewCell ()
 
 @property (strong, nonatomic) NSDate* updatedNSDate;
-@property (strong, nonatomic) NSDate* currentDate;
 
 @property (nonatomic, strong) NSTimer *updateTimer;
 
@@ -44,6 +43,15 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setupUpdatedFieldUpdateTimer];
+    }
+    return self;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -62,16 +70,13 @@
 
 - (void)updateTimerHandler:(NSTimer*)sender
 {
-    self.currentDate = [NSDate date];
-    self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:self.currentDate];
+    self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:[NSDate date]];
 }
 
 + (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath andQuestion:(Question*)question
 {
     EPQuestionTableViewCell *questionCell = [tableView dequeueReusableCellWithIdentifier:@"QATQuestionsAndAnswersCell"
                                                                             forIndexPath:indexPath];
-    
-    [questionCell setupUpdatedFieldUpdateTimer];
     
     [questionCell formatCellForQuestion:question];
     
@@ -155,14 +160,33 @@
     [self updateMarkers];
 }
 
+- (UIFont*)getPreferredFontWithTextStyle:(NSString*)textStyle
+{
+    UIFontDescriptor* contentFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:textStyle];
+    return [UIFont fontWithDescriptor:contentFontDescriptor size:0];
+}
+
+- (UIFont*)getPreferredFontForQuestionHeader
+{
+    UIFontDescriptor* contentFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle: UIFontTextStyleHeadline];
+    return [UIFont fontWithDescriptor:contentFontDescriptor size:0];
+}
+
+
 - (void)formatCellForQuestion:(Question*)question
 {
     self.updatedNSDate = question.updated;
-    self.currentDate = [NSDate date];
     
+    self.header.font = [self getPreferredFontWithTextStyle:UIFontTextStyleHeadline];
     self.header.text = question.header;
+    [self.header sizeToFit];
+    
+    self.content.font = [self getPreferredFontWithTextStyle:UIFontTextStyleSubheadline];
+    
     self.content.text = question.content;
-    self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:self.currentDate];
+    
+    self.updated.font = [self getPreferredFontWithTextStyle:UIFontTextStyleFootnote];
+    self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:[NSDate date]];
     
     self.markedAsNew = question.updatedOrNew.boolValue;
     

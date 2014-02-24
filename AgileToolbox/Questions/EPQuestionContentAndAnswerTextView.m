@@ -26,6 +26,18 @@
     return [super initWithAttributedText:[EPQuestionContentAndAnswerTextView attributedHeaderTextFromText:text]];
 }
 
+// for some reason - this does not work reliably - creating new textView seems to be the only
+// reliable way
+- (void)updateFontSize
+{
+    UIFontDescriptor* contentFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle: UIFontTextStyleBody];
+    UIFont* contentFont = [UIFont fontWithDescriptor:contentFontDescriptor size:0];
+    
+    self.font = contentFont;
+    
+    [super updateFontSize];
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

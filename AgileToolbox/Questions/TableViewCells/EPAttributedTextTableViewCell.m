@@ -11,18 +11,17 @@
 
 @interface EPAttributedTextTableViewCell ()
 
-
-
 @end
 
 @implementation EPAttributedTextTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithTextView:(UITextView*)textView
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if (self) {
-        // Initialization code
+        [self addSubviews:textView];
     }
+    
     return self;
 }
 
@@ -45,35 +44,14 @@
     // Configure the view for the selected state
 }
 
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView
-                   forIndexPath:(NSIndexPath*)indexPath
-                  usingTextView:(UITextView*)textView
+- (void)addSubviews:(UITextView*)textView
 {
-    EPAttributedTextTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"AttributedTextTableViewCell"
-                                                                          forIndexPath:indexPath];
-    
-    cell.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
-    
-    UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 300, textView.textContainer.size.height)];
-    
-    switch (indexPath.row) {
-        case 0:
-            cell.backgroundColor = [UIColor grayColor];
-            break;
-        case 1:
-            cell.backgroundColor = [UIColor yellowColor];
-            break;
-        case 2:
-            cell.backgroundColor = [UIColor greenColor];
-        default:
-            break;
-    }
+    UIView* wrapperView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 300, textView.frame.size.height)];
     
     wrapperView.backgroundColor = [UIColor whiteColor];
-    [cell addSubview:wrapperView];
-    [cell addSubview:textView];
+    [self addSubview:wrapperView];
+    [self addSubview:textView];
     
-    return cell;
 }
 
 @end

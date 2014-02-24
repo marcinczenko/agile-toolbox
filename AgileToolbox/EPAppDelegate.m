@@ -10,6 +10,7 @@
 #import "EPConnection.h"
 #import "EPJSONPostURLRequest.h"
 #import "EPQuestionsTableViewController.h"
+#import "EPAddQuestionTableViewController.h"
 
 #import "EPQuestionsTableViewControllerDependencyBootstrapper.h"
 
@@ -76,6 +77,14 @@
         return questionsTableViewController;
     } else if ([[identifierComponents lastObject] isEqualToString:@"EPQuestionDetailsTableViewController"]) {
         return [board instantiateViewControllerWithIdentifier:[identifierComponents lastObject]];
+    } else if ([[identifierComponents lastObject] isEqualToString:@"AddQuestionTableViewController"]) {
+        EPAddQuestionTableViewController* addQuestionViewController = (EPAddQuestionTableViewController*)[board instantiateViewControllerWithIdentifier:[identifierComponents lastObject]];
+        
+        addQuestionViewController.statePreservationAssistant = self.questionsTableViewControllerDependencyBox[@"StatePreservationAssistant"];
+        addQuestionViewController.questionsDataSource = self.questionsTableViewControllerDependencyBox[@"DataSource"];
+        addQuestionViewController.postman = self.questionsTableViewControllerDependencyBox[@"Postman"];
+        
+        return addQuestionViewController;
     }
 
     return nil;

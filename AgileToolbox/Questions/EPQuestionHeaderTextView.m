@@ -12,10 +12,13 @@
 
 + (NSAttributedString*)attributedHeaderTextFromText:(NSString*)text
 {
-    UIFont* headerFont = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    UIFontDescriptor* contentFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle: UIFontTextStyleBody];
+    
+    contentFontDescriptor = [contentFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    UIFont* contentFont = [UIFont fontWithDescriptor:contentFontDescriptor size:0];
     
     return [[NSAttributedString alloc] initWithString:text
-                                           attributes: @{ NSFontAttributeName: headerFont,
+                                           attributes: @{ NSFontAttributeName: contentFont,
                                                           NSForegroundColorAttributeName: [UIColor blackColor]}];
             
 }
@@ -23,6 +26,17 @@
 - (id)initWithText:(NSString*)text
 {
     return [super initWithAttributedText:[EPQuestionHeaderTextView attributedHeaderTextFromText:text]];
+}
+
+- (void)updateFontSize
+{
+    UIFontDescriptor* contentFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle: UIFontTextStyleBody];
+    contentFontDescriptor = [contentFontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    UIFont* contentFont = [UIFont fontWithDescriptor:contentFontDescriptor size:0];
+    
+    self.font = contentFont;
+    
+    [super updateFontSize];
 }
 
 /*

@@ -14,7 +14,6 @@
 #import "EPAddQuestionDelegateProtocol.h"
 
 #import "EPPostmanProtocol.h"
-#import "EPPostmanDelegateProtocol.h"
 
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
@@ -26,9 +25,7 @@
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
                                                                   NSFetchedResultsControllerDelegate,
-                                                                  EPQuestionsDataSourceDelegateProtocol,
-                                                                  EPAddQuestionDelegateProtocol,
-                                                                  EPPostmanDelegateProtocol>
+                                                                  EPQuestionsDataSourceDelegateProtocol>
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox;
 

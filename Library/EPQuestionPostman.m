@@ -13,13 +13,9 @@
 
 @property (nonatomic,strong) id<EPConnectionProtocol> connection;
 
-- (NSData*)createJSONRequestBodyFor:(NSString*)item;
-
 @end
 
 @implementation EPQuestionPostman
-@synthesize connection = _connection;
-@synthesize delegate = _delegate;
 
 - (id)initWithConnection:(id<EPConnectionProtocol>)connection
 {
@@ -30,15 +26,20 @@
     return self;
 }
 
-- (NSData*)createJSONRequestBodyFor:(NSString*)item
+- (NSData*)createJSONRequestBodyWithParams:(NSArray*)params
 {
-    NSArray* json_object = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:item forKey:@"content"]];
-    return [NSJSONSerialization dataWithJSONObject:json_object options:NSJSONWritingPrettyPrinted error:nil];
+    return [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
 }
 
 - (void)post:(NSString *)item
 {
-    [_connection startPOSTWithBody:[self createJSONRequestBodyFor:item]];
+    [_connection startPOSTWithBody:[self createJSONRequestBodyWithParams:@[@{@"content": item}]]];
+}
+
+- (void)postQuestionWithHeader:(NSString *)header content:(NSString *)content
+{
+    [_connection startPOSTWithBody:[self createJSONRequestBodyWithParams:@[@{@"header": header,
+                                                                             @"content": content}]]];
 }
 
 #pragma mark - EPConnectionDelegateProtocol
@@ -59,7 +60,9 @@
 
 - (void)downloadFailed
 {
-    
+    if ([self.delegate respondsToSelector:@selector(postDeliveryFailed)]) {
+        [self.delegate postDeliveryFailed];
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "EPSnapshot.h"
+#import "EPPersistentStoreHelper.h"
 
 @interface EPSnapshot ()
 
@@ -27,8 +28,13 @@
 
 + (UIImage*)createSnapshotOfView:(UIView*)view
 {
+    return [EPSnapshot createSnapshotOfView:view afterScreenUpdates:NO];
+}
+
++ (UIImage*)createSnapshotOfView:(UIView*)view afterScreenUpdates:(BOOL)afterScreenUpdates
+{
     UIGraphicsBeginImageContextWithOptions(view.frame.size, YES, 0);
-    [view drawViewHierarchyInRect:view.frame afterScreenUpdates:NO];
+    [view drawViewHierarchyInRect:view.frame afterScreenUpdates:afterScreenUpdates];
     UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -73,12 +79,13 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    return [self initWithImage:[[UIImage alloc] initWithCoder:aDecoder]];
+    return [self initWithImage:[aDecoder decodeObjectForKey:@"Image"]];    
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [self.image encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.image forKey:@"Image"];
+//    [self.image encodeWithCoder:aCoder];
 }
 
 - (BOOL)hasImage
@@ -122,6 +129,15 @@
     view.hidden = YES;
     [view removeFromSuperview];
     self.isImageFresh = NO;
+}
+
+- (void)writeAsJpgToFile:(NSString*)fileName
+{
+    NSData* imageData = UIImageJPEGRepresentation(self.image, 1.0);
+    
+    NSURL* path = [EPPersistentStoreHelper persistentStateURLForFile:fileName];
+    
+    [imageData writeToFile:path.path atomically:NO];
 }
 
 @end

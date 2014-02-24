@@ -10,8 +10,8 @@
 
 @interface EPQuestionTextView : UITextView
 
-+ (CGRect)contentSizeRectForTextView:(UITextView *)textView;
-
 - (id)initWithAttributedText:(NSAttributedString*)attributedText;
+
+- (void)updateFontSize;
 
 @end

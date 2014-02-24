@@ -12,6 +12,14 @@
 #import "EPAppDelegate.h"
 #import "Question.h"
 
+static NSString* const kIdOfTheFirstVisibleRow = @"IdOfTheFirstVisibleRow";
+static NSString* const kSnapshot = @"Snapshot";
+static NSString* const kBounds = @"Bounds";
+static NSString* const kScrollDelta = @"ScrollData";
+static NSString* const kAddQuestionViewHeaderText = @"AddQuestionViewHeaderText";
+static NSString* const kAddQuestionViewContentText = @"AddQuestionViewContentText";
+
+
 @interface EPQuestionsTableViewControllerStatePreservationAssistant ()
 
 @property (nonatomic,strong) NSURL* idOfTheFirstVisibleRow;
@@ -26,15 +34,36 @@
     return @"PreservationAssistant.data";
 }
 
++ (NSString*)kIdOfTheFirstVisibleRow
+{
+    return kIdOfTheFirstVisibleRow;
+}
+
++ (NSString*)kSnapshot
+{
+    return kSnapshot;
+}
+
 + (NSString*)kBounds
 {
-    return @"Bounds";
+    return kBounds;
 }
 
 + (NSString*)kScrollDelta
 {
-    return @"ScrollData";
+    return kScrollDelta;
 }
+
++ (NSString*)kAddQuestionViewHeaderText
+{
+    return kAddQuestionViewHeaderText;
+}
+
++ (NSString*)kAddQuestionViewContentText
+{
+    return kAddQuestionViewContentText;
+}
+
 
 + (instancetype)restoreFromPersistentStorage
 {
@@ -49,20 +78,26 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super init])) {
-        _idOfTheFirstVisibleRow = [[NSURL alloc] initWithCoder:aDecoder];
-        _snapshot = [[EPSnapshot alloc] initWithCoder:aDecoder];
+        _idOfTheFirstVisibleRow = [aDecoder decodeObjectForKey:kIdOfTheFirstVisibleRow];
+        _snapshot = [aDecoder decodeObjectForKey:kSnapshot];
         _bounds = [aDecoder decodeCGRectForKey:[self.class kBounds]];
         _scrollDelta = [aDecoder decodeFloatForKey:[self.class kScrollDelta]];
+        
+        _addQuestionViewHeaderText = [aDecoder decodeObjectForKey:kAddQuestionViewHeaderText];
+        _addQuestionViewContentText = [aDecoder decodeObjectForKey:kAddQuestionViewContentText];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [self.idOfTheFirstVisibleRow encodeWithCoder:aCoder];
-    [self.snapshot encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.idOfTheFirstVisibleRow forKey:kIdOfTheFirstVisibleRow];
+    [aCoder encodeObject:self.snapshot forKey:kSnapshot];
     [aCoder encodeCGRect:self.bounds forKey:[self.class kBounds]];
     [aCoder encodeFloat:self.scrollDelta forKey:[self.class kScrollDelta]];
+
+    [aCoder encodeObject:self.addQuestionViewHeaderText forKey:kAddQuestionViewHeaderText];
+    [aCoder encodeObject:self.addQuestionViewContentText forKey:kAddQuestionViewContentText];
 }
 
 - (void)recordCurrentStateForViewController:(EPQuestionsTableViewController*)viewController

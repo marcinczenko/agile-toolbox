@@ -10,10 +10,6 @@
 
 @interface EPQuestionContentTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) UITextView* textView;
-
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath;
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier textView:(UITextView*)textView;
+- (instancetype)initWithTextView:(UITextView*)textView;
 
 @end

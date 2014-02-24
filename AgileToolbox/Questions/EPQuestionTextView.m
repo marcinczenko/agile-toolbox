@@ -10,65 +10,46 @@
 
 @interface EPQuestionTextView ()
 
-//@property (nonatomic,strong) NSLayoutManager* layoutManager;
-//@property (nonatomic,strong) NSTextStorage* textStorage;
-//@property (nonatomic,strong) NSTextContainer* textContainer;
-
-
 @end
 
 @implementation EPQuestionTextView
 
-+ (CGRect)rectForAttributedText:(NSAttributedString*)attributedText
-{
-    CGFloat width = 280;
-    CGRect rect = [attributedText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                               context:nil];
-    
-    rect.size.height = ceil(rect.size.height);
-    rect.size.width = ceil(rect.size.width);
-    
-//    rect.size.width += 10.0;
-//    rect.size.height += 18.0;
-    
-    return CGRectOffset(rect, 10, 0);
-}
-
-+ (CGRect)contentSizeRectForTextView:(UITextView *)textView
-{
-    [textView.layoutManager ensureLayoutForTextContainer:textView.textContainer];
-    CGRect textBounds = [textView.layoutManager usedRectForTextContainer:textView.textContainer];
-    CGFloat width =  (CGFloat)ceil(textBounds.size.width + textView.textContainerInset.left + textView.textContainerInset.right);
-    CGFloat height = (CGFloat)ceil(textBounds.size.height + textView.textContainerInset.top + textView.textContainerInset.bottom);
-    return CGRectMake(0, 0, width, height);
-}
-
 - (id)initWithAttributedText:(NSAttributedString*)attributedText
 {
-    CGRect rect = [EPQuestionTextView rectForAttributedText:attributedText];
-    
     // this has to be done here - after passing textContainer to initWithFram:textContainer below
     // the stack will be retained by the UITextView
-    
     NSTextStorage* textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedText];
     NSLayoutManager* layoutManager = [NSLayoutManager new];
     [textStorage addLayoutManager:layoutManager];
-    NSTextContainer* textContainer = [[NSTextContainer alloc] initWithSize:rect.size];
+    NSTextContainer* textContainer = [[NSTextContainer alloc] initWithSize:CGSizeMake(280, CGFLOAT_MAX)];
     [layoutManager addTextContainer:textContainer];
     
     self = [super initWithFrame:CGRectMake(10, 0, 300, 0) textContainer:textContainer];
     if (self) {
-        [self.layoutManager ensureLayoutForTextContainer:self.textContainer];
-        [self layoutIfNeeded];
-        
-        CGRect actual_rect = [self.class contentSizeRectForTextView:self];
-        
-        self.frame = CGRectMake(10, 0, 300, actual_rect.size.height);
         self.scrollEnabled = NO;
         self.editable = NO;
+        [self sizeToFit];
     }
     return self;
+}
+
+- (void)sizeToFit
+{
+//    NSLog(@"Frame[BEFORE]:%@",NSStringFromCGRect(self.frame));
+    [super sizeToFit];
+    
+    if (self.frame.size.width != 300) {
+        CGRect frame = self.frame;
+        frame.size.width = 300;
+        frame.origin = CGPointMake(10, 0);
+        self.frame = frame;
+    }
+//    NSLog(@"Frame[AFTER]:%@",NSStringFromCGRect(self.frame));
+}
+
+- (void)updateFontSize
+{
+    [self sizeToFit];
 }
 
 /*

@@ -37,6 +37,13 @@
     [super viewDidLoad];
     
     self.view.accessibilityLabel = @"MenuList";
+    
+    UIImage* quantumLogoImage = [UIImage imageNamed:@"QuantumNavigationBarLogo"];
+    
+    UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[quantumLogoImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    
+    self.navigationItem.titleView = quantumLogo;
+    self.title = @"Quantum Agile Toolbox";
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -55,11 +62,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"QuantumNavigationBarLogo"]];
-    
-    self.navigationItem.titleView = quantumLogo;
-    self.title = @"Quantum Agile Toolbox";
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -96,7 +98,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

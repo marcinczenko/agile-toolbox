@@ -16,6 +16,7 @@
 
 + (UIImageView*)imageViewFromImage:(UIImage*)image withFrame:(CGRect)frame;
 + (UIImage*)createSnapshotOfView:(UIView*)view;
++ (UIImage*)createSnapshotOfView:(UIView*)view afterScreenUpdates:(BOOL)afterScreenUpdates;
 + (UIImage*) remove:(CGFloat)height fromTopOfImage:(UIImage*) image;
 + (UIImage*)createSnapshotForTableViewFrom:(UITableViewController*)viewController;
 
@@ -24,5 +25,6 @@
 - (void)displayInView:(UIView*)view withTag:(NSInteger)tag originComputationBlock:(CGPoint(^)())block;
 - (void)clear;
 - (void)removeViewWithTag:(NSInteger)tag fromSuperview:(UIView*)superview;
+- (void)writeAsJpgToFile:(NSString*)fileName;
 
 @end

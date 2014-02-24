@@ -11,11 +11,7 @@
 
 @interface EPAttributedTextTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) UITextView* myTextView;
-
-+ (id)cellDequeuedFromTableView:(UITableView*)tableView
-                   forIndexPath:(NSIndexPath*)indexPath
-                  usingTextView:(UITextView*)textView;
+- (id)initWithTextView:(UITextView*)textView;
 
 
 @end

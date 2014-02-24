@@ -7,6 +7,7 @@ from handlers.items.items_json import ItemsJSON
 from handlers.items.new_item import NewItem
 from handlers.items.add_more import AddMore
 from handlers.items.update import Update
+from handlers.items.answer import Answer
 from handlers.helpers import Ready
 from models.questions import QuestionRepository
 
@@ -14,7 +15,8 @@ app = webapp2.WSGIApplication([('/items_json', ItemsJSON),
                                ('/ready', Ready),
                                ('/new_json_item', NewItem),
                                ('/add_more', AddMore),
-                               ('/update_ids', Update)],
+                               ('/update_ids', Update),
+                               ('/answer_ids', Answer)],
                               debug=True)
 
 

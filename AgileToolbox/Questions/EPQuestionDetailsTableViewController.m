@@ -99,6 +99,24 @@ static NSString* const kQuestionUpdated = @"Updated";
     }
 }
 
+- (BOOL)viewIsVisible
+{
+    return (self.isViewLoaded && self.view.window);
+}
+
+
+- (void)preferredFontChanged: (NSNotification*)notification
+{
+    if ([self viewIsVisible]) {
+        for (NSDictionary* dict in self.textViews) {
+            [dict[@"view"] updateFontSize];
+        }
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+}
+
+
 - (void)decodeObjectWithCoder:(NSCoder *)aDecoder
 {
     self.questionHeader = [aDecoder decodeObjectForKey:kQuestionHeader];
@@ -134,9 +152,20 @@ static NSString* const kQuestionUpdated = @"Updated";
 
 - (void)setupTextViews
 {
-    self.textViews = [NSMutableArray arrayWithArray:@[@{@"color": [UIColor grayColor], @"view":[self setUpHeaderTextView]},
-                                                      @{@"color": [self.class colorYellow], @"view":[self setUpContentTextView]},
-                                                      @{@"color": [self.class colorGreen], @"view":[self setUpAnswerTextView]}]];
+    
+    [self setUpHeaderTextView];
+    [self setUpContentTextView];
+    [self setUpAnswerTextView];
+    
+    self.textViews = [NSMutableArray arrayWithArray:@[@{@"color": [UIColor grayColor],
+                                                        @"view":self.headerTextView,
+                                                        @"cell":[self setUpTableViewCellWithTextView:self.headerTextView]},
+                                                      @{@"color": [self.class colorYellow],
+                                                        @"view":self.contentTextView,
+                                                        @"cell":[self setUpTableViewCellWithTextView:self.contentTextView]},
+                                                      @{@"color": [self.class colorGreen],
+                                                        @"view":self.answerTextView,
+                                                        @"cell":[self setUpTableViewCellWithTextView:self.answerTextView]}]];
     
 
 //    [self setUpUpdatedOverlayView];
@@ -153,6 +182,9 @@ static NSString* const kQuestionUpdated = @"Updated";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(preferredFontChanged:) name:UIContentSizeCategoryDidChangeNotification object:[UIApplication sharedApplication]];
     
     [self configureView];
 
@@ -172,13 +204,15 @@ static NSString* const kQuestionUpdated = @"Updated";
 {
     UITextView* textView = [self setupUpdatedTextView];
     
-    [self.textViews insertObject:@{@"color": [self.class colorYellow], @"view":textView}
+    [self.textViews insertObject:@{@"color": [self.class colorYellow],
+                                   @"view":textView,
+                                   @"cell":[self setUpTableViewCellWithTextView:textView]}
                          atIndex:0];
     
     CGPoint contentOffset = self.tableView.contentOffset;
     
     [self.tableView reloadData];
-    self.tableView.contentOffset = CGPointMake(contentOffset.x, contentOffset.y+textView.contentSize.height);
+    self.tableView.contentOffset = CGPointMake(contentOffset.x, contentOffset.y+textView.frame.size.height);
     
     [UIView animateWithDuration:1.0 animations:^{
         self.tableView.contentOffset = contentOffset;
@@ -228,20 +262,20 @@ static NSString* const kQuestionUpdated = @"Updated";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ((UITextView*)self.textViews[indexPath.row][@"view"]).contentSize.height;
+    return ((UITextView*)self.textViews[indexPath.row][@"view"]).frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    EPAttributedTextTableViewCell* cell = [EPAttributedTextTableViewCell cellDequeuedFromTableView:tableView
-                                                                                      forIndexPath:indexPath
-                                                                                     usingTextView:self.textViews[indexPath.row][@"view"]];
-    
+    UITableViewCell* cell = self.textViews[indexPath.row][@"cell"];
     cell.backgroundColor = self.textViews[indexPath.row][@"color"];
     
     return cell;
-    
+}
+
+- (UITableViewCell*)setUpTableViewCellWithTextView:(UITextView*)textView
+{
+    return [[EPAttributedTextTableViewCell alloc] initWithTextView:textView];
 }
 
 - (UITextView*)setUpHeaderTextView
