@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D387EF0A1536EF0400635736"
-               BuildableName = "Agile Toolbox.app"
+               BuildableName = "AgileToolbox.app"
                BlueprintName = "AgileToolbox"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D387EF0A1536EF0400635736"
-            BuildableName = "Agile Toolbox.app"
+            BuildableName = "AgileToolbox.app"
             BlueprintName = "AgileToolbox"
             ReferencedContainer = "container:AgileToolbox.xcodeproj">
          </BuildableReference>
@@ -92,7 +92,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D387EF0A1536EF0400635736"
-            BuildableName = "Agile Toolbox.app"
+            BuildableName = "AgileToolbox.app"
             BlueprintName = "AgileToolbox"
             ReferencedContainer = "container:AgileToolbox.xcodeproj">
          </BuildableReference>
@@ -110,7 +110,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D387EF0A1536EF0400635736"
-            BuildableName = "Agile Toolbox.app"
+            BuildableName = "AgileToolbox.app"
             BlueprintName = "AgileToolbox"
             ReferencedContainer = "container:AgileToolbox.xcodeproj">
          </BuildableReference>

@@ -10,7 +10,7 @@
 
 #import "EPQuestionsTableViewExpert.h"
 
-static NSString* const EPAddQuestionConfirmationTextSuccess = @"Your question has been successfully submited and once accepted will appear on the list of questions.\n Please note that we may refine your question to make it more appropriate for the reader.";
+static NSString* const EPAddQuestionConfirmationTextSuccess = @"Your question has been successfully submitted and once accepted will appear on the list of questions.\n Please note that we may refine your question to make it more appropriate for the reader.";
 static NSString* const EPAddQuestionConfirmationTextFailure = @"There was a problem with submitting your question. Please check your network connection and try again later. Please let us know if the problem persists.";
 
 typedef enum {
