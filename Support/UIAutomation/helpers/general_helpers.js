@@ -33,10 +33,6 @@ var EPHelpers = (function() {
 
         this.scrollToCellInTableViewAtIndex(tableView,this.getNumberOfCellsInTableView(tableView)-7);
 
-//        this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14].scrollToVisible();
-//
-//        var cell = this.mainWindow().tableViews()["Questions"].cells()[numberOfCellsInTableView-14];
-//
         this.target().delay(1);
 
         this.mainWindow().tableViews()[tableView].scrollDown();

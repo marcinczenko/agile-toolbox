@@ -12,6 +12,7 @@
 
 @class EPQuestionsTableViewController;
 @class EPQuestionsTableViewControllerState;
+@class EPQuestionsRefreshControl;
 
 @interface EPQuestionsTableViewControllerStateMachine : NSObject
 
@@ -40,6 +41,8 @@
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (NSInteger)numberOfSections;
 
+- (void)controllerWillChangeContent;
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 - (void)controllerDidChangeContent;
 - (void)fetchReturnedNoData;
 - (void)fetchReturnedNoDataInBackground;
@@ -48,6 +51,8 @@
 - (void)connectionFailureInBackground;
 
 - (void)refresh:(UIRefreshControl*)refreshControl;
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue;
 
 
 - (void)setStateObject:(id)stateObject forStateName:(NSString*)name;

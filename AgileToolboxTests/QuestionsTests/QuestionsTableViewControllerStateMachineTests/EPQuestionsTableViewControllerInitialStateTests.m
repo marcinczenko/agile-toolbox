@@ -25,6 +25,7 @@
 @property (nonatomic,strong) id tableViewExpertMock;
 @property (nonatomic,strong) id questionsDataSourceMock;
 @property (nonatomic,strong) id stateMachineMock;
+@property (nonatomic,strong) id questionsRefreshControlMock;
 
 @property (nonatomic,strong) EPQuestionsTableViewControllerInitialState* state;
 
@@ -39,10 +40,13 @@
     
     self.applicationPartialMock = [OCMockObject partialMockForObject:[UIApplication sharedApplication]];
     
+    self.questionsRefreshControlMock = [OCMockObject niceMockForClass:[EPQuestionsRefreshControl class]];
     self.viewControllerMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewController class]];
+    [[[self.viewControllerMock stub] andReturn:self.questionsRefreshControlMock] questionsRefreshControl];
     self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
     self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     self.stateMachineMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStateMachine class]];
+    
     
     self.state = [[EPQuestionsTableViewControllerInitialState alloc] initWithViewController:self.viewControllerMock
                                                                             tableViewExpert:self.tableViewExpertMock
@@ -151,7 +155,7 @@
 {
     [self expectQuestionsInPersistentStorage:YES];
 
-    [[self.viewControllerMock expect] setupRefreshControl];
+    [[self.questionsRefreshControlMock expect] enable];
     
     [self.state viewDidLoad];
     
@@ -162,7 +166,7 @@
 {
     [self expectQuestionsInPersistentStorage:NO];
     
-    [[self.viewControllerMock reject] setupRefreshControl];
+    [[self.questionsRefreshControlMock reject] enable];
     
     [self.state viewDidLoad];
     

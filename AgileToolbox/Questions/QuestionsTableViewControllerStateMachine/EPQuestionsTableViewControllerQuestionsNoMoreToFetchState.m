@@ -15,7 +15,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
+}
+
+- (void)viewWillAppear
+{
+    [self.viewController.questionsRefreshControl enable];
+    [super viewWillAppear];
 }
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -38,8 +44,7 @@
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
-    refreshControl.attributedTitle = title;
+    self.viewController.questionsRefreshControl.title = EPQuestionsRefreshControlTextRefreshing;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
                                                                      andOldestQuestionId:self.viewController.oldestQuestionId];

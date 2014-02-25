@@ -160,6 +160,8 @@ class ItemsTestCase(unittest.TestCase):
         self.assertEqual(len(items), 1)
         item = items[0]
         self.assertEqual(item[u'content'], "new item")
+        self.assertEqual(item[u'header'], "new item header"
+                                          "")
 
     def test_retrieving_first_n_items_posted_after_item_with_given_id(self):
         QuestionRepository.populate(10)

@@ -10,6 +10,12 @@
 #import "EPQuestionsDataSourceProtocol.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 
+#import "EPQuestionDetailsTableViewController.h"
+#import "EPAddQuestionTableViewController.h"
+
+
+#import "EPPersistentStoreHelper.h"
+
 @interface EPQuestionsTableViewControllerState ()
 
 @property (nonatomic,weak) EPQuestionsTableViewControllerStateMachine *stateMachine;
@@ -17,6 +23,11 @@
 @end
 
 @implementation EPQuestionsTableViewControllerState
+
++ (NSInteger)tagSnapshot
+{
+    return 1900;
+}
 
 - (id)initWithViewController:(EPQuestionsTableViewController*)viewController
              tableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert
@@ -36,54 +47,75 @@
     return [self initWithViewController:nil tableViewExpert:nil andStateMachine:stateMachine];
 }
 
-- (void)enterForeground
-{
-    self.viewController.statePreservationAssistant.viewNeedsRefreshing = NO;
-    self.viewController.questionsDataSource.backgroundFetchMode = NO;
-    self.viewController.fetchedResultsController.delegate = self.viewController;
-    [self refetchFromCoreData];
-}
-
-- (void)refetchFromCoreData
-{
-    NSError *fetchError = nil;
-    [self.viewController.fetchedResultsController performFetch:&fetchError];
-}
-
 - (void)viewDidLoad
 {
-    if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
-        [self enterForeground];
+    
+}
+
+- (void)setTableViewBackgroundColor
+{
+    if (0<=self.viewController.statePreservationAssistant.bounds.origin.y) {
+        self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
     }
 }
 
 - (void)viewWillAppear
 {
-    if (self.viewController.statePreservationAssistant.snapshotView) {
-        if (0<=self.viewController.statePreservationAssistant.contentOffset.y) {
-            self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
-        } else {
-            self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
-        }
+    if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
+        [self.viewController relinkToFetchedResultsController];
+    }
+    
+    if (self.viewController.statePreservationAssistant.snapshot.isImageFresh) {
         
-        [self.tableViewExpert.tableView addSubview:self.viewController.statePreservationAssistant.snapshotView];
+        [self setTableViewBackgroundColor];
+        
+        [self.viewController.statePreservationAssistant.snapshot displayInView:self.tableViewExpert.tableView withTag:[self.class tagSnapshot] originComputationBlock:^CGPoint{
+            // Q: contentSize or better contentInset?
+            // A: contentSize is set when bounds are set even though contentInset is still not set
+            //    when bounds are non-zero it is save to position the contents
+            // Notice: isViewLoaded is set to 1 regardless, so it is useless in this case
+            //         view.window is nill in both cases.
+            // Notice: if viewDidLoad has been called then self.tableView.contentSize.height
+            //         is not ready yet == table view is freshly loaded and its bounds will still change
+            if (0==self.tableViewExpert.tableView.contentSize.height) {
+                return CGPointMake(0, 0);
+            } else {
+                return CGPointMake(0, self.tableViewExpert.tableView.bounds.origin.y + self.tableViewExpert.tableView.contentInset.top);
+            }
+        }];
     }
 }
 
 - (void)viewDidAppear
 {
-    self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+    if (!self.tableViewExpert.refreshControl) {
+        self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+    }
     
-    if (self.viewController.statePreservationAssistant.snapshotView) {
+    if (self.viewController.statePreservationAssistant.snapshot.isImageFresh) {
+        
         [self.viewController.statePreservationAssistant restoreIndexPathOfFirstVisibleRowForViewController:self.viewController];
-        self.viewController.statePreservationAssistant.snapshotView.hidden = YES;
-        [self.viewController.statePreservationAssistant.snapshotView removeFromSuperview];
-        self.viewController.statePreservationAssistant.snapshotView = nil;
+        
+        CGRect correctedBounds = self.viewController.tableView.bounds;
+        correctedBounds.origin.y += self.viewController.statePreservationAssistant.scrollDelta;
+
+        self.tableViewExpert.tableView.bounds = correctedBounds;
+        
+        [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:[self.class tagSnapshot] fromSuperview:self.tableViewExpert.tableView];
+        self.tableViewExpert.tableView.userInteractionEnabled = YES;
     }
 }
 
 - (void)viewWillDisappear
 {
+    self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
+    
+    if ([self.tableViewExpert scrolledToTopOrHigher] && !self.viewController.refreshControl.isRefreshing) {
+        return ;
+    }
+    
     if (self.viewController.hasQuestionsInPersistentStorage) {
         [self.viewController.statePreservationAssistant recordCurrentStateForViewController:self.viewController];
     }
@@ -91,6 +123,11 @@
 
 - (void)willResignActiveNotification:(NSNotification*)notification
 {
+    self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
+    
+    if (-64.0>=self.tableViewExpert.tableView.bounds.origin.y && !self.viewController.refreshControl.isRefreshing) {
+        return ;
+    }
     if (self.viewController.viewIsVisible && self.viewController.hasQuestionsInPersistentStorage) {
         [self.viewController.statePreservationAssistant recordCurrentStateForViewController:self.viewController];
     }
@@ -106,11 +143,8 @@
 {
     if ([self.viewController viewIsVisible]) {
         if (self.viewController.statePreservationAssistant.viewNeedsRefreshing) {
-            NSLog(@"questionsTableViewController:BLOCK: UIApplicationWillEnterForegroundNotification");
             
-            [self enterForeground];
-            
-            [self.tableViewExpert.tableView reloadData];
+            [self.viewController relinkToFetchedResultsController];
         }
     }
 }
@@ -120,9 +154,33 @@
     
 }
 
-- (void)controllerDidChangeContent
+- (void)controllerWillChangeContent
+{
+    [self.tableViewExpert removeTableFooter];
+    [self.tableViewExpert.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self.tableViewExpert.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent
+{
+    [self.tableViewExpert.tableView endUpdates];
 }
 
 - (void)fetchReturnedNoData
@@ -178,6 +236,27 @@
 - (void)refresh:(UIRefreshControl*)refreshControl
 {
     
+}
+
+- (Question*) questionObjectForIndexPath:(NSIndexPath*)indexPath
+{
+    return [self.viewController.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+{
+    if ([segue.identifier isEqualToString:@"AddQuestion"]) {
+        EPAddQuestionTableViewController* addQuestionViewController = (EPAddQuestionTableViewController*)segue.destinationViewController;
+        
+        addQuestionViewController.statePreservationAssistant = self.viewController.statePreservationAssistant;
+        addQuestionViewController.questionsDataSource = self.viewController.questionsDataSource;
+        addQuestionViewController.postman = self.viewController.postman;
+        
+    } else if ([segue.identifier isEqualToString:@"QuestionDetails"]) {
+        EPQuestionDetailsTableViewController* questionDetailsViewController = (EPQuestionDetailsTableViewController*)segue.destinationViewController;
+        
+        questionDetailsViewController.question = [self questionObjectForIndexPath:[self.tableViewExpert.tableView indexPathForSelectedRow]];
+    }
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
 #import "EPQuestionsTableViewControllerEmptyNoQuestionsState.h"
+#import "EPQuestionsRefreshControl.h"
 
 @interface EPQuestionsTableViewControllerEmptyLoadingStateTests : XCTestCase
 
@@ -30,6 +31,8 @@
 @property (nonatomic,strong) EPQuestionsTableViewControllerEmptyLoadingState* state;
 
 @property (nonatomic,strong) id preservationAssistantMock;
+
+@property (nonatomic,strong) id questionsRefreshControlMock;
 
 @property (nonatomic,readonly) id doesNotMatter;
 
@@ -60,6 +63,11 @@ const static BOOL valueYES = YES;
     [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(state)] hasQuestionsInPersistentStorage];
 }
 
+- (void)expectScrollPositionAtTheTop:(BOOL)status
+{
+    [[[self.tableViewExpertMock stub] andReturnValue:OCMOCK_VALUE(status)] scrolledToTopOrHigher];
+}
+
 - (void)mockFetchedResultsController
 {
     [[[self.viewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
@@ -76,9 +84,12 @@ const static BOOL valueYES = YES;
     self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
     self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     
+    self.questionsRefreshControlMock = [OCMockObject niceMockForClass:[EPQuestionsRefreshControl class]];
+    
     self.viewControllerMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewController class]];
     [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
     [[[self.viewControllerMock stub] andReturn:self.preservationAssistantMock] statePreservationAssistant];
+    [[[self.viewControllerMock stub] andReturn:self.questionsRefreshControlMock] questionsRefreshControl];
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
     self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
@@ -87,8 +98,8 @@ const static BOOL valueYES = YES;
     self.stateMachineMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewControllerStateMachine class]];
     
     self.state = [[EPQuestionsTableViewControllerEmptyLoadingState alloc] initWithViewController:self.viewControllerMock
-                                                                                        tableViewExpert:self.tableViewExpertMock
-                                                                                        andStateMachine:self.stateMachineMock];
+                                                                                 tableViewExpert:self.tableViewExpertMock
+                                                                                 andStateMachine:self.stateMachineMock];
 }
 
 - (void)tearDown
@@ -99,37 +110,20 @@ const static BOOL valueYES = YES;
     [super tearDown];
 }
 
-- (void)testThatViewWillDisappearSetsFetchedResultsControllerDelegateToNil
+- (void)testThatViewWillDisappearDisconnectsFromFetchedResultsController
 {
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] setDelegate:nil];
+    [[self.viewControllerMock expect] disconnectFromFetchedResultsController];
     
     [self.state viewWillDisappear];
     
-    [self.fetchedResultsControllerMock verify];
-}
-
-- (void)testThatViewWillDisappearSetsTheViewNeedsRefreshingFlagToYES
-{
-    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:YES];
-    
-    [self.state viewWillDisappear];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatViewWillDisappearSetsDataSourceBackgroundFetchingModeToYES
-{
-    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:YES];
-    
-    [self.state viewWillDisappear];
-    
-    [self.questionsDataSourceMock verify];
+    [self.viewControllerMock verify];
 }
 
 - (void)testThatViewWillDisappearRecordsTheCurrentStateWhenThereAreQuestionsInPersistentStorage
 {
     [self expectQuestionsInPersistentStorage:YES];
+    
+    [self expectScrollPositionAtTheTop:NO];
     
     [[self.preservationAssistantMock expect] recordCurrentStateForViewController:self.viewControllerMock];
     
@@ -138,34 +132,14 @@ const static BOOL valueYES = YES;
     [self.preservationAssistantMock verify];
 }
 
-- (void)testThatDidEnterBackgroundNotificationSetsTheFetchedResultsControllerDelegateToNil
+- (void)testThatDidEnterBackgroundNotificationDisconnectsFromFetchedResultsController
 {
-    [self mockFetchedResultsController];
-    [[self.fetchedResultsControllerMock expect] setDelegate:nil];
+    [[self.viewControllerMock expect] disconnectFromFetchedResultsController];
     
     [self.state didEnterBackgroundNotification:self.doesNotMatter];
     
-    [self.fetchedResultsControllerMock verify];
+    [self.viewControllerMock verify];
 }
-
-- (void)testThatDidEnterBackgroundNotificationSetsTheViewNeedsRefreshingFlagToYES
-{
-    [[self.preservationAssistantMock expect] setViewNeedsRefreshing:YES];
-    
-    [self.state didEnterBackgroundNotification:self.doesNotMatter];
-    
-    [self.preservationAssistantMock verify];
-}
-
-- (void)testThatDidEnterBackgroundNotificationSetsDataSourceBackgroundFetchingModeToYES
-{
-    [[self.questionsDataSourceMock expect] setBackgroundFetchMode:YES];
-    
-    [self.state didEnterBackgroundNotification:self.doesNotMatter];
-    
-    [self.questionsDataSourceMock verify];
-}
-
 
 - (void)testThatDidEnterBackgroundNotificationSavesTheStateToPersistentStorage
 {
@@ -200,7 +174,7 @@ const static BOOL valueYES = YES;
 
 - (void)testThatControllerDidChangeContentEnablesRefreshControl
 {
-    [[self.viewControllerMock expect] setupRefreshControl];
+    [[self.questionsRefreshControlMock expect] enable];
     
     [self.state controllerDidChangeContent];
     

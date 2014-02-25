@@ -15,5 +15,6 @@
 @property (nonatomic,assign) id<EPPostmanDelegateProtocol> delegate;
 
 - (void)post:(NSString*)item;
+- (void)postQuestionWithHeader:(NSString*)header content:(NSString*)content;
 
 @end

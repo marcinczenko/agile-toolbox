@@ -14,20 +14,18 @@
 #import "EPAddQuestionDelegateProtocol.h"
 
 #import "EPPostmanProtocol.h"
-#import "EPPostmanDelegateProtocol.h"
 
 #import "EPFetchMoreTableViewCell.h"
 #import "EPQuestionsTableViewControllerStateMachine.h"
 #import "EPQuestionsTableViewExpert.h"
 #import "EPQuestionsTableViewControllerStatePreservationAssistant.h"
 #import "EPDependencyBox.h"
+#import "EPQuestionsRefreshControl.h"
 
 
 @interface EPQuestionsTableViewController : UITableViewController<UIScrollViewDelegate,
                                                                   NSFetchedResultsControllerDelegate,
-                                                                  EPQuestionsDataSourceDelegateProtocol,
-                                                                  EPAddQuestionDelegateProtocol,
-                                                                  EPPostmanDelegateProtocol>
+                                                                  EPQuestionsDataSourceDelegateProtocol>
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox;
 
@@ -47,12 +45,19 @@
 
 @property (nonatomic,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
+@property (nonatomic,strong) EPQuestionsRefreshControl* questionsRefreshControl;
+
+
+- (void)relinkToFetchedResultsController;
+- (void)disconnectFromFetchedResultsController;
+- (CGFloat)heightOfNavigationBarAndStatusBar;
+
+
 - (void)willResignActiveNotification:(NSNotification*)paramNotification;
 - (void)didEnterBackgroundNotification:(NSNotification*)paramNotification;
 - (void)willEnterForegroundNotification:(NSNotification*)paramNotification;
 - (void)didBecomeActiveNotification:(NSNotification*)paramNotification;
 
-- (void)setupRefreshControl;
-- (void)refresh:(UIRefreshControl*)refreshControl;
+
 
 @end

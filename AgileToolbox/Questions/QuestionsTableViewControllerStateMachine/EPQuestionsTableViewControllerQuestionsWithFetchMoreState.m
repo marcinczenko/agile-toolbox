@@ -7,8 +7,8 @@
 //
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
-#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h"
 #import "EPQuestionTableViewCell.h"
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreState
@@ -16,7 +16,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.viewController setupRefreshControl];
+    [self.viewController.questionsRefreshControl enable];
+}
+
+- (void)viewWillAppear
+{
+    [self.viewController.questionsRefreshControl enable];
+    [super viewWillAppear];
 }
 
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -46,8 +52,7 @@
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
-    refreshControl.attributedTitle = title;
+    self.viewController.questionsRefreshControl.title = EPQuestionsRefreshControlTextRefreshing;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
                                                                      andOldestQuestionId:self.viewController.oldestQuestionId];
@@ -64,10 +69,13 @@
 {
     if ([self.tableViewExpert scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:scrollView]) {
         self.viewController.isScrolling = NO;
-        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingState class]];
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsLoadingRefreshingState class]];
         [self fetchNextSetOfQuestions];
         [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        
+        [self.viewController.questionsRefreshControl beginRefreshing];
+        
     }
 }
 

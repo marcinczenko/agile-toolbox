@@ -20,6 +20,15 @@
                                    error:nil] URLByAppendingPathComponent:fileName];
 }
 
++ (void)deleteFile:(NSString*)fileName
+{
+    NSURL* fileURL = [self persistentStateURLForFile:fileName];
+    
+    NSFileManager* fileManager = [NSFileManager new];
+    
+    [fileManager removeItemAtURL:fileURL error:nil];
+}
+
 + (void)storeDictionary:(NSDictionary*)dictionary toFile:(NSString*)fileName
 {
 #ifndef NO_STATE_PRESERVATION

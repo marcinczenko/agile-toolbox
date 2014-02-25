@@ -13,10 +13,9 @@
 #import "EPQuestionsTableViewControllerEmptyConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
-#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
-#import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h"
 
 @interface EPQuestionsTableViewControllerStateMachine ()
 
@@ -60,10 +59,9 @@
                               [EPQuestionsTableViewControllerEmptyConnectionFailureState class],
                               [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
-                              [EPQuestionsTableViewControllerQuestionsLoadingState class],
-                              [EPQuestionsTableViewControllerQuestionsConnectionFailureState class],
                               [EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class],
-                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
+                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class],
+                              [EPQuestionsTableViewControllerQuestionsLoadingRefreshingState class]];
     
     for (Class stateClass in stateClasses) {
         dictionary[NSStringFromClass(stateClass)] = [[stateClass alloc] initWithStateMachine:stateMachine];
@@ -118,6 +116,16 @@
 - (void)didBecomeActiveNotification:(NSNotification*)notification
 {
     [self.currentState didBecomeActiveNotification:notification];
+}
+
+- (void)controllerWillChangeContent
+{
+    [self.currentState controllerWillChangeContent];
+}
+
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    [self.currentState controllerDidChangeQuestion:question atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
 }
 
 - (void)controllerDidChangeContent
@@ -178,6 +186,11 @@
 - (void)refresh:(UIRefreshControl*)refreshControl
 {
     return [self.currentState refresh:refreshControl];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+{
+    [self.currentState prepareForSegue:segue];
 }
 
 @end

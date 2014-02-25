@@ -18,6 +18,8 @@
 
 @property (nonatomic,readonly) NSURL* exampleURL;
 @property (nonatomic,readonly) NSString *testItemString;
+@property (nonatomic,readonly) NSString *testQuestionHeader;
+@property (nonatomic,readonly) NSString *testQuestionContent;
 @property (nonatomic,readonly) id doesNotMatter;
 
 @end
@@ -29,9 +31,14 @@
     return [NSURL URLWithString:@"https://example.com"];
 }
 
-- (NSString*)testItemString
+- (NSString*)testQuestionHeader
 {
-    return @"New Item";
+    return @"Test Question Header";
+}
+
+- (NSString*)testQuestionContent
+{
+    return @"Test Question Content";
 }
 
 - (id)doesNotMatter
@@ -39,9 +46,10 @@
     return nil;
 }
 
-- (NSArray*)createTestJSONObjectForPOSTRequestWithString:(NSString*)item
+- (NSArray*)createTestJSONObjectForPOSTRequestWithHeader:(NSString*)header content:(NSString*)content
 {
-    return [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:item forKey:@"content"]];
+    return [NSArray arrayWithObject:@{@"header": header,
+                                      @"content":content}];
 }
 
 - (NSData*)createJSONDataFromJSONObject:(id) json_object
@@ -84,7 +92,8 @@
 {
     id connection = [OCMockObject niceMockForProtocol:@protocol(EPConnectionProtocol)];
     [[connection expect] startPOSTWithBody:[OCMArg checkWithBlock:^(id actual) {
-        NSData* expected = [self createJSONDataFromJSONObject:[self createTestJSONObjectForPOSTRequestWithString:self.testItemString]];
+        NSData* expected = [self createJSONDataFromJSONObject:[self createTestJSONObjectForPOSTRequestWithHeader:self.testQuestionHeader
+                                                                                                         content:self.testQuestionContent]];
         if (![expected isEqualToData:(NSData*)actual]) {
             NSLog(@"EXPECTED:%@",[[NSString alloc] initWithData:expected encoding:NSUTF8StringEncoding]);
             NSLog(@"ACTUAL:%@",[[NSString alloc] initWithData:(NSData*)actual encoding:NSUTF8StringEncoding]);
@@ -95,7 +104,7 @@
     
     EPQuestionPostman * postman = [[EPQuestionPostman alloc] initWithConnection:connection];
     
-    [postman post:self.testItemString];
+    [postman postQuestionWithHeader:self.testQuestionHeader content:self.testQuestionContent];
     
     [connection verify];
 }
@@ -140,10 +149,17 @@
     [postmanDelegate verify];
 }
 
-// TODO:
-//- (void)testPostmanDelegateIsCalledOnFailedConnection
-//{
-//    
-//}
+- (void)testPostmanDelegateIsCalledOnFailedConnection
+{
+    id postmanDelegate = [OCMockObject mockForProtocol:@protocol(EPPostmanDelegateProtocol)];
+    [[postmanDelegate expect] postDeliveryFailed];
+    EPQuestionPostman *postman = [[EPQuestionPostman alloc] initWithConnection:self.doesNotMatter];
+    
+    postman.delegate = postmanDelegate;
+    
+    [postman downloadFailed];
+    
+    [postmanDelegate verify];
+}
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "EPQuestionsTableViewExpert.h"
-//#import "EPQuestionTableViewCell.h"
+#import "EPPersistentStoreHelper.h"
+
+#import "EPQuestionsTableViewController.h"
 
 @interface EPQuestionsTableViewExpert ()
 
@@ -77,12 +79,6 @@
     return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 }
 
-- (EPFetchMoreTableViewCell*)refreshStatusCell
-{
-    return (EPFetchMoreTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-}
-
-
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView
 {    
     return ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height+50);
@@ -93,24 +89,9 @@
     return (scrollView.contentOffset.y <= -100);
 }
 
-- (UIImageView*)createSnapshotView
+- (BOOL)scrolledToTopOrHigher
 {
-    CGRect frame = self.tableView.frame;
-    
-    frame.origin.y = self.tableView.contentInset.top;
-    frame.size.height = frame.size.height - frame.origin.y;
-    
-    UIGraphicsBeginImageContextWithOptions(self.tableView.frame.size, YES, 0);
-    [self.tableView drawViewHierarchyInRect: self.tableView.frame afterScreenUpdates:NO];
-    UIImage* im = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    UIGraphicsBeginImageContextWithOptions(frame.size, YES, 0);
-    [im drawAtPoint:CGPointMake(0, -self.tableView.contentInset.top)];
-    UIImage* im2 = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return [[UIImageView alloc] initWithImage:im2];
+    return (-[self.viewController heightOfNavigationBarAndStatusBar]>=self.tableView.bounds.origin.y);
 }
 
 - (void)deleteFetchMoreCell
@@ -124,22 +105,6 @@
         
     } else {
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
-    }
-}
-
-- (void)deleteRefreshingStatusCell
-{
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-}
-
-- (void)removeRefreshStatusCellFromScreen
-{
-    [self.tableView beginUpdates];
-    [self deleteRefreshingStatusCell];
-    [self removeTableFooter];
-    [self.tableView endUpdates];
-    if (self.totalContentHeightSmallerThanScreenSize) {
-        [self addTableFooterInOrderToHideEmptyCells];
     }
 }
 

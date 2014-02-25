@@ -16,6 +16,9 @@
 
 #import "Question.h"
 
+
+#import "EPOverlayNotifierView.h"
+
 @interface EPQuestionsTableViewController ()
 
 @property (nonatomic,weak) NSManagedObjectContext *managedObjectContext;
@@ -32,6 +35,8 @@
 @property (nonatomic,strong) UIImage* navBarSnapshot;
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
 
+@property (nonatomic,strong) EPOverlayNotifierView* updatedDateView;
+
 @end
 
 @implementation EPQuestionsTableViewController
@@ -42,7 +47,6 @@
 {
     self.fetchedResultsController.delegate = self;
     self.questionsDataSource.delegate = self;
-    [self.postman setDelegate:self];
     self.tableView.delegate = self;
 }
 
@@ -54,6 +58,7 @@
     [center addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(willEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
     [center addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
+    [center addObserver:self selector:@selector(preferredFontChanged:) name:UIContentSizeCategoryDidChangeNotification object:[UIApplication sharedApplication]];
 }
 
 - (void)injectDependenciesFrom:(EPDependencyBox*)dependencyBox
@@ -69,6 +74,8 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"ViewDidLoad");
+    
     self.view.accessibilityLabel = @"Questions";
         
     EPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -77,12 +84,17 @@
     [self setDelegates];
     
     self.tableViewExpert = [[EPQuestionsTableViewExpert alloc] initWithTableView:self.tableView];
+    self.tableViewExpert.viewController = self;
     
     [self.stateMachine assignViewController:self andTableViewExpert:self.tableViewExpert];
     
     [self.stateMachine viewDidLoad];
     
     [self configureNotifications];
+    
+    self.questionsRefreshControl = [[EPQuestionsRefreshControl alloc] initWithTableViewController:self refreshBlock:^(id refreshControl) {
+        [self.stateMachine refresh:refreshControl];
+    }];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -94,6 +106,11 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)preferredFontChanged: (NSNotification*)notification
+{
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)willResignActiveNotification:(NSNotification*)paramNotification
@@ -121,13 +138,16 @@
     [super viewWillAppear:animated];
     
     [self.stateMachine viewWillAppear];
+    
+    [self.updatedDateView addToView:self.view for:3.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{
+{    
     [super viewDidAppear:animated];
     
     [self.stateMachine viewDidAppear];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -142,8 +162,15 @@
     return (self.isViewLoaded && self.view.window);
 }
 
+- (CGFloat)heightOfNavigationBarAndStatusBar
+{
+    return [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
+}
+
+
 //------------------------------------------------------------------
 // TODO: consider moving the following methods to new type
+// It looks like some NSFetchControllerBridge or wrapper.
 - (BOOL)hasQuestionsInPersistentStorage
 {
     return (0<self.fetchedResultsController.fetchedObjects.count);
@@ -173,6 +200,28 @@
         return -1;
     }
 }
+
+- (void)disconnectFromFetchedResultsController
+{
+    self.fetchedResultsController.delegate = nil;
+    self.statePreservationAssistant.viewNeedsRefreshing = YES;
+    self.questionsDataSource.backgroundFetchMode = YES;
+}
+
+- (void)relinkToFetchedResultsController
+{
+    self.statePreservationAssistant.viewNeedsRefreshing = NO;
+    self.questionsDataSource.backgroundFetchMode = NO;
+    self.fetchedResultsController.delegate = self;
+    [self refetchFromCoreData];
+    [self.tableView reloadData];
+}
+
+- (void)refetchFromCoreData
+{
+    NSError *fetchError = nil;
+    [self.fetchedResultsController performFetch:&fetchError];
+}
 //------------------------------------------------------------------
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -182,13 +231,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"AddQuestion"]) {
-        
-        UINavigationController* navigationController = (UINavigationController*)segue.destinationViewController;
-        
-        EPAddQuestionViewController* destinationVC =  (EPAddQuestionViewController*)navigationController.topViewController;
-        destinationVC.delegate = self;
-    }
+    [self.stateMachine prepareForSegue:segue];
 }
 
 - (void)didReceiveMemoryWarning
@@ -220,52 +263,6 @@
     
     [self.stateMachine scrollViewDidScroll:scrollView];
 }
-
-- (void)setupRefreshControl
-{
-    if (!self.refreshControl) {
-        UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
-        refreshControl.attributedTitle = title;
-        
-        [refreshControl addTarget:self
-                           action:@selector(refresh:)
-                 forControlEvents:UIControlEventValueChanged];
-        
-        self.refreshControl = refreshControl;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl beginRefreshing];
-            [self.refreshControl endRefreshing];
-        });
-    } else {
-        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
-        self.refreshControl.attributedTitle = title;
-    }
-}
-
-#pragma mark - Refresh Controll delegate
-- (void)refresh:(UIRefreshControl*)refreshControl
-{
-//    NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
-//    refreshControl.attributedTitle = title;
-//    
-//    double delayInSeconds = 2.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [self.refreshControl endRefreshing];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.refreshControl.hidden = YES;
-//        });
-//        NSAttributedString* title = [[NSAttributedString alloc] initWithString:@"Pull to Refresh!"];
-//        refreshControl.attributedTitle = title;
-//    });
-    
-    NSLog(@"refresh:");
-    
-    [self.stateMachine refresh:refreshControl];
-}
-
 
 #pragma mark - Table view data source
 
@@ -371,19 +368,6 @@
 #pragma mark - EPAddQuestionDelegateProtocol
 - (void)questionAdded:(NSString *)question
 {
-    [self.postman post:question];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-}
-
-#pragma mark - EPPostmanDelegateProtocol
-- (void)postDelivered
-{
-    [self.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:-1 andOldestQuestionId:-1];
-}
-
-// TODO: not yet supported
-- (void)postDeliveryFailed
-{
     
 }
 
@@ -391,35 +375,12 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableViewExpert removeTableFooter];
-    [self.tableView beginUpdates];
+    [self.stateMachine controllerWillChangeContent];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    EPQuestionTableViewCell* updatedCell;
-    NSIndexPath* adjustedIndexPath;
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            if (!self.refreshControl) {
-                // we are in one of the refreshing state when the table structure has been altered
-                // to acomodate refreshing indicator in the first row
-                // we need to adjust the index path returned by fetched results controller
-                adjustedIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-            } else {
-                adjustedIndexPath = indexPath;
-            }
-            updatedCell = (EPQuestionTableViewCell*)[self.tableView cellForRowAtIndexPath:adjustedIndexPath];
-            [updatedCell formatCellForQuestion:question];
-            break;
-        default:
-            break;
-    }
+    [self.stateMachine controllerDidChangeQuestion:question atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
 }
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller

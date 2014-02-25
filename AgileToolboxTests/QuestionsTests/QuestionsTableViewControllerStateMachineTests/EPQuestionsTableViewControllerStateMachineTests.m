@@ -22,9 +22,10 @@
 #import "EPQuestionsTableViewControllerEmptyConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchState.h"
-#import "EPQuestionsTableViewControllerQuestionsLoadingState.h"
-#import "EPQuestionsTableViewControllerQuestionsConnectionFailureState.h"
 #import "EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
+#import "EPQuestionsTableViewControllerQuestionsLoadingRefreshingState.h"
+
 
 @interface EPQuestionsTableViewControllerStateMachineTests : XCTestCase
 
@@ -53,9 +54,9 @@ static const BOOL valueYES = YES;
                                                              [EPQuestionsTableViewControllerEmptyConnectionFailureState class],
                                                              [EPQuestionsTableViewControllerQuestionsWithFetchMoreState class],
                                                              [EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class],
-                                                             [EPQuestionsTableViewControllerQuestionsLoadingState class],
-                                                             [EPQuestionsTableViewControllerQuestionsConnectionFailureState class],
-                                                             [EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class]]];
+                                                             [EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState class],
+                                                             [EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class],
+                                                             [EPQuestionsTableViewControllerQuestionsLoadingRefreshingState class]]];
     }
     return stateClassesArray;
 }

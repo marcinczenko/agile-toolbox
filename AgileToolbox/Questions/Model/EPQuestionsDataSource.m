@@ -69,6 +69,7 @@
 {
     NSDictionary* dataDictionary = @{[self.class hasMoreQuestionsToFetchKey]:[NSNumber numberWithBool:self.hasMoreQuestionsToFetch]};
     [EPPersistentStoreHelper storeDictionary:dataDictionary toFile:[self.class persistentStoreFileName]];
+    [self saveToCoreData];
 }
 
 - (void)restoreFromPersistentStorage
@@ -126,12 +127,12 @@
 
 - (void)addToManagedObjectContextFromDictionary:(NSDictionary *)questionDictionaryObject
 {
-    Question *newQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.managedObjectContext];
+    Question *aQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:self.managedObjectContext];
     
-    if (nil != newQuestion) {
-        newQuestion.question_id = [questionDictionaryObject objectForKey:@"id"];
+    if (nil != aQuestion) {
+        aQuestion.question_id = [questionDictionaryObject objectForKey:@"id"];
         
-        [self updateQuestion:newQuestion withJsonDictionary:questionDictionaryObject];
+        [self updateQuestion:aQuestion withJsonDictionary:questionDictionaryObject];
         
     } else {
         NSLog(@"Failed to create the new question core data object.");

@@ -25,18 +25,11 @@ static const NSString *cellId = @"FetchMore";
     return self;
 }
 
-- (void)setAccessibilityLabelsForTesting
-{
-    self.accessibilityLabel = @"FetchMoreTableViewCell";
-    self.activityIndicator.accessibilityLabel = @"FetchMoreActivityIndicator";
-}
-
 + (id)cellDequeuedFromTableView:(UITableView*)tableView forIndexPath:(NSIndexPath*)indexPath loading:(BOOL)status
 {
     EPFetchMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FetchMore"
                                       forIndexPath:indexPath];
     
-//    [cell setAccessibilityLabelsForTesting];
     cell.tableView = tableView;
     cell.backgroundColor = [UIColor colorWithRed:0.937 green:0.255 blue:0.165 alpha:1.0];
     [cell hideSeparatorLine];

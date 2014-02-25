@@ -15,4 +15,8 @@
 + (BOOL)archiveObject:(id)object toFile:(NSString*)fileName;
 + (id)unarchiveObjectFromFile:(NSString*)fileName;
 
++ (void)deleteFile:(NSString*)fileName;
+
++ (NSURL*)persistentStateURLForFile:(NSString*)fileName;
+
 @end

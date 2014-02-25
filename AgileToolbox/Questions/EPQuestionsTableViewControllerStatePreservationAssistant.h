@@ -7,20 +7,37 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EPSnapshot.h"
 @class EPQuestionsTableViewController;
 
 @interface EPQuestionsTableViewControllerStatePreservationAssistant : NSObject<NSCoding>
 
 @property (nonatomic,assign) BOOL viewNeedsRefreshing;
+
+// properties that need to be persisted
+// EPQuestionsTableViewController
 @property (nonatomic,readonly) NSURL* idOfTheFirstVisibleRow;
+@property (nonatomic,readonly) EPSnapshot* snapshot;
+@property (nonatomic,assign) CGRect bounds;
+@property (nonatomic,assign) CGFloat scrollDelta;
+// EPAddQuestionTableViewController
+@property (nonatomic,assign) NSRange selectedRange;
+@property (nonatomic,assign) BOOL isContentViewFirstResponder;
+@property (nonatomic,strong) NSString* addQuestionViewHeaderText;
+@property (nonatomic,strong) NSString* addQuestionViewContentText;
+@property (nonatomic,assign) CGFloat addQuestionContentCellHeight;
+@property (nonatomic,assign) CGPoint addQuestionTableViewContentOffset;
+@property (nonatomic,strong) EPSnapshot* addQuestionViewWillDisappearSnapshot;
 
-@property (nonatomic,strong) UIImageView* snapshotView;
-@property (nonatomic,assign) CGPoint contentOffset;
-
-@property (nonatomic,strong) UIRefreshControl* refreshControl;
 
 + (NSString*)persistentStoreFileName;
-+ (NSString*)contentOffsetKey;
++ (NSString*)kIdOfTheFirstVisibleRow;
++ (NSString*)kSnapshot;
++ (NSString*)kBounds;
++ (NSString*)kScrollDelta;
+
++ (NSString*)kAddQuestionViewHeaderText;
++ (NSString*)kAddQuestionViewContentText;
 
 + (instancetype)restoreFromPersistentStorage;
 
@@ -29,8 +46,8 @@
 - (void)storeQuestionIdOfFirstVisibleQuestionForViewController:(EPQuestionsTableViewController*)viewController;
 - (void)restoreIndexPathOfFirstVisibleRowForViewController:(EPQuestionsTableViewController*)viewController;
 - (void)createSnapshotViewForViewController:(EPQuestionsTableViewController*)viewController;
-- (void)storeContentOffsetForViewController:(EPQuestionsTableViewController*)viewController;
 - (NSIndexPath*)indexPathForQuestionURI:(NSURL*)uri inViewController:(EPQuestionsTableViewController*)viewController;
 - (void)storeToPersistentStorage;
+- (void)invalidatePersistentStorage;
 
 @end

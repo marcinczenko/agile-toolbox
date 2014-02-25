@@ -28,7 +28,7 @@
         }
     } else {
         self.viewController.tableView.estimatedRowHeight = 105.0;
-        [self.viewController setupRefreshControl];
+        [self.viewController.questionsRefreshControl enable];
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreState class]];
         }

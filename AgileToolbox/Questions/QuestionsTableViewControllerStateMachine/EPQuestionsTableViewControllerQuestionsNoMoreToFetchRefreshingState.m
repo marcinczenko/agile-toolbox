@@ -11,7 +11,9 @@
 
 @interface EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState ()
 
-@property (nonatomic,assign) BOOL renderRefreshLoading;
+@property (nonatomic,assign) CGPoint contentOffset;
+
+@property (nonatomic,readonly) BOOL isReturningFromQuestionDetailsView;
 
 @end
 
@@ -21,57 +23,91 @@
 #define KEEP_VISIBLE_TIMEOUT 2.0
 #endif
 
+- (BOOL)isReturningFromQuestionDetailsView
+{
+    return (nil != self.viewController.refreshControl);
+}
+
+- (void)viewWillAppear
+{
+    if (self.isReturningFromQuestionDetailsView) {
+        // when refresh control was visible before leaving the view
+        // it may happen that content is slightly misaligned
+        // when refresh opration finished in question detail vier
+        // so in background
+        if (!self.viewController.refreshControl.isRefreshing) {
+            self.tableViewExpert.tableView.contentOffset = CGPointMake(0, 0);
+        }
+    } else {
+        [super viewWillAppear];
+    }
+}
+
+- (void)viewWillDisappear
+{
+    if (self.connectionFailurePending) {
+        [self handleEvent];
+        self.connectionFailurePending = NO;
+    }
+    
+    [super viewWillDisappear];
+}
+
+- (void)adjustContentOffsetWhenPositionAtFirstRowAndRefreshingToRevealRefreshControl
+{
+    if (self.viewController.tableView.bounds.origin.y == -[self.viewController heightOfNavigationBarAndStatusBar] && self.viewController.questionsRefreshControl.isRefreshing) {
+        self.viewController.tableView.contentOffset = self.viewController.statePreservationAssistant.bounds.origin;
+    }
+}
+
+- (void) viewDidAppear
+{
+    if (!self.viewController.refreshControl) {
+        [self.viewController.questionsRefreshControl beginRefreshingWithBeforeBlock:^{
+            self.tableViewExpert.tableView.userInteractionEnabled = NO;
+            
+            [self.viewController.statePreservationAssistant.snapshot displayInView:self.viewController.navigationController.view
+                                                                           withTag:1945
+                                                            originComputationBlock:^CGPoint{
+                return CGPointMake(0, [self.viewController heightOfNavigationBarAndStatusBar]);
+            }];
+            
+        } afterBlock:^{
+            
+            [super viewDidAppear];
+            
+            [self adjustContentOffsetWhenPositionAtFirstRowAndRefreshingToRevealRefreshControl];
+            
+            [self.viewController.statePreservationAssistant.snapshot removeViewWithTag:1945 fromSuperview:self.viewController.navigationController.view];
+            
+            self.tableViewExpert.tableView.userInteractionEnabled = YES;
+        }];
+    }
+}
+
 - (CGFloat)heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    if (self.viewController.refreshControl) {
+    if (0==indexPath.section) {
         return [EPQuestionsTableViewExpert questionRowHeight];
     } else {
-        if (0==indexPath.row) {
-            return [EPQuestionsTableViewExpert fetchMoreRowHeight];
-        } else {
-            return [EPQuestionsTableViewExpert questionRowHeight];
-        }
+        return [EPQuestionsTableViewExpert fetchMoreRowHeight];
     }
 }
 
 - (UITableViewCell*)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.viewController.refreshControl) {
-        if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
-            [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
-        }
-        return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
-                                                     forIndexPath:indexPath
-                                                      andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:indexPath]];
-    } else {
-        if (0==indexPath.row) {
-            
-            EPFetchMoreTableViewCell* cell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
-                                                                                    forIndexPath:indexPath
-                                                                                         loading:YES];
-            
-            if (![UIApplication sharedApplication].networkActivityIndicatorVisible) {
-                // We are notifying the user using dispatch_after - in connection failure.
-                // Otherwise we wouldn't be in this state anymore.
-                [cell setCellText:EPFetchMoreTableViewCellTextConnectionFailure];
-            }
-            return cell;
-            
-        } else {
-            if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
-                [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
-            }
-            NSIndexPath* adjustedIndexPath = [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
-            return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
-                                                         forIndexPath:indexPath
-                                                          andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:adjustedIndexPath]];
-        }
+    if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
+        [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     }
+
+    return [EPQuestionTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView
+                                                 forIndexPath:indexPath
+                                                  andQuestion:[self.viewController.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section
 {
-    return self.viewController.numberOfQuestionsInPersistentStorage + 1;
+    return self.viewController.numberOfQuestionsInPersistentStorage;
 }
 
 - (NSInteger)numberOfSections
@@ -82,41 +118,73 @@
 - (void)handleEvent
 {
     [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
-    [self.viewController.refreshControl endRefreshing];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.viewController.questionsRefreshControl endRefreshing];
+}
+
+- (void)controllerWillChangeContent
+{
+    [self.tableViewExpert removeTableFooter];
+    self.contentOffset = self.tableViewExpert.tableView.contentOffset;
+}
+
+- (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    EPQuestionTableViewCell* updatedCell;
+    CGPoint contentOffset;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            contentOffset = self.contentOffset;
+            contentOffset.y += 105.0;
+            self.contentOffset = contentOffset;
+            break;
+        case NSFetchedResultsChangeUpdate:
+            updatedCell = (EPQuestionTableViewCell*)[self.tableViewExpert.tableView cellForRowAtIndexPath:indexPath];
+            [updatedCell formatCellForQuestion:question];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)controllerDidChangeContent
 {
     [self handleEvent];
-    if (!self.viewController.refreshControl) {
-        [self.tableViewExpert deleteRefreshingStatusCell];
-    }
-    [self.tableViewExpert.tableView endUpdates];
+    
+    [self.tableViewExpert.tableView reloadData];
+    self.tableViewExpert.tableView.contentOffset = self.contentOffset;
+    
     if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
         [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     }
-    [self.viewController setupRefreshControl];
 }
 
 - (void)dataChangedInBackground
 {
     [self handleEvent];
+    [self checkAndCancelRestoringScrollPosition];
 }
 
 - (void)fetchReturnedNoData
 {
     [self handleEvent];
-    
-    if (!self.viewController.refreshControl) {
-        [self.tableViewExpert removeRefreshStatusCellFromScreen];
+}
+
+- (void)checkAndCancelRestoringScrollPosition
+{
+    if (-64.0>=self.viewController.statePreservationAssistant.bounds.origin.y) {
+        // cancel restoring scrol position
+        [self.viewController.statePreservationAssistant.snapshot clear];
+        [self.viewController.statePreservationAssistant invalidatePersistentStorage];
     }
-    [self.viewController setupRefreshControl];
 }
 
 - (void)fetchReturnedNoDataInBackground
 {
+    NSLog(@"fetchReturnedNoDataInBackground");
     [self handleEvent];
+    [self checkAndCancelRestoringScrollPosition];
 }
 
 - (void)keepVisibleFor:(double)seconds completionBlock:(void (^)())block
@@ -126,67 +194,43 @@
     dispatch_after(popTime, dispatch_get_main_queue(), block);
 }
 
-- (void)handleConnectionFailureUsingNativeRefreshControlCompletion
+- (void)handleConnectionFailureUsingNativeRefreshControlCompletionHandler
 {
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
-    
-    [self.viewController.refreshControl endRefreshing];
-    if (self.viewController.viewIsVisible) {
-        // the view might have dissapear in the meantime
-        if (!self.viewController.refreshControl) {
-            // A user could leave the questions view when refresh control was still active
-            // and return when it is not anymore. The action was triggered when native
-            // refresh control was active but has to be finished when it is not.
-            [self.tableViewExpert removeRefreshStatusCellFromScreen];
-        }
-        [self.viewController setupRefreshControl];
-    }
+    if (self.connectionFailurePending) {
+        // It may have happened that on waiting for connection failure completion event
+        // we left the screen which means viewWillDisappear happened where we
+        // reset all failure indicators and move to appropriate state.
+        // In such a case, we should execte the methods below.
+        // See also viewWillDisappear.
+        [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
+        
+        [self.viewController.questionsRefreshControl endRefreshing];
+    }    
 }
 
 - (void)handleConnectionFailureUsingNativeRefreshControl
 {
-    NSAttributedString* title = [[NSAttributedString alloc] initWithString:EPFetchMoreTableViewCellTextConnectionFailure];
-    self.viewController.refreshControl.attributedTitle = title;
+    self.viewController.questionsRefreshControl.title = EPFetchMoreTableViewCellTextConnectionFailure;
     
     [self keepVisibleFor:KEEP_VISIBLE_TIMEOUT completionBlock:^{
-        [self handleConnectionFailureUsingNativeRefreshControlCompletion];
-    }];
-}
-
-- (void)handleConnectionFailureUsingRefreshStatusCellCompletion
-{
-    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
-    
-    if (self.viewController.viewIsVisible) {
-        // the view might have dissapear in the meantime
-        [self.tableViewExpert removeRefreshStatusCellFromScreen];
-        [self.viewController setupRefreshControl];
-    }
-}
-
-- (void)handleConnectionFailureUsingRefreshStatusCell
-{
-    [self.tableViewExpert.refreshStatusCell setCellText:EPFetchMoreTableViewCellTextConnectionFailure];
-    
-    [self keepVisibleFor:KEEP_VISIBLE_TIMEOUT completionBlock:^{
-        [self handleConnectionFailureUsingRefreshStatusCellCompletion];
+        [self handleConnectionFailureUsingNativeRefreshControlCompletionHandler];
     }];
 }
 
 - (void)connectionFailure
 {
+    self.connectionFailurePending = YES;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    if (self.viewController.refreshControl) {
-        [self handleConnectionFailureUsingNativeRefreshControl];
-    } else {
-        [self handleConnectionFailureUsingRefreshStatusCell];
-    }
+    [self handleConnectionFailureUsingNativeRefreshControl];
 }
 
 - (void)connectionFailureInBackground
 {
+    NSLog(@"connectionFailureInBackground");
     [self handleEvent];
+    [self checkAndCancelRestoringScrollPosition];
 }
+
 
 
 @end
