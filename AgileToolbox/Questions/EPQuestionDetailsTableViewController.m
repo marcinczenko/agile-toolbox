@@ -204,7 +204,7 @@ static NSString* const kQuestionUpdated = @"Updated";
 {
     UITextView* textView = [self setupUpdatedTextView];
     
-    [self.textViews insertObject:@{@"color": [self.class colorYellow],
+    [self.textViews insertObject:@{@"color": [EPQuestionsTableViewExpert colorQuantum],
                                    @"view":textView,
                                    @"cell":[self setUpTableViewCellWithTextView:textView]}
                          atIndex:0];
@@ -307,7 +307,8 @@ static NSString* const kQuestionUpdated = @"Updated";
 - (UITextView*)setupUpdatedTextView
 {
     self.updatedTextView = [[EPQuestionUpdatedTextView alloc] initWithText:[NSString stringWithFormat:@"Last updated on %@",[self stringFromDate:self.questionUpdated]]];
-    self.updatedTextView.backgroundColor = [self.class colorYellow];
+    self.updatedTextView.textColor = [UIColor whiteColor];
+    self.updatedTextView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
     self.updatedTextView.textAlignment = NSTextAlignmentCenter;
     
     return self.updatedTextView;

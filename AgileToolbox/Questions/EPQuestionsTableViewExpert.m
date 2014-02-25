@@ -89,6 +89,11 @@
     return (scrollView.contentOffset.y <= -100);
 }
 
+- (BOOL)scrolledToTopOrHigher
+{
+    return (-[self.viewController heightOfNavigationBarAndStatusBar]>=self.tableView.bounds.origin.y);
+}
+
 - (void)deleteFetchMoreCell
 {
     if (self.totalContentHeightSmallerThanScreenSize) {

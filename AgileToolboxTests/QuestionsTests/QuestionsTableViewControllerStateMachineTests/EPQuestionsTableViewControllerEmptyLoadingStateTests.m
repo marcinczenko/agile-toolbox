@@ -63,6 +63,11 @@ const static BOOL valueYES = YES;
     [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(state)] hasQuestionsInPersistentStorage];
 }
 
+- (void)expectScrollPositionAtTheTop:(BOOL)status
+{
+    [[[self.tableViewExpertMock stub] andReturnValue:OCMOCK_VALUE(status)] scrolledToTopOrHigher];
+}
+
 - (void)mockFetchedResultsController
 {
     [[[self.viewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
@@ -117,6 +122,8 @@ const static BOOL valueYES = YES;
 - (void)testThatViewWillDisappearRecordsTheCurrentStateWhenThereAreQuestionsInPersistentStorage
 {
     [self expectQuestionsInPersistentStorage:YES];
+    
+    [self expectScrollPositionAtTheTop:NO];
     
     [[self.preservationAssistantMock expect] recordCurrentStateForViewController:self.viewControllerMock];
     

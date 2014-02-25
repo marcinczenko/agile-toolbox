@@ -112,7 +112,7 @@
 {
     self.viewController.statePreservationAssistant.bounds = self.viewController.tableView.bounds;
     
-    if (-[self.viewController heightOfNavigationBarAndStatusBar]>=self.tableViewExpert.tableView.bounds.origin.y && !self.viewController.refreshControl.isRefreshing) {
+    if ([self.tableViewExpert scrolledToTopOrHigher] && !self.viewController.refreshControl.isRefreshing) {
         return ;
     }
     

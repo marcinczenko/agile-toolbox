@@ -472,7 +472,7 @@
     viewController.postman = self.postman;
     
     [self presentViewController:viewController animated:NO completion:^{
-//        [self.postman postQuestionWithHeader:self.textField.text content:self.textView.text];
+        [self.postman postQuestionWithHeader:self.textField.text content:self.textView.text];
     }];
 }
 
