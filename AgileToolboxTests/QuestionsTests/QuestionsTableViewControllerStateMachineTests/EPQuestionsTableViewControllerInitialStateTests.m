@@ -92,7 +92,7 @@
         whenHasQuestionsInPersistentStorage:NO
                  andHasMoreQuestionsToFetch:YES];
     
-    [[self.questionsDataSourceMock expect] fetchOlderThan:-1];
+    [[self.questionsDataSourceMock expect] fetchOlderThan:nil];
     
     [self.state viewDidLoad];
     

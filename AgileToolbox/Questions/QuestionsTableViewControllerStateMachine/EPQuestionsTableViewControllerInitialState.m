@@ -20,7 +20,7 @@
         self.viewController.tableView.estimatedRowHeight = 44.0;
         if ([self.viewController.questionsDataSource hasMoreQuestionsToFetch]) {
             [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-            [self.viewController.questionsDataSource fetchOlderThan:-1];
+            [self.viewController.questionsDataSource fetchOlderThan:nil];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         }
         else {

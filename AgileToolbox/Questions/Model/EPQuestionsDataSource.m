@@ -106,23 +106,26 @@
     [self.connection getAsynchronousWithParams:params];
 }
 
-- (void)fetchOlderThan:(NSInteger)questionId
+- (void)fetchOlderThan:(NSString*)questionId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"n": [NSString stringWithFormat:@"%lu",
                                                                                          (unsigned long)[self.class pageSize]]}];
-    if (0 <= questionId) {
-        [params addEntriesFromDictionary:@{@"before": [NSString stringWithFormat:@"%ld",(unsigned long)questionId]}];
+    if (questionId) {
+        [params addEntriesFromDictionary:@{@"before": questionId}];
     }
     
     [self fetchWithParams:params];
 }
 
-- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSInteger)mostRecentQuestionId andOldestQuestionId:(NSInteger)oldestQuestionId
+- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSString*)mostRecentQuestionId
+                                   oldestQuestionId:(NSString*)oldestQuestionId
+                                          timestamp:(NSString*)timestamp
 {
     [self fetchWithParams:@{@"n": [NSString stringWithFormat:@"%lu",
                                    (unsigned long)[self.class pageSize]],
-                            @"newest": [NSString stringWithFormat:@"%ld",(unsigned long)mostRecentQuestionId],
-                            @"oldest": [NSString stringWithFormat:@"%ld",(unsigned long)oldestQuestionId]}];
+                            @"newest": mostRecentQuestionId,
+                            @"oldest": oldestQuestionId,
+                            @"timestamp": timestamp}];
 }
 
 - (void)addToManagedObjectContextFromDictionary:(NSDictionary *)questionDictionaryObject

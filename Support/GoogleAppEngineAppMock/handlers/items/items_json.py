@@ -12,7 +12,7 @@ class ItemsJSON(webapp2.RequestHandler):
     __delay = 1
 
     @classmethod
-    def setDelay(cls,delay):
+    def setDelay(cls, delay):
         cls.__delay = delay
 
     @staticmethod
@@ -22,7 +22,7 @@ class ItemsJSON(webapp2.RequestHandler):
     def convert_to_json(self, items):
         items_json = []
         for item in items:
-            items_json.append({'id': item.id,
+            items_json.append({'id': str(item.id),
                                'header': item.header,
                                'content': item.content,
                                'created': self.timestamp_to_float(item.created),
@@ -33,8 +33,9 @@ class ItemsJSON(webapp2.RequestHandler):
     def get_all_questions(self):
         return self.convert_to_json(QuestionRepository.all())
 
-    def get_updated_questions_in_range(self, id_newest, id_oldest):
-        items = QuestionRepository.fetch_all_updated_in_range(id_newest, id_oldest)
+    def get_updated_questions_in_range_updated_after(self, id_newest, id_oldest, updated_after_timestamp):
+        items = QuestionRepository.fetch_all_updated_in_range_updated_after(int(id_newest), int(id_oldest),
+                                                                            float(updated_after_timestamp))
         return self.convert_to_json(items)
 
     def get_questions_with_timestamp_before_id(self, question_id, number_of_items_to_fetch):
@@ -52,14 +53,15 @@ class ItemsJSON(webapp2.RequestHandler):
         return self.convert_to_json(items)
 
     def get(self):
-
         time.sleep(self.__delay)
 
         self.response.headers['Content-Type'] = 'application/json'
 
         if self.request.get('newest'):
             items_new = self.get_questions_with_timestamp_after_id(self.request.get('newest'), self.request.get('n'))
-            items_updated = self.get_updated_questions_in_range(self.request.get('newest'), self.request.get('oldest'))
+            items_updated = self.get_updated_questions_in_range_updated_after(self.request.get('newest'),
+                                                                              self.request.get('oldest'),
+                                                                              self.request.get('timestamp'))
             items_json = {'new': items_new,
                           'updated': items_updated}
 
@@ -71,4 +73,5 @@ class ItemsJSON(webapp2.RequestHandler):
         else:
             items_json = {'old': self.get_all_questions()}
 
+        # print(json.dumps(items_json))
         self.response.out.write(json.dumps(items_json))

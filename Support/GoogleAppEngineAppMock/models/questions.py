@@ -1,5 +1,6 @@
 import peewee
 import datetime
+import calendar
 
 import sqlite_model
 
@@ -24,13 +25,13 @@ class QuestionRepository(object):
         return Question.select()
 
     @classmethod
-    def fetch_all_updated_in_range(cls, question_id_newest, question_id_oldest):
+    def fetch_all_updated_in_range_updated_after(cls, question_id_newest, question_id_oldest, updated_after_timestamp):
         reference_question_newest = Question.select().where(Question.id == question_id_newest).get()
         reference_question_oldest = Question.select().where(Question.id == question_id_oldest).get()
         return Question.select().where(
-            (Question.updated > reference_question_newest.created) &
             (Question.created <= reference_question_newest.created) &
-            (Question.created >= reference_question_oldest.created))
+            (Question.created >= reference_question_oldest.created) &
+            (Question.updated > datetime.datetime.utcfromtimestamp(updated_after_timestamp)))
 
     @classmethod
     def fetch_all_after(cls, question_id):

@@ -55,14 +55,15 @@
     self.viewController.questionsRefreshControl.title = EPQuestionsRefreshControlTextRefreshing;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
-                                                                     andOldestQuestionId:self.viewController.oldestQuestionId];
+                                                                        oldestQuestionId:self.viewController.oldestQuestionId
+                                                                               timestamp:self.viewController.mostRecentlyUpdatedQuestionTimestamp];
     
 }
 
 - (void)fetchNextSetOfQuestions
 {
     Question *question = (Question*)self.viewController.fetchedResultsController.fetchedObjects.lastObject;
-    [self.viewController.questionsDataSource fetchOlderThan:question.question_id.integerValue];
+    [self.viewController.questionsDataSource fetchOlderThan:question.question_id];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

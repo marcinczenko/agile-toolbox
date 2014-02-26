@@ -58,7 +58,8 @@ static const BOOL valueYES = YES;
     NSDateFormatter *df = [NSDateFormatter new];
     [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [df setDateFormat:@"dd MM yyyy HH:mm:ss.SSSSSS ZZZZ"];
-    NSDate *date = [df dateFromString:@"11 01 2014 13:05:00.945000 GMT"];
+    NSDate *date = [df dateFromString:@"11 01 2014 13:05:00.946000 GMT"];
+
     return [NSNumber numberWithDouble:[date timeIntervalSince1970]+(seconds/60.0)];
 }
 
@@ -72,7 +73,7 @@ static const BOOL valueYES = YES;
             date,@"updated",
             date,@"created",
             answer, @"answer",
-            [NSNumber numberWithInt:sequence], @"id",
+            [NSString stringWithFormat:@"%d",sequence], @"id",
             nil];
 }
 
@@ -203,17 +204,17 @@ static const BOOL valueYES = YES;
 {
     [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize]}];
     
-    [self.questionsWithConnectionMock fetchOlderThan:-1];
+    [self.questionsWithConnectionMock fetchOlderThan:nil];
     
     [self.connectionMock verify];
 }
 
 -(void)testFetchingQuestionsAddedBeforeElementWithGivenId
 {
-    int anID = 123;
+    NSString* anID = @"123";
     [self.connectionMock setExpectationOrderMatters:YES];
     [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
-                                                              @"before": [NSString stringWithFormat:@"%d",anID]}];
+                                                              @"before": anID}];
     
     [self.questionsWithConnectionMock fetchOlderThan:anID];
     
@@ -222,14 +223,17 @@ static const BOOL valueYES = YES;
 
 - (void)testFetchingNewAndUpdatedQuestions
 {
-    int mostRecentQuestionId = 10;
-    int oldestQuestionId = 1;
+    NSString* mostRecentQuestionId = @"10";
+    NSString* oldestQuestionId = @"1";
+    NSString* timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+    
     [self.connectionMock setExpectationOrderMatters:YES];
     [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
-                                                              @"newest": [NSString stringWithFormat:@"%d",mostRecentQuestionId],
-                                                              @"oldest": [NSString stringWithFormat:@"%d",oldestQuestionId]}];
+                                                              @"newest": mostRecentQuestionId,
+                                                              @"oldest": oldestQuestionId,
+                                                              @"timestamp": timestamp}];
     
-    [self.questionsWithConnectionMock fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId andOldestQuestionId:oldestQuestionId];
+    [self.questionsWithConnectionMock fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId oldestQuestionId:oldestQuestionId timestamp:timestamp];
     
     [self.connectionMock verify];
 }

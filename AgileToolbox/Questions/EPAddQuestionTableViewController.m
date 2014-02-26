@@ -472,6 +472,7 @@
     viewController.postman = self.postman;
     
     [self presentViewController:viewController animated:NO completion:^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.postman postQuestionWithHeader:self.textField.text content:self.textView.text];
     }];
 }

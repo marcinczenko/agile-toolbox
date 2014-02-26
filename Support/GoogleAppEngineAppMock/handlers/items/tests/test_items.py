@@ -3,6 +3,7 @@ import webtest
 import json
 
 from models.questions import QuestionRepository
+from handlers.items.items_json import ItemsJSON
 
 import main
 
@@ -28,18 +29,22 @@ class ItemsTestCase(unittest.TestCase):
         self.assertIsNotNone(items)
         return items
 
-    def retrieve_first_n_items_posted_after_item_with_id(self, newest_item_id, oldest_item_id, number_of_items):
-        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d" % (newest_item_id, oldest_item_id,
-                                                                              number_of_items))
+    def retrieve_first_n_items_posted_after_item_with_id(self, newest_item_id, oldest_item_id,
+                                                         number_of_items, timestamp):
+        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d&timestamp=%f" % (newest_item_id, oldest_item_id,
+                                                                              number_of_items, timestamp))
         self.assertEqual(response.status_int, 200)
         items = response.json['new']
         self.assertIsNotNone(items)
         return items
 
-    def retrieve_first_n_and_updated_items_posted_after_item_with_id(self, newest_item_id, oldest_item_id,
-                                                                     number_of_items):
-        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d" % (newest_item_id, oldest_item_id,
-                                                                              number_of_items))
+    def retrieve_first_n_and_updated_items_posted_after_item_with_id(self,
+                                                                     newest_item_id,
+                                                                     oldest_item_id,
+                                                                     number_of_items,
+                                                                     timestamp):
+        response = self.testapp.get("/items_json?newest=%d&oldest=%d&n=%d&timestamp=%f" % (newest_item_id, oldest_item_id,
+                                                                              number_of_items, timestamp))
         self.assertEqual(response.status_int, 200)
         new_items = response.json['new']
         self.assertIsNotNone(new_items)
@@ -131,12 +136,12 @@ class ItemsTestCase(unittest.TestCase):
         self.assertEqual(len(items), 5)
 
         oldest_item_id = items[4][u'id']
-        self.assertEqual(11, oldest_item_id)
+        self.assertEqual('11', oldest_item_id)
 
-        items = self.retrieve_first_n_items_before_item_with_id(oldest_item_id, 5)
+        items = self.retrieve_first_n_items_before_item_with_id(int(oldest_item_id), 5)
         self.assertEqual(len(items), 5)
-        self.assertEqual(10, items[0][u'id'])
-        self.assertEqual(6, items[4][u'id'])
+        self.assertEqual('10', items[0][u'id'])
+        self.assertEqual('6', items[4][u'id'])
 
     def test_retrieving_first_n_items(self):
         QuestionRepository.populate(20)
@@ -160,8 +165,7 @@ class ItemsTestCase(unittest.TestCase):
         self.assertEqual(len(items), 1)
         item = items[0]
         self.assertEqual(item[u'content'], "new item")
-        self.assertEqual(item[u'header'], "new item header"
-                                          "")
+        self.assertEqual(item[u'header'], "new item header")
 
     def test_retrieving_first_n_items_posted_after_item_with_given_id(self):
         QuestionRepository.populate(10)
@@ -169,18 +173,19 @@ class ItemsTestCase(unittest.TestCase):
         items = self.retrieve_first_n_items(5)
 
         most_recent_item_id = items[0][u'id']
-        self.assertEqual(10, most_recent_item_id)
+        most_recent_item_updated = items[0][u'updated']
+        self.assertEqual('10', most_recent_item_id)
         oldest_item_id = items[4][u'id']
-        self.assertEqual(6, oldest_item_id)
+        self.assertEqual('6', oldest_item_id)
 
         number_of_new_items = 5
         QuestionRepository.populate(number_of_new_items)
 
-        new_items = self.retrieve_first_n_items_posted_after_item_with_id(most_recent_item_id, oldest_item_id,
-                                                                          number_of_new_items)
+        new_items = self.retrieve_first_n_items_posted_after_item_with_id(int(most_recent_item_id), int(oldest_item_id),
+                                                                          number_of_new_items, most_recent_item_updated)
         self.assertEqual(len(new_items), number_of_new_items)
-        self.assertEqual(15, new_items[0][u'id'])
-        self.assertEqual(11, new_items[4][u'id'])
+        self.assertEqual('15', new_items[0][u'id'])
+        self.assertEqual('11', new_items[4][u'id'])
 
     def test_retrieving_updated_items(self):
         QuestionRepository.populate(10)
@@ -188,9 +193,10 @@ class ItemsTestCase(unittest.TestCase):
         items = self.retrieve_first_n_items(5)
 
         most_recent_item_id = items[0][u'id']
-        self.assertEqual(10, most_recent_item_id)
+        most_recent_item_updated = items[0][u'updated']
+        self.assertEqual('10', most_recent_item_id)
         oldest_item_id = items[4][u'id']
-        self.assertEqual(6, oldest_item_id)
+        self.assertEqual('6', oldest_item_id)
 
         number_of_new_items = 5
         QuestionRepository.populate(number_of_new_items)
@@ -198,39 +204,40 @@ class ItemsTestCase(unittest.TestCase):
         QuestionRepository.update_items(list_of_items_to_be_updated)
 
         new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(
-            most_recent_item_id, oldest_item_id, number_of_new_items)
+            int(most_recent_item_id), int(oldest_item_id), number_of_new_items, most_recent_item_updated)
 
         self.assertEqual(len(new_items), number_of_new_items)
 
-        self.assertEqual(15, new_items[0][u'id'])
-        self.assertEqual(11, new_items[4][u'id'])
+        self.assertEqual('15', new_items[0][u'id'])
+        self.assertEqual('11', new_items[4][u'id'])
 
         self.assertEqual(len(updated_items), len(list_of_items_to_be_updated))
-        self.assertIn(updated_items[0][u'id'], list_of_items_to_be_updated)
-        self.assertIn(updated_items[1][u'id'], list_of_items_to_be_updated)
-        self.assertIn(updated_items[2][u'id'], list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[0][u'id']), list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[1][u'id']), list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[2][u'id']), list_of_items_to_be_updated)
 
     def test_retrieving_updated_items_does_not_include_items_outside_of_the_requested_range(self):
         QuestionRepository.populate(10)
 
         items = self.retrieve_first_n_items(5)
 
+        most_recent_item_updated = items[0][u'updated']
         most_recent_item_id = items[0][u'id']
-        self.assertEqual(10, most_recent_item_id)
+        self.assertEqual('10', most_recent_item_id)
         oldest_item_id = items[4][u'id']
-        self.assertEqual(6, oldest_item_id)
+        self.assertEqual('6', oldest_item_id)
 
         number_of_new_items = 5
         QuestionRepository.populate(number_of_new_items)
         QuestionRepository.update_items([1, 3, 5])
 
         new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(
-            most_recent_item_id, oldest_item_id, number_of_new_items)
+            int(most_recent_item_id), int(oldest_item_id), number_of_new_items, most_recent_item_updated)
 
         self.assertEqual(len(new_items), number_of_new_items)
 
-        self.assertEqual(15, new_items[0][u'id'])
-        self.assertEqual(11, new_items[4][u'id'])
+        self.assertEqual('15', new_items[0][u'id'])
+        self.assertEqual('11', new_items[4][u'id'])
 
         self.assertEqual(len(updated_items), 0)
 
@@ -239,24 +246,25 @@ class ItemsTestCase(unittest.TestCase):
 
         items = self.retrieve_first_n_items(5)
 
+        most_recent_item_updated = items[0][u'updated']
         most_recent_item_id = items[0][u'id']
-        self.assertEqual(10, most_recent_item_id)
+        self.assertEqual('10', most_recent_item_id)
         oldest_item_id = items[4][u'id']
-        self.assertEqual(6, oldest_item_id)
+        self.assertEqual('6', oldest_item_id)
 
         list_of_items_to_be_updated = [6, 8, 10]
         QuestionRepository.update_items(list_of_items_to_be_updated)
 
         new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(
-            most_recent_item_id, oldest_item_id, 5)
+            int(most_recent_item_id), int(oldest_item_id), 5, most_recent_item_updated)
 
         self.assertEqual(len(new_items), 0)
 
         self.assertEqual(len(updated_items), len(list_of_items_to_be_updated))
 
-        self.assertIn(updated_items[0][u'id'], list_of_items_to_be_updated)
-        self.assertIn(updated_items[1][u'id'], list_of_items_to_be_updated)
-        self.assertIn(updated_items[2][u'id'], list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[0][u'id']), list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[1][u'id']), list_of_items_to_be_updated)
+        self.assertIn(int(updated_items[2][u'id']), list_of_items_to_be_updated)
 
     def test_adding_an_answer_to_a_question(self):
         QuestionRepository.populate(2)
@@ -281,14 +289,14 @@ class ItemsTestCase(unittest.TestCase):
 
         self.assertEqual(len(items), 10)
         item = items[0]
-        self.assertEqual(10, item[u'id'])
+        self.assertEqual('10', item[u'id'])
 
         self.add_more_items()
 
         items = self.retrieve_all_items()
         self.assertEqual(len(items), 20)
         item = items[0]
-        self.assertEqual(20, item[u'id'])
+        self.assertEqual('20', item[u'id'])
 
     def test_adding_more_items_to_the_database_using_add_more_get_request_with_explicit_number_of_items(self):
         QuestionRepository.populate(10)
@@ -297,20 +305,23 @@ class ItemsTestCase(unittest.TestCase):
 
         self.assertEqual(len(items), 10)
         item = items[0]
-        self.assertEqual(10, item[u'id'])
+        self.assertEqual('10', item[u'id'])
 
         self.add_more_items(50)
 
         items = self.retrieve_all_items()
         self.assertEqual(len(items), 60)
         item = items[0]
-        self.assertEqual(60, item[u'id'])
+        self.assertEqual('60', item[u'id'])
 
     def test_updating_selected_items_using_get_request(self):
         QuestionRepository.populate(5)
+
+        updated = ItemsJSON.timestamp_to_float(QuestionRepository.all().get().updated)
+
         self.update_items([5, 3, 1])
 
-        new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(5, 1, 5)
+        new_items, updated_items = self.retrieve_first_n_and_updated_items_posted_after_item_with_id(5, 1, 5, updated)
         self.assertEqual(0, len(new_items))
         self.assertEqual(3, len(updated_items))
 

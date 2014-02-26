@@ -181,24 +181,37 @@
     return self.fetchedResultsController.fetchedObjects.count;
 }
 
-- (NSInteger)mostRecentQuestionId
+- (NSString*)mostRecentQuestionId
 {
     if (self.hasQuestionsInPersistentStorage) {
         Question* mostRecentQuestion = self.fetchedResultsController.fetchedObjects[0];
-        return mostRecentQuestion.question_id.integerValue;
+        return mostRecentQuestion.question_id;
     } else {
-        return -1;
+        return nil;
     }
 }
 
-- (NSInteger)oldestQuestionId
+- (NSString*)oldestQuestionId
 {
     if (self.hasQuestionsInPersistentStorage) {
         Question* mostRecentQuestion = self.fetchedResultsController.fetchedObjects[self.numberOfQuestionsInPersistentStorage-1];
-        return mostRecentQuestion.question_id.integerValue;
+        return mostRecentQuestion.question_id;
     } else {
-        return -1;
+        return nil;
     }
+}
+
+- (NSString*)mostRecentlyUpdatedQuestionTimestamp
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
+    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
+    fetchRequest.sortDescriptors = @[updatedSort];
+    
+    NSArray* questions = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    Question* mostRecentlyUpdatedQuestion = questions[0];
+    
+    return [NSString stringWithFormat:@"%f",[mostRecentlyUpdatedQuestion.updated timeIntervalSince1970]];
 }
 
 - (void)disconnectFromFetchedResultsController
