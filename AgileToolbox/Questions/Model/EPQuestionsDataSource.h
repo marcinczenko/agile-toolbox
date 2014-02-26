@@ -32,8 +32,10 @@
 #pragma mark EPQuestionsDataSourceProtocol
 @property (nonatomic,readonly) BOOL hasMoreQuestionsToFetch;
 @property (nonatomic,weak) id<EPQuestionsDataSourceDelegateProtocol> delegate;
-- (void)fetchOlderThan:(NSInteger)questionId;
-- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSInteger)mostRecentQuestionId andOldestQuestionId:(NSInteger)oldestQuestionId;
+- (void)fetchOlderThan:(NSString*)questionId;
+- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSString*)mostRecentQuestionId
+                                   oldestQuestionId:(NSString*)oldestQuestionId
+                                          timestamp:(NSString*)timestamp;
 
 #pragma mark - EPConnectionDelegateProtocol
 - (void)downloadCompleted:(NSData *)data;

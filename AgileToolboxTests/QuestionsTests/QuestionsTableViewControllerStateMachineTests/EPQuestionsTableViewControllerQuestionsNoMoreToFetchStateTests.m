@@ -37,14 +37,19 @@
     return nil;
 }
 
-- (void)stubViewControllerMostRecentQuestionId:(NSInteger)mostRecentQuestionId
+- (void)stubViewControllerMostRecentQuestionId:(NSString*)mostRecentQuestionId
 {
-    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(mostRecentQuestionId)] mostRecentQuestionId];
+    [[[self.viewControllerMock stub] andReturn:mostRecentQuestionId] mostRecentQuestionId];
 }
 
-- (void)stubViewControllerOldestQuestionId:(NSInteger)oldestQuestionId
+- (void)stubViewControllerOldestQuestionId:(NSString*)oldestQuestionId
 {
-    [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(oldestQuestionId)] oldestQuestionId];
+    [[[self.viewControllerMock stub] andReturn:oldestQuestionId] oldestQuestionId];
+}
+
+- (void)stubViewControllerTimeStampOfMostRecentlyUpdatedQuestion:(NSString*)timestamp
+{
+    [[[self.viewControllerMock stub] andReturn:timestamp] mostRecentlyUpdatedQuestionTimestamp];
 }
 
 - (void)setUp
@@ -78,11 +83,13 @@
 
 - (void)testThatRefreshCallsFetchNewAndUpdatedForQuestionIdRangeInDataSource
 {
-    NSInteger mostRecentQuestionId = 10;
-    NSInteger oldestQuestionId = 1;
+    NSString* mostRecentQuestionId = @"10";
+    NSString* oldestQuestionId = @"1";
+    NSString* timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     [self stubViewControllerMostRecentQuestionId:mostRecentQuestionId];
     [self stubViewControllerOldestQuestionId:oldestQuestionId];
-    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId andOldestQuestionId:oldestQuestionId];
+    [self stubViewControllerTimeStampOfMostRecentlyUpdatedQuestion:timestamp];
+    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId oldestQuestionId:oldestQuestionId timestamp:timestamp];
     
     [self.state refresh:self.doesNotMatter];
     

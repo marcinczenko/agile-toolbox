@@ -42,7 +42,7 @@
     if ([self.tableViewExpert scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:scrollView]) {
         self.viewController.isScrolling = NO;
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerEmptyLoadingState class]];
-        [self.viewController.questionsDataSource fetchOlderThan:-1];
+        [self.viewController.questionsDataSource fetchOlderThan:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.tableViewExpert.fetchMoreCell setLoadingStatus:YES];
     }

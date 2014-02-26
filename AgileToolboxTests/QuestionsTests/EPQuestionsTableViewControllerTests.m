@@ -403,22 +403,79 @@ BOOL valueNO = NO;
 {
     EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     Question *mostRecentQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
-    mostRecentQuestion.question_id = @2;
+    mostRecentQuestion.question_id = @"2";
     Question *oldestQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
-    oldestQuestion.question_id = @1;
+    oldestQuestion.question_id = @"1";
     
     [[[self.fetchedResultsControllerMock stub] andReturn:@[mostRecentQuestion,oldestQuestion]] fetchedObjects];
     
-    XCTAssertEqual((NSInteger)2, [self.vc mostRecentQuestionId]);
-    XCTAssertEqual((NSInteger)1, [self.vc oldestQuestionId]);
+    XCTAssertEqualObjects(@"2", [self.vc mostRecentQuestionId]);
+    XCTAssertEqualObjects(@"1", [self.vc oldestQuestionId]);
+}
+
+- (NSDate*)generateExampleDateShiftedBy:(int)seconds
+{
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [df setDateFormat:@"dd MM yyyy HH:mm:ss.SSSSSS ZZZZ"];
+    NSDate *date = [df dateFromString:@"11 01 2014 13:05:00.946000 GMT"];
+    return [date dateByAddingTimeInterval:seconds];
+}
+
+- (void)addNQuestionsToCoreData:(int)numberOfQuestions
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    for (int i=0; i<numberOfQuestions; i++) {
+        Question *aQuestion = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
+        aQuestion.content = [NSString stringWithFormat:@"Question Content %d",i];
+        aQuestion.header = [NSString stringWithFormat:@"Question Content %d",i];
+        NSDate* date = [self generateExampleDateShiftedBy:i];
+        aQuestion.created = date;
+        aQuestion.updated = date;
+    }
+    
+    [appDelegate.managedObjectContext save:nil];
 }
 
 - (void)testThatRetrievingMostRecentAndOldestQuestionIdsWhenNoQuestionsInPersistentStorage
 {
     [[[self.fetchedResultsControllerMock stub] andReturn:@[]] fetchedObjects];
     
-    XCTAssertEqual((NSInteger)-1, [self.vc mostRecentQuestionId]);
-    XCTAssertEqual((NSInteger)-1, [self.vc oldestQuestionId]);
+    XCTAssertNil([self.vc mostRecentQuestionId]);
+    XCTAssertNil([self.vc oldestQuestionId]);
+}
+
+- (NSArray*)getQuestionsFromCoreDataUpdatedDescending
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
+    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
+    fetchRequest.sortDescriptors = @[updatedSort];
+    
+    return [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+}
+
+- (void)testRetrievingTheMostRecentlyUpdatedQuestionFromCoreData
+{
+    EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate clearPersistentStore];
+    
+    [self addNQuestionsToCoreData:10];
+    
+    NSString* expectedMostRecentlyUpdatedQuestionTimestamp = [NSString stringWithFormat:@"%f",[[self generateExampleDateShiftedBy:9] timeIntervalSince1970]];
+    
+    XCTAssertEqualObjects(expectedMostRecentlyUpdatedQuestionTimestamp, self.vc.mostRecentlyUpdatedQuestionTimestamp);
+    
+    NSArray* beforeUpdating = [self getQuestionsFromCoreDataUpdatedDescending];
+    
+    Question* questionToBeUpdated = beforeUpdating[5];
+    NSDate* dateUpdated = [NSDate date];
+    questionToBeUpdated.updated = dateUpdated;
+    [appDelegate.managedObjectContext save:nil];
+    
+    expectedMostRecentlyUpdatedQuestionTimestamp = [NSString stringWithFormat:@"%f",[dateUpdated timeIntervalSince1970]];
+    XCTAssertEqualObjects(expectedMostRecentlyUpdatedQuestionTimestamp, self.vc.mostRecentlyUpdatedQuestionTimestamp);    
 }
 
 - (void)testThatRelinkToFetchedResultsControllerRestoresFetchedResultsControllerDelegate

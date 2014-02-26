@@ -207,11 +207,13 @@ typedef enum {
 #pragma mark - EPPostmanDelegateProtocol
 - (void)postDelivered
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self showConfirmationWithStyle:EPAddQuestionConfirmationStyleSuccess];
 }
 
 - (void)postDeliveryFailed
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self showConfirmationWithStyle:EPAddQuestionConfirmationStyleFailure];
 }
 

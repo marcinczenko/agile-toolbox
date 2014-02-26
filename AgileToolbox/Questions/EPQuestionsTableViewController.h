@@ -33,8 +33,9 @@
 @property (nonatomic,readonly) BOOL viewIsVisible;
 @property (nonatomic,readonly) BOOL hasQuestionsInPersistentStorage;
 @property (nonatomic,readonly) NSUInteger numberOfQuestionsInPersistentStorage;
-@property (nonatomic,readonly) NSInteger mostRecentQuestionId;
-@property (nonatomic,readonly) NSInteger oldestQuestionId;
+@property (nonatomic,readonly) NSString* mostRecentQuestionId;
+@property (nonatomic,readonly) NSString* oldestQuestionId;
+@property (nonatomic,readonly) NSString* mostRecentlyUpdatedQuestionTimestamp;
 
 @property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
 @property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;

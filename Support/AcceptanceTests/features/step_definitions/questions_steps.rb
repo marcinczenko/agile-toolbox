@@ -1,4 +1,9 @@
 
+Before do
+  puts "Cleaning #{Helpers::PathFinder.find(:ApplicationSandbox)}/Library/Application Support"
+  FileUtils.rm_rf "#{Helpers::PathFinder.find(:ApplicationSandbox)}/Library/Application Support"
+end
+
 Before('@preservation') do
   if !$already_run
     puts 'PRESERVATION :__+)))'

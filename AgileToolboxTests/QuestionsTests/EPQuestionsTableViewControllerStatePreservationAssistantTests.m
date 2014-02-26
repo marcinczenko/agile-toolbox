@@ -83,7 +83,7 @@ static const BOOL valueNO = NO;
     [[[self.questionsTableViewControllerMock stub] andReturn:self.tableViewExpertMock] tableViewExpert];
 }
 
-- (id)questionWithId:(NSNumber*)questionId
+- (id)questionWithId:(NSString*)questionId
 {
     EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
@@ -103,7 +103,7 @@ static const BOOL valueNO = NO;
     for (int i=0; i<maxId+1; i++) {
         Question *question = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
         
-        question.question_id = [NSNumber numberWithInt:i];
+        question.question_id = [NSString stringWithFormat:@"%d",i];
         
         [array addObject:question];
     }

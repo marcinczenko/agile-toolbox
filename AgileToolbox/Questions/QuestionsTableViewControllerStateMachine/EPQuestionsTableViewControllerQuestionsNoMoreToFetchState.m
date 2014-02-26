@@ -47,7 +47,8 @@
     self.viewController.questionsRefreshControl.title = EPQuestionsRefreshControlTextRefreshing;
     
     [self.viewController.questionsDataSource fetchNewAndUpdatedGivenMostRecentQuestionId:self.viewController.mostRecentQuestionId
-                                                                     andOldestQuestionId:self.viewController.oldestQuestionId];
+                                                                        oldestQuestionId:self.viewController.oldestQuestionId
+                                                                               timestamp:self.viewController.mostRecentlyUpdatedQuestionTimestamp];
     
 }
 

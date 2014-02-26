@@ -10,12 +10,15 @@
 #import "OCMock/OCMock.h"
 
 #import "EPQuestionsTableViewControllerQuestionsWithFetchMoreState.h"
+#import "EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.h"
 
 #import "EPQuestionsDataSource.h"
 #import "EPQuestionTableViewCell.h"
+#import "EPQuestionsDataSourceProtocol.h"
 
 @interface EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests : XCTestCase
 
+@property (nonatomic,strong) id questionsDataSourceMock;
 @property (nonatomic,strong) id fetchedResultsControllerMock;
 @property (nonatomic,strong) id viewControllerMock;
 
@@ -26,23 +29,47 @@
 
 @property (nonatomic,strong) EPQuestionsTableViewControllerQuestionsWithFetchMoreState* state;
 
+@property (nonatomic,readonly) id doesNotMatter;
+
 @end
 
 @implementation EPQuestionsTableViewControllerQuestionsWithFetchMoreStateTests
+
+- (id)doesNotMatter
+{
+    return nil;
+}
 
 -(void)expectPersistentStorageWithNItems:(NSUInteger)numberOfRows
 {
     [[[self.viewControllerMock stub] andReturnValue:OCMOCK_VALUE(numberOfRows)] numberOfQuestionsInPersistentStorage];
 }
 
+- (void)stubViewControllerMostRecentQuestionId:(NSString*)mostRecentQuestionId
+{
+    [[[self.viewControllerMock stub] andReturn:mostRecentQuestionId] mostRecentQuestionId];
+}
+
+- (void)stubViewControllerOldestQuestionId:(NSString*)oldestQuestionId
+{
+    [[[self.viewControllerMock stub] andReturn:oldestQuestionId] oldestQuestionId];
+}
+
+- (void)stubViewControllerTimeStampOfMostRecentlyUpdatedQuestion:(NSString*)timestamp
+{
+    [[[self.viewControllerMock stub] andReturn:timestamp] mostRecentlyUpdatedQuestionTimestamp];
+}
+
 - (void)setUp
 {
     [super setUp];
     
+    self.questionsDataSourceMock = [OCMockObject niceMockForProtocol:@protocol(EPQuestionsDataSourceProtocol)];
     self.fetchedResultsControllerMock = [OCMockObject niceMockForClass:[NSFetchedResultsController class]];
     
-    self.viewControllerMock = [OCMockObject mockForClass:[EPQuestionsTableViewController class]];
+    self.viewControllerMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewController class]];
     [[[self.viewControllerMock stub] andReturn:self.fetchedResultsControllerMock] fetchedResultsController];
+    [[[self.viewControllerMock stub] andReturn:self.questionsDataSourceMock] questionsDataSource];
     
     self.tableViewMock = [OCMockObject niceMockForClass:[UITableView class]];
     self.tableViewExpertMock = [OCMockObject niceMockForClass:[EPQuestionsTableViewExpert class]];
@@ -108,5 +135,30 @@
 {
     XCTAssertEqual((NSInteger)2, [self.state numberOfSections]);
 }
+
+- (void)testThatRefreshCallsFetchNewAndUpdatedForQuestionIdRangeInDataSource
+{
+    NSString* mostRecentQuestionId = @"10";
+    NSString* oldestQuestionId = @"1";
+    NSString* timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+    [self stubViewControllerMostRecentQuestionId:mostRecentQuestionId];
+    [self stubViewControllerOldestQuestionId:oldestQuestionId];
+    [self stubViewControllerTimeStampOfMostRecentlyUpdatedQuestion:timestamp];
+    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId oldestQuestionId:oldestQuestionId timestamp:timestamp];
+    
+    [self.state refresh:self.doesNotMatter];
+    
+    [self.questionsDataSourceMock verify];
+}
+
+- (void)testThatRefreshChangesStateToQuestionsWithFetchMoreRefreshing
+{
+    [[self.stateMachineMock expect] changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState class]];
+    
+    [self.state refresh:self.doesNotMatter];
+    
+    [self.stateMachineMock verify];
+}
+
 
 @end
