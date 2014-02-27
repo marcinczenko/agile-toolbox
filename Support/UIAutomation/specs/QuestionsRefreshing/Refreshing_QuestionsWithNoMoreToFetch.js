@@ -8,8 +8,8 @@ describe("Questions Refreshing", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item38';
-    var expectedLastVisibleCellName = 'Test Item0';
+    var expectedFirstVisibleCellName = 'Content for question 38';
+    var expectedLastVisibleCellName = 'Content for question 0';
 
     afterEach(function() {
         helpers.goBack();

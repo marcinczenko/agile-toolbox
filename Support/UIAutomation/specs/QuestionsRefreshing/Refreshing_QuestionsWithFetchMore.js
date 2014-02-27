@@ -8,7 +8,7 @@ describe("Questions Refreshing", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item49';
+    var expectedFirstVisibleCellName = 'Content for question 49';
     var expectedLastVisibleCellName = 'Pull up to download more questions.';
 
     afterEach(function() {

@@ -12,7 +12,7 @@ describe("Questions Preservation", function() {
     // This is because on iOS7 table view is visible under the navigation,
     // so even though the cell really visible to user is 'Test Item29' (index 20)
     // UIAutomation reports cell 'TestItem30' as the first visible cell.
-    var expectedFirstVisibleCellName = 'Test Item30';
+    var expectedFirstVisibleCellName = 'Content for question 30';
 
     afterEach(function() {
         helpers.goBack();

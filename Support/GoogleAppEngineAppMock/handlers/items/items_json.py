@@ -9,10 +9,12 @@ from models.questions import QuestionRepository
 
 class ItemsJSON(webapp2.RequestHandler):
 
-    __delay = 1
+    URL = '/questions_json'
+
+    __delay = 0
 
     @classmethod
-    def setDelay(cls, delay):
+    def set_delay(cls, delay):
         cls.__delay = delay
 
     @staticmethod
@@ -53,7 +55,8 @@ class ItemsJSON(webapp2.RequestHandler):
         return self.convert_to_json(items)
 
     def get(self):
-        time.sleep(self.__delay)
+        if self.__delay:
+            time.sleep(self.__delay)
 
         self.response.headers['Content-Type'] = 'application/json'
 

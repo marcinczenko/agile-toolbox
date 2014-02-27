@@ -8,7 +8,7 @@ describe("Questions Preservation", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item14';
+    var expectedFirstVisibleCellName = 'Content for question 14';
 
     afterEach(function() {
         helpers.goBack();
@@ -41,7 +41,7 @@ describe("Questions Preservation", function() {
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(50);
 
         // after scrolling down the first visible items is different now
-        expectedFirstVisibleCellName = 'Test Item5';
+        expectedFirstVisibleCellName = 'Content for question 5';
         expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
     });
 });

@@ -8,7 +8,7 @@ describe("Questions Backgrounding", function() {
 
     var helpers = new EPHelpers();
 
-    var expectedFirstVisibleCellName = 'Test Item5';
+    var expectedFirstVisibleCellName = 'Content for question 5';
 
     afterEach(function() {
         helpers.goBack();

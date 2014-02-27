@@ -4,6 +4,8 @@ from models.questions import QuestionRepository
 
 
 class Update(webapp2.RequestHandler):
+    URL = '/update_ids'
+
     def get(self):
         ids_of_items_to_update = [int(items_id) for items_id in self.request.get_all('id')]
 

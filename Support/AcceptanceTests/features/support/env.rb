@@ -9,6 +9,10 @@ require 'uri'
 Capybara.default_driver = :webkit
 Capybara.javascript_driver = :webkit
 
-# Capybara.app_host = 'http://localhost:8000'
+if ENV['RUN_ON_GAE']
+  Capybara.app_host = 'https://ep-qat-dev-1.appspot.com'
+else
+  Capybara.app_host = 'http://192.168.1.33:9001'
+end
 
 Capybara.run_server = false

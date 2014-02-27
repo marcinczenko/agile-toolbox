@@ -68,7 +68,7 @@ class QuestionRepository(object):
 
         for item_index in range(0+start_index, number_of_items+start_index):
             timestamp = datetime.datetime.utcnow()
-            Question.create(header="Header for Item%d" % item_index, content="Test Item%d" % item_index,
+            Question.create(header="Header for question %d" % item_index, content="Content for question %d" % item_index,
                             created=timestamp, updated=timestamp)
 
     @classmethod

@@ -4,6 +4,8 @@ from models.questions import QuestionRepository
 
 
 class AddMore(webapp2.RequestHandler):
+    URL = '/add_more'
+
     def get(self):
         number_of_items_to_add = self.request.get('n')
         if not number_of_items_to_add:

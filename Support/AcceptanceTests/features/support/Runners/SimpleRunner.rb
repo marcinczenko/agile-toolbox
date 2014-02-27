@@ -4,23 +4,24 @@ module Runners
         def initialize (command)
             @command = command
             @exited_normally = true
-            @output = ""
+            @output = ''
         end        
 
         def start            
-            @us = IO.popen("#{@command}", "w+")
-            @th = Thread.new { run() }
+            @us = IO.popen("#{@command}", 'w+')
+            @th = Thread.new { run }
         end
         
         def notify(signal)
             begin                
                 Process.kill(signal, @us.pid)
             rescue Errno::ESRCH
+              # ignored
             end
             @exited_normally = false
         end
         
-        def pid()
+        def pid
           @us.pid
         end
 
@@ -29,14 +30,14 @@ module Runners
               begin
                   str=@us.gets 
                   @output << str
-              rescue Exception => e
+              rescue Exception => _
                   return   
               end                  
             end                     
         end
         
         def wait
-          pid, exit_status = Process::waitpid2(@us.pid,0)                           
+          _, exit_status = Process::waitpid2(@us.pid,0)
           exit_status
         end
         
