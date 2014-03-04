@@ -15,6 +15,8 @@
 
 @property (nonatomic,readonly) BOOL isReturningFromQuestionDetailsView;
 
+@property (nonatomic,assign) BOOL hadBeginUpdates;
+
 @end
 
 @implementation EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState
@@ -126,6 +128,12 @@
 {
     [self.tableViewExpert removeTableFooter];
     self.contentOffset = self.tableViewExpert.tableView.contentOffset;
+    if (-64.0 <= self.contentOffset.y && !self.tableViewExpert.totalContentHeightSmallerThanScreenSizeRefreshAware) {
+        self.hadBeginUpdates = NO;
+    } else {
+        [self.tableViewExpert.tableView beginUpdates];
+        self.hadBeginUpdates = YES;
+    }
 }
 
 - (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -138,6 +146,9 @@
             contentOffset = self.contentOffset;
             contentOffset.y += 105.0;
             self.contentOffset = contentOffset;
+            if (self.hadBeginUpdates) {
+                [self.tableViewExpert.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
             break;
         case NSFetchedResultsChangeUpdate:
             updatedCell = (EPQuestionTableViewCell*)[self.tableViewExpert.tableView cellForRowAtIndexPath:indexPath];
@@ -150,21 +161,19 @@
 
 - (void)controllerDidChangeContent
 {
-    [self handleEvent];
+    [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-    [self.tableViewExpert.tableView reloadData];
-//    if (self.tableViewExpert.tableView.contentOffset.y < -64.0) {
-//        CGPoint contentOffset = self.contentOffset;
-//        contentOffset.y += self.viewController.refreshControl.bounds.size.height;
-//        self.contentOffset = contentOffset;
-//    }
-    
-    if (self.tableViewExpert.tableView.contentOffset.y > -64.0) {
+    if (self.hadBeginUpdates) {
+        if (self.tableViewExpert.totalContentHeightSmallerThanScreenSizeRefreshAware) {
+            [self.tableViewExpert addRefreshAwareTableFooterInOrderToHideEmptyCells];
+        }
+        [self.viewController.questionsRefreshControl endRefreshing];
+        [self.tableViewExpert.tableView endUpdates];
+    } else {
+        [self.viewController.questionsRefreshControl endRefreshing];
+        [self.tableViewExpert.tableView reloadData];
         self.tableViewExpert.tableView.contentOffset = self.contentOffset ;
-    }
-    
-    if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
-        [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     }
 }
 

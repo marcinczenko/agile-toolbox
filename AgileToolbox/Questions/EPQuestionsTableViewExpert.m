@@ -16,6 +16,7 @@
 @property (nonatomic,weak) UITableView *tableView;
 @property (nonatomic,readonly) CGFloat contentHeight;
 @property (nonatomic,readonly) CGFloat unusedContentHeight;
+@property (nonatomic,readonly) CGFloat unusedContentHeightRefreshAware;
 
 @end
 
@@ -60,9 +61,20 @@
     return self.tableView.frame.size.height-self.tableView.contentInset.top-self.contentHeight;
 }
 
+- (CGFloat)unusedContentHeightRefreshAware
+{
+    return self.tableView.frame.size.height-self.viewController.heightOfNavigationBarAndStatusBar-self.contentHeight;
+}
+
+
 - (BOOL)totalContentHeightSmallerThanScreenSize
 {
     return (self.contentHeight+self.tableView.contentInset.top < self.tableView.frame.size.height);
+}
+
+- (BOOL)totalContentHeightSmallerThanScreenSizeRefreshAware
+{
+    return (self.contentHeight+self.viewController.heightOfNavigationBarAndStatusBar < self.tableView.frame.size.height);
 }
 
 - (void)addTableFooterInOrderToHideEmptyCells
@@ -73,6 +85,16 @@
         [self.tableView setTableFooterView:footerView];
     }
 }
+
+- (void)addRefreshAwareTableFooterInOrderToHideEmptyCells
+{
+    if (nil==self.tableView.tableFooterView) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.unusedContentHeightRefreshAware)];
+        [footerView setBackgroundColor:[UIColor whiteColor]];
+        [self.tableView setTableFooterView:footerView];
+    }
+}
+
 
 - (EPFetchMoreTableViewCell*)fetchMoreCell
 {

@@ -26,6 +26,8 @@
 
 - (id)initWithTableView:(UITableView*)tableView;
 - (void)addTableFooterInOrderToHideEmptyCells;
+- (void)addRefreshAwareTableFooterInOrderToHideEmptyCells;
+- (BOOL)totalContentHeightSmallerThanScreenSizeRefreshAware;
 - (BOOL)totalContentHeightSmallerThanScreenSize;
 - (BOOL)scrollPositionTriggersFetchingOfTheNextQuestionSetForScrollView:(UIScrollView*)scrollView;
 - (BOOL)scrollPositionTriggersFetchingWhenContentSizeSmallerThanThanScreenSizeForScrollView:(UIScrollView*)scrollView;
