@@ -77,22 +77,36 @@
     return (self.contentHeight+self.viewController.heightOfNavigationBarAndStatusBar < self.tableView.frame.size.height);
 }
 
-- (void)addTableFooterInOrderToHideEmptyCells
+- (void)adjustTableFooterToActualContentSize
+{
+    if (nil!=self.tableView.tableFooterView) {
+        CGRect frame = self.tableView.tableFooterView.frame;
+        frame.size.height = self.unusedContentHeightRefreshAware;
+        self.tableView.tableFooterView.frame = frame;
+    }
+}
+
+- (void)addTableFooterWithHeight:(CGFloat)height
 {
     if (nil==self.tableView.tableFooterView) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.unusedContentHeight)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, height)];
+        UIView* separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.tableView.frame.size.width-15, 0.5)];
+        separatorView.backgroundColor = self.tableView.separatorColor;
         [footerView setBackgroundColor:[UIColor whiteColor]];
+        [footerView addSubview:separatorView];
         [self.tableView setTableFooterView:footerView];
     }
 }
 
+
+- (void)addTableFooterInOrderToHideEmptyCells
+{
+    [self addTableFooterWithHeight:self.unusedContentHeight];
+}
+
 - (void)addRefreshAwareTableFooterInOrderToHideEmptyCells
 {
-    if (nil==self.tableView.tableFooterView) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.unusedContentHeightRefreshAware)];
-        [footerView setBackgroundColor:[UIColor whiteColor]];
-        [self.tableView setTableFooterView:footerView];
-    }
+    [self addTableFooterWithHeight:self.unusedContentHeightRefreshAware];
 }
 
 

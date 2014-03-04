@@ -16,6 +16,7 @@
 @property (nonatomic,readonly) BOOL isReturningFromQuestionDetailsView;
 
 @property (nonatomic,assign) BOOL hadBeginUpdates;
+@property (nonatomic,assign) CGFloat footerHeight;
 
 @end
 
@@ -126,14 +127,15 @@
 
 - (void)controllerWillChangeContent
 {
-    [self.tableViewExpert removeTableFooter];
     self.contentOffset = self.tableViewExpert.tableView.contentOffset;
     if (-64.0 <= self.contentOffset.y && !self.tableViewExpert.totalContentHeightSmallerThanScreenSizeRefreshAware) {
         self.hadBeginUpdates = NO;
     } else {
+        self.footerHeight = self.tableViewExpert.tableView.tableFooterView.frame.size.height;
         [self.tableViewExpert.tableView beginUpdates];
         self.hadBeginUpdates = YES;
     }
+    [self.tableViewExpert removeTableFooter];
 }
 
 - (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -146,6 +148,7 @@
             contentOffset = self.contentOffset;
             contentOffset.y += 105.0;
             self.contentOffset = contentOffset;
+            self.footerHeight -= 105.0;
             if (self.hadBeginUpdates) {
                 [self.tableViewExpert.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
@@ -165,11 +168,20 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     if (self.hadBeginUpdates) {
-        if (self.tableViewExpert.totalContentHeightSmallerThanScreenSizeRefreshAware) {
-            [self.tableViewExpert addRefreshAwareTableFooterInOrderToHideEmptyCells];
+        self.tableViewExpert.tableView.backgroundColor = [UIColor whiteColor];
+        if (0<self.footerHeight) {
+            [self.tableViewExpert addTableFooterWithHeight:self.footerHeight];
         }
         [self.viewController.questionsRefreshControl endRefreshing];
         [self.tableViewExpert.tableView endUpdates];
+        double delayInSeconds = 0.2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [UIView animateWithDuration:0.3 animations:^{
+                self.tableViewExpert.tableView.backgroundColor = [EPQuestionsTableViewExpert colorQuantum];
+            }];
+        });
+        
     } else {
         [self.viewController.questionsRefreshControl endRefreshing];
         [self.tableViewExpert.tableView reloadData];
