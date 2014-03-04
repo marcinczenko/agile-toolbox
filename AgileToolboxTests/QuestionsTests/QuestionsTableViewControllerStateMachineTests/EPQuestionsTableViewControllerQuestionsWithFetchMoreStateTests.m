@@ -138,13 +138,9 @@
 
 - (void)testThatRefreshCallsFetchNewAndUpdatedForQuestionIdRangeInDataSource
 {
-    NSString* mostRecentQuestionId = @"10";
-    NSString* oldestQuestionId = @"1";
     NSString* timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    [self stubViewControllerMostRecentQuestionId:mostRecentQuestionId];
-    [self stubViewControllerOldestQuestionId:oldestQuestionId];
     [self stubViewControllerTimeStampOfMostRecentlyUpdatedQuestion:timestamp];
-    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId oldestQuestionId:oldestQuestionId timestamp:timestamp];
+    [[self.questionsDataSourceMock expect] fetchNewAndUpdatedAfterTimestamp:timestamp];
     
     [self.state refresh:self.doesNotMatter];
     

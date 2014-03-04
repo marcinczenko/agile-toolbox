@@ -11,6 +11,7 @@ class Question(sqlite_model.SQLiteModel):
     created = peewee.DateTimeField()
     updated = peewee.DateTimeField()
     answer = peewee.TextField(null=True)
+    accepted = peewee.BooleanField(default=True)
 
     class Meta:
         # db_table = 'questions'
@@ -34,14 +35,10 @@ class QuestionRepository(object):
             (Question.updated > datetime.datetime.utcfromtimestamp(updated_after_timestamp)))
 
     @classmethod
-    def fetch_all_after(cls, question_id):
-        reference_question = Question.select().where(Question.id == question_id).get()
-        return Question.select().where(Question.created > reference_question.created)
+    def fetch_n_updated_after(cls, timestamp, n):
+        query = cls.all().order_by(Question.updated)
 
-    @classmethod
-    def fetch_n_after(cls, question_id, n):
-        reference_question = Question.select().where(Question.id == question_id).get()
-        return Question.select().where(Question.created > reference_question.created).paginate(1, n)
+        return query.where(Question.updated > datetime.datetime.utcfromtimestamp(timestamp)).paginate(1, n)
 
     @classmethod
     def fetch_all_before(cls, question_id):

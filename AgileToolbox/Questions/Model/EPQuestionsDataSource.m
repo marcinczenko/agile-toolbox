@@ -13,6 +13,16 @@
 #import "Question.h"
 #import "EPAppDelegate.h"
 
+@interface Dupa : NSObject
+
+@property (nonatomic, strong) NSDate* updated;
+
+@end
+
+@implementation Dupa
+
+@end
+
 @interface EPQuestionsDataSource ()
 
 @property (nonatomic,strong) id<EPConnectionProtocol> connection;
@@ -117,14 +127,10 @@
     [self fetchWithParams:params];
 }
 
-- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSString*)mostRecentQuestionId
-                                   oldestQuestionId:(NSString*)oldestQuestionId
-                                          timestamp:(NSString*)timestamp
+- (void)fetchNewAndUpdatedAfterTimestamp:(NSString*)timestamp
 {
     [self fetchWithParams:@{@"n": [NSString stringWithFormat:@"%lu",
                                    (unsigned long)[self.class pageSize]],
-                            @"newest": mostRecentQuestionId,
-                            @"oldest": oldestQuestionId,
                             @"timestamp": timestamp}];
 }
 
@@ -156,6 +162,36 @@
         
         if ([self.managedObjectContext save:&savingError]) {
             NSLog(@"Successfully saved the context.");
+//            for (Question* question in self.delegate.fetchedResultsController.fetchedObjects) {
+//                NSLog(@"===Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
+//            }
+//            
+//            NSMutableArray* array = [self.delegate.fetchedResultsController.fetchedObjects mutableCopy];
+//            
+//            NSSortDescriptor *updatedDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortUpdated" ascending:NO];
+//            NSArray *sortDescriptors = @[updatedDescriptor];
+//            NSArray *sortedArray = [array sortedArrayUsingDescriptors:sortDescriptors];
+//            
+//            NSMutableArray* dupaArray = [NSMutableArray new];
+//            
+//            for (Question* question in sortedArray) {
+//                Dupa* dupa = [Dupa new];
+//                dupa.updated = question.updated;
+//                [dupaArray addObject:dupa];
+////                NSLog(@"+++Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
+//                NSLog(@"+++updated:%@", question.sortUpdated);
+//            }
+//            
+//            NSSortDescriptor *dupaDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
+//            NSArray *dupaSortDescriptors = @[dupaDescriptor];
+//            NSArray *sortedDupaArray = [dupaArray sortedArrayUsingDescriptors:dupaSortDescriptors];
+//            
+//            for (Dupa* dupa in sortedDupaArray) {
+//                NSLog(@"###dupa:%@", dupa.updated);
+//            }
+            
+            
+            
         } else {
             NSLog(@"Failed to save the context. Error = %@", savingError);
         }
@@ -184,7 +220,7 @@
     }
 }
 
-- (NSDictionary*)makeDictionaryKeyedByIdForJsonQuestions:(NSArray*)jsonQuestions
+- (NSMutableDictionary*)makeDictionaryKeyedByIdForJsonQuestions:(NSArray*)jsonQuestions
 {
     NSMutableDictionary* wrapperDictionary = [NSMutableDictionary new];
     for (NSDictionary* jsonDictionary in jsonQuestions) {
@@ -211,49 +247,39 @@
     question.content = [dictionary objectForKey:@"content"];
     question.created = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"created"] doubleValue]];
     question.updated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"updated"] doubleValue]];
+    question.sortUpdated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"updated"] doubleValue]];
     id answer = [dictionary objectForKey:@"answer"];
     if ([NSNull null] != answer) {
         question.answer = answer;
     }
     question.updatedOrNew = @YES;
+//    NSLog(@"Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
 }
 
 - (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray
 {
-    NSDictionary* wrapperDictionary = [self makeDictionaryKeyedByIdForJsonQuestions:jsonArray];
+    NSMutableDictionary* wrapperDictionary = [self makeDictionaryKeyedByIdForJsonQuestions:jsonArray];
     for (Question* question in [self fetchQuestionsWithQuestionIdsIn:wrapperDictionary.allKeys]) {
         [self updateQuestion:question withJsonDictionary:wrapperDictionary[question.question_id]];
+        [wrapperDictionary removeObjectForKey:question.question_id];
+    }
+    if (0 < wrapperDictionary.count) {
+        [self addToCoreData:wrapperDictionary.allValues];
     }
 }
 
-- (void)handleNew:(NSArray*)newQuestions andUpdated:(NSArray*)updatedQuestions
+- (void)handleNewQuestions:(NSArray*)newQuestions
 {
     // if newQuestions is not null than updatedQuestions is not null by design
     // receivedData[@"new"] should only be null during fetchOlderThan
     // othrewise it may be of zero length but should not be null
     if (newQuestions) {
-        if (0==newQuestions.count && 0==updatedQuestions.count) {
+        if (0==newQuestions.count) {
             [self callFetchReturnedNoDataDelegate];
         } else {
-            [self handleNewQuestions:newQuestions];
-            [self handleUpdatedQuestions:updatedQuestions];
+            [self synchronizeCoreDataQuestionsWithJsonArray:newQuestions];
             [self callDataChangedInBackgroundWhenInBackground];
         }
-    }
-}
-
-- (void) handleNewQuestions:(NSArray*)newQuestions
-{
-    if (0<newQuestions.count) {
-        [self addToCoreData:newQuestions];
-    }
-}
-
-- (void)handleUpdatedQuestions:(NSArray*)updatedQuestions
-{
-    if (0<updatedQuestions.count) {
-        
-        [self synchronizeCoreDataQuestionsWithJsonArray:updatedQuestions];
     }
 }
 
@@ -283,7 +309,7 @@
     }
     
     [self handleOldQuestions:receivedData[@"old"]];
-    [self handleNew:receivedData[@"new"] andUpdated:receivedData[@"updated"]];
+    [self handleNewQuestions:receivedData[@"new"]];
     
     [self saveToCoreData];
     

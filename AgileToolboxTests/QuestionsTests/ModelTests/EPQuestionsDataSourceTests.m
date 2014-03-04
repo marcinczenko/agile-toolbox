@@ -105,8 +105,6 @@ static const BOOL valueYES = YES;
         [updatedArray addObject:updatedDictionary];
     }
     
-    NSLog(@"%@",updatedArray);
-    
     return updatedArray;
 }
 
@@ -223,17 +221,13 @@ static const BOOL valueYES = YES;
 
 - (void)testFetchingNewAndUpdatedQuestions
 {
-    NSString* mostRecentQuestionId = @"10";
-    NSString* oldestQuestionId = @"1";
     NSString* timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     
     [self.connectionMock setExpectationOrderMatters:YES];
     [[self.connectionMock expect] getAsynchronousWithParams:@{@"n": [NSString stringWithFormat:@"%lu",(long)EPQuestionsDataSource.pageSize],
-                                                              @"newest": mostRecentQuestionId,
-                                                              @"oldest": oldestQuestionId,
                                                               @"timestamp": timestamp}];
     
-    [self.questionsWithConnectionMock fetchNewAndUpdatedGivenMostRecentQuestionId:mostRecentQuestionId oldestQuestionId:oldestQuestionId timestamp:timestamp];
+    [self.questionsWithConnectionMock fetchNewAndUpdatedAfterTimestamp:timestamp];
     
     [self.connectionMock verify];
 }
@@ -247,26 +241,36 @@ static const BOOL valueYES = YES;
     [self compareCoreDataWithJsonArray:jsonArray];
 }
 
-- (void)testThatQuestionsMarkedAsNewAreProperlySavedToCoreDataOnReception
+- (void)testThatQuestionsMarkedAsNewAreProperlySavedToCoreDataOnReception_onlyNewQuestions
 {
     NSArray* jsonArray = [self generateJsonArrayWithTestQuestionsWithNElements:5 includingAnswers:NO];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray,
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray}]];
     
     [self compareCoreDataWithJsonArray:jsonArray];
 }
 
-- (void)testThatQuestionsMarkedAsUpdatedAreProperlySavedToCoreDataOnReception
+- (void)testThatQuestionsMarkedAsNewAreProperlySavedToCoreDataOnReception_NewAndUpdatedQuestions
 {
     NSArray* jsonArray = [self generateJsonArrayWithTestQuestionsWithNElements:5 includingAnswers:NO];
     
     [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"old":jsonArray}]];
     
-    NSArray* updatedJsonArray = [self updateContentInJsonArray:jsonArray];
+    NSMutableArray* updatedJsonArray = [[NSMutableArray alloc] initWithArray:[self updateContentInJsonArray:jsonArray]];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":updatedJsonArray}]];
+    
+    [updatedJsonArray insertObject:[self createQuestionJsonObjectWithDate:[self generateExampleDateAsNSNumberShiftedBy:6]
+                                                    andSequence:6
+                                                includingAnswer:NO]
+                           atIndex:0];
+    
+    [updatedJsonArray insertObject:[self createQuestionJsonObjectWithDate:[self generateExampleDateAsNSNumberShiftedBy:7]
+                                                              andSequence:7
+                                                          includingAnswer:NO]
+                           atIndex:0];
+
+
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":updatedJsonArray}]];
     
     [self compareCoreDataWithJsonArray:updatedJsonArray];
 }
@@ -278,19 +282,17 @@ static const BOOL valueYES = YES;
     id questionsPartialMock = [OCMockObject partialMockForObject:self.questionsWithNilConnection];
     [self mockOutCallingCoreDataFor:questionsPartialMock];
     
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[]}]];
     
     XCTAssertTrue(self.questionsWithNilConnection.hasMoreQuestionsToFetch);
 }
 
-- (void)testThatDownloadCompletedCallsFetchedReturnedNoDataWhenBothNewAndUpdatedAreEmpty
+- (void)testThatDownloadCompletedCallsFetchedReturnedNoDataWhenNewIsEmpty
 {
     [[self.dataSourceDelegateMock expect] fetchReturnedNoData];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[]}]];
     
     [self.dataSourceDelegateMock verify];
 }
@@ -305,33 +307,18 @@ static const BOOL valueYES = YES;
     [[self.dataSourceDelegateMock reject] fetchReturnedNoData];
     
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray,
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray}]];
     
     [self.dataSourceDelegateMock verify];
 }
 
-- (void)testThatDownloadCompletedDoesNotCallFetchedReturnedNoDataWhenUpdatedIsNotEmpty
-{
-    NSArray* jsonArray = [self generateJsonArrayWithTestQuestionsWithNElements:5 includingAnswers:NO];
-    
-    [[self.dataSourceDelegateMock reject] fetchReturnedNoData];
-    
-    self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":jsonArray}]];
-    
-    [self.dataSourceDelegateMock verify];
-}
-
-- (void)testThatDownloadCompletedCallsFetchedReturnedNoDataInBackgroundWhenBothNewAndUpdatedAreEmptyAndDataSourceIsInBackgroundFetchMode
+- (void)testThatDownloadCompletedCallsFetchedReturnedNoDataInBackgroundWhenNewIsEmptyAndDataSourceIsInBackgroundFetchMode
 {
     [[self.dataSourceDelegateMock expect] fetchReturnedNoDataInBackground];
     
     self.questionsWithNilConnection.backgroundFetchMode = YES;
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[]}]];
     
     [self.dataSourceDelegateMock verify];
 }
@@ -347,26 +334,10 @@ static const BOOL valueYES = YES;
     
     self.questionsWithNilConnection.backgroundFetchMode = YES;
     self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray,
-                                                                                                @"updated":@[]}]];
+    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":jsonArray}]];
     
     [self.dataSourceDelegateMock verify];
 }
-
-- (void)testThatDownloadCompletedCallsDataFetchedInBackgroundWhenUpdatedIsNotEmpty
-{
-    NSArray* jsonArray = [self generateJsonArrayWithTestQuestionsWithNElements:5 includingAnswers:NO];
-    
-    [[self.dataSourceDelegateMock expect] dataChangedInBackground];
-    
-    self.questionsWithNilConnection.backgroundFetchMode = YES;
-    self.questionsWithNilConnection.delegate = self.dataSourceDelegateMock;
-    [self.questionsWithNilConnection downloadCompleted:[self createJsonDataFromJsonDictionary:@{@"new":@[],
-                                                                                                @"updated":jsonArray}]];
-    
-    [self.dataSourceDelegateMock verify];
-}
-
 
 - (void)testThatTheDelegateOfTheConnectionObjectIsSet
 {

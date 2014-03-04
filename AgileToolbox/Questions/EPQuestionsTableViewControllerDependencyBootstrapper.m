@@ -67,9 +67,11 @@ static NSString* const ADD_QUESTION_JSON_URL = @"/add_question_json";
 - (NSFetchedResultsController*)bootstrapFetchedResultsController
 {
     NSFetchRequest *questionsFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
+//    NSSortDescriptor *createdSort = [[NSSortDescriptor alloc] initWithKey:@"created" ascending:NO];
+    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"sortUpdated" ascending:NO];
     
-    questionsFetchRequest.sortDescriptors = @[createdSort];
+//    questionsFetchRequest.sortDescriptors = @[createdSort];
+    questionsFetchRequest.sortDescriptors = @[updatedSort];
     
     NSFetchedResultsController* questionsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:questionsFetchRequest
                                                                                                         managedObjectContext:self.appDelegate.managedObjectContext

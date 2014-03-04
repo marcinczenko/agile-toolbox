@@ -31,7 +31,7 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
 
   Before do
     puts 'Purging datastore...'
-    response = get_from('questions_configure?clear=1')
+    response = get_from('questions_configure?clear=1&only_accepted=False')
 
     response.is_a?(Net::HTTPOK).should be_true
     response.code.should eq('200')
@@ -40,7 +40,11 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
   end
 
   Given /^Google App Engine Server Mock with (\d+) items (?:and (\d+) seconds delay )?is started$/ do |number_of_items,delay|
-    response = get_from("questions_configure?add=#{number_of_items}&delay=#{delay}")
+    if delay
+      response = get_from("questions_configure?add=#{number_of_items}&delay=#{delay}")
+    else
+      response = get_from("questions_configure?add=#{number_of_items}")
+    end
 
     response.is_a?(Net::HTTPOK).should be_true
     response.code.should eq('200')
@@ -49,13 +53,13 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
   end
 else
   After do
-    @google_mock.stop()
+    @google_mock.stop
   end
 
   Given /^Google App Engine Server Mock with (\d+) items (?:and (\d+) seconds delay )?is started$/ do |number_of_items,delay|
     @google_mock = Runners::GoogleAppEngineMockRunner.new({:virtualenv=>'GoogleAppEngineAppMock',:number_of_items=>number_of_items, :delay=>delay})
     @google_mock.set_verbose(true)
-    @google_mock.start()
+    @google_mock.start
   end
 end
 

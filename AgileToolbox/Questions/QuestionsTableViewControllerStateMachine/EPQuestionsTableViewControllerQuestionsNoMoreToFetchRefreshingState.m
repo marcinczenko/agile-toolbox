@@ -153,7 +153,15 @@
     [self handleEvent];
     
     [self.tableViewExpert.tableView reloadData];
-    self.tableViewExpert.tableView.contentOffset = self.contentOffset;
+//    if (self.tableViewExpert.tableView.contentOffset.y < -64.0) {
+//        CGPoint contentOffset = self.contentOffset;
+//        contentOffset.y += self.viewController.refreshControl.bounds.size.height;
+//        self.contentOffset = contentOffset;
+//    }
+    
+    if (self.tableViewExpert.tableView.contentOffset.y > -64.0) {
+        self.tableViewExpert.tableView.contentOffset = self.contentOffset ;
+    }
     
     if (self.tableViewExpert.totalContentHeightSmallerThanScreenSize) {
         [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];

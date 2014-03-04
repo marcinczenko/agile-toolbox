@@ -18,5 +18,6 @@
 @dynamic question_id;
 @dynamic updated;
 @dynamic updatedOrNew;
+@dynamic sortUpdated;
 
 @end

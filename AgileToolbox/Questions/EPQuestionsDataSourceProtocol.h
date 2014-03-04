@@ -19,9 +19,6 @@
 - (void)restoreFromPersistentStorage;
 
 - (void)fetchOlderThan:(NSString*)questionId;
-- (void)fetchNewAndUpdatedGivenMostRecentQuestionId:(NSString*)mostRecentQuestionId
-                                   oldestQuestionId:(NSString*)oldestQuestionId
-                                          timestamp:(NSString*)timestamp;
-
+- (void)fetchNewAndUpdatedAfterTimestamp:(NSString*)timestamp;
 
 @end

@@ -2,7 +2,6 @@ import webapp2
 import json
 import time
 import calendar
-from datetime import datetime
 
 from models.questions import QuestionRepository
 
@@ -35,10 +34,9 @@ class ItemsJSON(webapp2.RequestHandler):
     def get_all_questions(self):
         return self.convert_to_json(QuestionRepository.all())
 
-    def get_updated_questions_in_range_updated_after(self, id_newest, id_oldest, updated_after_timestamp):
-        items = QuestionRepository.fetch_all_updated_in_range_updated_after(int(id_newest), int(id_oldest),
-                                                                            float(updated_after_timestamp))
-        return self.convert_to_json(items)
+    def get_n_questions_updated_after_timestamp(self, timestamp, n):
+        questions = QuestionRepository.fetch_n_updated_after(float(timestamp), int(n))
+        return self.convert_to_json(questions)
 
     def get_questions_with_timestamp_before_id(self, question_id, number_of_items_to_fetch):
         if number_of_items_to_fetch:
@@ -47,26 +45,16 @@ class ItemsJSON(webapp2.RequestHandler):
             items = QuestionRepository.fetch_all_before(int(question_id))
         return self.convert_to_json(items)
 
-    def get_questions_with_timestamp_after_id(self, question_id, number_of_items_to_fetch):
-        if number_of_items_to_fetch:
-            items = QuestionRepository.fetch_n_after(int(question_id), int(number_of_items_to_fetch))
-        else:
-            items = QuestionRepository.fetch_all_after(int(question_id))
-        return self.convert_to_json(items)
-
     def get(self):
         if self.__delay:
             time.sleep(self.__delay)
 
         self.response.headers['Content-Type'] = 'application/json'
 
-        if self.request.get('newest'):
-            items_new = self.get_questions_with_timestamp_after_id(self.request.get('newest'), self.request.get('n'))
-            items_updated = self.get_updated_questions_in_range_updated_after(self.request.get('newest'),
-                                                                              self.request.get('oldest'),
-                                                                              self.request.get('timestamp'))
-            items_json = {'new': items_new,
-                          'updated': items_updated}
+        if self.request.get('timestamp'):
+            items_new = self.get_n_questions_updated_after_timestamp(self.request.get('timestamp'),
+                                                                     self.request.get('n'))
+            items_json = {'new': items_new}
 
         elif self.request.get('before'):
             items_json = {'old': self.get_questions_with_timestamp_before_id(self.request.get('before'),

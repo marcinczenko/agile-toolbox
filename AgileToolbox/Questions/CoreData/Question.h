@@ -19,5 +19,6 @@
 @property (nonatomic, retain) NSString * question_id;
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSNumber * updatedOrNew;
+@property (nonatomic, retain) NSDate * sortUpdated;
 
 @end
