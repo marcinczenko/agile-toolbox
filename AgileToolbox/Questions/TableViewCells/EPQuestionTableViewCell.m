@@ -178,8 +178,7 @@
     self.updatedNSDate = question.updated;
     
     self.header.font = [self getPreferredFontWithTextStyle:UIFontTextStyleHeadline];
-    self.header.text = question.header;
-    [self.header sizeToFit];
+    self.header.text = question.header;    
     
     self.content.font = [self getPreferredFontWithTextStyle:UIFontTextStyleSubheadline];
     

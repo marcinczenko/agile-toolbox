@@ -56,7 +56,7 @@
 - (void)testThatCellForRowAtIndexPathReturnsFetchMoreCellWithAdjustedText
 {
     id labelMock = [OCMockObject mockForClass:[UILabel class]];
-    [[labelMock expect] setText:@"No questions on the server"];
+    [[labelMock expect] setText:@"No questions on the server. Pull down to refresh."];
     
     id fetchMoreCellClassMock = [OCMockObject niceMockForClass:[EPFetchMoreTableViewCell class]];
     [[[fetchMoreCellClassMock stub] andReturn:fetchMoreCellClassMock] cellDequeuedFromTableView:[OCMArg any] forIndexPath:[OCMArg any] loading:NO];
