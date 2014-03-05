@@ -30,7 +30,7 @@
 {
     EPFetchMoreTableViewCell *fetchMoreCell = [EPFetchMoreTableViewCell cellDequeuedFromTableView:self.tableViewExpert.tableView forIndexPath:indexPath loading:NO];
     
-    fetchMoreCell.label.text = @"No questions on the server";
+    fetchMoreCell.label.text = @"No questions on the server. Pull down to refresh.";
     
     [self.tableViewExpert addTableFooterInOrderToHideEmptyCells];
     

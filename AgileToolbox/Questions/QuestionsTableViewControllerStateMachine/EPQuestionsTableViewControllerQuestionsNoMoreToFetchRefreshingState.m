@@ -36,8 +36,8 @@
     if (self.isReturningFromQuestionDetailsView) {
         // when refresh control was visible before leaving the view
         // it may happen that content is slightly misaligned
-        // when refresh opration finished in question detail vier
-        // so in background
+        // when refresh opration finished in question detail view
+        // in background
         if (!self.viewController.refreshControl.isRefreshing) {
             self.tableViewExpert.tableView.contentOffset = CGPointMake(0, 0);
         }

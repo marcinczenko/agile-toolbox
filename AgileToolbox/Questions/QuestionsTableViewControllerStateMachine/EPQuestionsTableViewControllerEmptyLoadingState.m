@@ -81,6 +81,12 @@
     }];
 }
 
+- (void)controllerWillChangeContent
+{
+    [self.tableViewExpert removeTableFooter];
+    [super controllerWillChangeContent];
+}
+
 - (void)controllerDidChangeContent
 {
     self.viewController.tableView.estimatedRowHeight = 105.0;

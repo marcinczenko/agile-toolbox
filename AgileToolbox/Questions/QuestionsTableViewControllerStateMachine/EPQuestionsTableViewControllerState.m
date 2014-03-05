@@ -155,8 +155,7 @@
 }
 
 - (void)controllerWillChangeContent
-{
-    [self.tableViewExpert removeTableFooter];
+{    
     [self.tableViewExpert.tableView beginUpdates];
 }
 
@@ -164,6 +163,7 @@
 {
     switch (type) {
         case NSFetchedResultsChangeInsert:
+            NSLog(@"This should never happen");
             [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                                   withRowAnimation:UITableViewRowAnimationNone];
             break;

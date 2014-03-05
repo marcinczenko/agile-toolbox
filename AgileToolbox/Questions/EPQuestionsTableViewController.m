@@ -138,8 +138,6 @@
     [super viewWillAppear:animated];
     
     [self.stateMachine viewWillAppear];
-    
-    [self.updatedDateView addToView:self.view for:3.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
