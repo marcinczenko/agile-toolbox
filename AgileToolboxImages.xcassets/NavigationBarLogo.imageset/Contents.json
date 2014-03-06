@@ -3,16 +3,16 @@
     {
       "idiom" : "iphone",
       "scale" : "1x",
-      "filename" : "QuantumLogoTemplate1x.png"
+      "filename" : "iPhoneNavbar20.png"
     },
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "QuantumLogoTemplate-1.png"
+      "filename" : "iPhoneNavbar40-1.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "QuantumLogoTemplate.png",
+      "filename" : "iPhoneNavbar40.png",
       "subtype" : "retina4",
       "scale" : "2x"
     }

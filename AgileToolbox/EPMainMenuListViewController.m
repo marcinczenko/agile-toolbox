@@ -14,8 +14,6 @@
 #import "EPConnection.h"
 #import "EPQuestionsDataSource.h"
 
-#import "EPTopicsListViewController.h"
-
 
 @interface EPMainMenuListViewController ()
 
@@ -38,25 +36,17 @@
     
     self.view.accessibilityLabel = @"MenuList";
     
-    UIImage* quantumLogoImage = [UIImage imageNamed:@"QuantumNavigationBarLogo"];
+    UIImage* rgrLogoImage = [UIImage imageNamed:@"NavigationBarLogo"];
     
-    UIImageView *quantumLogo = [[UIImageView alloc] initWithImage:[quantumLogoImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    UIImageView *rgrLogo = [[UIImageView alloc] initWithImage:[rgrLogoImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    self.navigationItem.titleView = quantumLogo;
-    self.title = @"Quantum Agile Toolbox";
+    self.navigationItem.titleView = rgrLogo;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,16 +67,7 @@
         
         EPQuestionsTableViewController* destinationVC =  (EPQuestionsTableViewController*)segue.destinationViewController;
         [destinationVC injectDependenciesFrom:appDelegate.questionsTableViewControllerDependencyBox];
-//        destinationVC.questionsDataSource = appDelegate.questionsDataSource;
-//        destinationVC.fetchedResultsController = appDelegate.questionsFetchedResultsController;
-//        destinationVC.stateMachine = appDelegate.questionsTableViewControllerStateMachine;
-//        destinationVC.postman = appDelegate.postman;
-    }
-//    else
-//    {
-//        EPTopicsListViewController* destinationVC = (EPTopicsListViewController*)segue.destinationViewController;
-//    }
-    
+    }    
 }
 
 #pragma mark - Table view data source
@@ -163,17 +144,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //EPAppDelegate* appDelegate = (EPAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
     if (0==indexPath.row) {
         [self performSegueWithIdentifier: @"Questions" sender: self];
-//        if (0 == appDelegate.questionsDataSource.length) {
-//            [self performSegueWithIdentifier: @"Loading" sender: self];
-//        } else {
-//            [self performSegueWithIdentifier: @"Questions" sender: self];
-//        }
-    } else {
-        [self performSegueWithIdentifier: @"Topics" sender: self];
     }
     
     // Navigation logic may go here. Create and push another view controller.

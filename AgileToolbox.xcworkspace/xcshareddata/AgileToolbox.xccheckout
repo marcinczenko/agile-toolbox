@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>92A8E6B6-1991-44E9-B9D9-86691413CDC9</string>
+	<string>12F13789-C2BC-4A86-904F-DB7A7D3B0E94</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AgileToolbox</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7BF8FA39-6B47-4A52-9668-30C034EE38C9</key>
-		<string>ssh://everydayproductive.com/~/quantum/AgileToolbox</string>
+		<key>D75C6A05-59DF-4B6A-BE31-07117BB3031A</key>
+		<string>ssh://everydayproductive.com/~/demos/AgileToolbox</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>AgileToolbox.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7BF8FA39-6B47-4A52-9668-30C034EE38C9</key>
+		<key>D75C6A05-59DF-4B6A-BE31-07117BB3031A</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://everydayproductive.com/~/quantum/AgileToolbox</string>
+	<string>ssh://everydayproductive.com/~/demos/AgileToolbox</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7BF8FA39-6B47-4A52-9668-30C034EE38C9</string>
+	<string>D75C6A05-59DF-4B6A-BE31-07117BB3031A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7BF8FA39-6B47-4A52-9668-30C034EE38C9</string>
+			<string>D75C6A05-59DF-4B6A-BE31-07117BB3031A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AgileToolbox</string>
 		</dict>
