@@ -40,9 +40,6 @@
 
 @implementation EPQuestionsTableViewControllerStateMachineTests
 
-static const BOOL valueNO = NO;
-static const BOOL valueYES = YES;
-
 + (NSMutableArray*)stateClasses
 {
     static NSMutableArray* stateClassesArray = nil;

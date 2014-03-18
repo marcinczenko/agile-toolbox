@@ -35,7 +35,6 @@
 @implementation EPQuestionsTableViewControllerStatePreservationAssistantTests
 
 static const BOOL valueYES = YES;
-static const BOOL valueNO = NO;
 
 - (id)doesNotMatter
 {
