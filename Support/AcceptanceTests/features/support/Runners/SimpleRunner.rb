@@ -37,7 +37,7 @@ module Runners
         end
         
         def wait
-          _, exit_status = Process::waitpid2(@us.pid,0)
+            _, exit_status = Process::waitpid2(@us.pid, 0)
           exit_status
         end
         

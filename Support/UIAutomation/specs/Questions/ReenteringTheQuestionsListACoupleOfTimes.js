@@ -14,7 +14,7 @@ describe("Questions", function() {
 
     it("re-entering the questions list does not trigger fetch", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
         helpers.goBack();

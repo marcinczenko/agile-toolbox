@@ -17,7 +17,7 @@ typedef void (^EPTableViewRefreshControlRefreshBlockType)(id refreshControl);
 @property (nonatomic,copy) NSString* title;
 @property (nonatomic,readonly) BOOL isRefreshing;
 @property (nonatomic,weak) id<EPTableViewRefreshControlDelegate> delegate;
-@property (nonatomic,readonly) UITableViewController* tableViewController;
+@property (nonatomic,weak,readonly) UITableViewController* tableViewController;
 
 - (instancetype)initWithTableViewController:(UITableViewController*)tableViewController;
 - (instancetype)initWithTableViewController:(UITableViewController*)tableViewController

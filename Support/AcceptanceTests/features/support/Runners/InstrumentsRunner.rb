@@ -36,7 +36,14 @@ module Runners
     end
 
     def self.find_most_recent_run_dir(scheme)
-        Dir.glob("#{Helpers::PathFinder.find(:UIAutomation_build)}/#{scheme}/log/Run*").last
+        Dir.glob("#{Helpers::PathFinder.find(:UIAutomation_build)}/#{scheme}/log/Run*").sort_by do |num| 
+            match_data = num.match(/Run 1 \((\d+)\)$/); 
+            if match_data 
+                match_data[1].to_i 
+            else 
+                1 
+            end
+        end.last
     end
     
     def self.parse_log_file(scheme)

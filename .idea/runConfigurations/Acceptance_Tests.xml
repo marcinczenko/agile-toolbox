@@ -8,7 +8,7 @@
     <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
     <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
     <envs>
-      <env name="VIRTUAL_ENV" value="$USER_HOME$/.virtualenvs/GoogleAppEngineAppMock" />
+      <env name="VIRTUAL_ENV" value="$USER_HOME$/.virtualenvs/agiletoolbox" />
       <env name="ANSICON" value="" />
     </envs>
     <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />

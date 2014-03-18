@@ -16,7 +16,7 @@ describe("Questions Preservation", function() {
 
     it("correctly preserves the state when loading questions in background", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
 
         helpers.goBack(4);
         helpers.enterQuestions();

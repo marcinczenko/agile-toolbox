@@ -14,7 +14,7 @@ describe("Questions", function() {
 
     it("shows text items available on the server", function() {
     
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(5);
     });

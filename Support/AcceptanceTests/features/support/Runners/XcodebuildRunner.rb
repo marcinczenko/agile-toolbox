@@ -11,7 +11,7 @@ module Runners
     end
 
     def self.sdk
-      'iphonesimulator7.0'
+      'iphonesimulator7.1'
     end
 
     def self.obj_root(options)

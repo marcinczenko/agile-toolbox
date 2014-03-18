@@ -14,7 +14,7 @@ describe("Questions Backgrounding", function() {
 
     it("performs background fetch operation when server returns just a few questions (less than fit in one screen)", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(1);
 
         helpers.enterBackgroundForDuration(4);
 

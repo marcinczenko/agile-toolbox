@@ -9,7 +9,7 @@ module Runners
     end
 
     def command
-      '/usr/local/bin/dev_appserver.py --clear_datastore=yes --skip_sdk_update_check --host=0.0.0.0 --port=9001 /Users/mczenko/Projects/Quantum/GoogleAppEngineWebApp'
+      "/usr/local/bin/dev_appserver.py --clear_datastore=yes --skip_sdk_update_check --host=0.0.0.0 --port=9001 #{Helpers::PathFinder.find(:GoogleAppEngineWebApp)}"
     end
 
     def start

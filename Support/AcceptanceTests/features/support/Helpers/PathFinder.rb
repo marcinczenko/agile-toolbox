@@ -5,7 +5,8 @@ module Helpers
 
     SUPPORT_DIRECTORY_PATH = __FILE__.gsub(/\/Support.*$/,'/Support')
     WORKSPACE_DIRECTORY_PATH = SUPPORT_DIRECTORY_PATH.gsub(/\/AgileToolbox.*$/,'/AgileToolbox')
-    APPLICATIONS_PATH = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator/7.0.3-64/Applications"
+    IPHONE_SIMULATOR_PATH = "#{ENV['HOME']}/Library/Application Support/iPhone Simulator"
+    APPLICATIONS_PATH = "#{Dir.glob("#{IPHONE_SIMULATOR_PATH}/7.*-64").last}/Applications"
     APPNAME = 'AgileToolbox.app'
 
     def self.find_app_sandbox_folder
@@ -19,7 +20,7 @@ module Helpers
     end
 
     if nil == ENV['VIRTUAL_ENV']
-      ENV['VIRTUAL_ENV'] = "#{ENV['HOME']}/.virtualenvs/GoogleAppEngineAppMock"
+      ENV['VIRTUAL_ENV'] = "#{ENV['HOME']}/.virtualenvs/agiletoolbox"
     end
 
     def self.paths
@@ -30,7 +31,8 @@ module Helpers
        :UIAutomation_build => "#{ENV['HOME']}/UIAutomation",
        :Applications => APPLICATIONS_PATH,
        :AppName => APPNAME,
-       :ApplicationSandbox => self.find_app_sandbox_folder}
+       :ApplicationSandbox => self.find_app_sandbox_folder,
+       :GoogleAppEngineWebApp => File.expand_path(File.join(WORKSPACE_DIRECTORY_PATH,'../DemoWebApp'))}
     end
 
     def self.find(key)

@@ -14,7 +14,7 @@ describe("Questions Backgrounding", function() {
 
     it("performs background fetch operation when serves returns an empty set", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(1);
 
         helpers.enterBackgroundForDuration(4);
 

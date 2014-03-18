@@ -68,7 +68,7 @@
 {
     UIEdgeInsets expectedSeparatorInset = UIEdgeInsetsMake(0, 0, 0, self.fetchMoreTableViewCell.bounds.size.width);
     
-    XCTAssertEqual(expectedSeparatorInset, self.fetchMoreTableViewCell.separatorInset);
+    XCTAssertEqual(expectedSeparatorInset.left, self.fetchMoreTableViewCell.separatorInset.left);
 }
 
 @end

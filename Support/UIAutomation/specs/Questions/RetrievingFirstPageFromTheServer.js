@@ -16,7 +16,7 @@ describe("Questions", function() {
 
     it("fetches first page from the server", function() {
     
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
         
         mainWindow.logElementTree();
         UIALogger.logMessage(mainWindow.tableViews()["Questions"].checkIsValid().toString());

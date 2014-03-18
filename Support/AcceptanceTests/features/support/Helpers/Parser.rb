@@ -4,6 +4,7 @@ module Helpers
   
   class Parser
     def initialize(filePath)
+      puts "\nUsing the log file:#{filePath}\n"
       @output = ""
       parse_the_log_file(filePath)
     end

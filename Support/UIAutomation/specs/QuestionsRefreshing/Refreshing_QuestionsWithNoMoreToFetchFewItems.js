@@ -24,7 +24,7 @@ describe("Questions Refreshing", function() {
 
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
-        helpers.refreshTableView('Questions',1);
+        helpers.refreshTableView('Questions');
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(3);
 
@@ -37,31 +37,28 @@ describe("Questions Refreshing", function() {
 
     });
 
-    it('uses a custom refresh indicator after re-entering the view', function() {
+    it('shows refresh indicator after re-entering the view and performing refresh action', function() {
 
-        helpers.enterQuestions(2);
+        helpers.enterQuestions();
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(3);
 
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
         expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
-        helpers.refreshTableView('Questions',1);
+        helpers.refreshTableView('Questions');
 
         helpers.goBack();
 
-        helpers.enterQuestions(2);
+        helpers.enterQuestions();
 
-        // 5 cells + 1 for refresh indicator
-        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(4);
+        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(3);
 
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain('In progress');
-        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toContain(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.target().delay(3);
 
-        // refresh indicator should disappear after refresh operation finished
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(3);
 
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);

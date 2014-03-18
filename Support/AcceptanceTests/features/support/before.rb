@@ -4,7 +4,7 @@ FileUtils.mkdir_p "#{Helpers::PathFinder.find(:UIAutomation_build)}/AgileToolbox
 preprocessor = 'TEST NO_STATE_PRESERVATION NO_QUESTIONS_HELPER_OVERLAY'
 
 if not ENV['RUN_ON_GAE']
-  preprocessor += ' QUESTIONS_URL=192.168.1.33:9001'
+  preprocessor += " QUESTIONS_URL=#{Capybara.app_host.sub(/^https*:\/\//,'')}"
 end
 
 Runners::ComplexRunner.set_verbose(true)

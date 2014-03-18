@@ -5,7 +5,7 @@ Feature: Questions
 
 Scenario: Retrieving text items form the server
   Given Google App Engine Server Mock with 5 items is started
-  Then I should be able to retrieve these 5 items using my iPhone App (Feature: "Questions" Scenario:"RetrievingItemsFromTheServer")
+  Then RUN: Feature: "Questions" Scenario:"RetrievingItemsFromTheServer"
 
 Scenario: Retrieving first n items form the server
   Given Google App Engine Server Mock with 60 items is started
@@ -22,7 +22,7 @@ Scenario: Re-entering the questions list does not trigger fetch
 @ignore
 Scenario: Posting a new text item to the server
   Given Google App Engine Server Mock with 5 items is started
-  Then I should be able to add a new item using my iPhone App (Feature: "Questions" Scenario:"PostingNewItemToTheServer")
+  Then RUN: Feature: "Questions" Scenario:"PostingNewItemToTheServer"
 
 Scenario: Re-entering the questions list does not trigger fetch
   Given Google App Engine Server Mock with 40 items is started

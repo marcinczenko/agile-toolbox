@@ -185,7 +185,11 @@ static const BOOL valueNO = NO;
     
     EPQuestionsTableViewControllerStatePreservationAssistant* assistant = [[EPQuestionsTableViewControllerStatePreservationAssistant alloc] initWithCoder:coder];
     
-    XCTAssertEqual(expectedBounds, assistant.bounds);
+    CGRect actualBounds = assistant.bounds;
+    XCTAssertEqual(expectedBounds.origin.x, actualBounds.origin.x);
+    XCTAssertEqual(expectedBounds.origin.y, actualBounds.origin.y);
+    XCTAssertEqual(expectedBounds.size.width, actualBounds.size.width);
+    XCTAssertEqual(expectedBounds.size.height, actualBounds.size.height);
     
     [coder verify];
 }

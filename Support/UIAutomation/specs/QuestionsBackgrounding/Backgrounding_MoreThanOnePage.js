@@ -16,7 +16,7 @@ describe("Questions Backgrounding", function() {
 
     it("performs background fetch operation when server has more than one page of questions available", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(1);
 
         helpers.enterBackgroundForDuration(4);
 

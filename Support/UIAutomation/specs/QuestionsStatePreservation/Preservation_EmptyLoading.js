@@ -20,7 +20,7 @@ describe("Questions Preservation", function() {
 
     it("correctly preserves the state when loading first set of questions", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
 

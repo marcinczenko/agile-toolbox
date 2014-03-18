@@ -14,7 +14,7 @@ describe("Questions", function() {
 
     it("server returns zero questions after returning full page", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
         helpers.fetchMoreInTableView('Questions');

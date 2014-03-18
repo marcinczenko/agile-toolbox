@@ -37,14 +37,14 @@
 @property (nonatomic,readonly) NSString* oldestQuestionId;
 @property (nonatomic,readonly) NSString* mostRecentlyUpdatedQuestionTimestamp;
 
-@property (nonatomic,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
-@property (nonatomic,readonly) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic,readonly) id<EPPostmanProtocol> postman;
+@property (nonatomic,weak,readonly) id<EPQuestionsDataSourceProtocol> questionsDataSource;
+@property (nonatomic,weak,readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic,weak,readonly) id<EPPostmanProtocol> postman;
 
-@property (nonatomic,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
-@property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,weak,readonly) EPQuestionsTableViewControllerStateMachine *stateMachine;
+@property (nonatomic,strong,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
-@property (nonatomic,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
+@property (nonatomic,weak,readonly) EPQuestionsTableViewControllerStatePreservationAssistant* statePreservationAssistant;
 
 @property (nonatomic,strong) EPQuestionsRefreshControl* questionsRefreshControl;
 

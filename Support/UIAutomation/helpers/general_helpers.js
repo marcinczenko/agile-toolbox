@@ -2,28 +2,40 @@
 var EPHelpers = (function() {
 
     function EPHelpers() {
-//        this.target = UIATarget.localTarget();
-//        this.mainWindow = this.target.frontMostApp().mainWindow();
     }
 
     EPHelpers.prototype.target = function() {
         return UIATarget.localTarget();
-    }
+    };
 
     EPHelpers.prototype.mainWindow = function() {
         return this.target().frontMostApp().mainWindow();
-    }
+    };
+
+    EPHelpers.prototype.delay = function(delay) {
+        if (0<delay) {
+            this.target().delay(delay);
+        }
+    };
 
     EPHelpers.prototype.goBack = function(delay) {
-        var delay = delay || 0;
+        var delay = delay || 0.5;
+        //UIALogger.logMessage('delay-goBack[after]='+delay);
         this.target().frontMostApp().navigationBar().leftButton().tap();
-        this.target().delay(delay);
+        this.delay(delay);
     };
 
     EPHelpers.prototype.enterQuestions = function(delay) {
-        delay = delay || 2;
+        delay = delay || 0.5;
         this.mainWindow().tableViews()["MenuList"].cells()["Q&A"].tap();
-        this.target().delay(delay);
+        this.delay(delay);
+    };
+
+    EPHelpers.prototype.enterAddQuestion = function(delay) {
+        delay = delay || 0.5;
+        this.target().frontMostApp().navigationBar().buttons()["Add"].tap();
+        this.delay(delay);
+        this.mainWindow().logElementTree();
     };
 
     // fetchMore works as follows: it first scroll far enough (but not to far) so that the following call to
@@ -33,21 +45,20 @@ var EPHelpers = (function() {
 
         this.scrollToCellInTableViewAtIndex(tableView,this.getNumberOfCellsInTableView(tableView)-7);
 
-        this.target().delay(1);
+        this.delay(1);
 
         this.mainWindow().tableViews()[tableView].scrollDown();
 
-        this.target().delay(1.5);
+        this.delay(1.5);
     };
 
-    EPHelpers.prototype.refreshTableView = function(tableView,extraDelay) {
+    EPHelpers.prototype.refreshTableView = function(tableView, extraDelay) {
         this.scrollToFirstCellInTableView(tableView);
 
         this.mainWindow().tableViews()["Questions"].scrollUp();
-//        this.mainWindow().tableViews()["Questions"].scrollUp();
 
-        var delay = extraDelay || 1.5;
-        this.target().delay(delay);
+        var delay = extraDelay || 0.5;
+        this.delay(delay);
     };
 
     EPHelpers.prototype.checkThereIsACorrectNumberOfRowsInTheTableView = function(expectNumberOfRows){

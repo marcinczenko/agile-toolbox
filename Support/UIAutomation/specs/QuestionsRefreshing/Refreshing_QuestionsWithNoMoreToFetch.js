@@ -28,7 +28,7 @@ describe("Questions Refreshing", function() {
         helpers.scrollToFirstCellInTableView('Questions');
         expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
-        helpers.refreshTableView('Questions',1);
+        helpers.refreshTableView('Questions');
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
         helpers.scrollToLastCellInTableView('Questions');
@@ -45,9 +45,9 @@ describe("Questions Refreshing", function() {
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
     });
 
-    it('uses a custom refresh indicator after re-entering the view', function() {
+    it('enables refresh control after re-entering the view', function() {
 
-        helpers.enterQuestions(2);
+        helpers.enterQuestions();
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
 
@@ -55,24 +55,21 @@ describe("Questions Refreshing", function() {
         helpers.scrollToFirstCellInTableView('Questions');
         expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
-        helpers.refreshTableView('Questions',1);
+        helpers.refreshTableView('Questions');
 
         helpers.goBack();
 
-        helpers.enterQuestions(2);
+        helpers.enterQuestions();
 
-        // 39 cells + 1 for refresh indicator
-        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(40);
+        helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
 
-        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain('In progress');
-        expect(helpers.getVisibleCellTextForTableViewAtIndex('Questions',1)).toContain(expectedFirstVisibleCellName);
+        expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
         helpers.scrollToLastCellInTableView('Questions');
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);
 
         helpers.target().delay(4);
 
-        // refresh indicator should disappear after refresh operation finished
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(39);
 
         expect(helpers.getLastVisibleCellTextForTableView('Questions')).toContain(expectedLastVisibleCellName);

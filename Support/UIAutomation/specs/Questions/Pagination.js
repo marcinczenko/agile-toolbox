@@ -14,7 +14,7 @@ describe("Questions", function() {
 
     it("fetches 81 questions in four fetch operations (40+40+1+0) from the server", function() {
 
-        helpers.enterQuestions();
+        helpers.enterQuestions(2);
 
         // we have 40 questions on a page + one cell for "Fetch More".
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);

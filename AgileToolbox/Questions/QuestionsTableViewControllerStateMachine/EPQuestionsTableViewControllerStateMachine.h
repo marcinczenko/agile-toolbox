@@ -17,8 +17,8 @@
 @interface EPQuestionsTableViewControllerStateMachine : NSObject
 
 @property (nonatomic,readonly) EPQuestionsTableViewControllerState *currentState;
-@property (nonatomic,readonly) EPQuestionsTableViewController *viewController;
-@property (nonatomic,readonly) EPQuestionsTableViewExpert *tableViewExpert;
+@property (nonatomic,weak,readonly) EPQuestionsTableViewController *viewController;
+@property (nonatomic,weak,readonly) EPQuestionsTableViewExpert *tableViewExpert;
 
 
 - (void)assignViewController:(EPQuestionsTableViewController*)viewController andTableViewExpert:(EPQuestionsTableViewExpert*)tableViewExpert;
