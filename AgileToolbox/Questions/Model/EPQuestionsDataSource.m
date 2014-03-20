@@ -270,9 +270,6 @@
 
 - (void)handleNewQuestions:(NSArray*)newQuestions
 {
-    // if newQuestions is not null than updatedQuestions is not null by design
-    // receivedData[@"new"] should only be null during fetchOlderThan
-    // othrewise it may be of zero length but should not be null
     if (newQuestions) {
         if (0==newQuestions.count) {
             [self callFetchReturnedNoDataDelegate];

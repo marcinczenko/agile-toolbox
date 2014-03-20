@@ -12,39 +12,6 @@
 #import "EPTableViewRefreshControl.h"
 #import "EPTableViewRefreshControlDelegate.h"
 
-@interface EPTestRefreshControl : EPTableViewRefreshControl
-
-@property (nonatomic,assign) BOOL isDone;
-
-@end
-
-@implementation EPTestRefreshControl
-
-- (void)initializationHackHook
-{
-    [super initializationHackHook];
-    
-    self.isDone = YES;
-}
-
-- (void)beforeBeginRefreshing
-{
-    
-}
-
-- (void)afterBeginRefreshing
-{
-    [self done];
-}
-
-- (void) done
-{
-    self.isDone = YES;
-}
-
-@end
-
-
 @interface EPTableViewRefreshControlTests : XCTestCase
 
 @property (nonatomic,strong) EPTableViewRefreshControl* tableViewRefreshControl;
@@ -66,20 +33,6 @@
     return [[NSAttributedString alloc] initWithString:string
                                            attributes: @{ NSFontAttributeName: font,
                                                           NSForegroundColorAttributeName: [UIColor blackColor]}];
-}
-
-- (void)wait:(CGFloat) timeoutInSeconds forDelegate:(id)delegate
-{
-    [[NSNotificationQueue defaultQueue] enqueueNotification:
-     [NSNotification notificationWithName:@"timeOut" object:self]
-                                               postingStyle:NSPostWhenIdle];
-    
-    while (![delegate isDone] && !self.isTimeOut)
-    {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate
-                                                  dateWithTimeIntervalSinceNow:timeoutInSeconds]];
-    }
-    
 }
 
 - (void) timeOut:(NSNotification*)notification
@@ -119,40 +72,6 @@
     [super tearDown];
 }
 
-- (void)testThatAccessingAnyAttributeForTheFirstTimeSetsTheRefreshControlPropertyOfTableViewControler
-{
-    [self expectUIRefreshControlIsNil];
-    
-    [[self.tableViewControllerMock expect] setRefreshControl:[OCMArg isNotNil]];
-    
-    EPTestRefreshControl* tableViewRefreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    
-    tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    
-    // it has dispatch_async block with initialization hack - let's make sure it was called
-    [self wait:0.5 forDelegate:tableViewRefreshControl];
-    
-    XCTAssertTrue(tableViewRefreshControl.isDone);
-}
-
-- (void)testSettingAttributedTitleWhenUIRefreshControlDoesNotExist
-{
-    [self expectUIRefreshControlIsNil];
-    
-    UITableViewController* tableViewController = [UITableViewController new];
-    
-    EPTestRefreshControl* tableViewRefreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:tableViewController];
-    
-    tableViewRefreshControl.attributedTitle = self.testAttributedTitle;
-    
-    // it has dispatch_async block with initialization hack - let's make sure it was called
-    [self wait:0.5 forDelegate:tableViewRefreshControl];
-    
-    XCTAssertTrue(tableViewRefreshControl.isDone);
-    
-    XCTAssertEqualObjects(self.testAttributedTitle, tableViewRefreshControl.attributedTitle);
-}
-
 - (void)testSettingAttributedTitleWhenUIRefreshControlAlreadyExists
 {
     [self expectUIRefreshControlToBe:self.testRefreshControl];
@@ -184,67 +103,6 @@
     XCTAssertEqualObjects([self.testAttributedTitle attributesAtIndex:0 effectiveRange:nil],
                           [self.tableViewRefreshControl.attributedTitle attributesAtIndex:0 effectiveRange:nil]);
     XCTAssertEqualObjects(self.testRefreshControl.attributedTitle.string, self.tableViewRefreshControl.title);
-}
-
-- (void)testThatBeginRefresingPerformesBeginRefreshingSequenceWithHooksOnActualUIRefreshControl
-{
-    [self expectUIRefreshControlToBe:self.refreshControlMock];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(timeOut:) name:@"timeOut" object:self];
-    
-    [self.refreshControlMock setExpectationOrderMatters:YES];
-    [[self.refreshControlMock expect] beginRefreshing];
-    [[self.refreshControlMock expect] endRefreshing];
-    [[self.refreshControlMock expect] beginRefreshing];
-    
-    EPTestRefreshControl* refreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    
-    [refreshControl beginRefreshing];
-    
-    [self wait:1.0 forDelegate:refreshControl];
-    
-    XCTAssertTrue(refreshControl.isDone);
-    
-    [self.refreshControlMock verify];
-}
-
-- (void)testThatBeginRefreshingWithBlocksCallsTheBeginEndRefreshingSequenceAndTheBlocks
-{
-    [self expectUIRefreshControlToBe:self.refreshControlMock];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(timeOut:) name:@"timeOut" object:self];
-    
-    __block BOOL beforeWasCalled = NO;
-    __block BOOL afterWasCalled = NO;
-    
-    void (^beforeBlock)() = ^() {
-        beforeWasCalled = YES;
-    };
-    
-    void (^afterBlock)() = ^() {
-        afterWasCalled = YES;
-    };
-    
-    // calling only beginRefreshing and only once seems to be sufficient after control was properly
-    // initialized with the hack (beginRefreshing, endRefreshing in dispatch_async)
-    [self.refreshControlMock setExpectationOrderMatters:YES];
-    [[self.refreshControlMock expect] beginRefreshing];
-    [[self.refreshControlMock reject] endRefreshing];
-    [[self.refreshControlMock reject] beginRefreshing];
-    
-    EPTestRefreshControl* refreshControl = [[EPTestRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock];
-    
-    [refreshControl beginRefreshingWithBeforeBlock:beforeBlock afterBlock:afterBlock];
-    
-    [self wait:1.0 forDelegate:refreshControl];
-    
-    XCTAssertTrue(beforeWasCalled);
-    XCTAssertTrue(afterWasCalled);
-    
-    [self.refreshControlMock verify];
-    
 }
 
 - (void)testThatEndRefreshingCallsEndRefreshingOnActualUIRefreshControl
@@ -301,7 +159,7 @@
     __block BOOL blockCalled = NO;
     
     self.tableViewRefreshControl = [[EPTableViewRefreshControl alloc] initWithTableViewController:self.tableViewControllerMock
-                                                                                     refreshBlock:^(EPTableViewRefreshControl *refreshControl) {
+                                                                                     refreshBlock:^(UIRefreshControl *refreshControl) {
                                                                                          blockCalled = YES;
                                                                                      }];
     

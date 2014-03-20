@@ -33,7 +33,6 @@
     
     UIApplication *application = [UIApplication sharedApplication];
     EPAppDelegate *appDelegate = [application delegate];
-    NSLog(@"===== AFTER accesing application delegate");
     UIWindow *window = [appDelegate window];
     UINavigationController* navigationController = (UINavigationController*)[window rootViewController];
     self.vc = (EPMainMenuListViewController*)[navigationController topViewController];

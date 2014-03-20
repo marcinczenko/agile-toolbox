@@ -47,7 +47,6 @@ class QuestionRepository(object):
 
     @classmethod
     def fetch_n_before(cls, question_id, n):
-        # return [q.contents for q in Question.select().paginate(page, cls.PAGE_SIZE)]
         if -1 == question_id:
             return Question.select().paginate(1, n)
         else:

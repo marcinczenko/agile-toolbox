@@ -229,7 +229,7 @@
         // It may have happened that on waiting for connection failure completion event
         // we left the screen which means viewWillDisappear happened where we
         // reset all failure indicators and move to appropriate state.
-        // In such a case, we should execte the methods below.
+        // In such a case, we should not execte the methods below.
         // See also viewWillDisappear.
         [self.stateMachine changeCurrentStateTo:[EPQuestionsTableViewControllerQuestionsNoMoreToFetchState class]];
         

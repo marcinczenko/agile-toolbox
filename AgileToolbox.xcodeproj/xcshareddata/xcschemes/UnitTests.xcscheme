@@ -39,21 +39,7 @@
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D3972B9B157D89C7000C1819"
-               BuildableName = "LogicUnitTests.xctest"
-               BlueprintName = "LogicUnitTests"
-               ReferencedContainer = "container:AgileToolbox.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D3C1F5EC15A4544200F0900D"
@@ -77,16 +63,6 @@
                BlueprintIdentifier = "D387EF2B1536EF0400635736"
                BuildableName = "AgileToolboxTests.xctest"
                BlueprintName = "AgileToolboxTests"
-               ReferencedContainer = "container:AgileToolbox.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D3972B9B157D89C7000C1819"
-               BuildableName = "LogicUnitTests.xctest"
-               BlueprintName = "LogicUnitTests"
                ReferencedContainer = "container:AgileToolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>

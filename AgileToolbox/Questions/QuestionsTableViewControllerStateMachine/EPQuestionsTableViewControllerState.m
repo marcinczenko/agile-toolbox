@@ -162,8 +162,7 @@
 - (void)controllerDidChangeQuestion:(Question*)question atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     switch (type) {
-        case NSFetchedResultsChangeInsert:
-            NSLog(@"This should never happen");
+        case NSFetchedResultsChangeInsert:            
             [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                                   withRowAnimation:UITableViewRowAnimationNone];
             break;

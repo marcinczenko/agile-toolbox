@@ -25,7 +25,7 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
 
   Before do
     puts 'Purging datastore...'
-    response = get_from('questions_configure?clear=1&only_accepted=False')
+    response = get_from('questions_configure?clear=1')
 
     expect(response.is_a?(Net::HTTPOK)).to be true
     expect(response.code).to eq('200')
@@ -35,9 +35,9 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
 
   Given /^Google App Engine Server Mock with (\d+) items (?:and (\d+) seconds delay )?is started$/ do |number_of_items,delay|
     if delay
-      response = get_from("questions_configure?add=#{number_of_items}&delay=#{delay}")
+      response = get_from("questions_configure?add=#{number_of_items}&delay=#{delay}&only_accepted=False")
     else
-      response = get_from("questions_configure?add=#{number_of_items}")
+      response = get_from("questions_configure?add=#{number_of_items}&only_accepted=False")
     end
 
     expect(response.is_a?(Net::HTTPOK)).to be true
@@ -45,6 +45,18 @@ if ENV['RUN_ON_GAE_DEVELOPMENT'] or ENV['RUN_ON_GAE']
 
     expect(response.body).to eq('OK')
   end
+
+  if ENV['RUN_ON_GAE']
+    After do
+      response = get_from("questions_configure?clear=1&delay=0&only_accepted=True")
+
+      expect(response.is_a?(Net::HTTPOK)).to be true
+      expect(response.code).to eq('200')
+
+      expect(response.body).to eq('OK')
+    end
+  end
+
 else
   After do
     @google_mock.stop

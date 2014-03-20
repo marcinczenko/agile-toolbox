@@ -28,7 +28,7 @@ describe("Questions Refreshing", function() {
         helpers.scrollToFirstCellInTableView('Questions');
         expect(helpers.getFirstVisibleCellTextForTableView('Questions')).toContain(expectedFirstVisibleCellName);
 
-        helpers.refreshTableView('Questions');
+        helpers.refreshTableView('Questions',1);
 
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(41);
         helpers.scrollToLastCellInTableView('Questions');

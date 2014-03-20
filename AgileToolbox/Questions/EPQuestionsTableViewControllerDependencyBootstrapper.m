@@ -29,15 +29,13 @@
 
 @implementation EPQuestionsTableViewControllerDependencyBootstrapper
 
-//static const NSString* hostURL = @"http://everydayproductive-test.com:9001";
-
 #define OBJCSTR(str) @#str
 #define OBJCSTR_FROM_URL(url) OBJCSTR(url)
 
 #ifdef QUESTIONS_URL
 static NSString* const hostURL = @"http://"  OBJCSTR_FROM_URL(QUESTIONS_URL);
 #else
-static NSString* const hostURL = @"https://ep-qat-dev-1.appspot.com";
+static NSString* const hostURL = @"https://ep-demo.appspot.com";
 #endif
 
 static NSString* const QUESTIONS_JSON_URL = @"/questions_json";

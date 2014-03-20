@@ -3,6 +3,7 @@ Feature: Questions
   I would like to see the list of questions already posted
   So that I can find out if my question was already asked
 
+  @current
 Scenario: Retrieving text items form the server
   Given Google App Engine Server Mock with 5 items is started
   Then RUN: Feature: "Questions" Scenario:"RetrievingItemsFromTheServer"

@@ -28,7 +28,7 @@
 
 - (void)setAttributedTitle:(NSAttributedString *)attributedTitle
 {
-    [self initRefreshControlWithText:attributedTitle];
+    [self setupRefreshControlWithText:attributedTitle];
     _titleAttributes = [attributedTitle attributesAtIndex:0 effectiveRange:nil];
 }
 
@@ -36,7 +36,7 @@
 {
     _title = title;
     
-    [self initRefreshControlWithText:[[NSAttributedString alloc] initWithString:_title attributes:_titleAttributes]];
+    [self setupRefreshControlWithText:[[NSAttributedString alloc] initWithString:_title attributes:_titleAttributes]];
 }
 
 - (NSString*)title
@@ -46,11 +46,13 @@
 
 - (void)initializationHackHook
 {
-    [self.tableViewController.refreshControl beginRefreshing];
-    [self.tableViewController.refreshControl endRefreshing];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableViewController.refreshControl beginRefreshing];
+        [self.tableViewController.refreshControl endRefreshing];
+    });
 }
 
-- (void)initRefreshControlWithText:(NSAttributedString*)attributedString
+- (void)setupRefreshControlWithText:(NSAttributedString*)attributedString
 {
     if (!self.tableViewController.refreshControl) {
         UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
@@ -60,9 +62,9 @@
                  forControlEvents:UIControlEventValueChanged];
         self.tableViewController.refreshControl = refreshControl;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self initializationHackHook];
-        });
+        //dispatch_async(dispatch_get_main_queue(), ^{
+        [self initializationHackHook];
+        //});
     } else {
         self.tableViewController.refreshControl.attributedTitle = attributedString;
     }

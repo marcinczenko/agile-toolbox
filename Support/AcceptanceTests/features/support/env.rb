@@ -12,7 +12,7 @@ Capybara.javascript_driver = :webkit
 if ENV['RUN_ON_GAE']
   Capybara.app_host = 'https://ep-demo.appspot.com'
 else
-  Capybara.app_host = 'http://ep-demo.com:9001'
+  Capybara.app_host = 'http://localhost:9001'
 end
 
 Capybara.run_server = false
