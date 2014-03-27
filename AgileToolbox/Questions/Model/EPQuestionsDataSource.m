@@ -2,8 +2,8 @@
 //  EPQuestionsDataSource.m
 //  AgileToolbox
 //
-//  Created by AtrBea on 7/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Marcin Czenko on 7/8/12.
+//  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
 #import "EPQuestionsDataSource.h"
@@ -12,16 +12,6 @@
 
 #import "Question.h"
 #import "EPAppDelegate.h"
-
-@interface Dupa : NSObject
-
-@property (nonatomic, strong) NSDate* updated;
-
-@end
-
-@implementation Dupa
-
-@end
 
 @interface EPQuestionsDataSource ()
 
@@ -162,36 +152,6 @@
         
         if ([self.managedObjectContext save:&savingError]) {
             NSLog(@"Successfully saved the context.");
-//            for (Question* question in self.delegate.fetchedResultsController.fetchedObjects) {
-//                NSLog(@"===Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
-//            }
-//            
-//            NSMutableArray* array = [self.delegate.fetchedResultsController.fetchedObjects mutableCopy];
-//            
-//            NSSortDescriptor *updatedDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortUpdated" ascending:NO];
-//            NSArray *sortDescriptors = @[updatedDescriptor];
-//            NSArray *sortedArray = [array sortedArrayUsingDescriptors:sortDescriptors];
-//            
-//            NSMutableArray* dupaArray = [NSMutableArray new];
-//            
-//            for (Question* question in sortedArray) {
-//                Dupa* dupa = [Dupa new];
-//                dupa.updated = question.updated;
-//                [dupaArray addObject:dupa];
-////                NSLog(@"+++Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
-//                NSLog(@"+++updated:%@", question.sortUpdated);
-//            }
-//            
-//            NSSortDescriptor *dupaDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
-//            NSArray *dupaSortDescriptors = @[dupaDescriptor];
-//            NSArray *sortedDupaArray = [dupaArray sortedArrayUsingDescriptors:dupaSortDescriptors];
-//            
-//            for (Dupa* dupa in sortedDupaArray) {
-//                NSLog(@"###dupa:%@", dupa.updated);
-//            }
-            
-            
-            
         } else {
             NSLog(@"Failed to save the context. Error = %@", savingError);
         }
@@ -253,7 +213,6 @@
         question.answer = answer;
     }
     question.updatedOrNew = @YES;
-//    NSLog(@"Header:%@, created:%@ updated:%@", question.header, question.created, question.updated);
 }
 
 - (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray

@@ -43,12 +43,12 @@
 static const BOOL valueNO = NO;
 static const BOOL valueYES = YES;
 
-- (NSURL*) exampleURL
+- (NSURL*)exampleURL
 {
     return [NSURL URLWithString:@"http://example.com"];
 }
 
-- (id) doesNotMatter
+- (id)doesNotMatter
 {
     return nil;
 }
@@ -77,7 +77,7 @@ static const BOOL valueYES = YES;
             nil];
 }
 
-- (NSArray*) generateJsonArrayWithTestQuestionsWithNElements:(NSInteger)numberOfElements includingAnswers:(BOOL)includeAnswers
+- (NSArray*)generateJsonArrayWithTestQuestionsWithNElements:(NSInteger)numberOfElements includingAnswers:(BOOL)includeAnswers
 {
     NSMutableArray* jsonArray = [NSMutableArray arrayWithCapacity:numberOfElements];
     
@@ -90,7 +90,7 @@ static const BOOL valueYES = YES;
     return jsonArray;
 }
 
-- (NSData*) createJsonDataFromJsonDictionary:(id) jsonDictionary
+- (NSData*)createJsonDataFromJsonDictionary:(id) jsonDictionary
 {
     return [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:NULL];;
 }
@@ -127,7 +127,6 @@ static const BOOL valueYES = YES;
         index++;
     }
 }
-
 
 - (EPAppDelegate*) appDelegate
 {

@@ -21,13 +21,7 @@ describe("Questions Backgrounding", function() {
         // one cell with "No questions on the server" should be visible
         helpers.checkThereIsACorrectNumberOfRowsInTheTableView(1);
 
-//        helpers.mainWindow().logElementTree();
-
-//        UIALogger.logMessage("CellText="+helpers.getCellTextForTableViewAtIndex("Questions",0));
-
         expect(helpers.getCellTextForTableViewAtIndex("Questions",0)).toContain("No questions on the server");
-
-        helpers.mainWindow().logElementTree();
     });
 
     it("displays the same set of questions when re-entering questions section", function() {

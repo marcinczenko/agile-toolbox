@@ -2,8 +2,8 @@
 //  EPQuestionsDataSource.h
 //  AgileToolbox
 //
-//  Created by AtrBea on 7/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Marcin Czenko on 7/8/12.
+//  Copyright (c) 2012 Everyday Productive. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

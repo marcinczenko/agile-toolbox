@@ -17,8 +17,7 @@ describe("Questions", function() {
     it("fetches first page from the server", function() {
     
         helpers.enterQuestions(2);
-        
-        mainWindow.logElementTree();
+
         UIALogger.logMessage(mainWindow.tableViews()["Questions"].checkIsValid().toString());
 
         // we expect to have 40 items per page + one more row for "Fetch More" operation.
