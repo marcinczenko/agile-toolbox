@@ -129,7 +129,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "QuantumAgileToolbox"
+      customArchiveName = "AgileToolbox"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
