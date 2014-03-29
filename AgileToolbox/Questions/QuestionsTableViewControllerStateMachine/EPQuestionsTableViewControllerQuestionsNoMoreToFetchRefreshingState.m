@@ -157,6 +157,14 @@
             updatedCell = (EPQuestionTableViewCell*)[self.tableViewExpert.tableView cellForRowAtIndexPath:indexPath];
             [updatedCell formatCellForQuestion:question];
             break;
+        case NSFetchedResultsChangeMove:
+            if (self.hadBeginUpdates) {
+                [self.tableViewExpert.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                                      withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableViewExpert.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                                      withRowAnimation:UITableViewRowAnimationFade];
+            }
+            break;
         default:
             break;
     }

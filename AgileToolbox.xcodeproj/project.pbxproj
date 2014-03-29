@@ -79,6 +79,8 @@
 		6DB92148185AA84200440656 /* libLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C1F5E015A4544200F0900D /* libLibrary.a */; };
 		6DBC755218BC1C7800E04FBB /* EPQuestionPostman.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC755118BC1C7800E04FBB /* EPQuestionPostman.m */; };
 		6DBC755518BC1D8900E04FBB /* EPQuestionPostmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC755418BC1D8900E04FBB /* EPQuestionPostmanTests.m */; };
+		6DE2D6EB18E72B3D009B9096 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2D6E918E72B3D009B9096 /* iTunesArtwork */; };
+		6DE2D6EC18E72B3D009B9096 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2D6EA18E72B3D009B9096 /* iTunesArtwork@2x */; };
 		6DE4650118A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650018A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m */; };
 		6DE4650418A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */; };
 		6DE4650718A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE4650618A9C73800EB4310 /* EPQuestionsTableViewControllerQuestionsWithFetchMoreRefreshingState.m */; };
@@ -270,6 +272,8 @@
 		6DBC755018BC1C7800E04FBB /* EPQuestionPostman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionPostman.h; sourceTree = "<group>"; };
 		6DBC755118BC1C7800E04FBB /* EPQuestionPostman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostman.m; sourceTree = "<group>"; };
 		6DBC755418BC1D8900E04FBB /* EPQuestionPostmanTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionPostmanTests.m; sourceTree = "<group>"; };
+		6DE2D6E918E72B3D009B9096 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		6DE2D6EA18E72B3D009B9096 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6DE4650018A846B400EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchStateTests.m; sourceTree = "<group>"; };
 		6DE4650218A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.h; sourceTree = "<group>"; };
 		6DE4650318A85B5900EB4310 /* EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPQuestionsTableViewControllerQuestionsNoMoreToFetchRefreshingState.m; sourceTree = "<group>"; };
@@ -594,6 +598,8 @@
 		D387EF001536EF0400635736 = {
 			isa = PBXGroup;
 			children = (
+				6DE2D6E918E72B3D009B9096 /* iTunesArtwork */,
+				6DE2D6EA18E72B3D009B9096 /* iTunesArtwork@2x */,
 				6D7BA50518ABCAA900EBAD9B /* AgileToolboxImages.xcassets */,
 				D387EF151536EF0400635736 /* AgileToolbox */,
 				D3972BD9157EBAB0000C1819 /* OCMock */,
@@ -961,7 +967,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D387EF1A1536EF0400635736 /* InfoPlist.strings in Resources */,
+				6DE2D6EC18E72B3D009B9096 /* iTunesArtwork@2x in Resources */,
 				D387EF231536EF0400635736 /* MainStoryboard.storyboard in Resources */,
+				6DE2D6EB18E72B3D009B9096 /* iTunesArtwork in Resources */,
 				6D7BA50618ABCAA900EBAD9B /* AgileToolboxImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
