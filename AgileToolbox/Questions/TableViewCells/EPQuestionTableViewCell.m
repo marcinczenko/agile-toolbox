@@ -175,7 +175,7 @@
 
 - (void)formatCellForQuestion:(Question*)question
 {
-    self.updatedNSDate = question.updated;
+    self.updatedNSDate = question.sortUpdated;
     
     self.header.font = [self getPreferredFontWithTextStyle:UIFontTextStyleHeadline];
     self.header.text = question.header;    
@@ -187,7 +187,7 @@
     self.updated.font = [self getPreferredFontWithTextStyle:UIFontTextStyleFootnote];
     self.updated.text = [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:self.updatedNSDate toDate:[NSDate date]];
     
-    self.markedAsNew = question.updatedOrNew.boolValue;
+    self.markedAsNew = question.updatedOrNew;
     
     if (0<question.answer.length) {
         self.markedAsAnswered = YES;

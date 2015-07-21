@@ -17,8 +17,7 @@
 @property (nonatomic, retain) NSDate * created;
 @property (nonatomic, retain) NSString * header;
 @property (nonatomic, retain) NSString * question_id;
-@property (nonatomic, retain) NSDate * updated;
-@property (nonatomic, retain) NSNumber * updatedOrNew;
+@property (nonatomic, readwrite) BOOL updatedOrNew;
 @property (nonatomic, retain) NSDate * sortUpdated;
 
 @end

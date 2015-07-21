@@ -432,7 +432,7 @@ BOOL valueNO = NO;
         aQuestion.header = [NSString stringWithFormat:@"Question Content %d",i];
         NSDate* date = [self generateExampleDateShiftedBy:i];
         aQuestion.created = date;
-        aQuestion.updated = date;
+        aQuestion.sortUpdated = date;
     }
     
     [appDelegate.managedObjectContext save:nil];
@@ -450,7 +450,7 @@ BOOL valueNO = NO;
 {
     EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
+    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"sortUpdated" ascending:NO];
     fetchRequest.sortDescriptors = @[updatedSort];
     
     return [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
@@ -471,7 +471,7 @@ BOOL valueNO = NO;
     
     Question* questionToBeUpdated = beforeUpdating[5];
     NSDate* dateUpdated = [NSDate date];
-    questionToBeUpdated.updated = dateUpdated;
+    questionToBeUpdated.sortUpdated = dateUpdated;
     [appDelegate.managedObjectContext save:nil];
     
     expectedMostRecentlyUpdatedQuestionTimestamp = [NSString stringWithFormat:@"%f",[dateUpdated timeIntervalSince1970]];

@@ -1,0 +1,23 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DB495929FC20F691F10FC8D71CEE93081C1B3A30",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "DB495929FC20F691F10FC8D71CEE93081C1B3A30" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "12F13789-C2BC-4A86-904F-DB7A7D3B0E94",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "DB495929FC20F691F10FC8D71CEE93081C1B3A30" : "agile-toolbox\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AgileToolbox",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AgileToolbox.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:mczenko\/agile-toolbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DB495929FC20F691F10FC8D71CEE93081C1B3A30"
+    }
+  ]
+}

@@ -203,13 +203,13 @@
 {
     EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Question"];
-    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"updated" ascending:NO];
+    NSSortDescriptor *updatedSort = [[NSSortDescriptor alloc] initWithKey:@"sortUpdated" ascending:NO];
     fetchRequest.sortDescriptors = @[updatedSort];
     
     NSArray* questions = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     Question* mostRecentlyUpdatedQuestion = questions[0];
     
-    return [NSString stringWithFormat:@"%f",[mostRecentlyUpdatedQuestion.updated timeIntervalSince1970]];
+    return [NSString stringWithFormat:@"%f",[mostRecentlyUpdatedQuestion.sortUpdated timeIntervalSince1970]];
 }
 
 - (void)disconnectFromFetchedResultsController

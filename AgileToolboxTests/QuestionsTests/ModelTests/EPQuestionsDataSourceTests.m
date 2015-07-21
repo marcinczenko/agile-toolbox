@@ -70,7 +70,7 @@ static const BOOL valueYES = YES;
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [NSString stringWithFormat:@"header for item%ld",(long)sequence],@"header",
             [NSString stringWithFormat:@"item%ld",(long)sequence],@"content",
-            date,@"updated",
+            date,@"sortUpdated",
             date,@"created",
             answer, @"answer",
             [NSString stringWithFormat:@"%d",sequence], @"id",
@@ -123,7 +123,7 @@ static const BOOL valueYES = YES;
             XCTAssertEqualObjects(question.answer, [array[index] objectForKey:@"answer"]);
         }
         XCTAssertEqualWithAccuracy(question.created.timeIntervalSince1970, [(NSNumber*)([array[index] objectForKey:@"created"]) doubleValue], 0.001);
-        XCTAssertEqualWithAccuracy(question.updated.timeIntervalSince1970, [(NSNumber*)([array[index] objectForKey:@"updated"]) doubleValue], 0.001);
+        XCTAssertEqualWithAccuracy(question.sortUpdated.timeIntervalSince1970, [(NSNumber*)([array[index] objectForKey:@"sortUpdated"]) doubleValue], 0.001);
         index++;
     }
 }

@@ -107,7 +107,7 @@
     
     NSDate* dateInThePast = [NSDate dateWithTimeInterval:daysEgo sinceDate:[self generateDateFromString:referenceDate]];
     
-    XCTAssertEqualObjects(@"4 January", [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:dateInThePast toDate:self.dateNow]);
+    XCTAssertEqualObjects(@"January 4, 2014", [EPTimeIntervalFormatter formatTimeIntervalStringFromDate:dateInThePast toDate:self.dateNow]);
 }
 
 - (void)testFormatingTheDisplayedDateWhenDifferenceBetweenTheCurrentDateAndInputIsMoreThanAYear

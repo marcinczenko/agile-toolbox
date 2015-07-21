@@ -139,7 +139,7 @@ static NSString* const kQuestionUpdated = @"Updated";
     self.questionHeader = question.header;
     self.questionContent = question.content;
     self.questionAnswer = question.answer;
-    self.questionUpdated = question.updated;
+    self.questionUpdated = question.sortUpdated;
 }
 
 - (void)setQuestion:(Question *)question

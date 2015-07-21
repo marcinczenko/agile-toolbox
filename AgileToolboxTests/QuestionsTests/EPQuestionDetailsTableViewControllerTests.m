@@ -42,7 +42,7 @@ static NSString* const persistentStoreTestFileName = @"EPQuestionDetailsTableVie
     aQuestion.header = @"Question Header";
     aQuestion.content = @"QUestion Content";
     aQuestion.answer = @"Answer";
-    aQuestion.updated = [self getExampleNSDateObject];
+    aQuestion.sortUpdated = [self getExampleNSDateObject];
     
     return aQuestion;
 }
@@ -68,7 +68,7 @@ static NSString* const persistentStoreTestFileName = @"EPQuestionDetailsTableVie
     XCTAssertEqualObjects(aQuestion.header, self.questionDetailsTableViewController.questionHeader);
     XCTAssertEqualObjects(aQuestion.content, self.questionDetailsTableViewController.questionContent);
     XCTAssertEqualObjects(aQuestion.answer, self.questionDetailsTableViewController.questionAnswer);
-    XCTAssertEqualObjects(aQuestion.updated, self.questionDetailsTableViewController.questionUpdated);
+    XCTAssertEqualObjects(aQuestion.sortUpdated, self.questionDetailsTableViewController.questionUpdated);
 }
 
 - (void)testStoringAndRestoringObjectStateFromMemory
@@ -83,7 +83,7 @@ static NSString* const persistentStoreTestFileName = @"EPQuestionDetailsTableVie
     XCTAssertEqualObjects(aQuestion.header, restored.questionHeader);
     XCTAssertEqualObjects(aQuestion.content, restored.questionContent);
     XCTAssertEqualObjects(aQuestion.answer, restored.questionAnswer);
-    XCTAssertEqualObjects(aQuestion.updated, restored.questionUpdated);
+    XCTAssertEqualObjects(aQuestion.sortUpdated, restored.questionUpdated);
 }
 
 

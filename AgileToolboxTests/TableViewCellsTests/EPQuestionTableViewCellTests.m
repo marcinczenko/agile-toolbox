@@ -65,8 +65,8 @@
     question.content = @"Question Content";
     question.answer = isAnswered ? @"Question Answer" : nil;
     question.created = dateNow;
-    question.updated = dateNow;
-    question.updatedOrNew = isNew ? @YES : @NO;
+    question.sortUpdated = dateNow;
+    question.updatedOrNew = isNew ? YES : NO;
     
     return question;
 }
@@ -76,7 +76,7 @@
     EPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     Question *question = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:appDelegate.managedObjectContext];
     
-    question.updated = updated;
+    question.sortUpdated = updated;
     
     return question;
 }

@@ -206,13 +206,12 @@
     question.header = [dictionary objectForKey:@"header"];
     question.content = [dictionary objectForKey:@"content"];
     question.created = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"created"] doubleValue]];
-    question.updated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"updated"] doubleValue]];
-    question.sortUpdated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"updated"] doubleValue]];
+    question.sortUpdated = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"sortUpdated"] doubleValue]];
     id answer = [dictionary objectForKey:@"answer"];
     if ([NSNull null] != answer) {
         question.answer = answer;
     }
-    question.updatedOrNew = @YES;
+    question.updatedOrNew = YES;
 }
 
 - (void)synchronizeCoreDataQuestionsWithJsonArray:(NSArray*)jsonArray

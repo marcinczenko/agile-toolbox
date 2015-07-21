@@ -66,7 +66,7 @@
 
 - (void)testThatCellHasSeparatorLineHiddenAfterInitialization
 {
-    UIEdgeInsets expectedSeparatorInset = UIEdgeInsetsMake(0, 0, 0, self.fetchMoreTableViewCell.bounds.size.width);
+    UIEdgeInsets expectedSeparatorInset = UIEdgeInsetsMake(0, 8.0, 0, self.fetchMoreTableViewCell.bounds.size.width);
     
     XCTAssertEqual(expectedSeparatorInset.left, self.fetchMoreTableViewCell.separatorInset.left);
 }
