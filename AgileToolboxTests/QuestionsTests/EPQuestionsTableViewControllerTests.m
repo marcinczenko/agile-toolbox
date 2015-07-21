@@ -154,7 +154,8 @@ BOOL valueNO = NO;
 {
     [self disableViewPropertyForTheVC];
     [self mockTableView];
-    [[self.tableViewMock expect] setDelegate:self.vc];
+    [((UITableView*)[self.tableViewMock expect]) setDelegate:self.vc];
+//    [[self.tableViewMock expect] setDelegate:self.vc];
     
     [self.vc viewDidLoad];
     
@@ -196,7 +197,7 @@ BOOL valueNO = NO;
 {
     [self disableViewPropertyForTheVC];
     
-    [[self.questionsDataSourceMock expect] setDelegate:self.vc];
+    [((id<EPQuestionsDataSourceProtocol>)[self.questionsDataSourceMock expect]) setDelegate:self.vc];
     
     [self.vc viewDidLoad];
     
@@ -207,7 +208,7 @@ BOOL valueNO = NO;
 {
     [self disableViewPropertyForTheVC];
     
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+    [((NSFetchedResultsController*)[self.fetchedResultsControllerMock expect]) setDelegate:self.vc];
     
     [self.vc viewDidLoad];
     
@@ -480,7 +481,8 @@ BOOL valueNO = NO;
 
 - (void)testThatRelinkToFetchedResultsControllerRestoresFetchedResultsControllerDelegate
 {
-    [[self.fetchedResultsControllerMock expect] setDelegate:self.vc];
+    // Casting needed. See https://github.com/jonreid/OCMockito/issues/81   
+    [((NSFetchedResultsController*)[self.fetchedResultsControllerMock expect]) setDelegate:self.vc];
     
     [self.vc relinkToFetchedResultsController];
     
